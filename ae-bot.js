@@ -39,33 +39,6 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
-client.once('ready', () => {
-	const path = './debug.flag'
-	return;
-try {
-  if (fs.existsSync(path)) {
-	//file exists
-	global.sessionid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	global.dateTime = date+' '+time;
-	const exampleEmbed = new Discord.RichEmbed()
-	.setColor('#f8f8ff')
-	.setTitle('Debug Mode')
-	.addField('Test session ID', sessionid)
-	.addField('Current date/time', dateTime)
-	.addField('---', 'The session has started.')
-
-	client.channels.get(`683751300063690885`).send(exampleEmbed);
-
-
-  }
-} catch(err) {
-  console.error(err)
-}
-})
-
 //uh oh something went wrong
 client.on('error', error => {
 	console.error('an error has occured', error);
