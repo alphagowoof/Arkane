@@ -6,11 +6,10 @@ module.exports = {
     const Discord = require('discord.js');
     const client = new Discord.Client();
     const fs = require('fs');
-    const userid = message.mentions.
+    const userid = message.mentions.users.first().id
     const reason = args.join(' ')
-    const authorusername = message.a
-    fs.appendFileSync('./logs/' + userid + '-warnings.log', '\n
-    Warn 16: Issued by'+ message.member +'\nReason: Profanity');
+    const authorusername = message.author.username
+    fs.appendFileSync('./logs/' + userid + '-warnings.log', '\nWarning\: Issued by'+  +'\nReason\: ');
     message.channel.send('<@'+message.mentions.users.first().id + '> had a warn logged.')
   }
     };
