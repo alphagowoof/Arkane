@@ -58,3 +58,9 @@ client.on("ready", () => {
         status: 'online'
     })
 })
+
+client.on('message', message => {
+	const fs = require('fs');
+	const args = message.content.slice(prefix.length).split(/ +/);
+    fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\n' + args);
+})
