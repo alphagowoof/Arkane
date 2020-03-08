@@ -13,12 +13,12 @@ module.exports = {
     fs.appendFileSync('./logs/' + userid + '-warnings.log', '\nWarning\: Issued by '+ authorusername +'\nReason\:' + reason);
     message.channel.send('<@'+message.mentions.users.first().id + '> had a warning logged.')
     const warnedperson = message.mentions.users.first().id
-
+    message.channel.send('<@'+message.mentions.users.first().id + '> has been warned due to: '+ reason); 
+  }}
     // fetch user via given user id
-    let user = client.fetchUser(warnedperson)
-    .then(user => {
+   // let user = client.fetchUser(warnedperson)
+    //.then(user => {
         // once promise returns with user, send user a DM
-        user.send('You have been warned due to: '+ reason); 
-    });
-    }
-    };
+    //    user.send('You have been warned due to: '+ reason); 
+    //});
+   // }

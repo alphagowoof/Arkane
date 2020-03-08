@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'aboutme',
+  name: 'textaboutme',
   aliases: [''],
 	description: 'Gets info about you',
 	execute(message, args) {
@@ -7,10 +7,9 @@ module.exports = {
     const client = new Discord.Client();
     message.author.send('Here is what I have on you.')
     const fs = require('fs');
-    message.author.send({
-      files: ['./logs/' + message.author.id + '-warnings.log']
+    fs.readFile('./logs/' + message.author.id + '-warnings.log', 'utf8', function(err, contents) {
+      // code using file data
+      message.author.send('-Warning Log-\n\n' + contents)
   });
-  message.author.send({
-    files: ['./logs/' + message.author.id + '-messages.log']
-});
+  message.author.send('Message log isn\'t available in text form.')
   }}
