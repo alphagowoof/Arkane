@@ -60,7 +60,9 @@ client.on("ready", () => {
 })
 
 client.on('message', message => {
+	if (message.author.bot) return;
 	const fs = require('fs');
 	const args = message.content.slice(prefix.length).split(/ +/);
-    fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\n' + args);
+	const argscorrect = args.join(' ')
+    fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\n' + argscorrect);
 })
