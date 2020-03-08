@@ -9,11 +9,14 @@ module.exports = {
     const userid = message.mentions.users.first().id
     let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
     const reason = reasonraw.join(' ')
-    const authorusername = message.author.username
-    fs.appendFileSync('./logs/' + userid + '-warnings.log', '\nWarning\: Issued by '+ authorusername +'\nReason\:' + reason);
+    const authorusername = message.author.username +'#' +message.author.discriminator
+    fs.appendFileSync('./logs/' + userid + '-warnings.log', 'Issued by '+ authorusername +'\nReason\: ' + reason +'\n\n');
     message.channel.send('<@'+message.mentions.users.first().id + '> had a warning logged.')
-    const warnedperson = message.mentions.users.first().id
-    message.channel.send('<@'+message.mentions.users.first().id + '> has been warned due to: '+ reason); 
+    const warnedperson = message.mentions.users.first()
+    const user = client.users.cache.get(warnedperson);
+warnedperson.send('You have been warned due to: '+ reason);
+
+    
   }}
     // fetch user via given user id
    // let user = client.fetchUser(warnedperson)
