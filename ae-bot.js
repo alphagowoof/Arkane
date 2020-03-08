@@ -5,7 +5,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const queue = new Map();
 const ytdl = require('ytdl-core');
-const { RichEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const version = 'version'
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -41,6 +41,19 @@ client.once('ready', () => {
 
 //uh oh something went wrong
 client.on('error', error => {
+	const errorembed = new Discord.MessageEmbed()
+	.setColor('#ff0000')
+	.setTitle('Debug Mode Error')
+	.setDescription('Something went wrong while running the bot.')
+	.addFields(
+		{ name: 'Session ID', value: sessionid, inline: true },
+		{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+		{ name: 'Error', value: error, inline: false },
+	)
+	.setTimestamp()
+	.setFooter('Bot written by Daniel C');
+	const channeldebug = client.channels.cache.get('686326260758216713');
+	channeldebug.send(errorembed);
 	console.error('an error has occured', error);
 });
 
@@ -65,4 +78,35 @@ client.on('message', message => {
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const argscorrect = args.join(' ')
     fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\n' + argscorrect);
+})
+
+//debug launch
+client.once('ready', () => {
+	const path = './debug.flag'
+try {
+  if (fs.existsSync(path)) {
+	//file exists
+	global.sessionid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	global.dateTime = date+' '+time;
+	const debugembed = new Discord.MessageEmbed()
+	.setColor('#00ff00')
+	.setTitle('Debug Mode Activated')
+	.setDescription('Bot is ready for testing.')
+	.addFields(
+		{ name: 'Session ID', value: sessionid, inline: true },
+		{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+	)
+	.setTimestamp()
+	.setFooter('Bot written by Daniel C');
+	const channeldebug = client.channels.cache.get('686326260758216713');
+	channeldebug.send(debugembed);
+
+
+  }
+} catch(err) {
+  console.error(err)
+}
 })
