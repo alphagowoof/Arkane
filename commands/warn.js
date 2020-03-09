@@ -10,7 +10,7 @@ module.exports = {
     let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
     const reason = reasonraw.join(' ')
     const authorusername = message.author.username +'#' +message.author.discriminator
-    fs.appendFileSync('./logs/' + userid + '-warnings.log', 'Issued by '+ authorusername +'\nReason\: ' + reason +'\n\n');
+    fs.appendFileSync('./logs/' + userid + '-warnings.log', 'Issued by '+ authorusername +'\nReason: ' + reason +'\n\n');
     message.channel.send('<@'+message.mentions.users.first().id + '> had a warning logged.')
     const warnedperson = message.mentions.users.first()
     const user = client.users.cache.get(warnedperson);

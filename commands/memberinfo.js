@@ -16,12 +16,15 @@ module.exports = {
       const memberinfoembed = new Discord.MessageEmbed()
       .setColor('#0000ff')
       .setTitle('Member Information')
+      .setAuthor(taggeduserobject.username)
       .addFields(
         { name: 'Warning Log', value: data, inline: false },
-        { name: 'Other information', value: 'Server join date: '+`${moment.utc(taggeduserobject.joinedAt).format('DD/MM/YY')}` , inline: false },
+        { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id , inline: false },
       )
       .setTimestamp()
+      .setImage('https://cdn.discordapp.com/'+taggeduserobject.avatar)
       .setFooter('Bot written by Daniel C');
       message.channel.send(memberinfoembed)
-    })
+    }) 
+
   }}
