@@ -57,6 +57,17 @@ client.on('error', error => {
 	console.error('an error has occured', error);
 });
 
+//Check for direct messages
+
+client.on('message', message => {
+	if (message.author.bot) return;
+	if (message.channel.type == "dm") {
+		if (message.content.startsWith != prefix){
+			message.channel.send('Got it! ')
+		}
+	}
+
+})
 
 // login to Discord with your app's token
 client.login(token);;

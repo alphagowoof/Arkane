@@ -7,6 +7,7 @@ module.exports = {
     const client = new Discord.Client();
     const fs = require('fs');
     const taggeduser = message.mentions.users.first().id
+    const taggeduserobject = message.mentions.users.first()
     fs.readFile('./logs/'+taggeduser+'-warnings.log', (err, data) => {
       if (err) {
         console.error(err)
@@ -16,7 +17,8 @@ module.exports = {
       .setColor('#0000ff')
       .setTitle('Member Information')
       .addFields(
-        { name: 'Warning Log', value: data, inline: true },
+        { name: 'Warning Log', value: data, inline: false },
+        { name: 'Other information', value: 'Server join date: '+`${moment.utc(taggeduserobject.joinedAt).format('DD/MM/YY')}` , inline: false },
       )
       .setTimestamp()
       .setFooter('Bot written by Daniel C');
