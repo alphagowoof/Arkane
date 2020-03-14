@@ -1,5 +1,5 @@
-const fs = require('fs');
-const Discord = require('discord.js');
+global.fs = require('fs');
+global.Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -7,40 +7,75 @@ const queue = new Map();
 const ytdl = require('ytdl-core');
 const { MessageEmbed } = require('discord.js')
 const version = 'version'
+const Diff = require('diff')
+const cooldowns = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
+	// destination.txt will be created or overwritten by default.
+//fs.writeFile(file+'.cache','',(err) => {console.log})
 
 	// set a new item in the Collection
 	// with the key as the command name and the value as the exported module
 	client.commands.set(command.name, command);
 }
-
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).split(/ +/);
-	const command = args.shift().toLowerCase();
-
-	if (!client.commands.has(command)) return;
-
+	const commandName = args.shift().toLowerCase();
+	const command = client.commands.get(commandName)
+		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+	if (!command) return;
+	if (command.guildOnly && message.channel.type !== 'text') {
+		return message.reply('I can\'t execute that command inside DMs!');
+	}
+	if (command.args && !args.length) {
+		let reply = `You didn't provide any arguments, ${message.author}!`;
+		if (command.usage) {
+			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+		}
+		return message.channel.send(reply);
+	}
+	if (!cooldowns.has(command.name)) {
+		cooldowns.set(command.name, new Discord.Collection());
+	}
+	const now = Date.now();
+	const timestamps = cooldowns.get(command.name);
+	const cooldownAmount = (command.cooldown || 3) * 1000;
+	if (timestamps.has(message.author.id)) {
+		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+		if (now < expirationTime) {
+			const timeLeft = (expirationTime - now) / 1000;
+			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+		}
+	}
+	timestamps.set(message.author.id, now);
+	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 	try {
-		client.commands.get(command).execute(message, args);
+		command.execute(message, args);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
 	}
 });
-
-
 client.once('ready', () => {
 	console.log('Ready!');
+	
 });
+
+process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
 //uh oh something went wrong
 client.on('error', error => {
+	const fs = require('fs');
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	global.dateTime = date+' '+time;
+	fs.appendFileSync('./debuglogs/'+sessionid+'-error.log','('+dateTime+')'+error+'\n\n');
 	const errorembed = new Discord.MessageEmbed()
 	.setColor('#ff0000')
 	.setTitle('Debug Mode Error')
@@ -52,19 +87,20 @@ client.on('error', error => {
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	const channeldebug = client.channels.cache.get('686326260758216713');
-	channeldebug.send(errorembed);
+	const errorlog = client.channels.cache.get('686326260758216713');
+	errorlog.send(errorembed);
 	console.error('an error has occured', error);
 });
 
 //Check for direct messages
 
 client.on('message', message => {
+	return;
 	if (message.author.bot) return;
 	if (message.channel.type == "dm") {
-		if (message.content.startsWith != prefix){
+		if (message.content.startsWith == prefix) return;
 			message.channel.send('Got it! ')
-		}
+		
 	}
 
 })
@@ -83,12 +119,38 @@ client.on("ready", () => {
     })
 })
 
+//message log
 client.on('message', message => {
-	if (message.author.bot) return;
+	if (message.channel.name == 'undefined')return;
 	const fs = require('fs');
-	const args = message.content.slice(prefix.length).split(/ +/);
-	const argscorrect = args.join(' ')
-    fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\n' + argscorrect);
+	fs.appendFileSync('./logs/allmessages.log', '\n\nMessage sent by ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
+	fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\nSent in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
+})
+//debug file send
+client.on('message', message => {
+	return;
+	if (message.channel.id == '686752371501826079'){
+		var today = new Date();
+		var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+		var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		global.dateTime = date+' '+time;
+	const fs = require('fs');
+    fs.readFile('./commands/'+message.content+'.js', (err, data) =>{
+	const changed = Diff.diffChars(oldStr, newStr)
+	const debugchanges = new Discord.MessageEmbed()
+	.setColor('#ffff00 ')
+	.setTitle('File change')
+	.setDescription('A file change was logged.')
+	.addFields(
+		{ name: 'Session ID', value: sessionid, inline: true },
+		{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+		{ name: 'Content', value: changed, inline: false },
+	)
+	.setTimestamp()
+	.setFooter('Bot written by Daniel C');
+	const channeldebug = client.channels.cache.get('686326260758216713');
+	channeldebug.send(debugchanges);
+	})}
 })
 
 //debug launch
