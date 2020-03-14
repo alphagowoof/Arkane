@@ -9,6 +9,7 @@ const { MessageEmbed } = require('discord.js')
 const version = 'version'
 const Diff = require('diff')
 const cooldowns = new Discord.Collection();
+var cleanser = require('profanity-cleanser');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -103,6 +104,21 @@ client.on('message', message => {
 		
 	}
 
+})
+
+client.on('message', message => {const profanity = require('./profanity.json');
+	const blocked = profanity.filter(word => message.content.toLowerCase().includes(word));
+
+	if (blocked.length > 0) {
+	  console.log(`${message.author.tag} tried to use profanity.`);
+	  message.delete()
+	  message.reply('watch your language!')
+    const reason = message.content
+    fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Warning\nReason: Profanity (' + reason +')\n\n');
+    fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Warning issued by AutomatedAppleModerator \nReason: Profanity (' + message.content +')\n\n');
+message.author.send(`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.`)
+		.catch(console.error);
+	}
 })
 
 // login to Discord with your app's token
