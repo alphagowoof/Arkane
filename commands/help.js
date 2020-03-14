@@ -1,29 +1,93 @@
 const { prefix } = require('../config.json');
+
 module.exports = {
 	name: 'help',
-	description: 'List all available commands.',
+	description: 'List all of my commands or info about a specific command.',
 	aliases: ['commands'],
 	usage: '[command name]',
 	cooldown: 5,
 	execute(message, args) {
-    const data = [];
-    const { commands } = message.client;
-
-    if (!args.length) {
-    // ...
-    data.push('--Available Commands--');
-data.push(commands.map(command => command.name).join('\n'));
-data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
-
-return message.author.send(data, { split: true })
-	.then(() => {
-		if (message.channel.type === 'dm') return;
-		message.reply('I\'ve sent you my commands in your direct messages.');
-	})
-	.catch(error => {
-		console.error(`Direct message error\: ${message.author.tag}.\n`, error);
-		message.reply('I can\'t seem to reach you via DMs. Do you happen to have DMs disabled?');
-	});
-}
+		const data = [];
+		const { commands } = message.client;
+		const Discord = require('discord.js');
+		const { MessageEmbed } = require('discord.js')
+		const client = new Discord.Client();
+		try {
+			// code that might fail
+			if (!args.length) {
+				data.push(commands.map(command => command.name).join(', '));
+				data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+				const helpEmbed = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle('Available Commands')
+				.setDescription('Here are the available commands.')
+				.addFields(
+					{ name: 'Commands', value: data, inline: false },
+				)
+				.setTimestamp()
+				.setFooter('Help command');
+			
+				return message.channel.send(helpEmbed)
+					.then(() => {return;
+						if (message.channel.type === 'dm') return;
+						message.reply('I\'ve sent you a DM with all my commands!');
+					})
+					.catch(error => {return;
+						console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
+						message.reply('it seems like I can\'t DM you!');
+					});
+			}
+	
+			const name = args[0].toLowerCase();
+			const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
+	
+			if (!command) {
+				return message.reply('that\'s not a valid command!');
+			}
+	
+			const helpInfoEmbed = new Discord.MessageEmbed()
+			.setColor('#0099ff')
+			.setTitle('About Command')
+			.setDescription('Here is some information about the command.')
+			.addFields(
+				{ name: 'Command name', value: `${command.name}`, inline: false },
+				{ name: 'Aliases', value: `${command.aliases.join(', ')}`, inline: false },
+				{ name: 'Description', value: `${command.description}`, inline: false },
+				{ name: 'Usage', value: `${prefix}${command.name} ${command.usage}`, inline: false },
+				{ name: 'Cooldown', value: `${command.cooldown || 3} second(s)`, inline: false },
+			)
+			.setTimestamp()
+			.setFooter('Help command');
+			data.push(`**Name:** ${command.name}`);
+	
+			message.channel.send(helpInfoEmbed);
+		  } catch(error) {
+			// if the code fails
+			const fs = require('fs');
+			const Discord = require('discord.js');
+			const { MessageEmbed } = require('discord.js')
+			var today = new Date();
+			var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+			global.dateTime = date+' '+time;
+			fs.appendFileSync('./debuglogs/'+sessionid+'-error.log','('+dateTime+')'+error+'\n\n');
+			const errorembed = new Discord.MessageEmbed()
+			.setColor('#ff0000')
+			.setTitle('Debug Mode Error')
+			.setDescription('Something went wrong while running the bot.')
+			.addField('Session ID', sessionid, false)
+			.addFields(
+				{ name: 'Session ID', value: sessionid, inline: true },
+				{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+				{ name: 'Error', value: error, inline: false },
+			)
+			.setTimestamp()
+			.setFooter('Bot written by Daniel C');
+			let errorlog = client.channels.cache.get('686326260758216713');
+			errorlog.send(errorembed);
+			errorlog.send('Error:\n'+error);
+			console.error('an error has occured', error);
+		  }
+		
 	},
 };
