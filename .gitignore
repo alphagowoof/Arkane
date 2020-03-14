@@ -3,3 +3,7 @@ debug.flag
 config.json
 node_modules/
 logs/
+*.cache
+*.log
+AE-BOT.code-workspace
+startbot.bat
