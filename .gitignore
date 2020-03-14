@@ -7,3 +7,4 @@ logs/
 *.log
 AE-BOT.code-workspace
 startbot.bat
+/commands/NA
