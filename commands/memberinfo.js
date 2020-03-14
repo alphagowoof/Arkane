@@ -14,10 +14,10 @@ module.exports = {
         console.error(err)
         const memberinfoembed = new Discord.MessageEmbed()
         .setColor('#0000ff')
-        .setTitle('Warning Information')
+        .setTitle('Member Information')
         .setAuthor(taggeduserobject.username)
         .addFields(
-          { name: 'Warning log', value: 'No warning information found', inline: false },
+          { name: 'Punishment Log', value: 'No punishment information found.', inline: false },
           { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id , inline: false },
         )
         .setTimestamp()
@@ -31,7 +31,7 @@ module.exports = {
       .setTitle('Member Information')
       .setAuthor(taggeduserobject.username)
       .addFields(
-        { name: 'Warning Log', value: data, inline: false },
+        { name: 'Punishment Log', value: data, inline: false },
         { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id , inline: false },
       )
       .setTimestamp()

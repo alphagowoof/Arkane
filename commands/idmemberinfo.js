@@ -15,7 +15,7 @@ module.exports = {
         .setColor('#0000ff')
         .setTitle('Member Information')
         .addFields(
-          { name: 'Punishment log', value: 'No warning information found', inline: false },
+          { name: 'Punishment Log', value: 'No punishment information found.', inline: false },
           { name: 'Other information', value: 'Member ID: '+ args , inline: false },
         )
         .setTimestamp()
@@ -28,7 +28,7 @@ module.exports = {
       .setColor('#0000ff')
       .setTitle('Member Information')
       .addFields(
-        { name: 'Punishment log', value: data, inline: false },
+        { name: 'Punishment Log', value: data, inline: false },
         { name: 'Other information', value: 'Member ID: '+ args , inline: false },
       )
       .setTimestamp()
