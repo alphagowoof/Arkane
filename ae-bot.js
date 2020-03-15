@@ -16,7 +16,6 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	// destination.txt will be created or overwritten by default.
-//fs.writeFile(file+'.cache','',(err) => {console.log})
 
 	// set a new item in the Collection
 	// with the key as the command name and the value as the exported module
@@ -88,9 +87,55 @@ client.on('error', error => {
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	const errorlog = client.channels.cache.get('686326260758216713');
+	const errorlog = client.channels.cache.get('612473686665986048');
 	errorlog.send(errorembed);
 	console.error('an error has occured', error);
+});
+
+//Member join
+client.on('guildMemberAdd', member => {
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	global.dateTime = date+' '+time;
+	const channel = member.guild.channels.cache.find(ch => ch.id === '688643915124965436');
+	const guild = member.guild
+	if (!channel) return;
+
+	const MemberJoinEmbed = new Discord.MessageEmbed()
+	.setColor('#00FF00')
+	.setTitle('Member Join')
+	.addFields(
+		{ name: 'Username', value: member.user.tag, inline: false },
+		{ name: 'Account creation date', value: member.user.createdAt, inline: false },
+		{ name: 'Server join date', value: dateTime, inline: false },
+		{ name: 'Server member count', value: `${guild.memberCount}`, inline: false },
+	)
+	.setTimestamp()
+	channel.send(MemberJoinEmbed)
+});
+
+//Member leave
+client.on('guildMemberRemove', member => {
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	global.dateTime = date+' '+time;
+	const channel = member.guild.channels.cache.find(ch => ch.id === '612473686665986048');
+	const guild = member.guild
+	if (!channel) return;
+
+	const MemberLeaveEmbed = new Discord.MessageEmbed()
+	.setColor('#ff0000')
+	.setTitle('Member Leave')
+	.addFields(
+		{ name: 'Username', value: member.user.tag, inline: false },
+		{ name: 'Account creation date', value: member.user.createdAt, inline: false },
+		{ name: 'Server leave date', value: dateTime, inline: false },
+		{ name: 'Server member count', value: `${guild.memberCount}`, inline: false },
+	)
+	.setTimestamp()
+	channel.send(MemberLeaveEmbed)
 });
 
 //Check for direct messages
@@ -100,7 +145,7 @@ client.on('message', message => {
 	if (message.author.bot) return;
 	if (message.channel.type == "dm") {
 		if (message.content.startsWith == prefix) return;
-			message.channel.send('Got it! ')
+			message.channel.send('Sorry')
 		
 	}
 
@@ -125,7 +170,7 @@ message.author.send(`Hey <@${message.author.id}>, please watch your language nex
 client.login(token);;
 
 // Set the bot's presence (activity and status)
-client.on("ready", () => {
+client.on("ready", (ready) => {
     client.user.setPresence({
         game: { 
             name: 'Apple Explained | .help',
@@ -135,38 +180,76 @@ client.on("ready", () => {
     })
 })
 
+client.on('messageDelete', async message => {
+	const fetchedLogs = await message.guild.fetchAuditLogs({
+		limit: 1,
+		type: 'MESSAGE_DELETE',
+	});
+	// Since we only have 1 audit log entry in this collection, we can simply grab the first one
+	const deletionLog = fetchedLogs.entries.first();
+
+	// Let's perform a sanity check here and make sure we got *something*
+	if (!deletionLog) {  console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
+	const DeletionEmbed = new Discord.MessageEmbed()
+	.setColor('#ff0000')
+	.setTitle('Message Deleted')
+	.addFields(
+		{ name: 'Message sent by', value: message.author.tag, inline: false },
+		{ name: 'Deleted by', value: 'Unknown - Audit log not found.', inline: false },
+		{ name: 'Sent in', value: message.channel.name, inline: false },
+		{ name: 'Message', value: message.content, inline: false },
+	)
+	.setTimestamp()
+	const channel = client.channels.cache.get('611354211925360681');
+	channel.send(DeletionEmbed)}
+
+	// We now grab the user object of the person who deleted the message
+	// Let us also grab the target of this action to double check things
+	const { executor, target } = deletionLog;
+
+
+	// And now we can update our output with a bit more information
+	// We will also run a check to make sure the log we got was for the same author's message
+	if (target.id === message.author.id) {
+		console.log(`A message by ${message.author.tag} was deleted by ${executor.tag}.`)
+		const DeletionEmbed = new Discord.MessageEmbed()
+		.setColor('#ff0000')
+		.setTitle('Message Deleted')
+		.addFields(
+			{ name: 'Message sent by', value: message.author.tag, inline: false },
+			{ name: 'Deleted by', value: executor.tag, inline: false },
+			{ name: 'Sent in', value: message.channel.name, inline: false },
+			{ name: 'Message', value: message.content, inline: false },
+		)
+		.setTimestamp()
+		const channel = client.channels.cache.get('611354211925360681');
+		channel.send(DeletionEmbed)
+		return;
+	}	else {
+		if (target.id === message.author.id) return;
+		console.log(`A message by ${message.author.tag} was deleted, but we don't know by who.`)
+		const DeletionEmbed = new Discord.MessageEmbed()
+		.setColor('#ff0000')
+		.setTitle('Message Deleted')
+		.addFields(
+			{ name: 'Message sent by', value: message.author.tag, inline: false },
+			{ name: 'Deleted by', value: 'Unknown - Unable to find who deleted message.', inline: false },
+			{ name: 'Sent in', value: message.channel.name, inline: false },
+			{ name: 'Message', value: message.content, inline: false },
+		)
+		.setTimestamp()
+		const channel = client.channels.cache.get('611354211925360681');
+		channel.send(DeletionEmbed)
+		return;
+	}
+});
+
 //message log
 client.on('message', message => {
 	if (message.channel.name == 'undefined')return;
 	const fs = require('fs');
 	fs.appendFileSync('./logs/allmessages.log', '\n\nMessage sent by ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
 	fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\nSent in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
-})
-//debug file send
-client.on('message', message => {
-	return;
-	if (message.channel.id == '686752371501826079'){
-		var today = new Date();
-		var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-		var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-		global.dateTime = date+' '+time;
-	const fs = require('fs');
-    fs.readFile('./commands/'+message.content+'.js', (err, data) =>{
-	const changed = Diff.diffChars(oldStr, newStr)
-	const debugchanges = new Discord.MessageEmbed()
-	.setColor('#ffff00 ')
-	.setTitle('File change')
-	.setDescription('A file change was logged.')
-	.addFields(
-		{ name: 'Session ID', value: sessionid, inline: true },
-		{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
-		{ name: 'Content', value: changed, inline: false },
-	)
-	.setTimestamp()
-	.setFooter('Bot written by Daniel C');
-	const channeldebug = client.channels.cache.get('686326260758216713');
-	channeldebug.send(debugchanges);
-	})}
 })
 
 //debug launch
@@ -198,4 +281,5 @@ try {
 } catch(err) {
   console.error(err)
 }
+
 })
