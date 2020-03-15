@@ -14,4 +14,4 @@ Thanks to the dev team! Their names and reason for being thanked is below;
 
 Thanks to everyone else who helped with this project too! :)
 
-**You can check the my source code here**: https://github.com/TechGeekGamer/Apple-Explained-Moderation-Bot/
+**You can check my source code here**: https://github.com/TechGeekGamer/Apple-Explained-Moderation-Bot/
