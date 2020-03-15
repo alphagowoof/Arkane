@@ -9,7 +9,7 @@ module.exports = {
 		message.channel.send('Restarting. See you soon! :wave:')
 		const readyforrestartcheck = [ ]
 		readyforrestartcheck.push('yes')
-		if (readyforrestartcheck === 'yes'){
+		if (readyforrestartcheck.includes = 'yes'){
 			process.exit()
 		}
 
