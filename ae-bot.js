@@ -101,7 +101,8 @@ client.on('error', error => {
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	botlog.send(errorembed);
+	const channel = client.channels.cache.get('688834736554246158');
+	channel.send(errorembed);	
 	console.error('an error has occured', error);
 });
 
