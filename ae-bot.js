@@ -85,6 +85,8 @@ process.on('unhandledRejection', error => console.error('Uncaught Promise Reject
 
 //uh oh something went wrong
 client.on('error', error => {
+	console.error('an error has occured', error);
+	return;
 	const fs = require('fs');
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
@@ -103,7 +105,6 @@ client.on('error', error => {
 	.setFooter('Bot written by Daniel C');
 	const channel = client.channels.cache.get('688834736554246158');
 	channel.send(errorembed);	
-	console.error('an error has occured', error);
 });
 
 //Member join
