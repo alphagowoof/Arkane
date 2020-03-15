@@ -7,6 +7,7 @@ module.exports = {
 	usage: '<user>',
 	cooldown: 0,
 	execute(message, args) {
+		if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
 		try {
 			// Code hopefully works
 			const user = message.mentions.members.first()
@@ -25,5 +26,8 @@ module.exports = {
 			console.error('an error has occured', error);
 		  }
 		
-	},
+	}else {
+		message.reply(`you don't seem to have the correct permissions to use this command. Please try again later or contact the bot owner.`)
+	  }
+}
 };

@@ -1,9 +1,11 @@
 module.exports = {
   name: 'memberinfo',
-  aliases: [''],
+  aliases: ['infomember'],
   description: 'Gets info about mentioned user',
   usage: '<user>',
+  cooldown: 0,
 	execute(message, args) {
+    if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
     const Discord = require('discord.js');
     const client = new Discord.Client();
     const fs = require('fs');
@@ -21,7 +23,6 @@ module.exports = {
           { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id , inline: false },
         )
         .setTimestamp()
-        .setFooter('Bot written by Daniel C');
         message.channel.send(memberinfoembed)
 
         return
@@ -35,7 +36,6 @@ module.exports = {
         { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id , inline: false },
       )
       .setTimestamp()
-      .setFooter('Bot written by Daniel C');
       message.channel.send(memberinfoembed)
     }) }catch(error) {
 			// Your code broke (Leave untouched in most cases)
@@ -50,4 +50,6 @@ module.exports = {
 			console.error('an error has occured', error);
 		  }
 
-  }}
+  }else {
+    message.reply(`you don't seem to have the correct permissions to use this command. Please try again later or contact the bot owner.`)
+  }}}

@@ -3,8 +3,9 @@ module.exports = {
     description: 'Bans a user.',
     aliases: ['banish'],
 	usage: '<user> <reason>',
-	cooldown: 5,
+	cooldown: 0,
     execute(message, args) {
+		if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
         try {
         const user = message.mentions.users.first();
         const guild = message.guild
@@ -22,6 +23,9 @@ module.exports = {
 			global.dateTime = date+' '+time;
 			fs.appendFileSync('./debuglogs/'+sessionid+'-error.log','('+dateTime+')'+error+'\n\n');
 			console.error('an error has occured', error);
+		  }
+		}else {
+			message.reply(`you don't seem to have the correct permissions to use this command. Please try again later or contact the bot owner.`)
 		  }
     },
 };
