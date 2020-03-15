@@ -115,10 +115,6 @@ client.on('guildMemberAdd', member => {
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	global.dateTime = date+' '+time;
-	const channel = client.guild.channels.cache.find(ch => ch.id === '612473686665986048');
-	const guild = member.guild	
-	let role = guild.roles.find(r => r.name === "Member");	
-	member.addRole(role).catch(console.error);
 	if (!channel) return;
 
 	const MemberJoinEmbed = new Discord.MessageEmbed()
