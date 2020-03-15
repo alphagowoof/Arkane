@@ -5,6 +5,8 @@ module.exports = {
 	usage: '',
 	cooldown: 0,
 	execute(message, args) {
+		const client = new Discord.Client();
+		const { MessageEmbed } = require('discord.js')
 		if (message.member.roles.cache.some(role => role.name === 'Bot Manager')) {
 		message.channel.send('Restarting. See you soon! :wave:')
 		var today = new Date();
