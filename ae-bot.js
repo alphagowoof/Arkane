@@ -76,7 +76,7 @@ client.once('ready', () => {
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	global.modlog = client.channels.cache.get('611354211925360681');
+	global.modlog = client.channels.cache.get('688834736554246158');
 	modlog.send(StartupEmbed);
 	
 });
@@ -96,13 +96,13 @@ client.on('error', error => {
 	.setTitle('Debug Mode Error')
 	.setDescription('Something went wrong while running the bot.')
 	.addFields(
-		{ name: 'Session ID', value: sessionid, inline: true },
 		{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
 		{ name: 'Error', value: error, inline: false },
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	const errorlog = client.channels.cache.get('612473686665986048');
+	global.botlog = client.guilds.get("543863027095699457");
+	const errorlog = botlog.channels.cache.get('688834736554246158');
 	errorlog.send(errorembed);
 	console.error('an error has occured', error);
 });
