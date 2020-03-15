@@ -1,8 +1,8 @@
 module.exports = {
   name: 'aboutme',
-  aliases: [''],
+  aliases: ['myinfo'],
   description: 'Gets info about you',
-  usage: '',
+  usage: '-',
 	execute(message, args) {
     const Discord = require('discord.js');
     const client = new Discord.Client();
@@ -23,7 +23,6 @@ module.exports = {
             { name: 'Punishment Log', value: 'No punishment information found.', inline: false },
           )
           .setTimestamp()
-          .setFooter('Bot written by Daniel C');
           message.author.send(memberinfoembed)
   
           return
@@ -36,7 +35,6 @@ module.exports = {
           { name: 'Punishment Log', value: data, inline: false },
         )
         .setTimestamp()
-        .setFooter('Bot written by Daniel C');
         message.author.send(memberinfoembed)
   });
   message.author.send({

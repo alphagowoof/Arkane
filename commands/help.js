@@ -15,8 +15,9 @@ module.exports = {
 		try {
 			// code that might fail
 			if (!args.length) {
-				data.push(commands.map(command => command.name).join(', '));
+				data.push(commands.map(command => command.name).join('\n'));
 				data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+				data.push(`Please note that some of these commands may require special permissions to be used.`);
 				const helpEmbed = new Discord.MessageEmbed()
 				.setColor('#0099ff')
 				.setTitle('Available Commands')
@@ -71,21 +72,6 @@ module.exports = {
 			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 			global.dateTime = date+' '+time;
 			fs.appendFileSync('./debuglogs/'+sessionid+'-error.log','('+dateTime+')'+error+'\n\n');
-			const errorembed = new Discord.MessageEmbed()
-			.setColor('#ff0000')
-			.setTitle('Debug Mode Error')
-			.setDescription('Something went wrong while running the bot.')
-			.addField('Session ID', sessionid, false)
-			.addFields(
-				{ name: 'Session ID', value: sessionid, inline: true },
-				{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
-				{ name: 'Error', value: error, inline: false },
-			)
-			.setTimestamp()
-			.setFooter('Bot written by Daniel C');
-			let errorlog = client.channels.cache.get('686326260758216713');
-			errorlog.send(errorembed);
-			errorlog.send('Error:\n'+error);
 			console.error('an error has occured', error);
 		  }
 		

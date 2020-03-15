@@ -3,6 +3,7 @@ module.exports = {
   aliases: ['hello'],
   description: 'Logs a warning.',
   usage: 'N/A',
+  cooldown: 0,
 	execute(message, args) {
     const Discord = require('discord.js');
     const client = new Discord.Client();
