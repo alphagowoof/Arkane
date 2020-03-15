@@ -16,8 +16,7 @@ module.exports = {
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-		global.server = client.guilds.get("543863027095699457");
-		const botlog = server.channels.cache.get('688834736554246158');
+		global.botlog = client.channels.cache.get('688834736554246158');
 		botlog.send(RestartEmbed)
 		setTimeout(function(){ 
 			process.exit()
