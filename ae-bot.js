@@ -101,9 +101,7 @@ client.on('error', error => {
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	global.botlog = client.guilds.get("543863027095699457");
-	const errorlog = botlog.channels.cache.get('688834736554246158');
-	errorlog.send(errorembed);
+	botlog.send(errorembed);
 	console.error('an error has occured', error);
 });
 
