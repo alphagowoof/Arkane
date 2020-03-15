@@ -4,7 +4,6 @@ module.exports = {
 	aliases: ['rebootbot'],
 	usage: '',
 	cooldown: 0,
-	args: true,
 	execute(message, args) {
 		if (message.member.roles.cache.some(role => role.name === 'Bot Manager')) {
 		message.channel.send('Restarting. See you soon! :wave:')
