@@ -7,9 +7,21 @@ module.exports = {
 	execute(message, args) {
 		if (message.member.roles.cache.some(role => role.name === 'Bot Manager')) {
 		message.channel.send('Restarting. See you soon! :wave:')
+		const RestartEmbed = new Discord.MessageEmbed()
+	.setColor('#FFA500')
+	.setTitle('Bot Restart')
+	.setDescription('Bot is currently restarting. Please wait a moment.')
+	.addFields(
+		{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+	)
+	.setTimestamp()
+	.setFooter('Bot written by Daniel C');
+		global.server = client.guilds.get("543863027095699457");
+		const botlog = server.channels.cache.get('688834736554246158');
+		botlog.send(RestartEmbed)
 		setTimeout(function(){ 
 			process.exit()
-		}, 3000);
+		}, 5000);
 
 	}else {
 		message.reply(`you don't seem to have the correct permissions to use this command. Please try again later or contact the bot owner.`)
