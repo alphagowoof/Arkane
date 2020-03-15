@@ -115,7 +115,7 @@ client.on('guildMemberAdd', member => {
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	global.dateTime = date+' '+time;
-	const channel = member.guild.channels.cache.find(ch => ch.id === '688643915124965436');
+	const channel = member.guild.channels.cache.find(ch => ch.id === '612473686665986048');
 	const guild = member.guild
 	if (!channel) return;
 
@@ -138,7 +138,7 @@ client.on('guildMemberRemove', member => {
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	global.dateTime = date+' '+time;
-	const channel = member.guild.channels.cache.find(ch => ch.id === '688643915124965436');
+	const channel = member.guild.channels.cache.find(ch => ch.id === '612473686665986048');
 	const guild = member.guild
 	if (!channel) return;
 
