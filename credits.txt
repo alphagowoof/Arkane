@@ -11,3 +11,5 @@ LoserTrash#8200 for general testing.
 Daniel C#0818 for writing the bot and commands.
 
 Thanks to everyone else who helped with this project too! :)
+
+**You can check the my source code here**: https://github.com/TechGeekGamer/Apple-Explained-Moderation-Bot/
