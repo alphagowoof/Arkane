@@ -63,6 +63,21 @@ client.on('message', message => {
 });
 client.once('ready', () => {
 	console.log('Ready!');
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	global.dateTime = date+' '+time;
+	const StartupEmbed = new Discord.MessageEmbed()
+	.setColor('#00FF00')
+	.setTitle('Bot Started')
+	.setDescription('Bot launched successfully.')
+	.addFields(
+		{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+	)
+	.setTimestamp()
+	.setFooter('Bot written by Daniel C');
+	global.modlog = client.channels.cache.get('611354211925360681');
+	modlog.send(StartupEmbed);
 	
 });
 
