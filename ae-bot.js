@@ -116,8 +116,6 @@ client.on('guildMemberAdd', member => {
 	const channel = member.guild.channels.cache.find(ch => ch.id === '612473686665986048');
 	const guild = member.guild
 	if (!channel) return;
-	let role = member.guild.roles.find(r => r.name === "Member");
-	member.addRole(role).catch(console.error);
 	const MemberJoinEmbed = new Discord.MessageEmbed()
 	.setColor('#00FF00')
 	.setTitle('Member Join')
