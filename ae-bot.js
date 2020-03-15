@@ -109,6 +109,8 @@ client.on('error', error => {
 
 //Member join
 client.on('guildMemberAdd', member => {
+	let role = message.guild.roles.find(r => r.name === "Member");
+	message.member.addRole(role).catch(console.error);
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
