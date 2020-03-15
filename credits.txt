@@ -1,0 +1,13 @@
+Thanks to the dev team! Their names and reason for being thanked is below;
+
+Derpi#0001 for helping with the profanity filter.
+
+MacLogical#6519 for general testing.
+
+Prestonplayz334#7719 for testing the `say` command.
+
+LoserTrash#8200 for general testing.
+
+Daniel C#0818 for writing the bot and commands.
+
+Thanks to everyone else who helped with this project too! 
