@@ -22,8 +22,8 @@ module.exports = {
 		)
 		.setTimestamp()
 		.setFooter('Bot written by Daniel C');
-	const botlog = client.channels.cache.get('688834736554246158');
-	botlog.send(RestartEmbed)
+	const botlogchannel = client.channels.cache.get('688834736554246158');
+	botlogchannel.send(RestartEmbed)
 		setTimeout(function(){ 
 			process.exit()
 		}, 5000);
