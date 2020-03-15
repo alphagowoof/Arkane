@@ -7,6 +7,10 @@ module.exports = {
 	execute(message, args) {
 		if (message.member.roles.cache.some(role => role.name === 'Bot Manager')) {
 		message.channel.send('Restarting. See you soon! :wave:')
+		var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	global.dateTime = date+' '+time;
 		const RestartEmbed = new Discord.MessageEmbed()
 	.setColor('#FFA500')
 	.setTitle('Bot Restart')
