@@ -1,19 +1,32 @@
 module.exports = {
-    name: 'Reload',
-    description: 'Reloads the whole bot for quick updates of the code',
-    execute(message, args) {
-        try {message.channel.send('Bye! :wave:');
-        process.kill()}catch(error) {
-			// Your code broke (Leave untouched in most cases)
-			const fs = require('fs');
-			const Discord = require('discord.js');
-			const { MessageEmbed } = require('discord.js')
-			var today = new Date();
-			var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-			global.dateTime = date+' '+time;
-			fs.appendFileSync('./debuglogs/'+sessionid+'-error.log','('+dateTime+')'+error+'\n\n');
-			console.error('an error has occured', error);
-		  }
-    },
+	name: 'reload',
+	description: 'Reloads a command',
+	aliases: ['fetch'],
+	usage: '[command]',
+	cooldown: 0,
+	args: true,
+	execute(message, args) {
+		if (message.member.roles.cache.some(role => role.name === 'Bot Manager')) {
+		const commandName = args[0].toLowerCase();
+		const command = message.client.commands.get(commandName)
+			|| message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+		if (!command) {
+			return message.channel.send(`There is no command with name or alias \`${commandName}\`, ${message.author}!`);
+		}
+
+		delete require.cache[require.resolve(`./${commandName}.js`)];
+
+		try {
+			const newCommand = require(`./${commandName}.js`);
+			message.client.commands.set(newCommand.name, newCommand);
+		} catch (error) {
+			console.log(error);
+			return message.channel.send(`There was an error while reloading a command \`${commandName}\`:\n\`${error.message}\``);
+		}
+		message.channel.send(`Command \`${commandName}\` was reloaded!`);
+	}else {
+		message.reply(`you don't seem to have the correct permissions to use this command. Please try again later or contact the bot owner.`)
+	  }
+	},
 };

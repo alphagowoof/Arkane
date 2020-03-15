@@ -3,7 +3,9 @@ module.exports = {
   aliases: ['punish'],
   description: 'Logs a warning.',
   usage: '<user> <reason>',
+  cooldown: 0,
 	execute(message, args) {
+    if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
     const Discord = require('discord.js');
     const client = new Discord.Client();
     const fs = require('fs');
@@ -28,6 +30,8 @@ warnedperson.send('You have been warned due to: '+ reason);}catch(error) {
   fs.appendFileSync('./debuglogs/'+sessionid+'-error.log','('+dateTime+')'+error+'\n\n');
   console.error('an error has occured', error);
   }
-
+    }else {
+      message.reply(`you don't seem to have the correct permissions to use this command. Please try again later or contact the bot owner.`)
+    }
     
   }}
