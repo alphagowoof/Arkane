@@ -1,6 +1,7 @@
 global.fs = require('fs');
 global.Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
+const { nopermreply } = require('./strings.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const queue = new Map();
@@ -12,6 +13,7 @@ const cooldowns = new Discord.Collection();
 var cleanser = require('profanity-cleanser');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+//const modCommandFiles = fs.readdirSync('./modcommands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -21,6 +23,15 @@ for (const file of commandFiles) {
 	// with the key as the command name and the value as the exported module
 	client.commands.set(command.name, command);
 }
+
+//for (const modfile of modCommandFiles) {
+//	const modcommand = require(`./modcommands/${modfile}`);
+	// destination.txt will be created or overwritten by default.
+
+	// set a new item in the Collection
+	// with the key as the command name and the value as the exported module
+//	client.commands.set(modcommand.name, modcommand);
+//}
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -29,38 +40,38 @@ client.on('message', message => {
 	const command = client.commands.get(commandName)
 		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 	if (!command) return;
-	if (command.guildOnly && message.channel.type !== 'text') {
-		return message.reply('I can\'t execute that command inside DMs!');
+	if (command.mod + !message.member.roles.cache.some(role => role.name === 'Moderator')) {
+		message.reply(nopermreply)
+		return;
 	}
-	if (command.args && !args.length) {
-		let reply = `You didn't provide any arguments, ${message.author}!`;
-		if (command.usage) {
-			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
-		}
-		return message.channel.send(reply);
-	}
-	if (!cooldowns.has(command.name)) {
-		cooldowns.set(command.name, new Discord.Collection());
-	}
-	const now = Date.now();
-	const timestamps = cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
-	if (timestamps.has(message.author.id)) {
-		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-		if (now < expirationTime) {
-			const timeLeft = (expirationTime - now) / 1000;
-			return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
-		}
-	}
-	timestamps.set(message.author.id, now);
-	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 	try {
 		command.execute(message, args);
 	} catch (error) {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
 	}
+
+	
 });
+
+//client.on('message', message => {
+//	if (!message.content.startsWith(prefix) || message.author.bot) return;
+//	if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
+//
+//	const args = message.content.slice(prefix.length).split(/ +/);
+//	const modcommandName = args.shift().toLowerCase();
+//	const modcommand = client.commands.get(modcommandName)
+//		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(modcommandName));
+//	if (!modcommand) return;
+//	try {
+//		modcommand.execute(message, args);
+//	} catch (error) {
+//		console.error(error);
+//		message.reply('there was an error trying to execute that command!');
+//	}
+//	}
+//	
+//});
 client.once('ready', () => {
 	console.log('Ready!');
 	var today = new Date();
@@ -127,6 +138,7 @@ client.on('guildMemberAdd', member => {
 	)
 	.setTimestamp()
 	channel.send(MemberJoinEmbed)
+	member.addRole(member.guild.roles.find(role => role.name === "Member"));
 });
 
 //Member leave
