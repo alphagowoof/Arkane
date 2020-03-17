@@ -8,3 +8,6 @@ AE-BOT.code-workspace
 startbot.bat
 /commands/NA
 commands/debugjson.js
+config.json
+info.json
+strings.json
