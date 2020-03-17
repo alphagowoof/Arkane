@@ -9,3 +9,4 @@ AE-BOT.code-workspace
 startbot.bat
 /commands/NA
 info.json
+commands/debugjson.js

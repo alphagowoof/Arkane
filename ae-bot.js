@@ -29,7 +29,7 @@ client.on('message', message => {
 	const command = client.commands.get(commandName)
 		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 	if (!command) return;
-	if (command.mod + !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
+	if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
 		message.reply(nopermreply)
 		return;
 	}
@@ -109,7 +109,6 @@ client.on('guildMemberAdd', member => {
 	)
 	.setTimestamp()
 	channel.send(MemberJoinEmbed)
-	member.addRole(member.guild.roles.find(role => role.name === "Member"));
 });
 
 //Member leave
