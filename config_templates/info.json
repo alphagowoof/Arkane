@@ -4,6 +4,7 @@
 	"UserLog": "",
 	"ModLog": "",
 	"BotLog": "",
-	"DebugChannel": ""
+	"DebugChannel": "",
+	"MuteRoleID": ""
 	
 }
