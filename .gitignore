@@ -12,3 +12,5 @@ config.json
 info.json
 strings.json
 runstate.txt
+last.msg
+last.txt

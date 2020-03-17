@@ -88,6 +88,12 @@ client.once('ready', () => {
 				}
 });
 
+client.on('message', message => {
+	fs.writeFileSync('./last.msg', message)
+	//Logs last message for crash report
+}
+)
+
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
 //uh oh something went wrong
