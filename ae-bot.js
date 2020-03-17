@@ -2,7 +2,7 @@ global.fs = require('fs');
 global.Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
 const { nopermreply } = require('./strings.json');
-const { BotManagerRoleID , ModeratorRoleID , OwnerID , UserLog, ModLog, BotLog } = require('./info.json');
+const { BotManagerRoleID , ModeratorRoleID , OwnerID , UserLog, ModLog, BotLog , DebugChannel } = require('./info.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const queue = new Map();
@@ -58,7 +58,7 @@ client.once('ready', () => {
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	global.modlog = client.channels.cache.get(ModLog);
+	global.modlog = client.channels.cache.get(BotLog);
 	modlog.send(StartupEmbed);
 	
 });
@@ -95,7 +95,7 @@ client.on('guildMemberAdd', member => {
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	global.dateTime = date+' '+time;
-	const channel = member.guild.channels.cache.find(ch => ch.id === '612473686665986048');
+	const channel = member.guild.channels.cache.find(ch => ch.id === `${UserLog}`);
 	const guild = member.guild
 	if (!channel) return;
 	const MemberJoinEmbed = new Discord.MessageEmbed()
@@ -117,7 +117,7 @@ client.on('guildMemberRemove', member => {
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	global.dateTime = date+' '+time;
-	const channel = member.guild.channels.cache.find(ch => ch.id === '612473686665986048');
+	const channel = member.guild.channels.cache.find(ch => ch.id === `${UserLog}`);
 	const guild = member.guild
 	if (!channel) return;
 
@@ -185,7 +185,7 @@ client.on('messageDelete', async message => {
 		{ name: 'Message', value: message.content, inline: false },
 	)
 	.setTimestamp()
-	const channel = client.channels.cache.get('611354211925360681');
+	const channel = client.channels.cache.get(`${ModLog}`);
 	channel.send(DeletionEmbed)}
 
 	// We now grab the user object of the person who deleted the message
@@ -207,7 +207,7 @@ client.on('messageDelete', async message => {
 			{ name: 'Message', value: message.content, inline: false },
 		)
 		.setTimestamp()
-		const channel = client.channels.cache.get('611354211925360681');
+		const channel = client.channels.cache.get(`${ModLog}`);
 		channel.send(DeletionEmbed)
 		return;
 	}	else {
@@ -223,7 +223,7 @@ client.on('messageDelete', async message => {
 			{ name: 'Message', value: message.content, inline: false },
 		)
 		.setTimestamp()
-		const channel = client.channels.cache.get('611354211925360681');
+		const channel = client.channels.cache.get(`${ModLog}`);
 		channel.send(DeletionEmbed)
 		return;
 	}
@@ -258,7 +258,7 @@ try {
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	const channeldebug = client.channels.cache.get('686326260758216713');
+	const channeldebug = client.channels.cache.get(`${DebugChannel}`);
 	channeldebug.send(debugembed);
 
 
