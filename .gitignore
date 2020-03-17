@@ -11,3 +11,4 @@ commands/debugjson.js
 config.json
 info.json
 strings.json
+runstate.txt

@@ -45,22 +45,47 @@ client.on('message', message => {
 
 client.once('ready', () => {
 	console.log('Ready!');
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	global.dateTime = date+' '+time;
-	const StartupEmbed = new Discord.MessageEmbed()
-	.setColor('#00FF00')
-	.setTitle('Bot Started')
-	.setDescription(`${BootSuccessful}`)
-	.addFields(
-		{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
-	)
-	.setTimestamp()
-	.setFooter('Bot written by Daniel C');
-	global.modlog = client.channels.cache.get(`${BotLog}`);
-	modlog.send(StartupEmbed);
 	
+		const path = './runstate.txt'
+
+		
+		  if (fs.existsSync(path)) {
+			//file exists
+			var today = new Date();
+			var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+			global.dateTime = date+' '+time;
+			const StartupEmbed = new Discord.MessageEmbed()
+			.setColor('#ffa900')
+			.setTitle('Bot Started - Issue Detected')
+			.setDescription(`The bot loaded successfully, but didn't shutdown or restart correctly. Please make sure you shutdown or restart the bot correctly next time.`)
+			.addFields(
+				{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+			)
+			.setTimestamp()
+			.setFooter('Bot written by Daniel C');
+			global.modlog = client.channels.cache.get(`${BotLog}`);
+			modlog.send(StartupEmbed);
+			return
+		  }else{
+		  var today = new Date();
+				var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+				var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+				global.dateTime = date+' '+time;
+				const StartupEmbed = new Discord.MessageEmbed()
+				.setColor('#00FF00')
+				.setTitle('Bot Started')
+				.setDescription(`${BootSuccessful}`)
+				.addFields(
+					{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+				)
+				.setTimestamp()
+				.setFooter('Bot written by Daniel C');
+				global.modlog = client.channels.cache.get(`${BotLog}`);
+				modlog.send(StartupEmbed);
+				fs.writeFileSync('./runstate.txt', 'running')
+				return;
+				}
 });
 
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));

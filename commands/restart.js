@@ -4,18 +4,16 @@ module.exports = {
 	aliases: ['rebootbot'],
 	usage: '',
 	cooldown: 0,
+	mod:true,
 	execute(message, args) {
-		const BotManagerRoleID = require('./info.json');
-		if (message.member.roles.cache.some(role => role.id === BotManagerRoleID)) {
+		const fs = require('fs');
+		fs.unlinkSync('./runstate.txt')
 		const client = new Discord.Client();
 		const { MessageEmbed } = require('discord.js')
 		message.channel.send('Restarting. See you soon! :wave:')
 		setTimeout(function(){ 
 			process.exit()
 		}, 5000);
-	}else {
-		message.reply(nopermreply)
-	  }
 	},
 	
 };
