@@ -1,6 +1,5 @@
 
 debug.flag
-config.json
 node_modules/
 logs/
 *.cache
@@ -8,5 +7,4 @@ logs/
 AE-BOT.code-workspace
 startbot.bat
 /commands/NA
-info.json
 commands/debugjson.js
