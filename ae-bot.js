@@ -300,12 +300,15 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	global.dateTime = date+' '+time;
+	if (oldMessage === newMessage)return;
 	const MessageEditEmbed = new Discord.MessageEmbed()
 	.setColor('#eea515')
 	.setTitle('Message Edit')
 	.setDescription('A message edit was detected.')
 	.addFields(
 		{ name: 'Current date/time(PST): ', value: dateTime, inline: false },
+		{ name: 'Channel sent: ', value: oldMessage.channel.name, inline: false },
+		{ name: 'Message author', value: oldMessage.author.tag, inline: false },
 		{ name: 'Old message', value: oldMessage, inline: false },
 		{ name: 'Updated message', value: newMessage, inline: true },
 		
