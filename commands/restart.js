@@ -4,8 +4,8 @@ module.exports = {
 	aliases: ['rebootbot'],
 	usage: '',
 	cooldown: 0,
-	botmanager:true,
 	execute(message, args) {
+		const BotManagerRoleID = require('./info.json');
 		if (message.member.roles.cache.some(role => role.id === BotManagerRoleID)) {
 		const client = new Discord.Client();
 		const { MessageEmbed } = require('discord.js')
