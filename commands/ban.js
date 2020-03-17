@@ -4,6 +4,7 @@ module.exports = {
     aliases: ['banish'],
 	usage: '<user> <reason>',
 	cooldown: 0,
+	mod:true,
     execute(message, args) {
 		if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
         try {

@@ -4,6 +4,7 @@ module.exports = {
   description: 'Logs a warning.',
   usage: '<text>',
   cooldown: 0,
+  mod:true,
 	execute(message, args) {
 		if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
     const Discord = require('discord.js');

@@ -4,11 +4,11 @@ module.exports = {
   description: 'Mutes a user.',
   usage: '<user> <reason>',
   cooldown: 0,
+  mod:true,
 	execute(message, args) {
     const Discord = require('discord.js');
     const client = new Discord.Client();
     const fs = require('fs');
-    if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
     try {
       let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
       const reason = reasonraw.join(' ')
@@ -32,7 +32,4 @@ module.exports = {
     fs.appendFileSync('./debuglogs/'+sessionid+'-error.log','('+dateTime+')'+error+'\n\n');
     console.error('an error has occured', error);
     }
-  }else {
-    message.reply(`you don't seem to have the correct permissions to use this command. Please try again later or contact the bot owner.`)
-  }
   }}

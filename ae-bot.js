@@ -2,6 +2,7 @@ global.fs = require('fs');
 global.Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
 const { nopermreply } = require('./strings.json');
+const { BotManagerRoleID , ModeratorRoleID , OwnerID , UserLog, ModLog, BotLog } = require('./info.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const queue = new Map();
@@ -17,21 +18,9 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	// destination.txt will be created or overwritten by default.
-
-	// set a new item in the Collection
-	// with the key as the command name and the value as the exported module
 	client.commands.set(command.name, command);
 }
 
-//for (const modfile of modCommandFiles) {
-//	const modcommand = require(`./modcommands/${modfile}`);
-	// destination.txt will be created or overwritten by default.
-
-	// set a new item in the Collection
-	// with the key as the command name and the value as the exported module
-//	client.commands.set(modcommand.name, modcommand);
-//}
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -40,7 +29,7 @@ client.on('message', message => {
 	const command = client.commands.get(commandName)
 		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 	if (!command) return;
-	if (command.mod + !message.member.roles.cache.some(role => role.name === 'Moderator')) {
+	if (command.mod + !message.member.roles.cache.some(role => role.id === "'"+ModeratorRoleID+"'")) {
 		message.reply(nopermreply)
 		return;
 	}
@@ -54,24 +43,6 @@ client.on('message', message => {
 	
 });
 
-//client.on('message', message => {
-//	if (!message.content.startsWith(prefix) || message.author.bot) return;
-//	if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
-//
-//	const args = message.content.slice(prefix.length).split(/ +/);
-//	const modcommandName = args.shift().toLowerCase();
-//	const modcommand = client.commands.get(modcommandName)
-//		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(modcommandName));
-//	if (!modcommand) return;
-//	try {
-//		modcommand.execute(message, args);
-//	} catch (error) {
-//		console.error(error);
-//		message.reply('there was an error trying to execute that command!');
-//	}
-//	}
-//	
-//});
 client.once('ready', () => {
 	console.log('Ready!');
 	var today = new Date();
@@ -87,7 +58,7 @@ client.once('ready', () => {
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	global.modlog = client.channels.cache.get('688834736554246158');
+	global.modlog = client.channels.cache.get(ModLog);
 	modlog.send(StartupEmbed);
 	
 });
@@ -192,19 +163,8 @@ message.author.send(`Hey <@${message.author.id}>, please watch your language nex
 	}
 })
 
-// login to Discord with your app's token
+//Login
 client.login(token);;
-
-// Set the bot's presence (activity and status)
-client.on("ready", (ready) => {
-    client.user.setPresence({
-        game: { 
-            name: 'Apple Explained | .help',
-            type: 'WATCHING'
-        },
-        status: 'online'
-    })
-})
 
 client.on('messageDelete', async message => {
 	const fetchedLogs = await message.guild.fetchAuditLogs({

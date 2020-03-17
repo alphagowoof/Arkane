@@ -6,7 +6,7 @@ module.exports = {
 	cooldown: 0,
 	args: true,
 	execute(message, args) {
-		if (message.member.roles.cache.some(role => role.name === 'Bot Manager')) {
+		if (message.member.roles.cache.some(role => role.id === BotManagerRoleID)) {
 		const commandName = args[0].toLowerCase();
 		const command = message.client.commands.get(commandName)
 			|| message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -26,7 +26,7 @@ module.exports = {
 		}
 		message.channel.send(`Command \`${commandName}\` was reloaded!`);
 	}else {
-		message.reply(`you don't seem to have the correct permissions to use this command. Please try again later or contact the bot owner.`)
+		message.reply(nopermreply)
 	  }
 	},
 };
