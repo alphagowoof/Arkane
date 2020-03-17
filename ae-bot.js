@@ -1,7 +1,7 @@
 global.fs = require('fs');
 global.Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
-const { nopermreply } = require('./strings.json');
+const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./strings.json');
 const { BotManagerRoleID , ModeratorRoleID , OwnerID , UserLog, ModLog, BotLog , DebugChannel } = require('./info.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -52,13 +52,13 @@ client.once('ready', () => {
 	const StartupEmbed = new Discord.MessageEmbed()
 	.setColor('#00FF00')
 	.setTitle('Bot Started')
-	.setDescription('Bot launched successfully.')
+	.setDescription(`${BootSuccessful}`)
 	.addFields(
 		{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
 	)
 	.setTimestamp()
 	.setFooter('Bot written by Daniel C');
-	global.modlog = client.channels.cache.get(BotLog);
+	global.modlog = client.channels.cache.get(`${BotLog}`);
 	modlog.send(StartupEmbed);
 	
 });
@@ -266,5 +266,27 @@ try {
 } catch(err) {
   console.error(err)
 }
+
+})
+
+client.on('messageUpdate', (oldMessage, newMessage) => {
+	if (oldMessage.author.bot)return;
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	global.dateTime = date+' '+time;
+	const MessageEditEmbed = new Discord.MessageEmbed()
+	.setColor('#eea515')
+	.setTitle('Message Edit')
+	.setDescription('A message edit was detected.')
+	.addFields(
+		{ name: 'Current date/time(PST): ', value: dateTime, inline: false },
+		{ name: 'Old message', value: oldMessage, inline: false },
+		{ name: 'Updated message', value: newMessage, inline: true },
+		
+	)
+	.setTimestamp()
+	const channel = client.channels.cache.get(`${ModLog}`);
+	channel.send(MessageEditEmbed);
 
 })
