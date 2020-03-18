@@ -33,7 +33,7 @@ client.on('message', message => {
 		message.reply(nopermreply)
 		return;
 	}
-	if (command.disable = true) {
+	if (command.disable === true) {
 		message.reply('this command is currently disabled and not available. Please try again later or contact the bot owner if you believe this is a mistake.')
 		return;
 	}
