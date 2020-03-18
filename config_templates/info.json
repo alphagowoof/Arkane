@@ -5,6 +5,7 @@
 	"ModLog": "",
 	"BotLog": "",
 	"DebugChannel": "",
-	"MuteRoleID": ""
+	"MuteRoleID": "",
+	"DebugFeaturesEnabled": false
 	
 }

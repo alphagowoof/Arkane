@@ -2,7 +2,7 @@ global.fs = require('fs');
 global.Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
 const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./strings.json');
-const { BotManagerRoleID , ModeratorRoleID , OwnerID , UserLog, ModLog, BotLog , DebugChannel } = require('./info.json');
+const { BotManagerRoleID , ModeratorRoleID , OwnerID , UserLog, ModLog, BotLog , DebugChannel, DebugFeaturesEnabled } = require('./info.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const queue = new Map();
@@ -31,6 +31,14 @@ client.on('message', message => {
 	if (!command) return;
 	if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
 		message.reply(nopermreply)
+		return;
+	}
+	if (command.disable = true) {
+		message.reply('this command is currently disabled and not available. Please try again later or contact the bot owner if you believe this is a mistake.')
+		return;
+	}
+	if (command.debug && DebugFeaturesEnabled != true){
+		message.reply('you are attempting to use a feature currently in testing and that could break the bot. If you would like to enable it, edit `DebugFeaturesEnabled` to `true` in the `info.json` file.')
 		return;
 	}
 	try {
@@ -176,6 +184,12 @@ client.on('message', message => {
 		
 	}
 
+})
+
+client.on('message', message => {
+if (message.channel.id != '616472674406760448')return;
+message.react('❤️');
+message.react('👍');
 })
 
 client.on('message', message => {const profanity = require('./profanity.json');
