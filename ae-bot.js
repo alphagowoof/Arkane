@@ -186,9 +186,10 @@ client.on('message', message => {
 
 })
 
+//#Shot on iPhone channel auto reaction
 client.on('message', message => {
 if (message.author.bot)return;
-if (message.channel.id != '689720949527937063')return;
+if (message.channel.id != '616472674406760448')return;
 if (message.attachments.size != '0'){
 	message.react('❤️');
 	message.react('👍');
