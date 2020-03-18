@@ -187,11 +187,12 @@ client.on('message', message => {
 })
 
 client.on('message', message => {
-if (message.channel.id != '616472674406760448')return;
+if (message.author.bot)return;
+if (message.channel.id != '689720949527937063')return;
 if (message.attachments.size != '0'){
-message.react('❤️');
-message.react('👍');
-}else{return;}
+	message.react('❤️');
+	message.react('👍');
+}
 })
 
 client.on('message', message => {const profanity = require('./profanity.json');
