@@ -249,7 +249,7 @@ client.on('messageDelete', async message => {
 		.setTitle('Message Deleted')
 		.addFields(
 			{ name: 'Message sent by', value: message.author.tag, inline: false },
-			{ name: 'Deleted by', value: 'Unknown - Unable to find who deleted message.', inline: false },
+			{ name: 'Deleted by', value: 'Unknown - Unable to find who deleted message. - May occur when the message author erases their own message', inline: false },
 			{ name: 'Sent in', value: message.channel.name, inline: false },
 			{ name: 'Message', value: message.content, inline: false },
 		)
