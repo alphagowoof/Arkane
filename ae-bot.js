@@ -188,8 +188,10 @@ client.on('message', message => {
 
 client.on('message', message => {
 if (message.channel.id != '616472674406760448')return;
+if (message.attachments.size != '0'){
 message.react('❤️');
 message.react('👍');
+}else{return;}
 })
 
 client.on('message', message => {const profanity = require('./profanity.json');

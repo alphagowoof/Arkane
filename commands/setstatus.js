@@ -6,7 +6,6 @@ module.exports = {
   cooldown: 0,
   mod:true,
   debug:true,
-  disable:true,
 	execute(message, args) {
     const Discord = require('discord.js');
     const client = new Discord.Client();
