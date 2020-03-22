@@ -16,7 +16,7 @@ module.exports = {
       const reason = reasonraw.join(' ')
      const taggeduser = message.mentions.members.first().id
      const guild = message.guild
-     const role = guild.roles.cache.find(role => role.id === MuteRoleID);
+     const role = guild.roles.cache.find(role => role.id === `${MuteRoleID}`);
      const mentionedmember = '<@'+message.mentions.users.first().id+'>'
       const member = message.mentions.members.first();
      member.roles.add(role);
