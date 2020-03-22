@@ -9,19 +9,19 @@ module.exports = {
     const Discord = require('discord.js');
     const client = new Discord.Client();
     const fs = require('fs');
-    const MuteRoleID = require('./info.json');
-    const {MutedString, MutedStringDM} = require('./strings.json');
+    const MuteRoleID = require('../info.json');
+    const {MutedString, MutedStringDM} = require('../strings.json');
     try {
       let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
       const reason = reasonraw.join(' ')
      const taggeduser = message.mentions.members.first().id
      const guild = message.guild
-     const role = guild.roles.cache.find(role => role.name === `${MuteRoleID}`);
+     const role = guild.roles.cache.find(role => role.id === MuteRoleID);
      const mentionedmember = '<@'+message.mentions.users.first().id+'>'
       const member = message.mentions.members.first();
      member.roles.add(role);
-     member.send(MutedStringDM)
-     message.channel.send(`${MutedString}`);
+     member.send(`You were muted due to:\n ${reason}`)
+     message.channel.send(mentionedmember+' was muted.');
       fs.appendFileSync('./logs/' + taggeduser + '-warnings.log', 'Mute\nReason: ' + reason +'\n\n');
       fs.appendFileSync('./logs/' + taggeduser + '-modwarnings.log', 'Mute issued by '+ message.author.username +'\nReason: ' + reason +'\n\n');
     }catch(error) {

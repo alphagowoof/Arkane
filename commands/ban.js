@@ -6,11 +6,13 @@ module.exports = {
 	cooldown: 0,
 	mod:true,
     execute(message, args) {
-		if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
         try {
         const user = message.mentions.users.first();
-        const guild = message.guild
-        message.channel.send(user+' was banned.');
+		const guild = message.guild
+		let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
+		const reason = reasonraw.join(' ')
+		message.channel.send('<@'+user+'> was banned.\nReason: '+reason);
+		user.send('You were banned from the Apple Explained server due to: '+ reason)
         guild.members.ban(user);
     }
         catch(error) {
@@ -24,9 +26,6 @@ module.exports = {
 			global.dateTime = date+' '+time;
 			fs.appendFileSync('./debuglogs/'+sessionid+'-error.log','('+dateTime+')'+error+'\n\n');
 			console.error('an error has occured', error);
-		  }
-		}else {
-			message.reply(`you don't seem to have the correct permissions to use this command. Please try again later or contact the bot owner.`)
 		  }
     },
 };
