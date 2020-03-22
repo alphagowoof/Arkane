@@ -6,6 +6,7 @@ module.exports = {
 	cooldown: 0,
 	mod:true,
 	execute(message, args) {
+		try{
 		const fs = require('fs');
 		fs.unlinkSync('./runstate.txt')
 		const client = new Discord.Client();
@@ -14,6 +15,8 @@ module.exports = {
 		setTimeout(function(){ 
 			process.exit()
 		}, 5000);
+	}catch(error){      
+		console.error('an error has occured', error);}
 	},
 	
 };
