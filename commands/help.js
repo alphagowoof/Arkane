@@ -9,13 +9,21 @@ module.exports = {
 	execute(message, args) {
 		const data = [];
 		const { commands } = message.client;
+		const { modcommands } = message.client;
 		const Discord = require('discord.js');
 		const { MessageEmbed } = require('discord.js')
 		const client = new Discord.Client();
+		const {ModeratorRoleID} = require('../info.json')
 		try {
 			// code that might fail
 			if (!args.length) {
-				data.push(commands.map(command => command.name).join('\n'));
+				if(message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){
+					console.log('Mod role detected.')
+					data.push(modcommands.map(modcommand => modcommand.name).join('\n'));
+					console.log('Loaded mod help')
+				}else {data.push(commands.map(command => command.name).join('\n'));
+			console.log('Loaded member help')}
+
 				data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
 				data.push(`Please note that some of these commands may require special permissions to be used.`);
 				const helpEmbed = new Discord.MessageEmbed()
@@ -55,7 +63,6 @@ module.exports = {
 				{ name: 'Aliases', value: `${command.aliases.join(', ')}`, inline: false },
 				{ name: 'Description', value: `${command.description}`, inline: false },
 				{ name: 'Usage', value: `${prefix}${command.name} ${command.usage}`, inline: false },
-				{ name: 'Cooldown', value: `${command.cooldown || 3} second(s)`, inline: false },
 			)
 			.setTimestamp()
 			.setFooter('Help command');
