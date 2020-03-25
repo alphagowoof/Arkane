@@ -5,6 +5,7 @@ module.exports = {
   usage: '<user> <reason>',
   cooldown: 0,
   mod:true,
+  nodelay:true,
 	execute(message, args) {
     const Discord = require('discord.js');
     const client = new Discord.Client();
@@ -17,10 +18,11 @@ module.exports = {
     const authorusername = message.author.username +'#' +message.author.discriminator
     fs.appendFileSync('./logs/' + userid + '-warnings.log', 'Warning\nReason: ' + reason +'\n\n');
     fs.appendFileSync('./logs/' + userid + '-modwarnings.log', 'Warning issued by '+ authorusername +'\nReason: ' + reason +'\n\n');
-    message.channel.send(mentionedmember + 'had a warning logged.')
+    message.channel.send(mentionedmember + ' had a warning logged.')
     const warnedperson = message.mentions.users.first()
     const user = client.users.cache.get(warnedperson);
-warnedperson.send('You have been warned due to: '+ reason);}catch(error) {
+warnedperson.send('You have been warned due to: '+ reason);
+}catch(error) {
   // Your code broke (Leave untouched in most cases)
   console.error('an error has occured', error);
   }
