@@ -2,27 +2,27 @@ module.exports = {
   name: 'say',
   aliases: ['speak'],
   description: 'Logs a warning.',
-  usage: '<text>',
+  usage: '<channel mention> <text>',
   cooldown: 0,
   mod:true,
-  botmanager:true,
+  nodelay:true,
 	execute(message, args) {
 		if (message.member.roles.cache.some(role => role.name === 'Moderator')) {
+			
     const Discord = require('discord.js');
     const client = new Discord.Client();
-    const fs = require('fs');
-    try {const reason = args.join(' ')
-    message.channel.send(reason);
-    message.delete()}catch(error) {
+	const fs = require('fs');
+	const channel = message.channel
+	try {
+		message.delete()
+		const reason = args.join(' ');
+	channel.send(reason); 
+	return;
+	setTimeout(function(){ 
+		channel.send(reason) 
+		channel.stopTyping()
+	}, 2000);}catch(error) {
 			// Your code broke (Leave untouched in most cases)
-			const fs = require('fs');
-			const Discord = require('discord.js');
-			const { MessageEmbed } = require('discord.js')
-			var today = new Date();
-			var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-			global.dateTime = date+' '+time;
-			fs.appendFileSync('./debuglogs/'+sessionid+'-error.log','('+dateTime+')'+error+'\n\n');
 			console.error('an error has occured', error);
 		  }
 		}else {
