@@ -1,11 +1,13 @@
 {
 	"BotManagerRoleID": "",
 	"ModeratorRoleID": "",
+	"MuteRoleID": "",
+	"AssignMemberRoleOnJoin": false,
 	"UserLog": "",
 	"ModLog": "",
 	"BotLog": "",
 	"DebugChannel": "",
-	"MuteRoleID": "",
-	"DebugFeaturesEnabled": false
-	
+	"DebugFeaturesEnabled": false,
+	"ProcessEndOnError":false,
+	"CrashNotify":false
 }
