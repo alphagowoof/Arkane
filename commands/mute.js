@@ -25,7 +25,7 @@ module.exports = {
      member.send(`You were muted due to:\n ${reason}`)
      message.channel.send(mentionedmember+' was muted.');
       fs.appendFileSync('./logs/' + taggeduser + '-warnings.log', 'Mute\nReason: ' + reason +'\n\n');
-      fs.appendFileSync('./logs/' + taggeduser + '-modwarnings.log', 'Mute issued by '+ message.author.username +'\nReason: ' + reason +'\n\n');
+      fs.appendFileSync('./logs/' + taggeduser + '-modwarnings.log', 'Mute issued by '+ message.author.tag +'\nReason: ' + reason +'\n\n');
     }catch(error) {
     // Your code broke (Leave untouched in most cases)
     console.error('an error has occured', error);
