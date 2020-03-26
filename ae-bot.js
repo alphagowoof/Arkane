@@ -176,6 +176,7 @@ client.on('guildMemberAdd', member => {
 	const channel = member.guild.channels.cache.find(ch => ch.id === `${UserLog}`);
 	const guild = member.guild
 	if (!channel) return;
+	fs.appendFileSync('./logs/user.log', `${member.user.tag} (${member.id}) joined at '${dateTime}'.\nAccount creation date: ${member.user.createdAt}\nCurrent guild user count: ${guild.memberCount}\n\n`)
 	const MemberJoinEmbed = new Discord.MessageEmbed()
 	.setColor('#00FF00')
 	.setTitle('Member Join')
@@ -203,7 +204,7 @@ client.on('guildMemberRemove', member => {
 	const channel = member.guild.channels.cache.find(ch => ch.id === `${UserLog}`);
 	const guild = member.guild
 	if (!channel) return;
-
+	fs.appendFileSync('./logs/user.log', `${member.user.tag} (${member.id}) left at '${dateTime}'.\nAccount creation date: ${member.user.createdAt}\nCurrent guild user count: ${guild.memberCount}\n\n`)
 	const MemberLeaveEmbed = new Discord.MessageEmbed()
 	.setColor('#ff0000')
 	.setTitle('Member Leave')
