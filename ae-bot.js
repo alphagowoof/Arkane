@@ -314,7 +314,7 @@ client.on('messageDelete', async message => {
 
 //message log
 client.on('message', message => {
-	if (message.channel.name == 'undefined')return;
+	if (message.channel.type == 'dm')return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -325,7 +325,7 @@ client.on('message', message => {
 	fs.appendFileSync('./logs/allmessages_'+date +'.log', '\n\nMessage sent by ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
 })
 
-
+//Message edit
 client.on('messageUpdate', (oldMessage, newMessage) => {
 	if (oldMessage.author.bot)return;
 	var today = new Date();
@@ -333,6 +333,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	global.dateTime = date+' '+time;
 	if (oldMessage === newMessage)return;
+	var ref = "http://discordapp.com/channels/" + oldMessage.guild.id + "/" + oldMessage.channel.id + "/" + oldMessage.id;
 	const MessageEditEmbed = new Discord.MessageEmbed()
 	.setColor('#eea515')
 	.setTitle('Message Edit')
@@ -341,8 +342,9 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 		{ name: 'Current date/time(PST): ', value: dateTime, inline: false },
 		{ name: 'Channel sent: ', value: oldMessage.channel.name, inline: false },
 		{ name: 'Message author', value: oldMessage.author.tag, inline: false },
-		{ name: 'Old message', value: oldMessage, inline: false },
+		{ name: 'Old message', value: oldMessage, inline: true },
 		{ name: 'Updated message', value: newMessage, inline: true },
+		{ name: 'Message link', value: `[Jump](${ref})`, inline: false },
 		
 	)
 	.setTimestamp()
