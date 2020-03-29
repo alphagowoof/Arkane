@@ -1,8 +1,8 @@
 module.exports = {
   name: 'say',
   aliases: ['speak'],
-  description: 'Logs a warning.',
-  usage: '<channel mention> <text>',
+  description: 'Has the bot speak.',
+  usage: '<text>',
   cooldown: 0,
   mod:true,
   nodelay:true,
