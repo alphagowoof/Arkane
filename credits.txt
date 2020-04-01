@@ -10,7 +10,7 @@ Thanks to the dev team! Their names and reason for being thanked is below;
 
 `LoserTrash#8200` for general testing.
 
-`Daniel C#0818` for writing the bot and commands.
+`Daniel C#7205` for writing the bot and commands.
 
 Thanks to everyone else who helped with this project too! :)
 
