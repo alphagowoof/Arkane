@@ -14,9 +14,6 @@ module.exports = {
 		const { MessageEmbed } = require('discord.js')
 		const client = new Discord.Client();
 		const {ModeratorRoleID} = require('../info.json')
-		message.channel.send('Nobody can help you now..')
-		setTimeout(function(){ 
-			message.channel.send('Just kidding! Here is the help menu..')
 		try {
 			// code that might fail
 			if (!args.length) {
@@ -76,7 +73,6 @@ module.exports = {
 			// if the code fails
 			console.error('an error has occured', error);
 		  }
-		}, 4000)
 		
 	},
 };
