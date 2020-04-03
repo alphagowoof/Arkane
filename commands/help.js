@@ -25,7 +25,7 @@ module.exports = {
 			console.log('Loaded member help')}
 
 				data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
-				data.push(`Please note that some of these commands may require special permissions to be used.`);
+
 				const helpEmbed = new Discord.MessageEmbed()
 				.setColor('#0099ff')
 				.setTitle('Available Commands')
@@ -48,7 +48,7 @@ module.exports = {
 			}
 	
 			const name = args[0].toLowerCase();
-			const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
+			const command = modcommands.get(name) || modcommands.find(c => c.aliases && c.aliases.includes(name));
 	
 			if (!command) {
 				return message.reply('that\'s not a valid command!');
