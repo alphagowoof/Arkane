@@ -9,6 +9,10 @@ module.exports = {
 	mod:true,
 	execute(message, args) {
 		try {
+			if (message.author.id == message.mentions.members.first().id){message.channel.send(`You can't perform this action on yourself.`);return;}
+			const {ModeratorRoleID} = require('../info.json');
+			const checkmemberforroles = message.mentions.members.first()
+			if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){message.channel.send(`You can't perform that action on this user.`);return;}
 			// Code hopefully works
 			const user = message.mentions.members.first()
 			user.kick()

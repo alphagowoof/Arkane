@@ -11,6 +11,10 @@ module.exports = {
     const client = new Discord.Client();
     const fs = require('fs');
     try {
+      if (message.author.id == message.mentions.members.first().id){message.channel.send(`You can't perform this action on yourself.`);return;}
+      const {ModeratorRoleID} = require('../info.json');
+			const checkmemberforroles = message.mentions.members.first()
+			if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){message.channel.send(`You can't perform that action on this user.`);return;}
     const userid = message.mentions.users.first().id
     const mentionedmember = '<@'+message.mentions.users.first().id+'>'
     let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
