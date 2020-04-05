@@ -8,6 +8,7 @@
     "bad-words": "^3.0.3",
     "diff": "^4.0.2",
     "discord.js": "^12.1.1",
+    "node-fetch": "^2.6.0",
     "profanity-cleanser": "^1.0.1",
     "profanity-light": "^1.2.0",
     "ytdl-core": "^2.0.0"

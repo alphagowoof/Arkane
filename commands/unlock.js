@@ -12,7 +12,7 @@ module.exports = {
 	const channel = message.channel
     try {
 		channel.updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: true });
-		message.channel.send(+message.channel+' was unlocked.')
+		message.channel.send('<#'+message.channel.id+'> was unlocked.')
 	}
 		catch(error) {
 			// Your code broke (Leave untouched in most cases)

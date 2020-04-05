@@ -3,12 +3,13 @@ global.Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
 const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./strings.json');
 const { BotManagerRoleID , ModeratorRoleID , OwnerID, MemberRoleID , UserLog, ModLog, BotLog , DebugChannel, DebugFeaturesEnabled, ProcessEndOnError, AssignMemberRoleOnJoin, CrashNotify } = require('./info.json');
-const client = new Discord.Client();
+global.client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
 client.allcommands = new Discord.Collection();
 const { MessageEmbed } = require('discord.js')
 const cooldowns = new Discord.Collection();
+global.version = '2.0.0'
 
 //Checking ALL files
 const allFiles = fs.readdirSync('./')
@@ -25,12 +26,11 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 		if(!command.mod){
 			client.commands.set(command.name, command);
-	console.log(`The command '${command.name}' was loaded.`)}
+		}
 }
 for (const modfile of modcommandFiles) {
 	const modcommand = require(`./commands/${modfile}`);
 	client.modcommands.set(modcommand.name, modcommand);
-	console.log(`MOD COMMAND: The command '${modcommand.name}' was loaded.`)
 }
 
 for (const allfile of allcommandFiles) {
@@ -40,7 +40,7 @@ for (const allfile of allcommandFiles) {
 }
 
 //Loading command part 3
-client.on('message', message => {
+client.on('message', async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	message.channel.startTyping()
 
@@ -48,35 +48,47 @@ client.on('message', message => {
 	const commandName = args.shift().toLowerCase();
 	const command = client.allcommands.get(commandName)
 		|| client.allcommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-	if (!command) {
+//Not a command
+		if (!command) {
 		message.channel.stopTyping()
 		return;
 	}
-
+//Command is unstable and not debug enabled
 	if (command.debug && DebugFeaturesEnabled != true){
 		message.reply('you are attempting to use a feature currently in testing and that could break the bot. If you would like to enable it, edit `DebugFeaturesEnabled` to `true` in the `info.json` file.')
 		message.channel.stopTyping()
+		message.react('❌')
 		return;
 	}
-
-	if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
-		message.reply(nopermreply)
+//Command is for bot managers (mods too in some cases)
+	if(command.botmanager == true){
+		command.execute(message, args);
 		message.channel.stopTyping()
 		return;
 	}
-
+//Command disabled
 	if (command.disable === true) {
 		message.reply('this command is currently disabled and not available. Please try again later or contact the bot owner if you believe this is a mistake.')
 		message.channel.stopTyping()
+		message.react('❌')
+		return;
+	}
+//Mod command and no permission
+	if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
+		message.reply(nopermreply)
+		message.channel.stopTyping()
+		message.react('❌')
 		return;
 	}
 
+//Run right away
 	if (command.nodelay == true){
 		command.execute(message, args);
 		message.channel.stopTyping()
 		return;
 	}
 
+	//Normal
 	try {
 		setTimeout(function(){ 
 			command.execute(message, args);
@@ -90,9 +102,12 @@ client.on('message', message => {
 
 	
 });
-//ready
+
+
+//Bot ready
 client.once('ready', () => {
 	console.log('Ready!');
+	console.log('Version '+version)
 		const path = './runstate.txt'
 		  if (fs.existsSync(path) && CrashNotify == true) {
 			//file exists
@@ -106,9 +121,10 @@ client.once('ready', () => {
 			.setTitle('Bot Started - Issue Detected')
 			.setDescription(`The bot loaded successfully, but restarted unexpectedly.`)
 			.addFields(
-				{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+				{ name: 'Current date/time: ', value: dateTime, inline: true },
 			)
 			.setTimestamp()
+			.setFooter(`Version ${version}`)
 			global.modlog = client.channels.cache.get(`${BotLog}`);
 			modlog.send(StartupEmbed);
 			return
@@ -123,9 +139,10 @@ client.once('ready', () => {
 			.setTitle('Bot Started')
 			.setDescription(`${BootSuccessful}`)
 			.addFields(
-				{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+				{ name: 'Current date/time: ', value: dateTime, inline: true },
 			)
 			.setTimestamp()
+			.setFooter(`Version ${version}`)
 			global.modlog = client.channels.cache.get(`${BotLog}`);
 			modlog.send(StartupEmbed);
 			fs.writeFileSync('./runstate.txt', 'running')
@@ -141,9 +158,10 @@ client.once('ready', () => {
 				.setTitle('Bot Started')
 				.setDescription(`${BootSuccessful}`)
 				.addFields(
-					{ name: 'Current date/time(PST): ', value: dateTime, inline: true },
+					{ name: 'Current date/time: ', value: dateTime, inline: true },
 				)
 				.setTimestamp()
+				.setFooter(`Version ${version}`)
 				global.modlog = client.channels.cache.get(`${BotLog}`);
 				modlog.send(StartupEmbed);
 				fs.writeFileSync('./runstate.txt', 'running')
@@ -232,17 +250,36 @@ if (message.attachments.size != '0'){
 }
 })
 
-client.on('message', message => {const profanity = require('./profanity.json');
+//@Moderator ping check
+client.on('message', message => {
+	return;//Unknown why it won't work
+	if (message.content.includes == `<@&${ModeratorRoleID}>`){
+	message.react('✅')
+	const ModeratorsTagged = new Discord.MessageEmbed()
+	.setColor('#df8149')
+	.setTitle('Moderators contacted')
+	.setDescription(`Hello <@${message.author.id}>, the moderators have now been contacted and they will be here as soon as possible. Please note tagging moderators without a good reason may result in a punishment.`)
+	.setTimestamp()
+	message.channel.send(ModeratorsTagged)
+}
+})
+
+//Profanity filter
+client.on('message', message => {
+	if(message.channel.type == 'dm')return;
+	if(message.author.bot)return;
+	const profanity = require('./profanity.json');
 	const blocked = profanity.filter(word => message.content.toLowerCase().includes(word));
 
 	if (blocked.length > 0) {
-	  console.log(`${message.author.tag} tried to use profanity.`);
-	  message.delete()
-	  message.reply('watch your language!')
-    const reason = message.content
-    fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Warning\nReason: Profanity (' + reason +')\n\n');
-    fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Warning issued by AutomatedAppleModerator \nReason: Profanity (' + message.content +')\n\n');
-message.author.send(`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.`)
+		if(blocked == ` ${blocked} `);
+		console.log(`${message.author.tag} tried to use profanity.`);
+		message.delete()
+	  	message.reply('watch your language!')
+    	const reason = message.content
+    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Warning\nReason: Profanity (' + reason +')\n\n');
+    	fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Warning issued by AutomatedAppleModerator \nReason: Profanity (' + message.content +')\n\n');
+		message.author.send(`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`)
 		.catch(console.error);
 	}
 })
@@ -343,7 +380,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	.setTitle('Message Edit')
 	.setDescription('A message edit was detected.')
 	.addFields(
-		{ name: 'Current date/time(PST): ', value: dateTime, inline: false },
+		{ name: 'Current date/time: ', value: dateTime, inline: false },
 		{ name: 'Channel sent: ', value: oldMessage.channel.name, inline: false },
 		{ name: 'Message author', value: oldMessage.author.tag, inline: false },
 		{ name: 'Old message', value: oldMessage, inline: true },
