@@ -211,6 +211,10 @@ client.on('guildMemberAdd', member => {
 		const role = guild.roles.cache.find(role => role.id === `${MemberRoleID}`);
 		member.roles.add(role);
 	}
+	fs.readFile('./files/welcomemessage.txt', function(err, data){
+		member.send(data)
+	})
+
 });
 
 //Member leave
