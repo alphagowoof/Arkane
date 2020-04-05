@@ -5,21 +5,16 @@ module.exports = {
   usage: '<text>',
   cooldown: 0,
   mod:true,
-  debug:true,
-  disable:true,
 	execute(message, args) {
     const Discord = require('discord.js');
-    const client = new Discord.Client();
     const fs = require('fs');
     const user = client.user
     const statuscontent = args.join(' ')
     try {
-      client.user.setPresence({
-        game: {
-            name: statuscontent,
-            type: "Playing",
-            url: "https://discordapp.com/"
-        }})
+      const activity = args.join(' ')
+      user.setActivity(activity, { type: 'WATCHING' });
+      fs.writeFileSync('./statusmessage.config', activity, 'utf-8');
+      message.channel.send('Bot activity set to `WATCHING '+activity+'`.')
   }catch(error) {
       // Your code broke (Leave untouched in most cases)
       console.error('an error has occured', error);
