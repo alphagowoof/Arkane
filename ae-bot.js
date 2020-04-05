@@ -3,7 +3,7 @@ global.Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
 const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./strings.json');
 const { BotManagerRoleID , ModeratorRoleID , OwnerID, MemberRoleID , UserLog, ModLog, BotLog , DebugChannel, DebugFeaturesEnabled, ProcessEndOnError, AssignMemberRoleOnJoin, CrashNotify } = require('./info.json');
-const client = new Discord.Client();
+global.client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
 client.allcommands = new Discord.Collection();
@@ -40,7 +40,7 @@ for (const allfile of allcommandFiles) {
 }
 
 //Loading command part 3
-client.on('message', message => {
+client.on('message', async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	message.channel.startTyping()
 
