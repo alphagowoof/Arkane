@@ -15,8 +15,10 @@ module.exports = {
 			if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){message.channel.send(`You can't perform that action on this user.`);return;}
 			// Code hopefully works
 			const user = message.mentions.members.first()
+			const reason = args.join(' ')
 			user.kick()
-			message.channel.send('<@'+user.id+'> was kicked from the server.')
+			message.channel.send('<@'+user.id+'> was kicked from the server.\nReason: '+reason)
+			user.send('You have been kicked from the server. You may rejoin at anytime.\n\nReason for kick: '+reason)
 		  } catch(error) {
 			// Your code broke (Leave untouched in most cases)
 			console.error('an error has occured', error);
