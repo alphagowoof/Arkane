@@ -4,14 +4,18 @@ module.exports = {
 	aliases: ['rebootbot', 'kill'],
 	usage: '',
 	cooldown: 0,
+	botmanager:true,
 	mod:true,
 	execute(message, args) {
 		try{
 		const fs = require('fs');
 		fs.unlinkSync('./runstate.txt')
-		const client = new Discord.Client();
+		
 		const { MessageEmbed } = require('discord.js')
-		message.channel.send('Restarting. See you soon! :wave:')
+		const RestartedEmbed = new Discord.MessageEmbed()
+		RestartedEmbed.setTitle('🔄 Restarting')
+		RestartedEmbed.setDescription('Restarting bot and reloading commands, please wait a moment.')
+		message.channel.send(RestartedEmbed)
 		setTimeout(function(){ 
 			process.exit()
 		}, 5000);
