@@ -7,7 +7,7 @@ module.exports = {
   disable:false,
 	execute(message, args) {
     const Discord = require('discord.js');
-    const client = new Discord.Client();
+    
 	const fs = require('fs');
 	const { prefix, token } = require('../config.json');
 	const argarray = message.content.slice(prefix.length).trim().split(/ +/g);

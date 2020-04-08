@@ -6,7 +6,7 @@ module.exports = {
   cooldown: 0,
 	execute(message, args) {
     const Discord = require('discord.js');
-    const client = new Discord.Client();
+    
     try {message.author.send('Here is what I have on you.')
     const fs = require('fs');
     message.channel.send('I attempted to sent the information to your direct messages. If you don\'t get a message, make sure you have your direct messages open.')

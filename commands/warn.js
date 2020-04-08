@@ -8,7 +8,7 @@ module.exports = {
   nodelay:true,
 	execute(message, args) {
     const Discord = require('discord.js');
-    const client = new Discord.Client();
+    
     const fs = require('fs');
     try {
       if (message.author.id == message.mentions.members.first().id){message.channel.send(`You can't perform this action on yourself.`);return;}
