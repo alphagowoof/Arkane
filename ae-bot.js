@@ -9,7 +9,7 @@ client.modcommands = new Discord.Collection();
 client.allcommands = new Discord.Collection();
 const { MessageEmbed } = require('discord.js')
 const cooldowns = new Discord.Collection();
-global.version = '2.0.0'
+global.version = '2.0.1'
 
 //Checking ALL files
 const allFiles = fs.readdirSync('./')
@@ -243,11 +243,14 @@ client.on('guildMemberRemove', member => {
 //#Shot on iPhone channel auto reaction
 client.on('message', message => {
 if (message.author.bot)return;
-if (message.channel.id != '616472674406760448')return;
+if (message.channel.id != '694776234302898246')return;
+const content = message.content.toLowerCase();
 if (message.attachments.size != '0'){
+	if (!content.includes(`iphone`)){message.reply('please specify the iPhone used to shoot the picture.');message.delete();return;}else
+	{
 	message.react('❤️');
 	message.react('👍');
-}
+}}
 })
 
 //@Moderator ping check
