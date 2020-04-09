@@ -29,12 +29,6 @@ for (const file of commandFiles) {
 			client.commands.set(command.name, command);
 		}
 }
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-		if(!command.mod){
-			client.commands.set(command.name, command);
-		}
-}
 for (const modfile of modcommandFiles) {
 	const modcommand = require(`./commands/${modfile}`);
 	client.modcommands.set(modcommand.name, modcommand);
