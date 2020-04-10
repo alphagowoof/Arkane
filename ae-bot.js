@@ -104,6 +104,25 @@ client.on('message', async message => {
 	
 });
 
+//Checks for restart command from repair bot
+client.on('message', message => {
+	if(!message.author.bot){return}else{
+		if(message.channel.type == 'dm'){
+			if(message.content == 'repairbot-invoke-restart'){
+				const botreport = client.channels.cache.get(`${BotLog}`);
+				respond('Restarting', 'Restart initiated via repair bot. Please wait a moment.', botreport)
+				setTimeout(function(){ 
+					process.exit()
+				}, 5000);
+			}
+		}
+	}
+})
+
+
+
+
+
 global.respond = function (title, content, sendto, color){
 	var RespondEmbed = new Discord.MessageEmbed()
 		RespondEmbed.setTitle(title)
