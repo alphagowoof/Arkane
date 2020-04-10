@@ -9,7 +9,7 @@ client.modcommands = new Discord.Collection();
 client.allcommands = new Discord.Collection();
 const { MessageEmbed } = require('discord.js')
 const cooldowns = new Discord.Collection();
-global.version = '3.0.0'
+global.version = '3.0.1'
 global.footertext = 'Version '+version
 
 //Checking ALL files
