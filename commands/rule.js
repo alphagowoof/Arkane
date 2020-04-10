@@ -16,7 +16,7 @@ module.exports = {
 	var entry = rulenumber; // This is the argument of the command ".load 1"
 	var dict = require("../rules.json"); // The JSON data to load from
 	var result = dict['Rule'+argarray[1]]; // The thing that was loaded
-	if(`${result}` == 'undefined'){message.channel.send('Please make sure you entered a valid rule number.');return;}
+	if(`${result}` == 'undefined'){respond('','Please make sure you entered a valid rule number.',message.channel);return;}
 		try {
 		const RuleEmbed = new Discord.MessageEmbed()
 		.setTitle('About Rule '+argarray[1])

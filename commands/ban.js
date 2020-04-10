@@ -15,9 +15,10 @@ module.exports = {
 			const guild = message.guild
 			let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
 			const reason = reasonraw.join(' ')
-			message.channel.send('<@'+user+'> was banned.\nReason: '+reason);
-			user.send('You were banned from the Apple Explained server due to: '+ reason)
-    	    guild.members.ban(user);
+			respond('Ban','<@'+user+'> was banned.\nReason: '+reason, message.channel)
+			respond('Banned','You were banned from the Apple Explained server due to: '+ reason, user)
+			guild.members.ban(user);
+			modaction(this.name, message.author.tag, message.channel.name, message.content)
     		}
         catch(error) {
 			// Your code broke (Leave untouched in most cases)

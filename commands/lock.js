@@ -10,9 +10,12 @@ module.exports = {
     
 	const fs = require('fs');
 	const channel = message.channel
+	const reason = args.join(' ')
     try {
 		channel.updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: false });
-		message.channel.send('<#'+message.channel+'> was locked.')
+		if(args != ''){respond('🔒','<#'+message.channel+'> was locked.\nReason: '+reason, message.channel)}
+		else{respond('🔒','<#'+message.channel+'> was locked.\n', message.channel)}
+		modaction(this.name, message.author.tag, message.channel.name, message.content)
 	}
 		catch(error) {
 			// Your code broke (Leave untouched in most cases)

@@ -13,26 +13,13 @@ module.exports = {
 			const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
 			const preamount = argarray[1]
 			const amount = Number(`${preamount}`)
+			modaction(this.name, message.author.tag, message.channel.name, message.content)
 			try{
 				message.channel.bulkDelete(amount+1)
-				const ModReportPurge = new Discord.MessageEmbed()
-				ModReportPurge.setColor('#ff0000')
-				ModReportPurge.setTitle('Mod Action')
-				ModReportPurge.setDescription(`A moderation action was taken.`)
-				ModReportPurge.addFields(
-					{ name: 'Command', value: `${this.name} ${argarray[1]}`, inline: false },
-					{ name: 'Executor', value: `${message.author.tag}`, inline: false },
-					{ name: 'Channel', value: `${message.channel.name}`, inline: false },
-				)
-				ModReportPurge.setTimestamp()
-				const modlogchannel = client.channels.cache.get(`${ModLog}`);
-				modlogchannel.send(ModReportPurge)
+				modaction(this.name, message.author.tag, message.channel.name, message.content)
 			}catch(error){
 				console.log(error)
-					const channel = client.channels.cache.get(`${ModLog}`);
-					channel.send(`The ${name} command was used by ${message.author.tag} (${message.author.id}) in the channel ${message.channel.name}.`)
-					channel.send(`An error has occurred while attempting to use the ${this.name} command. Please try again later.\nError: ${error}`);
-					return;
+					respond('❗', `You can only purge up to 100 messages at a time.`, message.channel);return;
 						}
 		}catch(error) {
 			// Your code broke (Leave untouched in most cases)

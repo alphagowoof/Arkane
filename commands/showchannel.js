@@ -9,7 +9,8 @@ module.exports = {
 	const channel = message.channel
     try {
 		channel.updateOverwrite(channel.guild.roles.everyone, { VIEW_CHANNEL: true });
-		message.channel.send('<#'+message.channel+'> is no longer hidden.')
+		respond('','<#'+message.channel.id+'> is no longer hidden.', message.channel)
+		modaction(this.name, message.author.tag, message.channel.name, message.content)
 	}
 		catch(error) {
 			// Your code broke (Leave untouched in most cases)

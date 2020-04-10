@@ -6,13 +6,14 @@ module.exports = {
   cooldown: 0,
   mod:true,
 	execute(message, args) {
-    const Discord = require('discord.js');
-    
 	const fs = require('fs');
 	const channel = message.channel
+	const reason = args.join(' ')
     try {
 		channel.updateOverwrite(channel.guild.roles.everyone, { SEND_MESSAGES: true });
-		message.channel.send('<#'+message.channel.id+'> was unlocked.')
+		if(args != ''){respond('🔓', `<#${message.channel.id}> was unlocked.\nReason: `+reason, message.channel)}
+		else{respond('🔓', `<#${message.channel.id}> was unlocked.`, message.channel)}
+		modaction(this.name, message.author.tag, message.channel.name, message.content)
 	}
 		catch(error) {
 			// Your code broke (Leave untouched in most cases)

@@ -8,7 +8,8 @@ module.exports = {
 	const channel = message.channel
     try {
 		channel.updateOverwrite(channel.guild.roles.everyone, { VIEW_CHANNEL: false });
-		message.channel.send('<#'+message.channel+'> was hidden.')
+		respond('','<#'+message.channel+'> was hidden.',message.channel)
+		modaction(this.name, message.author.tag, message.channel.name, message.content)
 	}
 		catch(error) {
 			// Your code broke (Leave untouched in most cases)
