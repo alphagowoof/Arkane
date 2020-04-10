@@ -234,7 +234,7 @@ client.on('guildMemberRemove', member => {
 //#Shot on iPhone channel auto reaction
 client.on('message', message => {
 if (message.author.bot)return;
-if (message.channel.id != '694776234302898246')return;
+if (message.channel.id != '616472674406760448')return;
 const content = message.content.toLowerCase();
 if (message.attachments.size != '0'){
 	if (!content.includes(`iphone`)){message.reply('please specify the iPhone used to shoot the picture.');message.delete();return;}else
