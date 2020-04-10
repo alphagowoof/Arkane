@@ -111,6 +111,7 @@ client.on('message', message => {
 			if(message.content == 'repairbot-invoke-restart'){
 				const botreport = client.channels.cache.get(`${BotLog}`);
 				respond('Restarting', 'Restart initiated via repair bot. Please wait a moment.', botreport)
+				message.author.send('202-ok')
 				setTimeout(function(){ 
 					process.exit()
 				}, 5000);
