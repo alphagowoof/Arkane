@@ -7,7 +7,7 @@ module.exports = {
   mod:true,
 	execute(message, args) {
     const Discord = require('discord.js');
-    const client = new Discord.Client();
+    
     const fs = require('fs');
     const {MuteRoleID} = require('../info.json');
     try {
@@ -21,7 +21,8 @@ module.exports = {
     const role = guild.roles.cache.find(role => role.id === `${MuteRoleID}`);
     const member = message.mentions.members.first();
    member.roles.remove(role);
-    message.channel.send('<@'+ taggeduser +'> was unmuted.');
+    respond('🔈 Unmuted','<@'+ taggeduser +'> was unmuted.',message.channel);
+    modaction(this.name, message.author.tag, message.channel.name, message.content)
   }catch(error) {
     // Your code broke (Leave untouched in most cases)
     console.error('an error has occured', error);

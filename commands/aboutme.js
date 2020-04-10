@@ -5,7 +5,7 @@ module.exports = {
   usage: '-',
 	execute(message, args) {
     const Discord = require('discord.js');
-    const client = new Discord.Client();
+    
     message.author.send('Here is what I have on you.')
     message.channel.send('I\'ve sent the information to your direct messages!')
     const fs = require('fs');

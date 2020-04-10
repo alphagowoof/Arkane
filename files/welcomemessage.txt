@@ -1,7 +1,9 @@
-Welcome to Apple Explained's server! A few things first;
+- This is a family friendly server, so NSFW content and profanity won't be accepted and will result in a punishment.
 
-- This is a family friendly server, so NSFW content and profanty won't be accepted and will result in a punishment.
+- To keep the members of the server safe, Apple Moderator logs sent and deleted messages for moderation purposes.
 
-- To keep the members of the server safe, Apple Mod log sent and deleted messages for moderation purposes.
+- You can see the available commands for this bot by doing `.help` in the server.
 
-Read more of the rules here <#613166038221193226>
+
+Read the rules here:  <#613166038221193226>
+If you have any more questions, please send a message to our Mod Mail bot.

@@ -8,7 +8,7 @@ module.exports = {
   nodelay:true,
 	execute(message, args) {
     const Discord = require('discord.js');
-    const client = new Discord.Client();
+    
     const fs = require('fs');
     const {MuteRoleID} = require('../info.json');
     console.log("some string")
@@ -26,10 +26,11 @@ module.exports = {
      const mentionedmember = '<@'+message.mentions.users.first().id+'>'
       const member = message.mentions.members.first();
      member.roles.add([role]);
-     member.send(`You were muted due to:\n ${reason}`)
-     message.channel.send(mentionedmember+' was muted.');
+     respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
+     respond('🔇 Muted',mentionedmember+' was muted.', message.channel);
       fs.appendFileSync('./logs/' + taggeduser + '-warnings.log', 'Mute\nReason: ' + reason +'\n\n');
       fs.appendFileSync('./logs/' + taggeduser + '-modwarnings.log', 'Mute issued by '+ message.author.tag +'\nReason: ' + reason +'\n\n');
+      modaction(this.name, message.author.tag, message.channel.name, message.content)
     }catch(error) {
     // Your code broke (Leave untouched in most cases)
     console.error('an error has occured', error);

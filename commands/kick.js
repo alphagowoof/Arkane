@@ -16,9 +16,10 @@ module.exports = {
 			// Code hopefully works
 			const user = message.mentions.members.first()
 			const reason = args.join(' ')
+			respond('⬅️ Kick','<@'+user.id+'> was kicked from the server.\nReason: '+reason, message.channel)
+			respond('⬅️ Kick','You have been kicked from the server. You may rejoin at anytime.\n\nReason for kick: '+reason, user)
+			modaction(this.name, message.author.tag, message.channel.name, message.content)
 			user.kick()
-			message.channel.send('<@'+user.id+'> was kicked from the server.\nReason: '+reason)
-			user.send('You have been kicked from the server. You may rejoin at anytime.\n\nReason for kick: '+reason)
 		  } catch(error) {
 			// Your code broke (Leave untouched in most cases)
 			console.error('an error has occured', error);

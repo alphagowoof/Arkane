@@ -7,7 +7,7 @@ module.exports = {
   disable:false,
 	execute(message, args) {
     const Discord = require('discord.js');
-    const client = new Discord.Client();
+    
 	const fs = require('fs');
 	const { prefix, token } = require('../config.json');
 	const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -16,7 +16,7 @@ module.exports = {
 	var entry = rulenumber; // This is the argument of the command ".load 1"
 	var dict = require("../rules.json"); // The JSON data to load from
 	var result = dict['Rule'+argarray[1]]; // The thing that was loaded
-	if(`${result}` == 'undefined'){message.channel.send('Please make sure you entered a valid rule number.');return;}
+	if(`${result}` == 'undefined'){respond('','Please make sure you entered a valid rule number.',message.channel);return;}
 		try {
 		const RuleEmbed = new Discord.MessageEmbed()
 		.setTitle('About Rule '+argarray[1])

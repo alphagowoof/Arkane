@@ -14,7 +14,7 @@ module.exports = {
       const activity = args.join(' ')
       user.setActivity(activity, { type: 'WATCHING' });
       fs.writeFileSync('./statusmessage.config', activity, 'utf-8');
-      message.channel.send('Bot activity set to `WATCHING '+activity+'`.')
+      respond('','Bot activity set to `WATCHING '+activity+'`.', message.channel)
   }catch(error) {
       // Your code broke (Leave untouched in most cases)
       console.error('an error has occured', error);

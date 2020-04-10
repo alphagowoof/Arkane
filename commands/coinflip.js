@@ -6,15 +6,15 @@ module.exports = {
   cooldown: 0,
 	execute(message, args) {
     const Discord = require('discord.js');
-    const client = new Discord.Client();
+    
     const fs = require('fs');
     try {
     var number = Math.ceil(Math.random() * 10)
     if (number > 5){
-      message.channel.send('Heads.')
+      respond('','Heads.',message.channel)
     return;
   }else {
-    message.channel.send('Tails.')}
+    respond('','Tails.', message.channel)}
     return;
   }catch(error) {
     // Your code broke (Leave untouched in most cases)

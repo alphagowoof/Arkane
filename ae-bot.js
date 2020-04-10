@@ -9,7 +9,8 @@ client.modcommands = new Discord.Collection();
 client.allcommands = new Discord.Collection();
 const { MessageEmbed } = require('discord.js')
 const cooldowns = new Discord.Collection();
-global.version = '2.0.1'
+global.version = '3.0.0'
+global.footertext = 'Version '+version
 
 //Checking ALL files
 const allFiles = fs.readdirSync('./')
@@ -75,7 +76,7 @@ client.on('message', async message => {
 	}
 //Mod command and no permission
 	if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
-		message.reply(nopermreply)
+		respond('🛑 Incorrect permissions',`<@${message.author.id}>, ${nopermreply}`, message.channel) 
 		message.channel.stopTyping()
 		message.react('❌')
 		return;
@@ -88,7 +89,7 @@ client.on('message', async message => {
 		return;
 	}
 
-	//Normal
+//Normal
 	try {
 		setTimeout(function(){ 
 			command.execute(message, args);
@@ -103,70 +104,56 @@ client.on('message', async message => {
 	
 });
 
+global.respond = function (title, content, sendto, color){
+	var RespondEmbed = new Discord.MessageEmbed()
+		RespondEmbed.setTitle(title)
+		RespondEmbed.setDescription(content)
+		if(color){
+			RespondEmbed.setColor(color)
+		}
+		sendto.send(RespondEmbed)
+}
+global.modaction = function (RanCommand, RanBy, RanIn, FullCommand){
+	const ModReportEmbed = new Discord.MessageEmbed()
+		ModReportEmbed.setColor('#F3ECEC')
+		ModReportEmbed.setTitle('Mod Action')
+		ModReportEmbed.setDescription(`A moderation action has occurred.`)
+		ModReportEmbed.addFields(
+			{ name: 'Command', value: `${RanCommand}`, inline: false },
+			{ name: 'Executor', value: `${RanBy}`, inline: false },
+			{ name: 'Channel', value: `${RanIn}`, inline: false },
+			{name: 'Full message', value: `${FullCommand}`, inline:false}
+		)
+		ModReportEmbed.setTimestamp()
+		ModReportEmbed
+		const modlogchannel = client.channels.cache.get(`${ModLog}`);
+		modlogchannel.send(ModReportEmbed)
+}
+global.erroralert = function (err, message){
+	var ErrorEmbed = new Discord.MessageEmbed()
+		ErrorEmbed.setTitle('Error')
+		ErrorEmbed.setDescription('An error has occurred while the bot was running.\n\n'+errorinfo)
+		ErrorEmbed.setColor('FF0000')
+		const errorlog = client.channels.cache.get(`${BotLog}`);
+		errorlog.send(ErrorEmbed)
+}
+
+
 
 //Bot ready
 client.once('ready', () => {
 	console.log('Ready!');
 	console.log('Version '+version)
 		const path = './runstate.txt'
-		  if (fs.existsSync(path) && CrashNotify == true) {
-			//file exists
-			var today = new Date();
-			var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-			global.dateTime = date+' '+time;
-
-				const StartupEmbed = new Discord.MessageEmbed()
-			.setColor('#ffa900')
-			.setTitle('Bot Started - Issue Detected')
-			.setDescription(`The bot loaded successfully, but restarted unexpectedly.`)
-			.addFields(
-				{ name: 'Current date/time: ', value: dateTime, inline: true },
-			)
-			.setTimestamp()
-			.setFooter(`Version ${version}`)
-			global.modlog = client.channels.cache.get(`${BotLog}`);
-			modlog.send(StartupEmbed);
-			return
-		  }else
-		  if(fs.existsSync(path) && CrashNotify != true){
-			var today = new Date();
-			var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-			global.dateTime = date+' '+time;
-			const StartupEmbed = new Discord.MessageEmbed()
-			.setColor('#00FF00')
-			.setTitle('Bot Started')
-			.setDescription(`${BootSuccessful}`)
-			.addFields(
-				{ name: 'Current date/time: ', value: dateTime, inline: true },
-			)
-			.setTimestamp()
-			.setFooter(`Version ${version}`)
-			global.modlog = client.channels.cache.get(`${BotLog}`);
-			modlog.send(StartupEmbed);
-			fs.writeFileSync('./runstate.txt', 'running')
-			return;
-		  }
-		  else{
-		  var today = new Date();
-				var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-				var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-				global.dateTime = date+' '+time;
-				const StartupEmbed = new Discord.MessageEmbed()
-				.setColor('#00FF00')
-				.setTitle('Bot Started')
-				.setDescription(`${BootSuccessful}`)
-				.addFields(
-					{ name: 'Current date/time: ', value: dateTime, inline: true },
-				)
-				.setTimestamp()
-				.setFooter(`Version ${version}`)
-				global.modlog = client.channels.cache.get(`${BotLog}`);
-				modlog.send(StartupEmbed);
-				fs.writeFileSync('./runstate.txt', 'running')
-				return;
-				}
+		if (fs.existsSync(path) && CrashNotify == true) {
+			client.emit("StartupIssue")
+		}else
+		if(fs.existsSync(path) && CrashNotify != true){
+			client.emit('StartupPassed')
+		}
+		else{
+		  client.emit('StartupPassed')
+		}
 			
 });
 
@@ -208,11 +195,15 @@ client.on('guildMemberAdd', member => {
 	.setTimestamp()
 	channel.send(MemberJoinEmbed)
 	if(AssignMemberRoleOnJoin == true){
-		const role = guild.roles.cache.find(role => role.id === `${MemberRoleID}`);
+		const role = member.guild.roles.cache.find(role => role.id === `${MemberRoleID}`);
 		member.roles.add(role);
 	}
 	fs.readFile('./files/welcomemessage.txt', function(err, data){
-		member.send(data)
+		messagetosend = data.toString()
+		const WelcomeEmbedDM = new Discord.MessageEmbed()
+		WelcomeEmbedDM.setTitle('Welcome! 👋')
+		WelcomeEmbedDM.setDescription('Welcome to the '+member.guild.name+' server!\n'+messagetosend)
+		member.send(WelcomeEmbedDM)
 	})
 });
 
@@ -395,4 +386,44 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	const channel = client.channels.cache.get(`${ModLog}`);
 	channel.send(MessageEditEmbed);
 
+})
+
+//Below are client emit actions
+client.on("StartupIssue", () => {
+	var today = new Date();
+		var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+		var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+		global.dateTime = date+' '+time;
+		const StartupEmbed = new Discord.MessageEmbed()
+		.setColor('#ffa900')
+		.setTitle('Bot Started - Issue Detected')
+		.setDescription(`The bot loaded successfully, but restarted unexpectedly.`)
+		.addFields(
+			{ name: 'Current date/time: ', value: dateTime, inline: true },
+		)
+		.setTimestamp()
+		.setFooter(footertext)
+		global.modlog = client.channels.cache.get(`${BotLog}`);
+		modlog.send(StartupEmbed);
+		return
+})
+
+client.on('StartupPassed', () => {
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	global.dateTime = date+' '+time;
+	const StartupEmbed = new Discord.MessageEmbed()
+	.setColor('#00FF00')
+	.setTitle('Bot Started')
+	.setDescription(`${BootSuccessful}`)
+	.addFields(
+		{ name: 'Current date/time: ', value: dateTime, inline: true },
+	)
+	.setTimestamp()
+	.setFooter(footertext)
+	global.modlog = client.channels.cache.get(`${BotLog}`);
+	modlog.send(StartupEmbed);
+	fs.writeFileSync('./runstate.txt', 'running')
+	return;
 })
