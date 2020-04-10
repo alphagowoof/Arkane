@@ -9,7 +9,7 @@ client.modcommands = new Discord.Collection();
 client.allcommands = new Discord.Collection();
 const { MessageEmbed } = require('discord.js')
 const cooldowns = new Discord.Collection();
-global.version = '2.0.1'
+global.version = '3.0.0'
 global.footertext = 'Version '+version
 
 //Checking ALL files
@@ -76,7 +76,7 @@ client.on('message', async message => {
 	}
 //Mod command and no permission
 	if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
-		message.reply(nopermreply)
+		respond('🛑 Incorrect permissions',`<@${message.author.id}>, ${nopermreply}`, message.channel) 
 		message.channel.stopTyping()
 		message.react('❌')
 		return;
@@ -103,6 +103,41 @@ client.on('message', async message => {
 
 	
 });
+
+global.respond = function (title, content, sendto, color){
+	var RespondEmbed = new Discord.MessageEmbed()
+		RespondEmbed.setTitle(title)
+		RespondEmbed.setDescription(content)
+		if(color){
+			RespondEmbed.setColor(color)
+		}
+		sendto.send(RespondEmbed)
+}
+global.modaction = function (RanCommand, RanBy, RanIn, FullCommand){
+	const ModReportEmbed = new Discord.MessageEmbed()
+		ModReportEmbed.setColor('#F3ECEC')
+		ModReportEmbed.setTitle('Mod Action')
+		ModReportEmbed.setDescription(`A moderation action has occurred.`)
+		ModReportEmbed.addFields(
+			{ name: 'Command', value: `${RanCommand}`, inline: false },
+			{ name: 'Executor', value: `${RanBy}`, inline: false },
+			{ name: 'Channel', value: `${RanIn}`, inline: false },
+			{name: 'Full message', value: `${FullCommand}`, inline:false}
+		)
+		ModReportEmbed.setTimestamp()
+		ModReportEmbed
+		const modlogchannel = client.channels.cache.get(`${ModLog}`);
+		modlogchannel.send(ModReportEmbed)
+}
+global.erroralert = function (err, message){
+	var ErrorEmbed = new Discord.MessageEmbed()
+		ErrorEmbed.setTitle('Error')
+		ErrorEmbed.setDescription('An error has occurred while the bot was running.\n\n'+errorinfo)
+		ErrorEmbed.setColor('FF0000')
+		const errorlog = client.channels.cache.get(`${BotLog}`);
+		errorlog.send(ErrorEmbed)
+}
+
 
 
 //Bot ready
