@@ -62,7 +62,7 @@ client.on('message', async message => {
 		return;
 	}
 //Command is for bot managers (mods too in some cases)
-	if(command.botmanager == true){
+	if(command.botmanager == true && message.member.roles.cache.some(role => role.id === `${BotManagerRoleID}`)){
 		command.execute(message, args);
 		message.channel.stopTyping()
 		return;
@@ -106,12 +106,13 @@ client.on('message', async message => {
 
 //Checks for restart command from repair bot
 client.on('message', message => {
+	return;
 	if(!message.author.bot){return}else{
-		if(message.channel.type == 'dm'){
-			if(message.content == 'repairbot-invoke-restart'){
+		if(!message.channel.type == 'dm'){
+			if(message.content == 'rbinit.repairbot-invoke-restart'){
 				const botreport = client.channels.cache.get(`${BotLog}`);
 				respond('Restarting', 'Restart initiated via repair bot. Please wait a moment.', botreport)
-				message.author.send('202-ok')
+				message.channel.send('202-ok')
 				setTimeout(function(){ 
 					process.exit()
 				}, 5000);
@@ -145,7 +146,6 @@ global.modaction = function (RanCommand, RanBy, RanIn, FullCommand){
 			{name: 'Full message', value: `${FullCommand}`, inline:false}
 		)
 		ModReportEmbed.setTimestamp()
-		ModReportEmbed
 		const modlogchannel = client.channels.cache.get(`${ModLog}`);
 		modlogchannel.send(ModReportEmbed)
 }
