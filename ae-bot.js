@@ -1,12 +1,11 @@
 global.fs = require('fs');
 global.Discord = require('discord.js');
-const { prefix, token } = require('./config.json');
-const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./strings.json');
-const { BotManagerRoleID , ModeratorRoleID , OwnerID, MemberRoleID , UserLog, ModLog, BotLog , DebugChannel, DebugFeaturesEnabled, ProcessEndOnError, AssignMemberRoleOnJoin, CrashNotify } = require('./info.json');
 global.client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
-client.allcommands = new Discord.Collection();
+const { prefix, token } = require('./config.json');
+const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./strings.json');
+const { BotManagerRoleID , ModeratorRoleID , OwnerID, MemberRoleID , UserLog, ModLog, BotLog , DebugChannel, DebugFeaturesEnabled, ProcessEndOnError, AssignMemberRoleOnJoin, CrashNotify } = require('./info.json');
 const { MessageEmbed } = require('discord.js')
 const cooldowns = new Discord.Collection();
 global.version = '3.0.1'
@@ -21,7 +20,6 @@ for (const foundfile of allFiles){
 //Loading commands part 1
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const modcommandFiles = fs.readdirSync('./commands').filter(modfile => modfile.endsWith('.js'));
-const allcommandFiles = fs.readdirSync('./commands').filter(allfile => allfile.endsWith('.js'));
 //Loading commands part 2
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -31,47 +29,27 @@ for (const file of commandFiles) {
 }
 for (const modfile of modcommandFiles) {
 	const modcommand = require(`./commands/${modfile}`);
+	console.log(`INFO: The command '${modcommand.name}' was loaded.`)
 	client.modcommands.set(modcommand.name, modcommand);
-}
-
-for (const allfile of allcommandFiles) {
-	const allcommand = require(`./commands/${allfile}`);
-	client.allcommands.set(allcommand.name, allcommand);
-	console.log(`ALL COMMAND: The command '${allcommand.name}' was loaded.`)
 }
 
 //Loading command part 3
 client.on('message', async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
-	message.channel.startTyping()
-
-	const args = message.content.slice(prefix.length).split(/ +/);
-	const commandName = args.shift().toLowerCase();
-	const command = client.allcommands.get(commandName)
-		|| client.allcommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+		message.channel.startTyping()
+		const args = message.content.slice(prefix.length).split(/ +/);
+		const commandName = args.shift().toLowerCase();
+		const command = client.modcommands.get(commandName)
+			|| client.modcommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 //Not a command
 		if (!command) {
-		message.channel.stopTyping()
-		return;
-	}
-//Command is unstable and not debug enabled
-	if (command.debug && DebugFeaturesEnabled != true){
-		message.reply('you are attempting to use a feature currently in testing and that could break the bot. If you would like to enable it, edit `DebugFeaturesEnabled` to `true` in the `info.json` file.')
-		message.channel.stopTyping()
-		message.react('❌')
-		return;
-	}
-//Command is for bot managers (mods too in some cases)
+			message.channel.stopTyping()
+			return;
+		}
+//Bot Manager (over mod)
 	if(command.botmanager == true && message.member.roles.cache.some(role => role.id === `${BotManagerRoleID}`)){
 		command.execute(message, args);
 		message.channel.stopTyping()
-		return;
-	}
-//Command disabled
-	if (command.disable === true) {
-		message.reply('this command is currently disabled and not available. Please try again later or contact the bot owner if you believe this is a mistake.')
-		message.channel.stopTyping()
-		message.react('❌')
 		return;
 	}
 //Mod command and no permission
@@ -89,7 +67,7 @@ client.on('message', async message => {
 		return;
 	}
 
-//Normal
+//Normal (with delay)
 	try {
 		setTimeout(function(){ 
 			command.execute(message, args);
@@ -103,27 +81,6 @@ client.on('message', async message => {
 
 	
 });
-
-//Checks for restart command from repair bot
-client.on('message', message => {
-	return;
-	if(!message.author.bot){return}else{
-		if(!message.channel.type == 'dm'){
-			if(message.content == 'rbinit.repairbot-invoke-restart'){
-				const botreport = client.channels.cache.get(`${BotLog}`);
-				respond('Restarting', 'Restart initiated via repair bot. Please wait a moment.', botreport)
-				message.channel.send('202-ok')
-				setTimeout(function(){ 
-					process.exit()
-				}, 5000);
-			}
-		}
-	}
-})
-
-
-
-
 
 global.respond = function (title, content, sendto, color){
 	var RespondEmbed = new Discord.MessageEmbed()
@@ -149,15 +106,6 @@ global.modaction = function (RanCommand, RanBy, RanIn, FullCommand){
 		const modlogchannel = client.channels.cache.get(`${ModLog}`);
 		modlogchannel.send(ModReportEmbed)
 }
-global.erroralert = function (err, message){
-	var ErrorEmbed = new Discord.MessageEmbed()
-		ErrorEmbed.setTitle('Error')
-		ErrorEmbed.setDescription('An error has occurred while the bot was running.\n\n'+errorinfo)
-		ErrorEmbed.setColor('FF0000')
-		const errorlog = client.channels.cache.get(`${BotLog}`);
-		errorlog.send(ErrorEmbed)
-}
-
 
 
 //Bot ready
@@ -200,11 +148,13 @@ client.on('guildMemberAdd', member => {
 	global.dateTime = date+' '+time;
 	const channel = member.guild.channels.cache.find(ch => ch.id === `${UserLog}`);
 	const guild = member.guild
+	const icon = member.user.displayAvatarURL()
 	if (!channel) return;
 	fs.appendFileSync('./logs/user.log', `${member.user.tag} (${member.id}) joined at '${dateTime}'.\nAccount creation date: ${member.user.createdAt}\nCurrent guild user count: ${guild.memberCount}\n\n`)
 	const MemberJoinEmbed = new Discord.MessageEmbed()
 	.setColor('#00FF00')
 	.setTitle('Member Join')
+	.setThumbnail(`${icon}`)
 	.addFields(
 		{ name: 'Username', value: member.user.tag, inline: false },
 		{ name: 'Member ID', value: member.id, inline: false },
@@ -235,11 +185,13 @@ client.on('guildMemberRemove', member => {
 	global.dateTime = date+' '+time;
 	const channel = member.guild.channels.cache.find(ch => ch.id === `${UserLog}`);
 	const guild = member.guild
+	const icon = member.user.displayAvatarURL({ dynamic: true })
 	if (!channel) return;
 	fs.appendFileSync('./logs/user.log', `${member.user.tag} (${member.id}) left at '${dateTime}'.\nAccount creation date: ${member.user.createdAt}\nCurrent guild user count: ${guild.memberCount}\n\n`)
 	const MemberLeaveEmbed = new Discord.MessageEmbed()
 	.setColor('#ff0000')
 	.setTitle('Member Leave')
+	.setThumbnail(`${icon}`)
 	.addFields(
 		{ name: 'Username', value: member.user.tag, inline: false },
 		{ name: 'Member ID', value: member.user.id, inline: false },
@@ -251,56 +203,23 @@ client.on('guildMemberRemove', member => {
 	channel.send(MemberLeaveEmbed)
 });
 
-//#Shot on iPhone channel auto reaction
-client.on('message', message => {
-if (message.author.bot)return;
-if (message.channel.id != '616472674406760448')return;
-const content = message.content.toLowerCase();
-if (message.attachments.size != '0'){
-	if (!content.includes(`iphone`)){message.reply('please specify the iPhone used to shoot the picture.');message.delete();return;}else
-	{
-	message.react('❤️');
-	message.react('👍');
-}}
-})
-
-//@Moderator ping check
-client.on('message', message => {
-	return;//Unknown why it won't work
-	if (message.content.includes == `<@&${ModeratorRoleID}>`){
-	message.react('✅')
-	const ModeratorsTagged = new Discord.MessageEmbed()
-	.setColor('#df8149')
-	.setTitle('Moderators contacted')
-	.setDescription(`Hello <@${message.author.id}>, the moderators have now been contacted and they will be here as soon as possible. Please note tagging moderators without a good reason may result in a punishment.`)
-	.setTimestamp()
-	message.channel.send(ModeratorsTagged)
-}
-})
-
 //Profanity filter
 client.on('message', message => {
 	if(message.channel.type == 'dm')return;
-	if(message.author.bot)return;
 	const profanity = require('./profanity.json');
 	const blocked = profanity.filter(word => message.content.toLowerCase().includes(word));
 
 	if (blocked.length > 0) {
 		if(blocked == ` ${blocked} `);
-		console.log(`${message.author.tag} tried to use profanity.`);
+		console.log(`${message.author.tag} tried to use profanity. Logged word: ${blocked}`);
 		message.delete()
-	  	message.reply('watch your language!')
-    	const reason = message.content
+		  message.reply('please watch your language. A warning has been logged.')
+    	const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
     	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Warning\nReason: Profanity (' + reason +')\n\n');
     	fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Warning issued by AutomatedAppleModerator \nReason: Profanity (' + message.content +')\n\n');
-		message.author.send(`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`)
-		.catch(console.error);
+		respond('Profanity Filter 🗣️',`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`, message.author)
 	}
 })
-
-//Login
-client.login(token);;
-
 
 //Log deleted messages
 client.on('messageDelete', async message => {
@@ -434,16 +353,19 @@ client.on('StartupPassed', () => {
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	global.dateTime = date+' '+time;
 	const StartupEmbed = new Discord.MessageEmbed()
-	.setColor('#00FF00')
-	.setTitle('Bot Started')
-	.setDescription(`${BootSuccessful}`)
-	.addFields(
-		{ name: 'Current date/time: ', value: dateTime, inline: true },
-	)
-	.setTimestamp()
-	.setFooter(footertext)
+		.setColor('#00FF00')
+		.setTitle('Bot Started')
+		.setDescription(`${BootSuccessful}`)
+		.addFields(
+			{ name: 'Current date/time: ', value: dateTime, inline: true },
+		)
+		.setTimestamp()
+		.setFooter(footertext)
 	global.modlog = client.channels.cache.get(`${BotLog}`);
 	modlog.send(StartupEmbed);
 	fs.writeFileSync('./runstate.txt', 'running')
 	return;
 })
+
+//Login
+client.login(token);;
