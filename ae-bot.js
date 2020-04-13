@@ -8,7 +8,7 @@ const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./string
 const { BotManagerRoleID , ModeratorRoleID , OwnerID, MemberRoleID , UserLog, ModLog, BotLog , DebugChannel, DebugFeaturesEnabled, ProcessEndOnError, AssignMemberRoleOnJoin, CrashNotify } = require('./info.json');
 const { MessageEmbed } = require('discord.js')
 const cooldowns = new Discord.Collection();
-global.version = '3.0.1'
+global.version = '3.1.0'
 global.footertext = 'Version '+version
 
 //Checking ALL files
