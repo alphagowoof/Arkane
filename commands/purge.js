@@ -13,7 +13,6 @@ module.exports = {
 			const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
 			const preamount = argarray[1]
 			const amount = Number(`${preamount}`)
-			modaction(this.name, message.author.tag, message.channel.name, message.content)
 			try{
 				message.channel.bulkDelete(amount+1)
 				modaction(this.name, message.author.tag, message.channel.name, message.content)
