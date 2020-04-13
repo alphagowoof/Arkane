@@ -15,3 +15,5 @@ runstate.txt
 last.msg
 last.txt
 statusmessage.config
+commands/emujoin.js
+commands/emuleave.js
