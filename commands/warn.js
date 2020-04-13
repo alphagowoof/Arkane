@@ -18,7 +18,8 @@ module.exports = {
     const userid = message.mentions.users.first().id
     const mentionedmember = '<@'+message.mentions.users.first().id+'>'
     const reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
-    const reason = reasonraw.join(' ')
+    var reason = reasonraw.join(' ')
+    if(reason = ''){var reason = 'No reason provided.'}
     const authorusername = message.author.username +'#' +message.author.discriminator
     fs.appendFileSync('./logs/' + userid + '-warnings.log', 'Warning\nReason: ' + reason +'\n\n');
     fs.appendFileSync('./logs/' + userid + '-modwarnings.log', 'Warning issued by '+ authorusername +'\nReason: ' + reason +'\n\n');
