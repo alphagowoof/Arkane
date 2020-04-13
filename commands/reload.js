@@ -5,24 +5,25 @@ module.exports = {
 	usage: '[command]',
 	cooldown: 0,
 	botmanager:true,
+	mod:true,
 	execute(message, args) {
-		const allcommandName = args[0].toLowerCase();
-		const command = message.client.allcommands.get(allcommandName)
-			|| message.client.allcommands.find(cmd => cmd.aliases && cmd.aliases.includes(allcommandName));
+		const modcommandName = args[0].toLowerCase();
+		const command = message.client.modcommands.get(modcommandName)
+			|| message.client.modcommands.find(cmd => cmd.aliases && cmd.aliases.includes(modcommandName));
 		
 		if (!command) {
-			return message.channel.send(`There is no command with name or alias \`${allcommandName}\`, ${message.author}!`);
+			return message.channel.send(`There is no command with name or alias \`${modcommandName}\`, ${message.author}!`);
 		}
 	
-		delete require.cache[require.resolve(`./${allcommandName}.js`)];
+		delete require.cache[require.resolve(`./${modcommandName}.js`)];
 
 		try {
-			const newCommand = require(`./${allcommandName}.js`);
-			message.client.allcommands.set(newCommand.name, newCommand);
+			const newCommand = require(`./${modcommandName}.js`);
+			message.client.modcommands.set(newCommand.name, newCommand);
 		} catch (error) {
 			console.log(error);
-			return message.channel.send(`There was an error while reloading a command \`${allcommandName}\`:\n\`${error.message}\``);
+			return message.channel.send(`There was an error while reloading a command \`${modcommandName}\`:\n\`${error.message}\``);
 		}
-		respond('',`Command \`${allcommandName}\` was reloaded!`,message.channel);
+		respond('',`Command \`${modcommandName}\` was reloaded!`,message.channel);
 	},
 };
