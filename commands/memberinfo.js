@@ -20,7 +20,7 @@ module.exports = {
         .setAuthor(taggeduserobject.username)
         .addFields(
           { name: 'Punishment Log', value: 'No punishment information found.', inline: false },
-          { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id +'\nJoin date: '+ taggeduserobject.createdAt , inline: false },
+          { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id +'\nAccount creation date: '+ taggeduserobject.createdAt , inline: false },
         )
         .setTimestamp()
         message.channel.send(memberinfoembed)
@@ -33,7 +33,7 @@ module.exports = {
       .setAuthor(taggeduserobject.username)
       .addFields(
         { name: 'Punishment Log', value: data, inline: false },
-        { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id+'\nJoin date: '+ taggeduserobject.createdAt , inline: false },
+        { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id+'\nAccount creation date: '+ taggeduserobject.createdAt , inline: false },
       )
       .setTimestamp()
       message.channel.send(memberinfoembed)
