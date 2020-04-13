@@ -12,7 +12,6 @@ module.exports = {
 		const { modcommands } = message.client;
 		const Discord = require('discord.js');
 		const { MessageEmbed } = require('discord.js')
-		
 		const {ModeratorRoleID} = require('../info.json')
 		try {
 			// code that might fail
@@ -37,14 +36,6 @@ module.exports = {
 				.setFooter('Help command');
 			
 				return message.channel.send(helpEmbed)
-					.then(() => {return;
-						if (message.channel.type === 'dm') return;
-						message.reply('I\'ve sent you a DM with all my commands!');
-					})
-					.catch(error => {return;
-						console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-						message.reply('it seems like I can\'t DM you!');
-					});
 			}
 	
 			const name = args[0].toLowerCase();
@@ -55,19 +46,21 @@ module.exports = {
 			}
 	
 			const helpInfoEmbed = new Discord.MessageEmbed()
-			.setColor('#0099ff')
-			.setTitle('About Command')
-			.setDescription('Here is some information about the command.')
-			.addFields(
-				{ name: 'Command name', value: `${command.name}`, inline: false },
-				{ name: 'Aliases', value: `${command.aliases.join(', ')}`, inline: false },
-				{ name: 'Description', value: `${command.description}`, inline: false },
-				{ name: 'Usage', value: `${prefix}${command.name} ${command.usage}`, inline: false },
-			)
-			.setTimestamp()
-			.setFooter('Help command');
-			data.push(`**Name:** ${command.name}`);
-	
+				helpInfoEmbed.setColor('#0099ff')
+				helpInfoEmbed.setTitle('Command Info')
+				helpInfoEmbed.setDescription(`Here is some information about the ${command.name} command.`)
+				helpInfoEmbed.addField('Command name', `${command.name}`, false)
+				if(command.aliases){
+					helpInfoEmbed.addField('Aliases', `${command.aliases.join(', ')}`, false)
+				}
+				if(command.description){
+					helpInfoEmbed.addField('Description', command.description, false)
+				}
+				if(command.usage){
+					helpInfoEmbed.addField('Usage', `${prefix}${command.name} ${command.usage}`, false)
+				}
+				helpInfoEmbed.setTimestamp()
+				helpInfoEmbed.setFooter(footertext);
 			message.channel.send(helpInfoEmbed);
 		  } catch(error) {
 			// if the code fails
