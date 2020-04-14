@@ -15,11 +15,11 @@ module.exports = {
       if (err) {
         console.error(err)
         const memberinfoembed = new Discord.MessageEmbed()
-        .setColor('#0000ff')
+        .setColor('#00FF00')
         .setTitle('Member Information')
         .setAuthor(taggeduserobject.username)
         .addFields(
-          { name: 'Punishment Log', value: 'No punishment information found.', inline: false },
+          { name: 'Punishment Log', value: 'No punishment was information found.', inline: false },
           { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id +'\nAccount creation date: '+ taggeduserobject.createdAt , inline: false },
         )
         .setTimestamp()
@@ -27,8 +27,11 @@ module.exports = {
 
         return
       }
+      if(data.length > 1024){
+        var data = 'Punishment information is too long to send.'
+      }else{var data= data}
       const memberinfoembed = new Discord.MessageEmbed()
-      .setColor('#0000ff')
+      .setColor('#FF0000')
       .setTitle('Member Information')
       .setAuthor(taggeduserobject.username)
       .addFields(

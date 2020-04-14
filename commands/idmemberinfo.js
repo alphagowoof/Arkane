@@ -25,6 +25,9 @@ module.exports = {
 
         return
       }
+      if(data.length > 1024){
+        var data = 'Punishment information is too long to send.'
+      }else{var data= data}
       const memberinfoembed = new Discord.MessageEmbed()
       .setColor('#0000ff')
       .setTitle('Member Information')

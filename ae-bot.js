@@ -3,6 +3,7 @@ global.Discord = require('discord.js');
 global.client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
+client.events = new Discord.Collection();
 const { prefix, token } = require('./config.json');
 const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./strings.json');
 const { BotManagerRoleID , ModeratorRoleID , OwnerID, MemberRoleID , UserLog, ModLog, BotLog , DebugChannel, DebugFeaturesEnabled, ProcessEndOnError, AssignMemberRoleOnJoin, CrashNotify } = require('./info.json');
@@ -32,6 +33,10 @@ for (const modfile of modcommandFiles) {
 	console.log(`INFO: The command '${modcommand.name}' was loaded.`)
 	client.modcommands.set(modcommand.name, modcommand);
 }
+//const events = require(`./events.js`);
+//client.events.set(events)
+//console.log('Events loaded.')
+
 
 //Loading command part 3
 client.on('message', async message => {
@@ -81,6 +86,19 @@ client.on('message', async message => {
 
 	
 });
+
+client.on('message', message => {
+	if (message.author.bot)return;
+        if (message.channel.id != '616472674406760448')return;
+        const content = message.content.toLowerCase();
+        if (message.attachments.size != '0'){
+          if (!content.includes(`iphone`)){respond('',`<@${message.author.id}>, please specify the iPhone used to shoot the picture.`, message.channel);message.delete();return;}else
+          {
+          message.react('❤️');
+          message.react('👍');
+        }}
+})
+
 
 global.respond = function (title, content, sendto, color){
 	var RespondEmbed = new Discord.MessageEmbed()
@@ -208,16 +226,19 @@ client.on('message', message => {
 	if(message.channel.type == 'dm')return;
 	const profanity = require('./profanity.json');
 	const blocked = profanity.filter(word => message.content.toLowerCase().includes(word));
-
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+	var dateTime = date+' '+time;
 	if (blocked.length > 0) {
 		if(blocked == ` ${blocked} `);
-		console.log(`${message.author.tag} tried to use profanity. Logged word: ${blocked}`);
-		message.delete()
-		  message.reply('please watch your language. A warning has been logged.')
-    	const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Warning\nReason: Profanity (' + reason +')\n\n');
-    	fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Warning issued by AutomatedAppleModerator \nReason: Profanity (' + message.content +')\n\n');
-		respond('Profanity Filter 🗣️',`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`, message.author)
+			console.log(`${message.author.tag} tried to use profanity. Logged word: ${blocked}`);
+			message.delete()
+			message.reply('please watch your language. A warning has been logged.')
+    		const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+	    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Warning\nReason: Profanity (' + reason +')\n\n');
+    		fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Warning issued by AutomatedAppleModerator \nReason: Profanity (' + message.content +')\n\n');
+			respond('Profanity Filter 🗣️',`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`, message.author)
 	}
 })
 
