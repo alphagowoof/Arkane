@@ -1,6 +1,6 @@
 global.fs = require('fs');
 global.Discord = require('discord.js');
-global.client = new Discord.Client();
+const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
 client.events = new Discord.Collection();
@@ -9,8 +9,9 @@ const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./string
 const { BotManagerRoleID , ModeratorRoleID , OwnerID, MemberRoleID , UserLog, ModLog, BotLog , DebugChannel, DebugFeaturesEnabled, ProcessEndOnError, AssignMemberRoleOnJoin, CrashNotify } = require('./info.json');
 const { MessageEmbed } = require('discord.js')
 const cooldowns = new Discord.Collection();
-global.version = '3.1.0'
+global.version = '3.2.0'
 global.footertext = 'Version '+version
+global.errorcount = 0
 
 //Checking ALL files
 const allFiles = fs.readdirSync('./')
@@ -51,9 +52,10 @@ client.on('message', async message => {
 			message.channel.stopTyping()
 			return;
 		}
+		actionlog(`Command init:  Name: \`${command.name}\`  Args: \`|${args}|\`  Launched in: \`${message.channel.name} (${message.channel.id})\``)
 //Bot Manager (over mod)
 	if(command.botmanager == true && message.member.roles.cache.some(role => role.id === `${BotManagerRoleID}`)){
-		command.execute(message, args);
+		command.execute(message, args, client);;
 		message.channel.stopTyping()
 		return;
 	}
@@ -67,7 +69,7 @@ client.on('message', async message => {
 
 //Run right away
 	if (command.nodelay == true){
-		command.execute(message, args);
+		command.execute(message, args, client);
 		message.channel.stopTyping()
 		return;
 	}
@@ -75,12 +77,12 @@ client.on('message', async message => {
 //Normal (with delay)
 	try {
 		setTimeout(function(){ 
-			command.execute(message, args);
+			command.execute(message, args, client);
 			message.channel.stopTyping()
 		}, 1500);
 	} catch (error) {
 		console.error(error);
-		message.reply('there was an error trying to execute that command!');
+		respond('Error', 'Something went wrong.\n'+error, message.channel)
 		message.channel.stopTyping()
 	}
 
@@ -124,12 +126,32 @@ global.modaction = function (RanCommand, RanBy, RanIn, FullCommand){
 		const modlogchannel = client.channels.cache.get(`${ModLog}`);
 		modlogchannel.send(ModReportEmbed)
 }
-
+global.errorlog = function (error){
+	global.errorcount = errorcount + 1
+	const ErrorReportEmbed = new Discord.MessageEmbed()
+		ErrorReportEmbed.setColor('#FF0000')
+		ErrorReportEmbed.setTitle('Bot Error')
+		ErrorReportEmbed.setDescription(`An error has occurred while the bot running.`)
+		ErrorReportEmbed.addFields(
+			{ name: 'Error information', value: `${error}`, inline: false },
+		)
+		ErrorReportEmbed.setTimestamp()
+		const ErrorLog = client.channels.cache.get(`${BotLog}`);
+		ErrorLog.send(ErrorReportEmbed)
+}
+global.actionlog = function(action){
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	var dateTime = date+' '+time;
+	fs.appendFileSync('./bot.log',`${dateTime}\n${action}\n\n`);
+}
 
 //Bot ready
 client.once('ready', () => {
 	console.log('Ready!');
 	console.log('Version '+version)
+	actionlog(`Startup: Bot started`)
 		const path = './runstate.txt'
 		if (fs.existsSync(path) && CrashNotify == true) {
 			client.emit("StartupIssue")
@@ -147,15 +169,16 @@ process.on('unhandledRejection', error => console.error('Uncaught Promise Reject
 
 //Error
 client.on('error', error => {
-	console.error('an error has occured', error);
+	console.error('ERROR: ', error);
+	global.errorcount + 1
 	const fs = require('fs');
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	global.dateTime = date+' '+time;
+	var dateTime = date+' '+time;
 	fs.appendFileSync('./debuglogs/error.log','('+dateTime+')'+error+'\n\n');
 	fs.writeFileSync('./debuglogs/lasterror.txt',error);
-	if (ProcessEndOnError === true){process.exit()}
+	if (ProcessEndOnError == true){process.exit()}
 });
 
 //Member join
@@ -163,7 +186,7 @@ client.on('guildMemberAdd', member => {
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	global.dateTime = date+' '+time;
+	var dateTime = date+' '+time;
 	const channel = member.guild.channels.cache.find(ch => ch.id === `${UserLog}`);
 	const guild = member.guild
 	const icon = member.user.displayAvatarURL()
@@ -200,7 +223,7 @@ client.on('guildMemberRemove', member => {
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	global.dateTime = date+' '+time;
+	var dateTime = date+' '+time;
 	const channel = member.guild.channels.cache.find(ch => ch.id === `${UserLog}`);
 	const guild = member.guild
 	const icon = member.user.displayAvatarURL({ dynamic: true })
@@ -231,7 +254,7 @@ client.on('message', message => {
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
 	var dateTime = date+' '+time;
 	if (blocked.length > 0) {
-		if(blocked == ` ${blocked} `);
+		if(blocked == ' '+blocked+' ');
 			console.log(`${message.author.tag} tried to use profanity. Logged word: ${blocked}`);
 			message.delete()
 			message.reply('please watch your language. A warning has been logged.')
@@ -313,7 +336,7 @@ client.on('message', message => {
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	global.dateTime = date+' '+time;
+	var dateTime = date+' '+time;
 	const fs = require('fs');
 	fs.appendFileSync('./logs/allmessages.log', '\n\nMessage sent by ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
 	fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\nSent in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
@@ -326,7 +349,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	global.dateTime = date+' '+time;
+	var dateTime = date+' '+time;
 	if (oldMessage === newMessage)return;
 	var ref = "http://discordapp.com/channels/" + oldMessage.guild.id + "/" + oldMessage.channel.id + "/" + oldMessage.id;
 	const MessageEditEmbed = new Discord.MessageEmbed()
@@ -353,7 +376,7 @@ client.on("StartupIssue", () => {
 	var today = new Date();
 		var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 		var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-		global.dateTime = date+' '+time;
+		var dateTime = date+' '+time;
 		const StartupEmbed = new Discord.MessageEmbed()
 		.setColor('#ffa900')
 		.setTitle('Bot Started - Issue Detected')
@@ -372,7 +395,7 @@ client.on('StartupPassed', () => {
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	global.dateTime = date+' '+time;
+	var dateTime = date+' '+time;
 	const StartupEmbed = new Discord.MessageEmbed()
 		.setColor('#00FF00')
 		.setTitle('Bot Started')
