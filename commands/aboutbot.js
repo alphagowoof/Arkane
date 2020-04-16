@@ -1,10 +1,10 @@
 module.exports = {
   name: 'aboutbot',
-  aliases: ['botinfo', 'infobot', 'botabout', ''],
+  aliases: ['botinfo', 'infobot', 'botabout',],
   description: 'Gets information about bot.',
   usage: '',
   cooldown: 0,
-	execute(message, args) {
+	execute(message, args, client) {
     const fs = require('fs');
     try {
       const member = client.user
@@ -20,8 +20,10 @@ module.exports = {
 			)
       .setThumbnail(`${icon}`)
       message.channel.send(AvatarEmbed)
-  }catch(error) {
-    // Your code broke (Leave untouched in most cases)
-    console.error('an error has occured', error);
-    }
+    }catch(error) {
+      respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+      errorlog(error)
+      // Your code broke (Leave untouched in most cases)
+      console.error('an error has occured', error);
+      }
   }}

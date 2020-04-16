@@ -6,7 +6,7 @@ module.exports = {
 	cooldown: 0,
 	botmanager:true,
 	mod:true,
-	execute(message, args) {
+	execute(message, args, client) {
 		try{
 		const fs = require('fs');
 		fs.unlinkSync('./runstate.txt')
@@ -19,8 +19,12 @@ module.exports = {
 		setTimeout(function(){ 
 			process.exit()
 		}, 5000);
-	}catch(error){      
-		console.error('an error has occured', error);}
-	},
+	}catch(error) {
+		respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+		errorlog(error)
+		// Your code broke (Leave untouched in most cases)
+		console.error('an error has occured', error);
+		}
+	}
 	
 };

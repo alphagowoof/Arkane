@@ -5,7 +5,7 @@ module.exports = {
 	usage: '<user> <reason>',
 	cooldown: 0,
 	mod:true,
-    execute(message, args) {
+    execute(message, args, client) {
         try {
 			if (message.author.id == message.mentions.members.first().id){message.channel.send(`You can't perform this action on yourself.`);return;}
 			const {ModeratorRoleID} = require('../info.json');
@@ -24,10 +24,11 @@ module.exports = {
 			respond('Banned','You were banned from the Apple Explained server due to: '+ reason, user)
 			guild.members.ban(user);
 			modaction(this.name, message.author.tag, message.channel.name, message.content)
-    		}
-        catch(error) {
-			// Your code broke (Leave untouched in most cases)
-			console.error('an error has occured', error);
-		  }
+        	}catch(error) {
+				respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+				errorlog(error)
+				// Your code broke (Leave untouched in most cases)
+				console.error('an error has occured', error);
+				}
     },
 };

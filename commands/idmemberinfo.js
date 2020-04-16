@@ -5,7 +5,7 @@ module.exports = {
   usage: '<id>',
   cooldown: 0,
   mod:true,
-	execute(message, args) {
+	execute(message, args, client) {
     const Discord = require('discord.js');
     
     const fs = require('fs');
@@ -39,6 +39,8 @@ module.exports = {
       message.channel.send(memberinfoembed)
     }) 
   }catch(error) {
+    respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+    errorlog(error)
     // Your code broke (Leave untouched in most cases)
     console.error('an error has occured', error);
     }

@@ -4,7 +4,7 @@ module.exports = {
   description: 'Gets information about the server.',
   usage: '',
   cooldown: 0,
-	execute(message, args) {
+	execute(message, args, client) {
     const fs = require('fs');
     try {
       const member = client.user
@@ -22,8 +22,10 @@ module.exports = {
 			)
       .setThumbnail(`${icon}`)
       message.channel.send(ServerInfoEmbed)
-  }catch(error) {
-    // Your code broke (Leave untouched in most cases)
-    console.error('an error has occured', error);
-    }
+    }catch(error) {
+      respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+      errorlog(error)
+      // Your code broke (Leave untouched in most cases)
+      console.error('an error has occured', error);
+      }
   }}

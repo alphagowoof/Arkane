@@ -5,7 +5,7 @@ module.exports = {
   usage: '<text>',
   cooldown: 0,
   mod:true,
-	execute(message, args) {
+	execute(message, args, client) {
     const Discord = require('discord.js');
     const fs = require('fs');
     const user = client.user
@@ -15,9 +15,11 @@ module.exports = {
       user.setActivity(activity, { type: 'WATCHING' });
       fs.writeFileSync('./statusmessage.config', activity, 'utf-8');
       respond('','Bot activity set to `WATCHING '+activity+'`.', message.channel)
-  }catch(error) {
+    }catch(error) {
+      respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+      errorlog(error)
       // Your code broke (Leave untouched in most cases)
       console.error('an error has occured', error);
-		  }
+      }
 		  
   }}

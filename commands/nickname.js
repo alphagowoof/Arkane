@@ -5,7 +5,7 @@ module.exports = {
   usage: '<member> <new name>',
   cooldown: 0,
   mod:true,
-	execute(message, args) {	
+	execute(message, args, client) {	
 		const { prefix } = require('../config.json');
 		const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
 		var args = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
@@ -14,8 +14,10 @@ module.exports = {
 			message.mentions.members.first().setNickname(text)
 		respond('',`${message.mentions.members.first()} had their nickname changed to \`${text}\`.`, message.channel)
 	}catch(error) {
-			// Your code broke (Leave untouched in most cases)
-			console.error('an error has occured', error);
-		  }
+		respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+		errorlog(error)
+		// Your code broke (Leave untouched in most cases)
+		console.error('an error has occured', error);
+		}
 		  
   }}

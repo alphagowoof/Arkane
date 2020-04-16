@@ -4,7 +4,7 @@ module.exports = {
   description: 'Shows the people who helped on this project.',
   usage: '',
   cooldown: 10,
-	execute(message, args) {
+	execute(message, args, client) {
     const Discord = require('discord.js');
     
     const fs = require('fs');
@@ -32,8 +32,10 @@ module.exports = {
       .setTimestamp()
       message.channel.send(memberinfoembed)
     }) }catch(error) {
-			// Your code broke (Leave untouched in most cases)
+      respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+      errorlog(error)
+      // Your code broke (Leave untouched in most cases)
       console.error('an error has occured', error);
-		  }
+      }
 
   }}

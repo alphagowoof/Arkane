@@ -4,7 +4,7 @@ module.exports = {
   description: 'Pings. What else would it do? :joy:',
   usage: '',
   cooldown: 0,
-	execute(message, args) {
+	execute(message, args, client) {
     try{
     message.channel.send('Pinging...').then(sent => {
       sent.edit(`Pong! Took ${sent.createdTimestamp - message.createdTimestamp}ms`).then(results => results.delete()).then(results => {
@@ -12,8 +12,10 @@ module.exports = {
         respond('', `Pong! Took ${sent.createdTimestamp - message.createdTimestamp}ms`, message.channel)
       })
   })
-  }catch(error) {
-    // Your code broke (Leave untouched in most cases)
-    console.error('an error has occured', error);
+}catch(error) {
+  respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+  errorlog(error)
+  // Your code broke (Leave untouched in most cases)
+  console.error('an error has occured', error);
   }}
 }

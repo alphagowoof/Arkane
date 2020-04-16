@@ -6,7 +6,7 @@ module.exports = {
 	aliases: ['commands'],
 	usage: '[command name]',
 	cooldown: 5,
-	execute(message, args) {
+	execute(message, args, client) {
 		const data = [];
 		const { commands } = message.client;
 		const { modcommands } = message.client;
@@ -62,10 +62,12 @@ module.exports = {
 				helpInfoEmbed.setTimestamp()
 				helpInfoEmbed.setFooter(footertext);
 			message.channel.send(helpInfoEmbed);
-		  } catch(error) {
-			// if the code fails
+		}catch(error) {
+			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+			errorlog(error)
+			// Your code broke (Leave untouched in most cases)
 			console.error('an error has occured', error);
-		  }
+			}
 		
 	},
 };

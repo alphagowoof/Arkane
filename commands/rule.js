@@ -5,7 +5,7 @@ module.exports = {
   usage: '<rule number>',
   cooldown: 0,
   disable:false,
-	execute(message, args) {
+	execute(message, args, client) {
     const Discord = require('discord.js');
     
 	const fs = require('fs');
@@ -25,9 +25,11 @@ module.exports = {
 		message.channel.send(RuleEmbed);
 		return;
 	}catch(error) {
-			// Your code broke (Leave untouched in most cases)
-			console.error('an error has occured', error);
-		  }
+		respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+		errorlog(error)
+		// Your code broke (Leave untouched in most cases)
+		console.error('an error has occured', error);
+		}
 
 
 		  

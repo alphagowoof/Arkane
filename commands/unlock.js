@@ -5,7 +5,7 @@ module.exports = {
   usage: '',
   cooldown: 0,
   mod:true,
-	execute(message, args) {
+	execute(message, args, client) {
 	const fs = require('fs');
 	const channel = message.channel
 	const reason = args.join(' ')
@@ -14,10 +14,11 @@ module.exports = {
 		if(args != ''){respond('🔓', `<#${message.channel.id}> was unlocked.\nReason: `+reason, message.channel)}
 		else{respond('🔓', `<#${message.channel.id}> was unlocked.`, message.channel)}
 		modaction(this.name, message.author.tag, message.channel.name, message.content)
-	}
-		catch(error) {
-			// Your code broke (Leave untouched in most cases)
-			console.error('an error has occured', error);
-		  }
+	}catch(error) {
+		respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+		errorlog(error)
+		// Your code broke (Leave untouched in most cases)
+		console.error('an error has occured', error);
+		}
 		  
   }}

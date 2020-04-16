@@ -7,7 +7,7 @@ module.exports = {
 	usage: '<user>',
 	cooldown: 0,
 	mod:true,
-	execute(message, args) {
+	execute(message, args, client) {
 		try {
 			if (message.author.id == message.mentions.members.first().id){message.channel.send(`You can't perform this action on yourself.`);return;}
 			const {ModeratorRoleID} = require('../info.json');
@@ -20,10 +20,12 @@ module.exports = {
 			respond('⬅️ Kick','You have been kicked from the server. You may rejoin at anytime.\n\nReason for kick: '+reason, user)
 			modaction(this.name, message.author.tag, message.channel.name, message.content)
 			user.kick()
-		  } catch(error) {
+		}catch(error) {
+			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+			errorlog(error)
 			// Your code broke (Leave untouched in most cases)
 			console.error('an error has occured', error);
-		  }
+			}
 		
 }
 };

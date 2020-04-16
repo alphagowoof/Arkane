@@ -6,7 +6,7 @@ module.exports = {
 	cooldown: 0,
 	mod:true,
 	nodelay:true,
-    execute(message, args) {
+    execute(message, args, client) {
 		const { StaffRoleID, ModLog, BotLog , CrashNotify } = require('../info.json');
         try {
 			const { prefix } = require('../config.json');
@@ -20,9 +20,11 @@ module.exports = {
 				console.log(error)
 					respond('❗', `You can only purge up to 100 messages at a time.`, message.channel);return;
 						}
-		}catch(error) {
-			// Your code broke (Leave untouched in most cases)
-			console.error('an error has occured', error);
-		  }
+					}catch(error) {
+						respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+						errorlog(error)
+						// Your code broke (Leave untouched in most cases)
+						console.error('an error has occured', error);
+						}
     },
 };
