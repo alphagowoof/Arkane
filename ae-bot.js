@@ -1,3 +1,4 @@
+console.log('Loading, please wait a moment.')
 global.fs = require('fs');
 global.Discord = require('discord.js');
 const client = new Discord.Client();
@@ -149,8 +150,11 @@ global.actionlog = function(action){
 
 //Bot ready
 client.once('ready', () => {
-	console.log('Ready!');
 	console.log('Version '+version)
+	console.log('Cleaning bot log...')
+	fs.writeFileSync('./bot.log','');
+	console.log('Bot log cleaned.')
+	console.log('Ready!');
 	actionlog(`Startup: Bot started`)
 		const path = './runstate.txt'
 		if (fs.existsSync(path) && CrashNotify == true) {
