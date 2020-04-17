@@ -4,6 +4,7 @@ module.exports = {
   description: 'Approves a role to a user.',
   usage: '',
   cooldown: 0,
+  mod:true,
 	execute(message, args, client) {
    try{
     const Discord = require('discord.js');
