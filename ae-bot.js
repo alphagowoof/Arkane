@@ -53,7 +53,14 @@ client.on('message', async message => {
 			message.channel.stopTyping()
 			return;
 		}
-		actionlog(`Command init:  Name: \`${command.name}\`  Args: \`|${args}|\`  Launched in: \`${message.channel.name} (${message.channel.id})\``)
+actionlog(`Command init:  Name: \`${command.name}\`  Args: \`|${args}|\`  Launched in: \`${message.channel.name} (${message.channel.id})\``)
+
+//Command disabled
+if (command.disable == true) {
+	respond('🛑 Command disabled',`<@${message.author.id}>, the command you are trying to run is disabled at the moment. Please try again later.`, message.channel) 
+	message.channel.stopTyping()
+	return;
+}
 //Bot Manager (over mod)
 	if(command.botmanager == true && message.member.roles.cache.some(role => role.id === `${BotManagerRoleID}`)){
 		command.execute(message, args, client);;
