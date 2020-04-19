@@ -8,10 +8,10 @@ module.exports = {
   mod:true,
 	execute(message, args, client) {
     fs.readFile('./bot.log', function(err, data){
-      var BotLogEmbed = new Discord.MessageEmbed()
-      BotLogEmbed.setTitle('Bot Status Log')
-      BotLogEmbed.setDescription(data)
-    message.channel.send(BotLogEmbed)
+    //var BotLogEmbed = new Discord.MessageEmbed()
+    //BotLogEmbed.setTitle('Bot Status Log')
+    //BotLogEmbed.setDescription(data)
+    //message.channel.send(BotLogEmbed)
   })
       if(errorcount){
         var color = 'FF0000'
