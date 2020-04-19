@@ -21,7 +21,7 @@ module.exports = {
       const authorusername = message.author.username +'#' +message.author.discriminator + ` (${message.author.id}) `
       if(reason == ''){var reason = 'No reason provided.'}
       fs.appendFileSync('./logs/' + userid + '-warnings.log', 'Warning\nReason: ' + reason +'\n\n');
-      fs.appendFileSync('./logs/' + userid + '-modwarnings.log',`Warning issued by ${authorusername}: \nReason: + ${reason}\n\n`);
+      fs.appendFileSync('./logs/' + userid + '-modwarnings.log',`Warning issued by ${authorusername}: \nReason: ${reason}\n\n`);
       respond('⚠️',mentionedmember + ' had a warning logged.\nReason: '+reason, message.channel)
       const warnedperson = message.mentions.users.first()
       const user = client.users.cache.get(warnedperson);
