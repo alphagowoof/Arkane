@@ -5,13 +5,35 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
 client.events = new Discord.Collection();
-const { prefix, token } = require('./config.json');
-const { nopermreply, BootSuccessful, WelcomeDmFileLocation } = require('./strings.json');
-const { BotManagerRoleID , ModeratorRoleID , OwnerID, MemberRoleID , UserLog, ModLog, BotLog , DebugChannel, DebugFeaturesEnabled, ProcessEndOnError, AssignMemberRoleOnJoin, CrashNotify } = require('./info.json');
-const { MessageEmbed } = require('discord.js')
+const { 
+	prefix, 
+	token, 
+} = require('./config.json');
+const { 
+	nopermreply,
+	BootSuccessful,
+	WelcomeDmFileLocation,
+ } = require('./strings.json');
+const { 
+	BotManagerRoleID,
+	ModeratorRoleID,
+	OwnerID, 
+	MemberRoleID,
+	UserLog, 
+	ModLog, 
+	BotLog,
+	DebugChannel, 
+	DebugFeaturesEnabled, 
+	ProcessEndOnError, 
+	AssignMemberRoleOnJoin, 
+	CrashNotify,
+	} = require('./info.json');
+const {
+	MessageEmbed
+} = require('discord.js')
 const cooldowns = new Discord.Collection();
-global.version = '3.2.0'
-global.footertext = 'Version '+version
+global.version = '3.5.0'
+global.footertext = 'Moderator Bot | Version '+version
 global.errorcount = 0
 
 //Checking ALL files
@@ -422,5 +444,37 @@ client.on('StartupPassed', () => {
 	return;
 })
 
+//Hardcoded events
+
+client.on('message', message => {
+	return;
+events.execute(message)	
+})
+
+function clean(text) {
+	if (typeof(text) === "string")
+	  return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+	else
+		return text;
+  }
+  client.on("message", message => {
+	const args = message.content.split(" ").slice(1);
+   
+	if (message.content.startsWith(prefix + "eval")) {
+	  if(message.author.id !== OwnerID){respond('❌ Bot Owner Command Only', 'This command can only be ran by the bot owner.', message.channel);return;}
+	  try {
+		const code = args.join(" ");
+		let evaled = eval(code);
+   
+		if (typeof evaled !== "string")
+		  evaled = require("util").inspect(evaled);
+   
+		respond('⌨️ Eval Command',clean(evaled), message.channel);
+	  } catch (err) {
+		respond('⌨️ Eval Command Error',`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``, message.channel);
+	  }
+	}
+  });
+
 //Login
-client.login(token);;
+client.login(token);
