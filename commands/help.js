@@ -42,8 +42,9 @@ module.exports = {
 			const command = modcommands.get(name) || modcommands.find(c => c.aliases && c.aliases.includes(name));
 	
 			if (!command) {
-				return message.reply('that\'s not a valid command!');
+				return respond('',`<@${message.author.id}>, that's not a valid command!`, message.channel);
 			}
+			if(command.mod)var isModOnly = ", mod only."
 	
 			const helpInfoEmbed = new Discord.MessageEmbed()
 				helpInfoEmbed.setColor('#0099ff')
@@ -58,6 +59,9 @@ module.exports = {
 				}
 				if(command.usage){
 					helpInfoEmbed.addField('Usage', `${prefix}${command.name} ${command.usage}`, false)
+				}
+				if(command.mod){
+					helpInfoEmbed.addField('This is a mod only command.', `\u200b`, false)
 				}
 				helpInfoEmbed.setTimestamp()
 				helpInfoEmbed.setFooter(footertext);
