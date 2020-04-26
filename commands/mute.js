@@ -14,10 +14,10 @@ module.exports = {
     console.log("some string")
     const {MutedString, MutedStringDM} = require('../strings.json');
     try {
-      if (message.author.id == message.mentions.members.first().id){message.channel.send(`You can't perform this action on yourself.`);return;}
+      if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
       const {ModeratorRoleID} = require('../info.json');
       const checkmemberforroles = message.mentions.members.first()
-      if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){message.channel.send(`You can't perform that action on this user.`);return;}
+      if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
       let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
       const reason = reasonraw.join(' ')
      const taggeduser = message.mentions.members.first().id
