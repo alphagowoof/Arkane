@@ -19,8 +19,8 @@ module.exports = {
         .setTitle('Member Information')
         .setAuthor(taggeduserobject.username)
         .addFields(
-          { name: 'Punishment Log', value: 'No punishment was information found.', inline: false },
-          { name: 'Other information', value: 'Member ID: '+ taggeduserobject.id +'\nAccount creation date: '+ taggeduserobject.createdAt , inline: false },
+          { name: 'Punishment Log', value: 'No punishment information was found.', inline: false },
+          { name: 'Other information', value: `Member ID: ${taggeduserobject.id}\nAccount creation date: ${taggeduserobject.createdAt}`  , inline: false },
         )
         .setTimestamp()
         message.channel.send(memberinfoembed)
