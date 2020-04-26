@@ -9,10 +9,10 @@ module.exports = {
 	mod:true,
 	execute(message, args, client) {
 		try {
-			if (message.author.id == message.mentions.members.first().id){message.channel.send(`You can't perform this action on yourself.`);return;}
+			if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
 			const {ModeratorRoleID} = require('../info.json');
 			const checkmemberforroles = message.mentions.members.first()
-			if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){message.channel.send(`You can't perform that action on this user.`);return;}
+			if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
 			// Code hopefully works
 			const user = message.mentions.members.first()
 			const reason = args.join(' ')
