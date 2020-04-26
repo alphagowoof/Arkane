@@ -7,7 +7,6 @@ module.exports = {
   mod:true,
 	execute(message, args, client) {
     const Discord = require('discord.js');
-    
     const fs = require('fs');
     try{
     fs.readFile('./logs/'+args+'-modwarnings.log', (err, data) => {
