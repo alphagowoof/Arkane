@@ -32,9 +32,16 @@ const {
 	MessageEmbed
 } = require('discord.js')
 const cooldowns = new Discord.Collection();
-global.version = '3.5.0'
-global.footertext = 'Moderator Bot | Version '+version
+global.version = '4.0.0'
+global.footertext = 'Version '+version
 global.errorcount = 0
+
+
+//Checks for shutdown flag
+if (fs.existsSync(`./shutdown.flag`)){
+	console.log('`shutdown.flag` found. Exiting.')
+	process.exit()
+}else{}
 
 //Checking ALL files
 const allFiles = fs.readdirSync('./')
@@ -119,6 +126,7 @@ if (command.disable == true) {
 	
 });
 
+//Shot on iPhone reactions
 client.on('message', message => {
 	if (message.author.bot)return;
         if (message.channel.id != '616472674406760448')return;
@@ -233,7 +241,6 @@ client.on('guildMemberAdd', member => {
 		{ name: 'Username', value: member.user.tag, inline: false },
 		{ name: 'Member ID', value: member.id, inline: false },
 		{ name: 'Account creation date', value: member.user.createdAt, inline: false },
-		{ name: 'Server join date', value: dateTime, inline: false },
 		{ name: 'Server member count', value: `${guild.memberCount}`, inline: false },
 	)
 	.setTimestamp()
@@ -246,7 +253,7 @@ client.on('guildMemberAdd', member => {
 		messagetosend = data.toString()
 		const WelcomeEmbedDM = new Discord.MessageEmbed()
 		WelcomeEmbedDM.setTitle('Welcome! 👋')
-		WelcomeEmbedDM.setDescription('Welcome to the '+member.guild.name+' server!\n'+messagetosend)
+		WelcomeEmbedDM.setDescription('Welcome to '+member.guild.name+' server!\n'+messagetosend)
 		member.send(WelcomeEmbedDM)
 	})
 });
@@ -270,7 +277,6 @@ client.on('guildMemberRemove', member => {
 		{ name: 'Username', value: member.user.tag, inline: false },
 		{ name: 'Member ID', value: member.user.id, inline: false },
 		{ name: 'Account creation date', value: member.user.createdAt, inline: false },
-		{ name: 'Server leave date', value: dateTime, inline: false },
 		{ name: 'Server member count', value: `${guild.memberCount}`, inline: false },
 	)
 	.setTimestamp()
@@ -281,13 +287,13 @@ client.on('guildMemberRemove', member => {
 client.on('message', message => {
 	if(message.channel.type == 'dm')return;
 	const profanity = require('./profanity.json');
-	const blocked = profanity.filter(word => message.content.toLowerCase().includes(word));
+	var blocked = profanity.filter(word => message.content.toLowerCase().includes(word));
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
 	var dateTime = date+' '+time;
 	if (blocked.length > 0) {
-		if(blocked == ' '+blocked+' ');
+		if(blocked == `${blocked}`)
 			console.log(`${message.author.tag} tried to use profanity. Logged word: ${blocked}`);
 			message.delete()
 			message.reply('please watch your language. A warning has been logged.')
