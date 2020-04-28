@@ -10,7 +10,7 @@ module.exports = {
     const fs = require('fs');
     try{
     fs.readFile('./logs/'+args+'-modwarnings.log', (err, data) => {
-      if (err) {
+      if (err || data.toString() == '') {
         console.error(err)
         const memberinfoembed = new Discord.MessageEmbed()
         .setColor('#0000ff')

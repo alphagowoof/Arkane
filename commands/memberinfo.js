@@ -12,7 +12,7 @@ module.exports = {
     try {const taggeduser = message.mentions.users.first().id
     const taggeduserobject = message.mentions.users.first()
     fs.readFile('./logs/'+taggeduser+'-modwarnings.log', (err, data) => {
-      if (err) {
+      if (err || data.toString() == '') {
         console.error(err)
         const memberinfoembed = new Discord.MessageEmbed()
         .setColor('#00FF00')
