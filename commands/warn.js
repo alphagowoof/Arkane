@@ -9,6 +9,8 @@ module.exports = {
 	execute(message, args, client) {
     const Discord = require('discord.js');
     const fs = require('fs');
+    const {prefix} = require('../config.json')
+    const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
     try {
       //Mod check
       if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
