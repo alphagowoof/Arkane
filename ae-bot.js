@@ -249,6 +249,18 @@ client.on('guildMemberAdd', member => {
 		const role = member.guild.roles.cache.find(role => role.id === `${MemberRoleID}`);
 		member.roles.add(role);
 	}
+	fs.readFile('./logs/idbanlist.txt', function(err, data){
+		if(err){
+			console.log(err);
+			errorlog(err)
+			return;
+		}
+		if(data.toString().includes(member.id)){
+			respond('Banned','You were banned from the Apple Explained server.', member)
+			respond('Banned',`${member.tag} was banned from the server. (PREBAN)`, message.guild.channels.cache.get(UserLog))
+			member.guild.members.ban(member);
+		}
+	})
 	fs.readFile('./files/welcomemessage.txt', function(err, data){
 		messagetosend = data.toString()
 		const WelcomeEmbedDM = new Discord.MessageEmbed()
