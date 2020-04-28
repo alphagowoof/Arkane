@@ -2,7 +2,7 @@ module.exports = {
   name: 'say',
   aliases: ['speak'],
   description: 'Has the bot speak.',
-  usage: '<channel> <text>',
+  usage: '<text>',
   cooldown: 0,
   mod:true,
   nodelay:true,
