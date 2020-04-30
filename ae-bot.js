@@ -256,7 +256,7 @@ client.on('guildMemberAdd', member => {
 			return;
 		}
 		if(data.toString().includes(member.id)){
-			respond('Banned','You were banned from the Apple Explained server.', member)
+			respond('Banned','You were banned from the Apple Explained server. (PREBAN)', member)
 			respond('Banned',`${member.tag} was banned from the server. (PREBAN)`, message.guild.channels.cache.get(UserLog))
 			member.guild.members.ban(member);
 		}
@@ -408,7 +408,6 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	.setTitle('Message Edit')
 	.setDescription('A message edit was detected.')
 	.addFields(
-		{ name: 'Current date/time: ', value: dateTime, inline: false },
 		{ name: 'Channel sent: ', value: oldMessage.channel.name, inline: false },
 		{ name: 'Message author', value: oldMessage.author.tag, inline: false },
 		{ name: 'Old message', value: oldMessage, inline: true },
@@ -432,9 +431,6 @@ client.on("StartupIssue", () => {
 		.setColor('#ffa900')
 		.setTitle('Bot Started - Issue Detected')
 		.setDescription(`The bot loaded successfully, but restarted unexpectedly.`)
-		.addFields(
-			{ name: 'Current date/time: ', value: dateTime, inline: true },
-		)
 		.setTimestamp()
 		.setFooter(footertext)
 		global.modlog = client.channels.cache.get(`${BotLog}`);
@@ -451,9 +447,6 @@ client.on('StartupPassed', () => {
 		.setColor('#00FF00')
 		.setTitle('Bot Started')
 		.setDescription(`${BootSuccessful}`)
-		.addFields(
-			{ name: 'Current date/time: ', value: dateTime, inline: true },
-		)
 		.setTimestamp()
 		.setFooter(footertext)
 	global.modlog = client.channels.cache.get(`${BotLog}`);
