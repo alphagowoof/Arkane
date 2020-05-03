@@ -8,8 +8,20 @@ module.exports = {
 	execute(message, args, client) {
     const Discord = require('discord.js');
     const fs = require('fs');
+    const {prefix} = require('../config.json')
+    const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
     try{
-    fs.readFile('./logs/'+args+'-modwarnings.log', (err, data) => {
+      if(argarray[2] == '--raw'){
+        message.channel.send({
+        files: ['./logs/' + argarray[1] + '-modwarnings.log']
+    });
+    message.channel.send({
+      files: ['./logs/' + argarray[1] + '-warnings.log']
+  });
+    return;
+      }
+      
+    fs.readFile('./logs/'+argarray[1]+'-modwarnings.log', (err, data) => {
       if (err || data.toString() == '') {
         console.error(err)
         const memberinfoembed = new Discord.MessageEmbed()
