@@ -203,6 +203,13 @@ client.once('ready', () => {
 		else{
 		  client.emit('StartupPassed')
 		}
+		if (fs.existsSync(`./statusmessage.config`)){
+			fs.readFile('./statusmessage.config', function(err, data){
+				client.user.setActivity(data.toString(), { type: 'WATCHING' });
+				if(err){errorlog(err)}
+			})
+			
+		}
 			
 });
 
