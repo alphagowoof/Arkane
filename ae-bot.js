@@ -32,7 +32,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 const cooldowns = new Discord.Collection();
-global.version = '5.0.0'
+global.version = '5.0.1'
 global.footertext = 'Version '+version
 global.errorcount = 0
 
