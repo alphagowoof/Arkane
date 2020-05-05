@@ -115,5 +115,113 @@
         "choice4" : "D. 91,000",
         "answer" : "b",
         "qid" : "13"
+      },
+      {
+        "question" : "When did Budget Darth Vader (tommystefanatic) begin work on the game commands?",
+        "choice1" : "A. May 3, 2020",
+        "choice2" : "B. May 2, 2020",
+        "choice3" : "C. May 1, 2020",
+        "choice4" : "D. May 4, 2020",
+        "answer" : "a",
+        "qid" : "14"
+      },
+      {
+        "question" : "What was the name of Steve Jobs' new company after he left Apple?",
+        "choice1" : "A. PrEVIOUS",
+        "choice2" : "B. Akapella Komputers",
+        "choice3" : "C. NeXT",
+        "choice4" : "D. Derpi Industries",
+        "answer" : "c",
+        "qid" : "15"
+      },
+      {
+        "question" : "When did Gordon get banned from the server?",
+        "choice1" : "A. December 10, 2019",
+        "choice2" : "B. March 15, 2020",
+        "choice3" : "C. February 21, 2020",
+        "choice4" : "D. January 29, 2020",
+        "answer" : "b",
+        "qid" : "16"
+      },
+      {
+        "question" : "What was the reasoning for Gordon's ban **literally** according to Apple Moderator?",
+        "choice1" : "A. 'abuse of mod power'",
+        "choice2" : "B. 'undefined'",
+        "choice3" : "C. 'messing around with .say'",
+        "choice4" : "D. 'just a test ban'",
+        "answer" : "b",
+        "qid" : "17"
+      },
+      {
+        "question" : "What was the sanity check phrase for .clearwarn?",
+        "choice1" : "A. YES I WANT TO DO IT",
+        "choice2" : "B. I AM NOT CRAZY, DO IT",
+        "choice3" : "C. CHECK ME FOR DRUG ABUSE, I DON'T HAVE ANY, DO IT",
+        "choice4" : "D. YES I AM SURE",
+        "answer" : "d",
+        "qid" : "18"
+      },
+      {
+        "question" : "What's the name of Tommy Stefanos' girlfriend?",
+        "choice1" : "A. Anna Hardy",
+        "choice2" : "B. Stephanie Alderney",
+        "choice3" : "C. Samantha Cook",
+        "choice4" : "D. Christine Michaels",
+        "answer" : "b",
+        "qid" : "19"
+      },
+      {
+        "question" : "When did Tommy Stefanos get the Apple User role?",
+        "choice1" : "A. January 27, 2020",
+        "choice2" : "B. February 3, 2020",
+        "choice3" : "C. December 31, 2019",
+        "choice4" : "D. March 1, 2020",
+        "answer" : "b",
+        "qid" : "20"
+      },
+      {
+        "question" : "When did Derpi first join the server?",
+        "choice1" : "A. November 27, 2019",
+        "choice2" : "B. October 3, 2019",
+        "choice3" : "C. December 31, 2019",
+        "choice4" : "D. September 12, 2019",
+        "answer" : "d",
+        "qid" : "21"
+      },
+      {
+        "question" : "When did Jim Veens get moderator status?",
+        "choice1" : "A. April 26, 2020",
+        "choice2" : "B. April 3, 2020",
+        "choice3" : "C. March 28, 2020",
+        "choice4" : "D. February 2, 2020",
+        "answer" : "d",
+        "qid" : "22"
+      },
+      {
+        "question" : "What is Daniel's GitHub username?",
+        "choice1" : "A. TechGeekGamer",
+        "choice2" : "B. ihavenothingtodobutcode",
+        "choice3" : "C. BowBeforeMe",
+        "choice4" : "D. H4ck3rMuch",
+        "answer" : "a",
+        "qid" : "23"
+      },
+      {
+        "question" : "Since what year was Bootcamp introduced on Macs?",
+        "choice1" : "A. 2004",
+        "choice2" : "B. 2013",
+        "choice3" : "C. 2006",
+        "choice4" : "D. 2008",
+        "answer" : "c",
+        "qid" : "24"
+      },
+      {
+        "question" : "The OS X to macOS name transition occured at what version of macOS?",
+        "choice1" : "A. Sierra",
+        "choice2" : "B. Mavericks",
+        "choice3" : "C. El Capitan",
+        "choice4" : "D. Catalina",
+        "answer" : "a",
+        "qid" : "25"
       }
 ]
