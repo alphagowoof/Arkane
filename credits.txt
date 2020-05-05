@@ -8,9 +8,11 @@ Thanks to the dev team! Their names and reason for being thanked is below;
 
 `Prestonplayz334#7719` for testing the `say` command.
 
-`LoserTrash#8200` for general testing.
+`LT-Tips#8200` for general testing.
 
 `Daniel C#7205` for writing the bot and commands.
+
+`Homemademask#9583` for developing the games.
 
 Thanks to everyone else who helped with this project too! :)
 
