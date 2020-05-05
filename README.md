@@ -10,8 +10,8 @@ A moderation bot for Apple Explained Discord server.
 
 ## Setup
 
-1. Download the source code of the bot.
-2. Open a command prompt window and go to the directory of the bot's files.
+1. Fork and download the source code of the bot.
+2. Go to the directory of the bot's files in a command line.
 3. Run `npm i`.
 4. Move the configs from `/config_templates` to the main bot folder.
 5. Edit the configs as you wish.
