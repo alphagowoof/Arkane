@@ -8,30 +8,36 @@ module.exports = {
     const Discord = require('discord.js');
     const fs = require('fs');
     const arg = message.content.slice('').trim().split(/ +/g); 
-    if(arg = 'tails') {
-      var side = 1
-    } else if(arg = 'heads') {
-      var side = 0
-    }
+    const filter = response => {
+      console.log(response)
+    };
+    console.log(arg[1])
     try {
+    if(arg[1] = 'tails') {
+      var yourside = 'Tails'
+    } else if(arg[1] = 'heads') {
+      var yourside = 'Heads'
+    } else if(arg[1] = 'Tails') {
+      var yourside = 'Tails'
+    } else if(arg[1] = 'Heads') {
+      var yourside = 'Heads'
+    } else if(arg[1] = undefined){
+    respond('','Where is your guess?', message.channel)
+    }
     var number = Math.ceil(Math.random() * 10)
     var coinside = 0
     if (number > 5){
       var coinside = 'Heads'
-      var coinside_asnumber = 0 
       showdown()
-      return;
     }else{
       var coinside = 'Tails'
-      var coinside_asnumber = 1
       showdown()
-      return;
     }
     function showdown() {
-      if (coinside_asnumber = side) {
-        respond('','You guessed:' + arg[1] + '\nThe coin says' + coinside + '\n Congratulations, you got it right!' )
-      } else {
-        respond('','You guessed:' + arg[1] + '\nThe coin says' + coinside + '\n Sorry, you got it wrong, better luck next time!' )
+      if (yourside = coinside) {
+        respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n Congratulations, you got it right!', message.channel)
+      } else if (yourside != coinside) {
+        respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n Sorry, you got it wrong, better luck next time!', message.channel)
       }
     }
 }catch(error) {
