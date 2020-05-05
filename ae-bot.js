@@ -5,6 +5,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
 client.events = new Discord.Collection();
+const cooldowns = new Discord.Collection();
 const { 
 	prefix, 
 	token, 
@@ -31,11 +32,39 @@ const {
 const {
 	MessageEmbed
 } = require('discord.js')
-const cooldowns = new Discord.Collection();
+
 global.version = '5.0.1'
 global.footertext = 'Version '+version
 global.errorcount = 0
 
+
+//Bot ready
+client.once('ready', () => {
+	console.log('Version '+version)
+	console.log('Cleaning bot log...')
+	fs.writeFileSync('./bot.log','');
+	console.log('Bot log cleaned.')
+	console.log('Ready!');
+	actionlog(`Startup: Bot started`)
+		const path = './runstate.txt'
+		if (fs.existsSync(path) && CrashNotify == true) {
+			client.emit("StartupIssue")
+		}else
+		if(fs.existsSync(path) && CrashNotify != true){
+			client.emit('StartupPassed')
+		}
+		else{
+		  client.emit('StartupPassed')
+		}
+		if (fs.existsSync(`./statusmessage.config`)){
+			fs.readFile('./statusmessage.config', function(err, data){
+				client.user.setActivity(data.toString(), { type: 'WATCHING' });
+				if(err){errorlog(err)}
+			})
+			
+		}
+			
+});
 
 //Checks for shutdown flag
 if (fs.existsSync(`./shutdown.flag`)){
@@ -64,10 +93,6 @@ for (const modfile of modcommandFiles) {
 	console.log(`INFO: The command '${modcommand.name}' was loaded.`)
 	client.modcommands.set(modcommand.name, modcommand);
 }
-//const events = require(`./events.js`);
-//client.events.set(events)
-//console.log('Events loaded.')
-
 
 //Loading command part 3
 client.on('message', async message => {
@@ -111,7 +136,30 @@ if (command.disable == true) {
 		return;
 	}
 
-//Normal (with delay)
+	if (!cooldowns.has(command.name)) {
+		cooldowns.set(command.name, new Discord.Collection());
+	}
+
+	const now = Date.now();
+	const timestamps = cooldowns.get(command.name);
+	const cooldownAmount = (command.cooldown || 3) * 1000;
+
+	if (timestamps.has(message.author.id)) {
+		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+		if (now < expirationTime) {
+			const timeLeft = (expirationTime - now) / 1000;
+			respond('⏲️',`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, message.channel);
+			message.channel.stopTyping()
+			return;
+		}
+	}
+
+	timestamps.set(message.author.id, now);
+	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
+
+	//Normal (with delay)
 	try {
 		setTimeout(function(){ 
 			command.execute(message, args, client);
@@ -185,33 +233,7 @@ global.actionlog = function(action){
 	fs.appendFileSync('./bot.log',`${dateTime}\n${action}\n\n`);
 }
 
-//Bot ready
-client.once('ready', () => {
-	console.log('Version '+version)
-	console.log('Cleaning bot log...')
-	fs.writeFileSync('./bot.log','');
-	console.log('Bot log cleaned.')
-	console.log('Ready!');
-	actionlog(`Startup: Bot started`)
-		const path = './runstate.txt'
-		if (fs.existsSync(path) && CrashNotify == true) {
-			client.emit("StartupIssue")
-		}else
-		if(fs.existsSync(path) && CrashNotify != true){
-			client.emit('StartupPassed')
-		}
-		else{
-		  client.emit('StartupPassed')
-		}
-		if (fs.existsSync(`./statusmessage.config`)){
-			fs.readFile('./statusmessage.config', function(err, data){
-				client.user.setActivity(data.toString(), { type: 'WATCHING' });
-				if(err){errorlog(err)}
-			})
-			
-		}
-			
-});
+
 
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
