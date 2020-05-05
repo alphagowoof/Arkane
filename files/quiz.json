@@ -1,0 +1,92 @@
+[
+    {
+        "question" : "What was the title of the first Apple Explained video?",
+        "choice1" : "A. Every Mac Startup and Crash Chime",
+        "choice2" : "B. 'O8 MacBook Keynote",
+        "choice3" : "C. Don't Compare Apple's HomePod to Amazon's Echo",
+        "choice4" : "D. Every Apple Watch Band Ever Made",
+        "answer" : "b"
+        
+      }, 
+      {
+        "question" : "When was the first version of the video 'History of the iPhone released?",
+        "choice1" : "A. March 8, 2017",
+        "choice2" : "B. August 2, 2019",
+        "choice3" : "C. January 22, 2016",
+        "choice4" : "D. December 8, 2018",
+        "answer" : "c"
+        
+      }, 
+      {
+        "question" : "What is the last video Apple Explained posted for 2019?",
+        "choice1" : "A. Why Apple Killed 3D Touch",
+        "choice2" : "B. Apple's 'Pro' Problem",
+        "choice3" : "C. History of the Fifth Avenue Apple Store",
+        "choice4" : "D. History of Apple's Website",
+        "answer" : "d"
+        
+      }, 
+      {
+        "question" : "When did Apple Explained join YouTube?",
+        "choice1" : "A. August 30, 2008",
+        "choice2" : "B. July 6, 2008",
+        "choice3" : "C. March 14, 2007",
+        "choice4" : "D. December 2, 2007",
+        "answer" : "a"
+        
+      },
+      {
+        "question" : "When did Apple Explained hit 100,000 subscribers?",
+        "choice1" : "A. October 14, 2018",
+        "choice2" : "B. April 6, 2018",
+        "choice3" : "C. September 11, 2017",
+        "choice4" : "D. February 4, 2017",
+        "answer" : "a"
+        
+      }, 
+      {
+        "question" : "What was the name of the first non-Apple related video posted by Apple Explained on YouTube?",
+        "choice1" : "A. What's Going On With Huawei?",
+        "choice2" : "B. Why Is Android So Fragmented?",
+        "choice3" : "C. 10 Things The Internet Has Destroyed",
+        "choice4" : "D. Why Samsung Has Ditched The Headphone Jack",
+        "answer" : "c"
+        
+      }, 
+      {
+        "question" : "What were the names of the people that founded Apple?",
+        "choice1" : "A. Daniel C, Jim Veens, Gregory Wyatt Jr.",
+        "choice2" : "B. Steve Jobs, Steve Wozniak, Ronald Wayne",
+        "choice3" : "C. Kim Jong-Il, Kim Jong-Un",
+        "choice4" : "D. Bill Gates, Melinda Gates",
+        "answer" : "b"
+        
+      }, 
+      {
+        "question" : "Which of the following companies is a subsidiary of Apple?",
+        "choice1" : "A. Akapella Interaktive",
+        "choice2" : "B. Pixar",
+        "choice3" : "C. Netflix",
+        "choice4" : "D. Beats Electronics",
+        "answer" : "d"
+        
+      }, 
+      {
+        "question" : "When was the Apple Explained Discord server **re**made?",
+        "choice1" : "A. March 7, 2019",
+        "choice2" : "B. February 1, 2019",
+        "choice3" : "C. February 9, 2019",
+        "choice4" : "D. April 2, 2019",
+        "answer" : "c"
+        
+      }, 
+      {
+        "question" : "When did the Apple Explained Discord server hit 1000 members?",
+        "choice1" : "A. March 27, 2018",
+        "choice2" : "B. April 30, 2018",
+        "choice3" : "C. July 7, 2017",
+        "choice4" : "D. May 12, 2018",
+        "answer" : "d"
+        
+      }
+]
