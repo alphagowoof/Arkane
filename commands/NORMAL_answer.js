@@ -1,9 +1,8 @@
 module.exports = {
     name: "answer",
-    aliases: [''],
     description: "Answer a trivia question.\n(Run .trivia first before using .answer)",
     usage: "(Question ID) (Letter of answer) | .answer 4 D",
-    cooldown: 0,
+    cooldown: 10,
       execute(message, args, client) {
       const Discord = require('discord.js');
       const fs = require('fs');
@@ -21,10 +20,10 @@ module.exports = {
         return item.answer
       };
       try {
-        if(arg[2] == item.answer) {
+        if(arg[2].toLowerCase() == item.answer) {
             console.log('answer correct')
             respond('', "That was the correct answer!", message.channel)
-        }else if(arg[2] != item.answer) {
+        }else if(arg[2].toLowerCase() != item.answer) {
             console.log('answer wrong')
             respond('', "That was the wrong answer", message.channel)
         }
