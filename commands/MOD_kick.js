@@ -8,6 +8,7 @@ module.exports = {
 	cooldown: 0,
 	mod:true,
 	execute(message, args, client) {
+		const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
 		try {
 			if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
 			const {ModeratorRoleID} = require('../info.json');
