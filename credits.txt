@@ -2,7 +2,7 @@ Thanks to `Greg#1810` for letting me put my bot in the Apple Explained server.
 
 Thanks to the dev team! Their names and reason for being thanked is below;
 
-`Derpi#0001` for helping with the profanity filter.
+`Derpi#0001` for helping with the profanity filter, and building .recommendation.
 
 `MacLogical#6519` for general testing.
 
