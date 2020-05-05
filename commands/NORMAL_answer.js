@@ -9,7 +9,7 @@ module.exports = {
       const fs = require('fs');
       try {
         const args = message.content.slice('.answer').trim().split(/ +/g); 
-        console.log(args[2] + "," + args[3])
+        console.log(args[1] + "," + args[2])
         message.channel.send('This command is still under testing!')
   }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
