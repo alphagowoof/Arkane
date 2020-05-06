@@ -20,12 +20,15 @@ module.exports = {
         return item.answer
       };
       try {
-        if(arg[2].toLowerCase() == item.answer) {
+        if(arg[2]== item.answer) {
             console.log('answer correct')
             respond('', "That was the correct answer!", message.channel)
-        }else if(arg[2].toLowerCase() != item.answer) {
+        }else if(arg[2] == item.answer_case) {
+            console.log('answer correct, capital letter')
+            respond('', "That was the correct answer! Next time, try using lowercase for the answer.", message.channel)
+        }else{
             console.log('answer wrong')
-            respond('', "That was the wrong answer", message.channel)
+            respond('', "That was the wrong answer.", message.channel)
         }
   }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)

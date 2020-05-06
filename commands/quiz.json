@@ -248,5 +248,55 @@
         "answer" : "a",
         "answer_case" : "A",
         "qid" : "25"
+      },
+      {
+        "question" : "How many times did Tommy Stefanos say 'ollo'?",
+        "choice1" : "A. 5",
+        "choice2" : "B. 12",
+        "choice3" : "C. 30",
+        "choice4" : "D. 99",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "26"
+      },
+      {
+        "question" : "How many commits were made to the testing bot as of May 6, 2020?",
+        "choice1" : "A. 332",
+        "choice2" : "B. 911",
+        "choice3" : "C. 1000",
+        "choice4" : "D. 209",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "27"
+      },
+      {
+        "question" : "Where did Tommy Stefanos and Stephanie Alderney first meet?",
+        "choice1" : "A. At school",
+        "choice2" : "B. At a romantic view in Mountain Province",
+        "choice3" : "C. Paris, France",
+        "choice4" : "D. Tokyo, Japan",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "28"
+      },
+      {
+        "question" : "How many (rounded) total messages did Daniel send in the Apple Explained server as of May 6, 2020?",
+        "choice1" : "A. 13,000",
+        "choice2" : "B. 20,000",
+        "choice3" : "C. 69,000",
+        "choice4" : "D. 9,001",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "29"
+      },
+      {
+        "question" : "When did Alex announce his break and when did Nick Greenway leave the server? (One date)",
+        "choice1" : "A. April 9, 2020",
+        "choice2" : "B. March 18, 2020",
+        "choice3" : "C. March 29, 2020",
+        "choice4" : "D. April 27, 2020",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "30"
       }
 ]

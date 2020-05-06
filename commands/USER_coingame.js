@@ -15,24 +15,36 @@ module.exports = {
     try {
     if(arg[1] = 'tails') {
       var yourside = 'Tails'
+      var ysnum = 0
+      coingenerate()
     } else if(arg[1] = 'heads') {
       var yourside = 'Heads'
+      var ysnum = 1
+      coingenerate()
     } else if(arg[1] = 'Tails') {
       var yourside = 'Tails'
+      var ysnum = 0
+      coingenerate()
     } else if(arg[1] = 'Heads') {
       var yourside = 'Heads'
-    } else if(arg[1] = undefined){
+      var ysnum = 1
+      coingenerate()
+    } else {
     respond('','Where is your guess?', message.channel)
     }
+    function coingenerate() {
     var number = Math.ceil(Math.random() * 10)
     var coinside = 0
     if (number > 5){
       var coinside = 'Heads'
+      var csnum = 0
       showdown()
     }else{
       var coinside = 'Tails'
+      var csnum = 1
       showdown()
     }
+  }
     function showdown() {
       if (yourside = coinside) {
         respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n Congratulations, you got it right!', message.channel)
