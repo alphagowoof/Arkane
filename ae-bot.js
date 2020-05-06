@@ -34,7 +34,7 @@ const {
 } = require('discord.js')
 
 global.version = '5.0.1'
-global.footertext = 'Version '+version
+global.footertext = 'Version '+ version
 global.errorcount = 0
 
 
@@ -72,15 +72,9 @@ if (fs.existsSync(`./shutdown.flag`)){
 	process.exit()
 }else{}
 
-//Checking ALL files
-const allFiles = fs.readdirSync('./')
-for (const foundfile of allFiles){
-	console.log(foundfile + ' was found.')
-}
-
 //Loading commands part 1
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-const modcommandFiles = fs.readdirSync('./commands').filter(modfile => modfile.endsWith('.js'));
+const allCommandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 //Loading commands part 2
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -88,8 +82,8 @@ for (const file of commandFiles) {
 			client.commands.set(command.name, command);
 		}
 }
-for (const modfile of modcommandFiles) {
-	const modcommand = require(`./commands/${modfile}`);
+for (const file of allCommandFiles) {
+	const modcommand = require(`./commands/${file}`);
 	console.log(`INFO: The command '${modcommand.name}' was loaded.`)
 	client.modcommands.set(modcommand.name, modcommand);
 }
@@ -97,14 +91,14 @@ for (const modfile of modcommandFiles) {
 //Loading command part 3
 client.on('message', async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
-		message.channel.startTyping()
+		
 		const args = message.content.slice(prefix.length).split(/ +/);
 		const commandName = args.shift().toLowerCase();
 		const command = client.modcommands.get(commandName)
 			|| client.modcommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 //Not a command
 		if (!command) {
-			message.channel.stopTyping()
+			
 			return;
 		}
 actionlog(`Command init:  Name: \`${command.name}\`  Args: \`|${args}|\`  Launched in: \`${message.channel.name} (${message.channel.id})\``)
@@ -112,27 +106,20 @@ actionlog(`Command init:  Name: \`${command.name}\`  Args: \`|${args}|\`  Launch
 //Command disabled
 if (command.disable == true) {
 	respond('🛑 Command disabled',`<@${message.author.id}>, the command you are trying to run is disabled at the moment. Please try again later.`, message.channel) 
-	message.channel.stopTyping()
+	
 	return;
 }
 //Bot Manager (over mod)
 	if(command.botmanager == true && message.member.roles.cache.some(role => role.id === `${BotManagerRoleID}`)){
 		command.execute(message, args, client);;
-		message.channel.stopTyping()
+		
 		return;
 	}
 //Mod command and no permission
 	if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
 		respond('🛑 Incorrect permissions',`<@${message.author.id}>, ${nopermreply}`, message.channel) 
-		message.channel.stopTyping()
+		
 		message.react('❌')
-		return;
-	}
-
-//Run right away
-	if (command.nodelay == true){
-		command.execute(message, args, client);
-		message.channel.stopTyping()
 		return;
 	}
 
@@ -150,7 +137,7 @@ if (command.disable == true) {
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
 			respond('⏲️',`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, message.channel);
-			message.channel.stopTyping()
+			
 			return;
 		}
 	}
@@ -163,12 +150,12 @@ if (command.disable == true) {
 	try {
 		setTimeout(function(){ 
 			command.execute(message, args, client);
-			message.channel.stopTyping()
+			
 		}, 1500);
 	} catch (error) {
 		console.error(error);
 		respond('Error', 'Something went wrong.\n'+error, message.channel)
-		message.channel.stopTyping()
+		
 	}
 
 	
