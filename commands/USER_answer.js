@@ -11,7 +11,7 @@ module.exports = {
       console.log(arg[1] + ", " + arg[2])
       var modified = arg[1] - 1
       const item = quiz[modified]
-      if(arg[1] > 55){
+      if(arg[1] > 63){
         console.log("oi m8 there's nothing to load")
         console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
         respond('', arg[1] + " is not a valid question number", message.channel)
@@ -26,7 +26,7 @@ module.exports = {
       try {
         over50()
         function over50() {
-        if(arg[1] > 55) {
+        if(arg[1] > 63) {
           console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
           respond('', arg[1] + " is not a valid question number", message.channel)
           return

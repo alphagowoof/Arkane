@@ -6,18 +6,9 @@ module.exports = {
   cooldown: 0,
     execute(message, args, client) {
     const fs = require('fs');
-    try {
     // Get number of dice using arguments
     const arg = message.content.slice('.rolldicegame').trim().split(/ +/g);
     console.log(arg[1])
-    if (arg[1] > 0){
-      initvar()
-    }else {
-      const arg = 1
-      initvar()
-    }
-    // Initialize variables
-    function initvar() {
     var number = 0
     var numbermul = 0
     var numberApMod = 0
@@ -39,12 +30,14 @@ module.exports = {
     var divisor = Math.ceil(Math.random * 48)
     console.log('Divisor generated.')
     console.log('If you are seeing this message and there is nothing beneath it, a shadow problem has occured. Check code!')
-    competition()
-    const filter = response => {
-    }
-  }
+    try {
+      competition()
     // The classic switcharoo
     function competition() {
+      if (arg[1] > 0){
+      }else {
+      const arg = 1
+      }
       if (numswitch < 33) {             // Switch = yes
         var temp1 = numberApMod
         var temp2 = number

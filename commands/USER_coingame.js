@@ -1,8 +1,8 @@
 module.exports = {
   name: 'coingame',
   aliases: ['flipcoingame', 'flipgame', 'coinflipgame'],
-  description: 'Guess the side of the coin with Apple Mod.',
-  usage: '(heads/tails)',
+  description: 'Guess the side of the coin with Apple Mod.\nMake sure you write them in lowercase.',
+  usage: '(0/1) [0 for tails, 1 for heads]',
   cooldown: 0,
 	execute(message, args, client) {
     const Discord = require('discord.js');
@@ -11,46 +11,45 @@ module.exports = {
     const filter = response => {
       console.log(response)
     };
-    var coinside = 0
-    var yourside = 0
     console.log(arg[1])
-    try {
-    if(arg[1] = 'tails') {
+    if(arg[1] = 0) {
       var yourside = 'Tails'
-      var ysnum = 0
-      coingenerate()
-    } else if(arg[1] = 'heads') {
+      var ysnum = arg[1]
+    } else if(arg[1] = 1) {
       var yourside = 'Heads'
-      var ysnum = 1
-      coingenerate()
-    } else if(arg[1] = 'Tails') {
-      var yourside = 'Tails'
-      var ysnum = 0
-      coingenerate()
-    } else if(arg[1] = 'Heads') {
-      var yourside = 'Heads'
-      var ysnum = 1
-      coingenerate()
-    } else {
+      var ysnum = arg[1]
+    } else{
     respond('','Where is your guess?', message.channel)
     }
-    function coingenerate() {
-    var number = Math.ceil(Math.random() * 10)
-    if (number > 5){
-      var coinside = 'Heads'
-      var csnum = 0
+    try {
       showdown()
-    }else{
-      var coinside = 'Tails'
-      var csnum = 1
-      showdown()
-    }
-  }
     function showdown() {
-      if (ysnum = csnum) {
-        respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n Congratulations, you got it right!', message.channel)
-      } else if (ysnum != csnum) {
-        respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n Sorry, you got it wrong, better luck next time!', message.channel)
+      var coinside = 'no'
+      var didyouwin = "idk"
+      var number = Math.ceil(Math.random() * 10)
+      if (number > 5){
+        var coinside = 'Heads'
+        var csnum = 0
+      }else{
+        var coinside = 'Tails'
+        var csnum = 1
+      }
+      console.log(csnum)
+      console.log(ysnum)
+      console.log(coinside)
+      console.log(yourside)
+      if (ysnum = 1) {
+        if (csnum = 1) {
+          respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n', message.channel)
+        } else {
+          respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n', message.channel)
+        }
+      } else if (ysnum = 0) {
+        if (csnum = 1){
+          respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n', message.channel)
+        } else {
+          respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n', message.channel)
+        }
       }
     }
 }catch(error) {

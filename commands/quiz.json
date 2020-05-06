@@ -548,5 +548,85 @@
         "answer" : "c",
         "answer_case" : "C",
         "qid" : "55"
+      },
+      {
+        "question" : "What's Tommy Stefanos's favorite orchestral plugin?",
+        "choice1" : "A. Miroslav Philharmonik 2",
+        "choice2" : "B. Metropolis Ark Complete",
+        "choice3" : "C. Nucleus",
+        "choice4" : "D. Layers",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "56"
+      },
+      {
+        "question" : "What's Tommy Stefanos's first programming language he learned before JavaScript?",
+        "choice1" : "A. C++",
+        "choice2" : "B. UnityScript",
+        "choice3" : "C. Microsoft Windows Batch",
+        "choice4" : "D. Assembly",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "57"
+      },
+      {
+        "question" : "What was one of Tommy Stefanos's local childhood channels before it finally shut down on May 5, 2020?",
+        "choice1" : "A. Jeepney TV",
+        "choice2" : "B. Cinema One",
+        "choice3" : "C. Star Movies",
+        "choice4" : "D. ABS-CBN",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "58"
+      },
+      {
+        "question" : "All of these statements are error messages for scientific calculators EXCEPT:",
+        "choice1" : "A. Syntax Error",
+        "choice2" : "B. Math Error",
+        "choice3" : "C. Stack Error",
+        "choice4" : "D. Power Error",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "59"
+      },
+      {
+        "question" : "How many songs does Tommy Stefanos have on his iPod?",
+        "choice1" : "A. 1212",
+        "choice2" : "B. 1374",
+        "choice3" : "C. 1124",
+        "choice4" : "D. 1919",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "60"
+      },
+      {
+        "question" : "What was the first thing Tommy said to Stephanie when they first met?",
+        "choice1" : "A. 'Hi' *awkward silence*",
+        "choice2" : "B. 'You actually like my speaker/lunchbox?'",
+        "choice3" : "C. 'wauw you look pretty'",
+        "choice4" : "D. *in my mind: love at first sight*",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "61"
+      },
+      {
+        "question" : "Identify the song that has these lyrics.\nLover come over, look what I've done.",
+        "choice1" : "A. Faded",
+        "choice2" : "B. Cringe",
+        "choice3" : "C. Love Story",
+        "choice4" : "D. Heading Home",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "62"
+      },
+      {
+        "question" : "What was the hardest game command to code according to Tommy Stefanos?",
+        "choice1" : "A. slots",
+        "choice2" : "B. coingame",
+        "choice3" : "C. trivia",
+        "choice4" : "D. rolldicegame",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "63"
       }
 ]
