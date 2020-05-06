@@ -6,6 +6,7 @@
         "choice3" : "C. Don't Compare Apple's HomePod to Amazon's Echo",
         "choice4" : "D. Every Apple Watch Band Ever Made",
         "answer" : "b",
+        "answer_case" : "B",
         "qid" : "1"
       },
       {
@@ -15,6 +16,7 @@
         "choice3" : "C. January 22, 2016",
         "choice4" : "D. December 8, 2018",
         "answer" : "c",
+        "answer_case" : "C",
         "qid" : "2"
       }, 
       {
@@ -24,6 +26,7 @@
         "choice3" : "C. History of the Fifth Avenue Apple Store",
         "choice4" : "D. History of Apple's Website",
         "answer" : "d",
+        "answer_case" : "D",
         "qid" : "3"
       }, 
       {
@@ -33,6 +36,7 @@
         "choice3" : "C. March 14, 2007",
         "choice4" : "D. December 2, 2007",
         "answer" : "a",
+        "answer_case" : "A",
         "qid" : "4"
       },
       {
@@ -42,6 +46,7 @@
         "choice3" : "C. September 11, 2017",
         "choice4" : "D. February 4, 2017",
         "answer" : "a",
+        "answer_case" : "A",
         "qid" : "5"
       }, 
       {
@@ -51,6 +56,7 @@
         "choice3" : "C. 10 Things The Internet Has Destroyed",
         "choice4" : "D. Why Samsung Has Ditched The Headphone Jack",
         "answer" : "c",
+        "answer_case" : "C",
         "qid" : "6"
       }, 
       {
@@ -60,6 +66,7 @@
         "choice3" : "C. Kim Jong-Il, Kim Jong-Un",
         "choice4" : "D. Bill Gates, Melinda Gates",
         "answer" : "b",
+        "answer_case" : "B",
         "qid" : "7"
       }, 
       {
@@ -69,6 +76,7 @@
         "choice3" : "C. Netflix",
         "choice4" : "D. Beats Electronics",
         "answer" : "d",
+        "answer_case" : "D",
         "qid" : "8"
       }, 
       {
@@ -78,6 +86,7 @@
         "choice3" : "C. February 9, 2019",
         "choice4" : "D. April 2, 2019",
         "answer" : "c",
+        "answer_case" : "C",
         "qid" : "9"
       }, 
       {
@@ -87,6 +96,7 @@
         "choice3" : "C. July 7, 2020",
         "choice4" : "D. May 12, 2020",
         "answer" : "d",
+        "answer_case" : "D",
         "qid" : "10"
       }, 
       {
@@ -96,6 +106,7 @@
         "choice3" : "C. March 29, 1976",
         "choice4" : "D. February 21, 1976",
         "answer" : "a",
+        "answer_case" : "A",
         "qid" : "11"
       },
       {
@@ -105,6 +116,7 @@
         "choice3" : "C. 500",
         "choice4" : "D. 5000",
         "answer" : "c",
+        "answer_case" : "C",
         "qid" : "12"
       },
       {
@@ -114,6 +126,7 @@
         "choice3" : "C. 99,900",
         "choice4" : "D. 91,000",
         "answer" : "b",
+        "answer_case" : "B",
         "qid" : "13"
       },
       {
@@ -123,6 +136,7 @@
         "choice3" : "C. May 1, 2020",
         "choice4" : "D. May 4, 2020",
         "answer" : "a",
+        "answer_case" : "A",
         "qid" : "14"
       },
       {
@@ -132,6 +146,7 @@
         "choice3" : "C. NeXT",
         "choice4" : "D. Derpi Industries",
         "answer" : "c",
+        "answer_case" : "C",
         "qid" : "15"
       },
       {
@@ -141,6 +156,7 @@
         "choice3" : "C. February 21, 2020",
         "choice4" : "D. January 29, 2020",
         "answer" : "b",
+        "answer_case" : "B",
         "qid" : "16"
       },
       {
@@ -150,6 +166,7 @@
         "choice3" : "C. 'messing around with .say'",
         "choice4" : "D. 'just a test ban'",
         "answer" : "b",
+        "answer_case" : "B",
         "qid" : "17"
       },
       {
@@ -159,6 +176,7 @@
         "choice3" : "C. CHECK ME FOR DRUG ABUSE, I DON'T HAVE ANY, DO IT",
         "choice4" : "D. YES I AM SURE",
         "answer" : "d",
+        "answer_case" : "D",
         "qid" : "18"
       },
       {
@@ -168,6 +186,7 @@
         "choice3" : "C. Samantha Cook",
         "choice4" : "D. Christine Michaels",
         "answer" : "b",
+        "answer_case" : "B",
         "qid" : "19"
       },
       {
@@ -177,6 +196,7 @@
         "choice3" : "C. December 31, 2019",
         "choice4" : "D. March 1, 2020",
         "answer" : "b",
+        "answer_case" : "B",
         "qid" : "20"
       },
       {
@@ -186,6 +206,7 @@
         "choice3" : "C. December 31, 2019",
         "choice4" : "D. September 12, 2019",
         "answer" : "d",
+        "answer_case" : "D",
         "qid" : "21"
       },
       {
@@ -195,15 +216,17 @@
         "choice3" : "C. March 28, 2020",
         "choice4" : "D. February 2, 2020",
         "answer" : "d",
+        "answer_case" : "D",
         "qid" : "22"
       },
       {
         "question" : "What is Daniel's GitHub username?",
         "choice1" : "A. TechGeekGamer",
         "choice2" : "B. ihavenothingtodobutcode",
-        "choice3" : "C. BowBeforeMe",
+        "choice3" : "C. BowBeforeMe420",
         "choice4" : "D. H4ck3rMuch",
         "answer" : "a",
+        "answer_case" : "A",
         "qid" : "23"
       },
       {
@@ -213,6 +236,7 @@
         "choice3" : "C. 2006",
         "choice4" : "D. 2008",
         "answer" : "c",
+        "answer_case" : "C",
         "qid" : "24"
       },
       {
@@ -222,6 +246,7 @@
         "choice3" : "C. El Capitan",
         "choice4" : "D. Catalina",
         "answer" : "a",
+        "answer_case" : "A",
         "qid" : "25"
       }
 ]
