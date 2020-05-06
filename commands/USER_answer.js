@@ -20,11 +20,15 @@ module.exports = {
         return item.answer
       };
       try {
+        over30()
+        function over30() {
         if(arg[1] > 30) {
           respond('', arg[1] + " is not a valid question number", message.channel)
+          return
         }else{
           areyoucorrect()
         }
+      }
         function areyoucorrect(){
         if(arg[2]== item.answer) {
             console.log('answer correct')
@@ -43,4 +47,5 @@ module.exports = {
       // Your code broke (Leave untouched in most cases)
       console.error('an error has occured', error);
       }
-    }}
+    }
+  }
