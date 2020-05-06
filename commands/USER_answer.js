@@ -10,10 +10,6 @@ module.exports = {
       const arg = message.content.slice('').trim().split(/ +/g); 
       console.log(arg[1] + ", " + arg[2])
       var modified = arg[1] - 1
-      const item = quiz[modified]
-      console.log(item)
-      console.log(ans)
-      console.log(arg[2])
       const filter = response => {
         console.log(response)
         return item.answer
@@ -22,9 +18,15 @@ module.exports = {
         over30()
         function over30() {
         if(arg[1] > 30) {
+          console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
           respond('', arg[1] + " is not a valid question number", message.channel)
           return
         }else{
+          const item = quiz[modified]
+          console.log(item)
+          console.log(ans)
+          console.log(arg[2])
+          console.log("number ok. question loaded.")
           const ans = item.answer
           areyoucorrect()
         }
