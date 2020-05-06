@@ -12,7 +12,6 @@ module.exports = {
       var modified = arg[1] - 1
       const item = quiz[modified]
       console.log(item)
-      const ans = item.answer
       console.log(ans)
       console.log(arg[2])
       const filter = response => {
@@ -26,6 +25,7 @@ module.exports = {
           respond('', arg[1] + " is not a valid question number", message.channel)
           return
         }else{
+          const ans = item.answer
           areyoucorrect()
         }
       }
