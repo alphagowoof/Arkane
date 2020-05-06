@@ -20,6 +20,12 @@ module.exports = {
         return item.answer
       };
       try {
+        if(arg[1] > 30) {
+          respond('', arg[1] + " is not a valid question number", message.channel)
+        }else{
+          areyoucorrect()
+        }
+        function areyoucorrect(){
         if(arg[2]== item.answer) {
             console.log('answer correct')
             respond('', "That was the correct answer!", message.channel)
@@ -30,6 +36,7 @@ module.exports = {
             console.log('answer wrong')
             respond('', "That was the wrong answer.", message.channel)
         }
+      }
   }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
       errorlog(error)
