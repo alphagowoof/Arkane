@@ -9,16 +9,6 @@ module.exports = {
     const Discord = require('discord.js')
     const msg = message
     try {
-    //Initialize variables
-    var qa = Math.ceil(Math.random() * 55)
-    var divisor = Math.ceil(Math.random() * 100)
-    if(divisor < 51) {
-      var temp1 = qa
-      var qa = temp1
-    }else {
-      var temp1 = qa
-      var qa = Math.ceil(temp1/2)
-    }
     //Pick a question
     const quiz = require('./quiz.json');
     const item = quiz[Math.floor(Math.random() * quiz.length)];

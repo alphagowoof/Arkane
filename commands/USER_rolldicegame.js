@@ -10,7 +10,14 @@ module.exports = {
     // Get number of dice using arguments
     const arg = message.content.slice('.rolldicegame').trim().split(/ +/g);
     console.log(arg[1])
+    if (arg[1] > 0){
+      initvar()
+    }else {
+      const arg = 1
+      initvar()
+    }
     // Initialize variables
+    function initvar() {
     var number = 0
     var numbermul = 0
     var numberApMod = 0
@@ -35,6 +42,7 @@ module.exports = {
     competition()
     const filter = response => {
     }
+  }
     // The classic switcharoo
     function competition() {
       if (numswitch < 33) {             // Switch = yes

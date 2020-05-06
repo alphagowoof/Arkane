@@ -11,6 +11,8 @@ module.exports = {
     const filter = response => {
       console.log(response)
     };
+    var coinside = 0
+    var yourside = 0
     console.log(arg[1])
     try {
     if(arg[1] = 'tails') {
@@ -34,7 +36,6 @@ module.exports = {
     }
     function coingenerate() {
     var number = Math.ceil(Math.random() * 10)
-    var coinside = 0
     if (number > 5){
       var coinside = 'Heads'
       var csnum = 0
@@ -46,9 +47,9 @@ module.exports = {
     }
   }
     function showdown() {
-      if (yourside = coinside) {
+      if (ysnum = csnum) {
         respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n Congratulations, you got it right!', message.channel)
-      } else if (yourside != coinside) {
+      } else if (ysnum != csnum) {
         respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n Sorry, you got it wrong, better luck next time!', message.channel)
       }
     }
