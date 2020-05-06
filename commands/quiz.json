@@ -215,8 +215,8 @@
         "choice2" : "B. April 3, 2020",
         "choice3" : "C. March 28, 2020",
         "choice4" : "D. February 2, 2020",
-        "answer" : "d",
-        "answer_case" : "D",
+        "answer" : "a",
+        "answer_case" : "A",
         "qid" : "22"
       },
       {
@@ -498,5 +498,55 @@
         "answer" : "a",
         "answer_case" : "A",
         "qid" : "50"
+      },
+      {
+        "question" : "What Digital Audio Workstation does Tommy Stefanos use?",
+        "choice1" : "A. FruityLoops (FL) Studio",
+        "choice2" : "B. Ableton Live Suite",
+        "choice3" : "C. Logic Pro X",
+        "choice4" : "D. Garageband",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "51"
+      },
+      {
+        "question" : "What key/s does Tommy Stefanos commonly use to compose trailer music?",
+        "choice1" : "A. E pentatonic minor",
+        "choice2" : "B. D minor/D melodic minor",
+        "choice3" : "C. G minor",
+        "choice4" : "D. A major",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "52"
+      },
+      {
+        "question" : "What key does Tommy Stefanos commonly use to produce EDM?",
+        "choice1" : "A. F# major",
+        "choice2" : "B. D major",
+        "choice3" : "C. G# Minor",
+        "choice4" : "D. F major",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "53"
+      },
+      {
+        "question" : "What's the favorite Sytrus preset of Tommy Stefanos?",
+        "choice1" : "A. LD Electric Beach",
+        "choice2" : "B. Marimba",
+        "choice3" : "C. String ensemble",
+        "choice4" : "D. Church bell",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "54"
+      },
+      {
+        "question" : "Who made the Sytrus preset 'LD Electric Beach'?",
+        "choice1" : "A. Nicky Romero",
+        "choice2" : "B. deadmau5",
+        "choice3" : "C. Adam Szabo & Johan Vilborg",
+        "choice4" : "D. Alan Walker & K-391",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "55"
       }
 ]

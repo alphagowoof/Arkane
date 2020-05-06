@@ -10,7 +10,7 @@ module.exports = {
     const msg = message
     try {
     //Initialize variables
-    var qa = Math.ceil(Math.random() * 50)
+    var qa = Math.ceil(Math.random() * 55)
     var divisor = Math.ceil(Math.random() * 100)
     if(divisor < 51) {
       var temp1 = qa
