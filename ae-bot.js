@@ -1,6 +1,6 @@
 console.log('Loading, please wait a moment.')
-global.fs = require('fs');
-global.Discord = require('discord.js');
+fs = require('fs');
+Discord = require('discord.js');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
@@ -33,9 +33,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-global.version = '5.0.1'
-global.footertext = 'Version '+ version
-global.errorcount = 0
+version = '5.0.1'
+footertext = 'Version '+ version
+errorcount = 0
 
 
 //Bot ready
@@ -45,7 +45,6 @@ client.once('ready', () => {
 	fs.writeFileSync('./bot.log','');
 	console.log('Bot log cleaned.')
 	console.log('Ready!');
-	actionlog(`Startup: Bot started`)
 		const path = './runstate.txt'
 		if (fs.existsSync(path) && CrashNotify == true) {
 			client.emit("StartupIssue")
@@ -99,8 +98,6 @@ client.on('message', async message => {
 		if (!command) {
 			return;
 		}
-actionlog(`Command init:  Name: \`${command.name}\`  Args: \`|${args}|\`  Launched in: \`${message.channel.name} (${message.channel.id})\``)
-
 //Command disabled
 if (command.disable == true) {
 	respond('🛑 Command disabled',`<@${message.author.id}>, the command you are trying to run is disabled at the moment. Please try again later.`, message.channel)
@@ -132,7 +129,6 @@ if (command.disable == true) {
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
 			respond('⏲️',`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, message.channel);
-			
 			return;
 		}
 	}
@@ -143,10 +139,7 @@ if (command.disable == true) {
 
 	//Normal (with delay)
 	try {
-		setTimeout(function(){ 
-			command.execute(message, args, client);
-			
-		}, 1500);
+		command.execute(message, args, client, this);
 	} catch (error) {
 		console.error(error);
 		respond('Error', 'Something went wrong.\n'+error, message.channel)
@@ -169,8 +162,14 @@ client.on('message', message => {
         }}
 })
 
+client.on('message', message => {
+	if(message.content.includes(`<@!${client.user.id}>`)){
+		message.channel.send(`Hello <@${message.author.id}>, if you want to use my commands, \`${prefix}\` is my prefix.`)
+	}
+})
 
-global.respond = function (title, content, sendto, color){
+
+respond = function (title, content, sendto, color){
 	var RespondEmbed = new Discord.MessageEmbed()
 		RespondEmbed.setTitle(title)
 		RespondEmbed.setDescription(content)
@@ -179,7 +178,7 @@ global.respond = function (title, content, sendto, color){
 		}
 		sendto.send(RespondEmbed)
 }
-global.modaction = function (RanCommand, RanBy, RanIn, FullCommand){
+modaction = function (RanCommand, RanBy, RanIn, FullCommand){
 	const ModReportEmbed = new Discord.MessageEmbed()
 		ModReportEmbed.setColor('#F3ECEC')
 		ModReportEmbed.setTitle('Mod Action')
@@ -194,8 +193,8 @@ global.modaction = function (RanCommand, RanBy, RanIn, FullCommand){
 		const modlogchannel = client.channels.cache.get(`${ModLog}`);
 		modlogchannel.send(ModReportEmbed)
 }
-global.errorlog = function (error){
-	global.errorcount = errorcount + 1
+errorlog = function (error){
+	errorcount = errorcount + 1
 	const ErrorReportEmbed = new Discord.MessageEmbed()
 		ErrorReportEmbed.setColor('#FF0000')
 		ErrorReportEmbed.setTitle('Bot Error')
@@ -207,13 +206,6 @@ global.errorlog = function (error){
 		const ErrorLog = client.channels.cache.get(`${BotLog}`);
 		ErrorLog.send(ErrorReportEmbed)
 }
-global.actionlog = function(action){
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	var dateTime = date+' '+time;
-	fs.appendFileSync('./bot.log',`${dateTime}\n${action}\n\n`);
-}
 
 
 
@@ -222,7 +214,7 @@ process.on('unhandledRejection', error => console.error('Uncaught Promise Reject
 //Error
 client.on('error', error => {
 	console.error('ERROR: ', error);
-	global.errorcount + 1
+	errorcount + 1
 	const fs = require('fs');
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
@@ -472,7 +464,7 @@ client.on("StartupIssue", () => {
 		.setDescription(`The bot loaded successfully, but restarted unexpectedly.`)
 		.setTimestamp()
 		.setFooter(footertext)
-		global.modlog = client.channels.cache.get(`${BotLog}`);
+		modlog = client.channels.cache.get(`${BotLog}`);
 		modlog.send(StartupEmbed);
 		return
 })
@@ -488,7 +480,7 @@ client.on('StartupPassed', () => {
 		.setDescription(`${BootSuccessful}`)
 		.setTimestamp()
 		.setFooter(footertext)
-	global.modlog = client.channels.cache.get(`${BotLog}`);
+	modlog = client.channels.cache.get(`${BotLog}`);
 	modlog.send(StartupEmbed);
 	fs.writeFileSync('./runstate.txt', 'running')
 	return;
