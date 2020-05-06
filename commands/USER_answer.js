@@ -11,6 +11,11 @@ module.exports = {
       console.log(arg[1] + ", " + arg[2])
       var modified = arg[1] - 1
       const item = quiz[modified]
+      if(item = undefined){
+        console.log("oi m8 there's nothing to load")
+      }else{
+        const ans = item.answer
+      }
       const filter = response => {
         console.log(response)
         return item.answer
@@ -27,7 +32,6 @@ module.exports = {
           console.log(ans)
           console.log(arg[2])
           console.log("number ok. question loaded.")
-          const ans = item.answer
           areyoucorrect()
         }
       }
