@@ -10,6 +10,7 @@ module.exports = {
       const arg = message.content.slice('').trim().split(/ +/g); 
       console.log(arg[1] + ", " + arg[2])
       var modified = arg[1] - 1
+      const item = quiz[modified]
       const filter = response => {
         console.log(response)
         return item.answer
@@ -22,7 +23,6 @@ module.exports = {
           respond('', arg[1] + " is not a valid question number", message.channel)
           return
         }else{
-          const item = quiz[modified]
           console.log(item)
           console.log(ans)
           console.log(arg[2])
