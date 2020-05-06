@@ -91,34 +91,29 @@ for (const file of allCommandFiles) {
 //Loading command part 3
 client.on('message', async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
-		
 		const args = message.content.slice(prefix.length).split(/ +/);
 		const commandName = args.shift().toLowerCase();
 		const command = client.modcommands.get(commandName)
 			|| client.modcommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 //Not a command
 		if (!command) {
-			
 			return;
 		}
 actionlog(`Command init:  Name: \`${command.name}\`  Args: \`|${args}|\`  Launched in: \`${message.channel.name} (${message.channel.id})\``)
 
 //Command disabled
 if (command.disable == true) {
-	respond('🛑 Command disabled',`<@${message.author.id}>, the command you are trying to run is disabled at the moment. Please try again later.`, message.channel) 
-	
+	respond('🛑 Command disabled',`<@${message.author.id}>, the command you are trying to run is disabled at the moment. Please try again later.`, message.channel)
 	return;
 }
 //Bot Manager (over mod)
 	if(command.botmanager == true && message.member.roles.cache.some(role => role.id === `${BotManagerRoleID}`)){
-		command.execute(message, args, client);;
-		
+		command.execute(message, args, client);
 		return;
 	}
 //Mod command and no permission
 	if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
 		respond('🛑 Incorrect permissions',`<@${message.author.id}>, ${nopermreply}`, message.channel) 
-		
 		message.react('❌')
 		return;
 	}
