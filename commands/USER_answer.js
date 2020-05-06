@@ -11,8 +11,11 @@ module.exports = {
       console.log(arg[1] + ", " + arg[2])
       var modified = arg[1] - 1
       const item = quiz[modified]
-      if(item = undefined){
+      if(arg[1] > 50){
         console.log("oi m8 there's nothing to load")
+        console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
+        respond('', arg[1] + " is not a valid question number", message.channel)
+        return
       }else{
         const ans = item.answer
       }
@@ -21,15 +24,15 @@ module.exports = {
         return item.answer
       };
       try {
-        over30()
-        function over30() {
-        if(arg[1] > 30) {
+        over50()
+        function over50() {
+        if(arg[1] > 50) {
           console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
           respond('', arg[1] + " is not a valid question number", message.channel)
           return
         }else{
           console.log(item)
-          console.log(ans)
+          console.log(item.answer)
           console.log(arg[2])
           console.log("number ok. question loaded.")
           areyoucorrect()

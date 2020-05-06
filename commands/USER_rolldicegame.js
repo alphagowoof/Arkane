@@ -27,9 +27,9 @@ module.exports = {
     var numberApMod = Math.ceil(Math.random() * 6 * arg[1])
     console.log('Apple Mod dice rolled.')
     console.log('Apple Mod dice multiplied by argument.')
-    var numswitch = Math.ceil(Math.random() * 12)
+    var numswitch = Math.ceil(Math.random() * 64)
     console.log('Switcharoo number generated.')
-    var divisor = Math.ceil(Math.random * 24)
+    var divisor = Math.ceil(Math.random * 48)
     console.log('Divisor generated.')
     console.log('If you are seeing this message and there is nothing beneath it, a shadow problem has occured. Check code!')
     competition()
@@ -37,36 +37,36 @@ module.exports = {
     }
     // The classic switcharoo
     function competition() {
-      if (numswitch < 7) {             // Switch = yes
+      if (numswitch < 33) {             // Switch = yes
         var temp1 = numberApMod
         var temp2 = number
         var numbermul = temp1
         var numberApModmul = temp2
         console.log(numbermul)
         console.log(numberApModmul)
-        if (divisor < 13){             // Divide = no
+        if (divisor < 25){             // Divide = no
           var numberApModmul = temp1
           andthewinneris()
         } else {                      // Divide = yes
-          var numbermul = Math.ceil(numbermul/2)
+          var numbermul = Math.ceil(numbermul/1.5)
           console.log(numbermul)
           console.log(numberApModmul)
           andthewinneris()
         }
-      } else if (numswitch < 13){      // Switch = no
+      } else{      // Switch = no
         var temp1 = numberApMod
         var temp2 = number
         var numbermul = temp2
         var numberApModmul = temp1
         console.log(numbermul)
         console.log(numberApModmul)
-        if (divisor < 13){            // Divide = no
+        if (divisor < 25){            // Divide = no
           var numbermul = temp2
           console.log(numbermul)
           console.log(numberApModmul)
           andthewinneris()
         } else {                     // Divide = yes
-          var numbermul = Math.ceil(numbermul/2)
+          var numbermul = Math.ceil(numbermul/1.5)
           console.log(numbermul)
           console.log(numberApModmul)
           andthewinneris()

@@ -298,5 +298,205 @@
         "answer" : "d",
         "answer_case" : "D",
         "qid" : "30"
+      },
+      {
+        "question" : "How many times did Tommy Stefanos attempt to fix .answer before it finally worked?",
+        "choice1" : "A. 7",
+        "choice2" : "B. 12",
+        "choice3" : "C. 21",
+        "choice4" : "D. 2",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "31"
+      },
+      {
+        "question" : "All of them are status messages for DebugBot EXCEPT:",
+        "choice1" : "A. Watching Derpi host me",
+        "choice2" : "B. Watching myself on Daniel's PC",
+        "choice3" : "C. Watching Tommy and Stephanie host me as their child",
+        "choice4" : "D. Watching LT-Tips mess with my code",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "32"
+      },
+      {
+        "question" : "What's the color of DebugBot's profile picture background?",
+        "choice1" : "A. blue",
+        "choice2" : "B. yellow",
+        "choice3" : "C. red",
+        "choice4" : "D. orange",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "33"
+      },
+      {
+        "question" : "What's LT-Tips's song that's on his status?",
+        "choice1" : "A. Laszlo - Supernova",
+        "choice2" : "B. Alan Walker & Ruben - Heading Home",
+        "choice3" : "C. Ashe - Moral of the Story",
+        "choice4" : "D. JP Saxe & Julia Michaels - If The World Was Ending",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "34"
+      },
+      {
+        "question" : "How many (rounded) times has :sus: been used in the main Apple Explained server as of May 6, 2020?",
+        "choice1" : "A. 1222",
+        "choice2" : "B. 6942",
+        "choice3" : "C. 400",
+        "choice4" : "D. 600",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "35"
+      },
+      {
+        "question" : "What was the first thing Tommy did with Stephanie?",
+        "choice1" : "A. they went out on a date",
+        "choice2" : "B. they were chilling at a beautiful view",
+        "choice3" : "C. he invited her over to his house",
+        "choice4" : "D. they kissed once they looked at each other",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "36"
+      },
+      {
+        "question" : "When were voice channels removed from the Apple Explained server?",
+        "choice1" : "A. May 1, 2020",
+        "choice2" : "B. March 29, 2020",
+        "choice3" : "C. April 28, 2020",
+        "choice4" : "D. April 19, 2020",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "37"
+      },
+      {
+        "question" : "How many times did Tommy Stefanos restart DebugBot to test game commands?",
+        "choice1" : "A. 119",
+        "choice2" : "B. 213",
+        "choice3" : "C. 99",
+        "choice4" : "D. 91",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "38"
+      },
+      {
+        "question" : "What year did Apple release the Macintosh IIcx?",
+        "choice1" : "A. 1989",
+        "choice2" : "B. 1983",
+        "choice3" : "C. 1999",
+        "choice4" : "D. 1991",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "39"
+      },
+      {
+        "question" : "What's the last name of Greg?",
+        "choice1" : "A. Summers",
+        "choice2" : "B. Morris",
+        "choice3" : "C. Wyatt",
+        "choice4" : "D. Watts",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "40"
+      },
+      {
+        "question" : "When was the first Macintosh computer invented?",
+        "choice1" : "A. 1984",
+        "choice2" : "B. 1979",
+        "choice3" : "C. 1969",
+        "choice4" : "D. 1985",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "41"
+      },
+      {
+        "question" : "What was the processor of the first Macintosh board?",
+        "choice1" : "A. Motorola 6809E",
+        "choice2" : "B. Intel 8080",
+        "choice3" : "C. Intel Pentium I",
+        "choice4" : "D. Intel Pentium I MMX",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "42"
+      },
+      {
+        "question" : "How much RAM does the first Macintosh have?",
+        "choice1" : "A. 32 KB",
+        "choice2" : "B. 128 KB",
+        "choice3" : "C. 64 KB",
+        "choice4" : "D. 1 MB",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "43"
+      },
+      {
+        "question" : "What Macintosh laptop introduced a trackball as a trackpad before **the** trackpad was released?",
+        "choice1" : "A. Macintosh Portable",
+        "choice2" : "B. PowerBook 100",
+        "choice3" : "C. MacBook",
+        "choice4" : "D. MacBook Air",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "44"
+      },
+      {
+        "question" : "Which Apple computer was released in 1998?",
+        "choice1" : "A. Macbook Pro",
+        "choice2" : "B. Mac Mini",
+        "choice3" : "C. Twentieth Anniversary Macintosh",
+        "choice4" : "D. iMac G3",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "45"
+      },
+      {
+        "question" : "When did Apple end support for PowerPC processors?",
+        "choice1" : "A. 2020",
+        "choice2" : "B. 2011",
+        "choice3" : "C. 2009",
+        "choice4" : "D. 2006",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "46"
+      },
+      {
+        "question" : "What Macintosh Performa model had a shape like a tower?",
+        "choice1" : "A. 5200",
+        "choice2" : "B. 6400",
+        "choice3" : "C. 6300",
+        "choice4" : "D. 5300",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "47"
+      },
+      {
+        "question" : "How many songs can the original model iPod hold?",
+        "choice1" : "A. 2000",
+        "choice2" : "B. 10000",
+        "choice3" : "C. 1000",
+        "choice4" : "D. 500",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "48"
+      },
+      {
+        "question" : "All iPods listed here have a click wheel/circle EXCEPT:",
+        "choice1" : "A. iPod Nano",
+        "choice2" : "B. iPod Shuffle",
+        "choice3" : "C. iPod Classic",
+        "choice4" : "D. iPod Touch",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "49"
+      },
+      {
+        "question" : "What iPod Classic model does Tommy Stefanos own?",
+        "choice1" : "A. iPod Classic 5th Gen, 80 GB",
+        "choice2" : "B. iPod Classic 5th Gen, 60 GB",
+        "choice3" : "C. iPod Classic 6th Gen, 120 GB",
+        "choice4" : "D. iPod Classic 6th Gen, 160 GB",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "50"
       }
 ]
