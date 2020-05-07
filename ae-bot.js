@@ -67,7 +67,7 @@ if (fs.existsSync(`./info.json`)){
 	process.exit()
 }else{}
 if (fs.existsSync(`./strings.json`)){
-	console.log('NOTICE: `strings.json` found. This file is no longer used any may be deleted.')
+	console.log('NOTICE: `strings.json` found. This file is no longer used and may be deleted.')
 }else{}
 
  respond = function (title, content, sendto, color, footer, imageurl){
@@ -149,7 +149,6 @@ client.on('message', message => {
 })
 
 client.on('message', message => {
-	console.log(message.content)
 	if (message.content.includes(`<@!${client.user.id}>`) || (message.content.includes(`<@${client.user.id}>`)));{
 	
 	function informOfPrefix(){
