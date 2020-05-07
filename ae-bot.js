@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '5.0.1'
+version = '6.0.0'
 footertext = 'Version '+ version
 errorcount = 0
 
