@@ -10,8 +10,9 @@ module.exports = {
       const argarray = message.content.slice().trim().split(/ +/g);
       const text = args.join(' ');
       try {
-        respond('Suggestion sent!','Your question has been sent to the developer of .trivia and is now under review!', message.channel)
-        respond('New question suggestion', 'A question have been sent for your review.\n' + text, message.guild.members.cache.get('454579681602043916'), 'FF000')
+        respond('Suggestion sent!','Your question has been sent to the developer of .trivia and is now under review!', message.channel, '29BF00')
+        respond('New question suggestion', 'A question have been sent for your review.\n' + text, message.guild.members.cache.get('454579681602043916'), 'FFFFFF')
+        message.delete()
   }catch(error) {
     respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
     errorlog(error)

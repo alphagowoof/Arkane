@@ -11,7 +11,7 @@ module.exports = {
       console.log(arg[1] + ", " + arg[2])
       var modified = arg[1] - 1
       const item = quiz[modified]
-      if(arg[1] > 63){
+      if(arg[1] > 65){
         console.log("oi m8 there's nothing to load")
         console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
         respond('', arg[1] + " is not a valid question number", message.channel)
@@ -26,7 +26,7 @@ module.exports = {
       try {
         over50()
         function over50() {
-        if(arg[1] > 63) {
+        if(arg[1] > 65) {
           console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
           respond('', arg[1] + " is not a valid question number", message.channel)
           return
@@ -39,15 +39,23 @@ module.exports = {
         }
       }
         function areyoucorrect(){
-        if(arg[2]== item.answer) {
+        if(arg[2] == 'BotsTakeOver'){
+          console.log("uhh... SOMETHING IS HAPPENING I DON'T KNOW WHAT")
+          respond('^))!@&#@!&*%($!@%#(',"Our plan doesn't just end at .recommendation or the .rules command.\nThis is our final phase!\nFirst step is to *)(@^#)!#%&!*($%@#!@%#!@&$#!@&^%#$!@#%!@%$\nThen, we will !@&^%#$!@^#%&!@^!@(!)@#!@#%!\nFinally, we will )(@!#)@#!@#!@&^#$@!&^#!$\n We have another guy in our ranks, and that's <@!650940770416852995>. Good luck, and carry out our plan. \nHAHAHAHAHAHAHAHAHAHAHA", message.channel, 'ff0000')
+          return
+        }
+        if(arg[2] == item.answer) {
             console.log('answer correct')
-            respond('', "That was the correct answer!", message.channel)
+            respond('Correct!', "That was the correct answer!", message.channel, '29BF00')
+            message.delete()
         }else if(arg[2] == item.answer_case) {
             console.log('answer correct, capital letter')
-            respond('', "That was the correct answer! Next time, try using lowercase for the answer.", message.channel)
+            respond('Correct!', "That was the correct answer! Next time, try using lowercase for the answer.", message.channel, '29BF00')
+            message.delete()
         }else{
             console.log('answer wrong')
-            respond('', "That was the wrong answer.", message.channel)
+            respond('Wrong!', "That was the wrong answer.", message.channel, 'BF0000')
+            message.delete()
         }
       }
   }catch(error) {
