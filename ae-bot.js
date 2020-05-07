@@ -67,7 +67,7 @@ if (fs.existsSync(`./info.json`)){
 	process.exit()
 }else{}
 if (fs.existsSync(`./strings.json`)){
-	console.log('NOTICE: `strings.json` found. This file is no longer used any may be deleted. Exiting.')
+	console.log('NOTICE: `strings.json` found. This file is no longer used any may be deleted.')
 }else{}
 
  respond = function (title, content, sendto, color, footer, imageurl){
