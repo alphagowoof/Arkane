@@ -1,6 +1,6 @@
 module.exports = {
     name: 'suggest',
-    aliases: ['botsuggestion'],
+    aliases: ['botsuggestion', 'suggestion'],
     description: 'Suggests a feature to add to the bot!',
     usage: '<request>',
       execute(message, args, client) {
@@ -19,7 +19,7 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
         .setTitle('Suggestion Received')
         .setDescription(text)
-        .setFooter(`${message.author.tag} (${message.author.id})`)
+        .setFooter(`${message.author.tag} | ${message.author.id}`)
         .setTimestamp()
 
         const userembed = new Discord.MessageEmbed()
@@ -43,7 +43,7 @@ module.exports = {
       webhookClient.send('', {
         username: 'Bot Suggestion Webhook',
         avatarURL: '',
-        embeds: [embed, userembed],
+        embeds: [embed],
       });
         respond('Suggestion sent! 📧','Your suggestion was sent to the bot developer.', message.channel)
   }catch(error) {
