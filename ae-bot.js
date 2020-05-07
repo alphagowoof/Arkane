@@ -134,6 +134,42 @@ for (const file of allCommandFiles) {
 	client.modcommands.set(modcommand.name, modcommand);
 }
 
+//Command list
+getCommandList = function(){
+	const findCommandListUser = fs.readdirSync('./commands').filter(file => file.startsWith('USER_'));
+	const findCommandListMod = fs.readdirSync('./commands').filter(file => file.startsWith('MOD_'));
+	const findCommandListBotManager = fs.readdirSync('./commands').filter(file => file.startsWith('BOTMANAGER_'));
+	const commandListUser = [];
+	const commandListMod = [];
+	const commandListBotManager = [];
+	var commandList = []
+	for (const file of findCommandListUser) {
+		const command = require(`./commands/${file}`);
+		commandListUser.join(' ')
+		commandListUser.push(command.name)
+		console.log(command.name)
+	}
+	for (const file of findCommandListMod) {
+		const command = require(`./commands/${file}`);
+		commandListMod.push(command.name)
+		console.log(command.name)
+	}
+	for (const file of findCommandListBotManager) {
+		const command = require(`./commands/${file}`);
+		commandListBotManager.join(' ')
+		commandListBotManager.push(command.name.join())
+		console.log(command.name)
+	}
+	commandList.push('\n__**User commands**__\n')
+	commandList.push(commandListUser.join('\n'))
+	commandList.push('\n__**Mod commands**__\n')
+	commandList.push(commandListMod.join('\n'))
+	commandList.push('\n__**Bot manager commands**__\n')
+	commandList.push(commandListBotManager.join('\n'))
+	return commandList
+}
+
+
 
 //Shot on iPhone reactions
 client.on('message', message => {
