@@ -1,7 +1,7 @@
 module.exports = {
   name: 'ping',
   aliases: ['ping'],
-  description: 'Pings. What else would it do? :joy:',
+  description: 'Checks ping between Discord and host.',
   usage: '',
   cooldown: 0,
 	execute(message, args, client) {

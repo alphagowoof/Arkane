@@ -12,7 +12,7 @@ module.exports = {
 		const { modcommands } = message.client;
 		const Discord = require('discord.js');
 		const { MessageEmbed } = require('discord.js')
-		const {ModeratorRoleID} = require('../info.json')
+		const {ModeratorRoleID} = require('../config.json')
 		try {
 			// code that might fail
 			if (!args.length) {
