@@ -12,6 +12,7 @@ module.exports = {
       } = require('../config.json')
       const text = args.join(' ');
       try {
+        const icon = message.guild.iconURL()
         if(!botSuggestionWebhookID){throw 'Missing config entry. `botSuggestionWebhookID`'}else{}
         if(!botSuggestionWebhookToken){throw 'Missing config entry. `botSuggestionWebhookToken`'}else{}
         const webhookClient = new Discord.WebhookClient(`${botSuggestionWebhookID}`, `${botSuggestionWebhookToken}`);
@@ -20,11 +21,29 @@ module.exports = {
         .setDescription(text)
         .setFooter(`${message.author.tag} (${message.author.id})`)
         .setTimestamp()
+
+        const userembed = new Discord.MessageEmbed()
+        .setTitle('About User')
+        .addField('User Tag', message.author.tag, false)
+        .addField('User ID', message.author.id, false)
+        .addField('Creation date', message.author.createdAt, true)
+        .setFooter(`${message.author.tag} (${message.author.id})`)
+        .setThumbnail(message.author.displayAvatarURL())
+        .setTimestamp()
+        
+        const serverembed = new Discord.MessageEmbed()
+        .setTitle('About Server')
+        .addField('Server Name', message.guild.name, false)
+        .addField('Server ID', message.guild.id, false)
+        .addField('Creation date', message.guild.createdAt, true)
+        .setThumbnail(`${icon}`)
+        .setFooter(`${message.author.tag} (${message.author.id})`)
+        .setTimestamp()
       
       webhookClient.send('', {
         username: 'Bot Suggestion Webhook',
         avatarURL: '',
-        embeds: [embed],
+        embeds: [embed, userembed],
       });
         respond('Suggestion sent! 📧','Your suggestion was sent to the bot developer.', message.channel)
   }catch(error) {
