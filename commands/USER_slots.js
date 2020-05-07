@@ -22,7 +22,7 @@ module.exports = {
          var slot3 = roll3
          console.log("Slot 3 transferred. " + slot3)
          console.log("Checking if slot1 matches slot2 and slot3...")
-          if (roll1 = roll2 = roll3) {
+          if (roll1 === roll2 === roll3) {
             console.log("Match. Win.")
             respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You win this one!\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
             return

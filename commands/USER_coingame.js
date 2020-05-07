@@ -8,54 +8,61 @@ module.exports = {
     const Discord = require('discord.js');
     const fs = require('fs');
     const arg = message.content.slice('').trim().split(/ +/g); 
-    const filter = response => {
-      console.log(response)
-    };
-    console.log(arg[1])
-    if(arg[1] = 0) {
-      var yourside = 'Tails'
-      var ysnum = arg[1]
-    } else if(arg[1] = 1) {
-      var yourside = 'Heads'
-      var ysnum = arg[1]
-    } else{
-    respond('','Where is your guess?', message.channel)
-    }
     try {
-      showdown()
-    function showdown() {
+      console.log(arg[1])
       var coinside = 'no'
-      var didyouwin = "idk"
+      var yourside = 'no'
       var number = Math.ceil(Math.random() * 10)
+      if(arg[1] === 0) {
+        var yourside = 'Tails'
+        } else if(arg[1] === 1) {
+        var yourside = 'Heads'
+      } else {
+        console.log("If you are seeing this message and the argument is not undefined, check code!")
+        respond('Missing parameter',"Where is your guess?\nType .coingame 0 for tails.\nType .coingame 1 for heads.", message.channel)
+        return
+      }
       if (number > 5){
         var coinside = 'Heads'
         var csnum = 0
+        var ysnum = arg[1]
       }else{
         var coinside = 'Tails'
         var csnum = 1
+        var ysnum = arg[1]
       }
+      console.log(response)
+      console.log(arg[1])
       console.log(csnum)
       console.log(ysnum)
       console.log(coinside)
       console.log(yourside)
-      if (ysnum = 1) {
-        if (csnum = 1) {
-          respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n', message.channel)
+      if (ysnum === 1) {
+        if (csnum === 1) {
+          console.log("Win")
+          respond('Win','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\nYou win this one!', message.channel)
+          return
         } else {
-          respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n', message.channel)
+          console.log("Lose")
+          respond('Lose','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\nYou lose this one.', message.channel)
+          return
         }
-      } else if (ysnum = 0) {
-        if (csnum = 1){
-          respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n', message.channel)
+      } else if (ysnum === 0) {
+        if (csnum === 1){
+          console.log("Lose")
+          respond('Lose','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\nYou lose this one.', message.channel)
+          return
         } else {
-          respond('','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\n', message.channel)
+          console.log("Win")
+          respond('Win','You guessed: ' + yourside + '\nThe coin says: ' + coinside + '\nYou win this one!', message.channel)
+          return
         }
       }
-    }
 }catch(error) {
     respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
     errorlog(error)
     // Your code broke (Leave untouched in most cases)
     console.error('an error has occured', error);
     }
-  }}
+  }
+}
