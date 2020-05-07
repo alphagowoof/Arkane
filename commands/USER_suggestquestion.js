@@ -3,7 +3,7 @@ module.exports = {
     aliases: ['triviaadd', 'addtrivia', 'addquestion', 'questionadd'],
     description: 'Suggests a question for the .trivia command. (Question only!)',
     usage: '(question)',
-    cooldown: 10,
+    cooldown: 30,
       execute(message, args, client) {
       const Discord = require('discord.js');
       const fs = require('fs');
@@ -14,8 +14,8 @@ module.exports = {
       console.log("If you see undefined, check code!")
       console.log("If you see the question here but it spits out 'no question found', check code!")
       try {
-        respond('New question suggestion', 'A question have been sent for your review.\n' + text, message.guild.members.cache.get('454579681602043916'), 'FFFFFF')
-        respond('Suggestion sent!','Your question has been sent to the developer of '+config.prefix+'trivia and is now under review!', message.channel, '29BF00')
+        respond('New question suggestion', 'A question have been sent for your review.\n' + text, message.guild.members.cache.get('454579681602043916'), 'FFFFFF', `${message.author.tag} | ${message.author.id}`)
+        respond('Suggestion sent!','Your question has been sent to the developer of '+config.prefix+'trivia and is now under review!', message.channel, '29BF00', `${message.author.tag} | ${message.author.id}`)
         message.delete()
   }catch(error) {
     respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
