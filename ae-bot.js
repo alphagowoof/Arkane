@@ -63,7 +63,7 @@ if (fs.existsSync(`./shutdown.flag`)){
 
 //Checks for old configs and informs that it needs to be changed
 if (fs.existsSync(`./info.json`)){
-	console.log('WARNING: `info.json` found. Please move entrys to `config.json`. Exiting.')
+	console.log('WARNING: `info.json` found. Please move entries to `config.json`. Exiting.')
 	process.exit()
 }else{}
 if (fs.existsSync(`./strings.json`)){
