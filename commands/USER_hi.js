@@ -11,12 +11,12 @@ module.exports = {
     try {
       const reason = args.join(' ')
     if (message.member.roles.cache.some(role => role.id === info.ModeratorRoleID)) {
-    respond('👋','Hello, <@'+ message.author.id+'>! :wave: Nice to see one of the moderators! 🙂',message.channel);
+    respond('','Hello, <@'+ message.author.id+'>! :wave: Nice to see one of the moderators! 🙂',message.channel);
     }else if (message.member.roles.cache.some(role => role.id === info.DeveloperRoleID)) {
-    respond('👋','Hello, <@'+ message.author.id+'>! :wave: Nice to see one of my developers! 🙂',message.channel);
+    respond('','Hello, <@'+ message.author.id+'>! :wave: Nice to see one of my developers! 🙂',message.channel);
     }else if (message.member.roles.cache.some(role => role.id === info.BotManagerRoleID)) {
-    respond('👋','Hello, <@'+ message.author.id+'>! :wave: Nice to see one of my managers! 🙂',message.channel);
-    }else{respond('👋','Hello, <@'+ message.author.id+'>! :wave:', message.channel);}
+    respond('','Hello, <@'+ message.author.id+'>! :wave: Nice to see one of my managers! 🙂',message.channel);
+    }else{respond('','Hello, <@'+ message.author.id+'>! :wave:', message.channel);}
   }catch(error) {
     respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
     errorlog(error)
