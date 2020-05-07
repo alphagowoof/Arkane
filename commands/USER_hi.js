@@ -6,7 +6,7 @@ module.exports = {
   cooldown: 0,
 	execute(message, args, client) {
     const Discord = require('discord.js');
-    const info = require('../info.json')
+    const info = require('../config.json')
     const fs = require('fs');
     try {
       const reason = args.join(' ')
