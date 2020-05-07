@@ -7,15 +7,25 @@ module.exports = {
 	mod:true,
 	nodelay:true,
     execute(message, args, client) {
-		const { StaffRoleID, ModLog, BotLog , CrashNotify } = require('../info.json');
+		const { StaffRoleID, ModLog, BotLog , CrashNotify } = require('../config.json');
         try {
 			const { prefix } = require('../config.json');
 			const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
 			const preamount = argarray[1]
 			const amount = Number(`${preamount}`)
+			console.log(preamount)
+			console.log(amount)
 			try{
-				message.channel.bulkDelete(amount+1)
-				modaction(this.name, message.author.tag, message.channel.name, message.content)
+				if(Number(preamount) >> 20 && argarray[2] == '-override'){
+					console.log('Allowed purge.')
+					message.channel.bulkDelete(amount+1)
+					modaction(this.name, message.author.tag, message.channel.name, message.content)
+				}else{
+					console.log('Declined purge.')
+					respond('❗', `You are attempting to purge a large amount of messages (${amount+1}). Please add\`-override\` at the end of the message to allow.`, message.channel)
+					return;
+				}
+				
 			}catch(error){
 				console.log(error)
 					respond('❗', `You can only purge up to 100 messages at a time.`, message.channel);return;
