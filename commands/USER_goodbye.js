@@ -10,8 +10,10 @@ module.exports = {
       const fs = require('fs');
       try {
         const reason = args.join(' ')
-      if (message.guild.members.cache.some(user => user.id === info.OwnerID)) {
+      if (message.author.id === info.OwnerID) {
       respond('','Goodbye, <@'+ message.author.id+'>! :wave: I hope to see my owner again! 🙂\nRemember, say hi to Stephanie for me!',message.channel);
+      }else if (message.author.id === info.StephanieID) {
+      respond('','Goodbye, <@'+ message.author.id+'>! :wave: I hope to see you again! 🙂\nRemember, say hi to Tommy for me!',message.channel);
       }else if (message.member.roles.cache.some(role => role.id === info.ModeratorRoleID)) {
       respond('','Goodbye, <@'+ message.author.id+'>! :wave: I hope to see you moderators again! 🙂',message.channel);
       }else if (message.member.roles.cache.some(role => role.id === info.DeveloperRoleID)) {

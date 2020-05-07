@@ -8,10 +8,13 @@ module.exports = {
     const Discord = require('discord.js');
     const info = require('../config.json')
     const fs = require('fs');
+    const argarray = message.content.slice().trim().split(/ +/g);
     try {
       const reason = args.join(' ')
-    if (message.guild.members.cache.some(user => user.id === info.OwnerID)) {
+    if (message.author.id === info.OwnerID) {
     respond('','Hello, <@'+ message.author.id+'>! :wave: Nice to see my owner! 🙂\nSay hi to Stephanie for me, will you? Thanks in advance!',message.channel);
+    }else if (message.author.id === info.StephanieID) {
+    respond('','Hello, <@'+ message.author.id+'>! :wave: Nice to see you here! 🙂\nHow is Tommy doing? 😳',message.channel);
     }else if (message.member.roles.cache.some(role => role.id === info.ModeratorRoleID)) {
     respond('','Hello, <@'+ message.author.id+'>! :wave: Nice to see one of the moderators! 🙂',message.channel);
     }else if (message.member.roles.cache.some(role => role.id === info.DeveloperRoleID)) {

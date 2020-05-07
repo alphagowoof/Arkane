@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'restart',
 	description: 'Restarts the bot',
-	aliases: ['rebootbot', 'kill', 'reboot', 'power', 'res'],
+	aliases: ['rebootbot', 'kill', 'reboot', 'power', 'res', 'acpi'],
 	usage: '',
 	cooldown: 0,
 	botmanager:true,
