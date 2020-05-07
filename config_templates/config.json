@@ -1,4 +1,19 @@
 {
 	"prefix": "",
-	"token": ""
+	"token": "",
+
+	"OwnerID":"",
+
+	"BotManagerRoleID": "",
+	"ModeratorRoleID": "",
+	"MuteRoleID": "",
+	"MemberRoleID": "",
+
+	"UserLog": "",
+	"ModLog": "",
+	"BotLog": "",
+
+	"AssignMemberRoleOnJoin": false,
+	"ProcessEndOnError": false,
+	"CrashNotify": true
 }

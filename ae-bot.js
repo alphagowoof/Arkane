@@ -8,13 +8,6 @@ const cooldowns = new Discord.Collection();
 const { 
 	prefix, 
 	token, 
-} = require('./config.json');
-const { 
-	nopermreply,
-	BootSuccessful,
-	WelcomeDmFileLocation,
- } = require('./strings.json');
-const { 
 	BotManagerRoleID,
 	ModeratorRoleID,
 	OwnerID, 
@@ -22,12 +15,10 @@ const {
 	UserLog, 
 	ModLog, 
 	BotLog,
-	DebugChannel, 
-	DebugFeaturesEnabled, 
 	ProcessEndOnError, 
 	AssignMemberRoleOnJoin, 
-	CrashNotify,
-	} = require('./info.json');
+	CrashNotify
+} = require('./config.json');
 const {
 	MessageEmbed
 } = require('discord.js')
@@ -68,6 +59,15 @@ client.once('ready', () => {
 if (fs.existsSync(`./shutdown.flag`)){
 	console.log('`shutdown.flag` found. Exiting.')
 	process.exit()
+}else{}
+
+//Checks for old configs and informs that it needs to be changed
+if (fs.existsSync(`./info.json`)){
+	console.log('WARNING: `info.json` found. Please move entrys to `config.json`. Exiting.')
+	process.exit()
+}else{}
+if (fs.existsSync(`./strings.json`)){
+	console.log('NOTICE: `strings.json` found. This file is no longer used any may be deleted. Exiting.')
 }else{}
 
  respond = function (title, content, sendto, color, footer, imageurl){
@@ -131,7 +131,6 @@ for (const file of commandFiles) {
 }
 for (const file of allCommandFiles) {
 	const modcommand = require(`./commands/${file}`);
-	console.log(`INFO: The command '${modcommand.name}' was loaded.`)
 	client.modcommands.set(modcommand.name, modcommand);
 }
 
@@ -182,7 +181,7 @@ client.on('message', async message => {
 	}
 	//Mod command and no permission
 		if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
-		respond('🛑 Incorrect permissions',`<@${message.author.id}>, ${nopermreply}`, message.channel) 
+		respond('🛑 Incorrect permissions',`<@${message.author.id}>, you don't seem to have the correct permissions to use this command. Please try again later. If you believe this is an error related to the bot, contact the bot owner.`, message.channel) 
 		message.react('❌')
 		return;
 	}
@@ -497,7 +496,7 @@ client.on('StartupPassed', () => {
 	const StartupEmbed = new Discord.MessageEmbed()
 		.setColor('#00FF00')
 		.setTitle('Bot Started')
-		.setDescription(`${BootSuccessful}`)
+		.setDescription(`Bot has started successfully.`)
 		.setTimestamp()
 		.setFooter(footertext)
 	modlog = client.channels.cache.get(`${BotLog}`);
