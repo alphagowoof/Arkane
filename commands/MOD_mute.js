@@ -11,8 +11,6 @@ module.exports = {
     
     const fs = require('fs');
     const {MuteRoleID} = require('../info.json');
-    console.log("some string")
-    const {MutedString, MutedStringDM} = require('../strings.json');
     try {
       if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
       const {ModeratorRoleID} = require('../info.json');
