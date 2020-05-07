@@ -1,6 +1,6 @@
 module.exports = {
     name: "answer",
-    description: "Answer a trivia question.\n(Run .trivia first before using .answer)",
+    description: "**This is a game command.**\nAnswer a trivia question.\n(Run .trivia first before using .answer)",
     usage: "(Question ID) (Letter of answer) | .answer 4 D",
     cooldown: 10,
       execute(message, args, client) {

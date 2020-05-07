@@ -1,14 +1,13 @@
 module.exports = {
   name: 'trivia',
   aliases: ['factgame', 'triviagame'],
-  description: 'Learn something new with Apple Mod.\n(Trivia will only include history of the Apple company, the Apple Explained channel, the server and its users for now.)\nTo answer a question, use .answer (question ID) (your answer).',
+  description: '**This is a game command.**\nLearn something new with Apple Mod.\n(Trivia will only include history of the Apple company, the Apple Explained channel, the server and its users for now.)\nTo answer a question, use .answer (question ID) (your answer).',
   usage: '',
   cooldown: 0,
 	execute(message, args, client) {
     const fs = require('fs');
     const Discord = require('discord.js')
     const msg = message
-    const config = require('../config.json')
     try {
     //Pick a question
     const quiz = require('./quiz.json');

@@ -1,7 +1,7 @@
 module.exports = {
   name: 'coingame',
   aliases: ['flipcoingame', 'flipgame', 'coinflipgame'],
-  description: 'Guess the side of the coin with Apple Mod.\nMake sure you write them in lowercase.',
+  description: '**This is a game command.**\nGuess the side of the coin with Apple Mod.\nMake sure you write them in lowercase.',
   usage: '(0/1) [0 for tails, 1 for heads]',
   cooldown: 0,
 	execute(message, args, client) {

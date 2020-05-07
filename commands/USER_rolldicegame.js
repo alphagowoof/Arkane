@@ -1,7 +1,7 @@
 module.exports = {
   name: 'rolldicegame',
   aliases: ['dicerollgame', 'dicegame', 'rollgame'],
-  description: 'Play a dice game with Apple Mod.',
+  description: '**This is a game command.**\nPlay a dice game with Apple Mod.',
   usage: '(number of dice to be rolled) | rolldicegame 1',
   cooldown: 0,
     execute(message, args, client) {
@@ -76,15 +76,24 @@ module.exports = {
     // If statements with the dice
     function andthewinneris() {
       console.log("Never mind the message above, the code works!")
-    if (numberApMod < numbermul) {
+      if (numbermul === "NaN") {
+        console.log("NaN detected. Ending command.")
+        respond('Invalid dice number. Please type a valid dice number.')
+        return
+      } else {
+        actualwinner()
+      }
+    function actualwinner() {
+    if (numberApModmul < numbermul) {
       // You win!
-      respond('',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou win, congratulations <@${message.author.id}>!` , message.channel)
+      respond('Win!',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou win, congratulations <@${message.author.id}>!` , message.channel)
     } else {
       // lol you lose
-      respond('',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou lose, better luck next time <@${message.author.id}>!` , message.channel)
+      respond('Lose',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou lose, better luck next time <@${message.author.id}>!` , message.channel)
     }
   }
 }
+    }
     }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
       errorlog(error)

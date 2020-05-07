@@ -1,7 +1,7 @@
 module.exports = {
     name: 'slots',
     aliases: ['slotmachine', 'vegas'],
-    description: 'Play on a slot machine like in Vegas.\n(No gambling included)',
+    description: '**This is a game command.**\nPlay on a slot machine like in Vegas.\n(No gambling included)',
     usage: '',
     cooldown: 0,
       execute(message, args, client) {
