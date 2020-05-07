@@ -4,7 +4,6 @@ Discord = require('discord.js');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
-client.events = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 const { 
 	prefix, 
@@ -71,10 +70,59 @@ if (fs.existsSync(`./shutdown.flag`)){
 	process.exit()
 }else{}
 
-//Loading commands part 1
+ respond = function (title, content, sendto, color, footer, imageurl){
+	 //Title, Content, Where to send, Embed color, Footer, Image URL
+	var RespondEmbed = new Discord.MessageEmbed()
+		RespondEmbed.setTitle(title)
+		RespondEmbed.setDescription(content)
+		if(!sendto || sendto == ''){
+			throw 'Missing Arguments.'
+		}else{
+			if(color && !color == ''){
+			RespondEmbed.setColor(color)
+		}
+		if(footer && !footer == ''){
+			RespondEmbed.setFooter(footer)
+		}
+		if(imageurl && !imageurl == ''){
+			RespondEmbed.setImage(imageurl)
+		}
+		sendto.send(RespondEmbed)
+		}
+		
+}
+ modaction = function (RanCommand, RanBy, RanIn, FullCommand){
+	const ModReportEmbed = new Discord.MessageEmbed()
+		ModReportEmbed.setColor('#F3ECEC')
+		ModReportEmbed.setTitle('Mod Action')
+		ModReportEmbed.setDescription(`A moderation action has occurred.`)
+		ModReportEmbed.addFields(
+			{ name: 'Command', value: `${RanCommand}`, inline: false },
+			{ name: 'Executor', value: `${RanBy}`, inline: false },
+			{ name: 'Channel', value: `${RanIn}`, inline: false },
+			{name: 'Full message', value: `${FullCommand}`, inline:false}
+		)
+		ModReportEmbed.setTimestamp()
+		const modlogchannel = client.channels.cache.get(`${ModLog}`);
+		modlogchannel.send(ModReportEmbed)
+}
+ errorlog = function (error){
+	errorcount = errorcount + 1
+	const ErrorReportEmbed = new Discord.MessageEmbed()
+		ErrorReportEmbed.setColor('#FF0000')
+		ErrorReportEmbed.setTitle('Bot Error')
+		ErrorReportEmbed.setDescription(`An error has occurred while the bot running.`)
+		ErrorReportEmbed.addFields(
+			{ name: 'Error information', value: `${error}`, inline: false },
+		)
+		ErrorReportEmbed.setTimestamp()
+		const ErrorLog = client.channels.cache.get(`${BotLog}`);
+		ErrorLog.send(ErrorReportEmbed)
+}
+
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const allCommandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-//Loading commands part 2
+
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 		if(!command.mod){
@@ -87,29 +135,53 @@ for (const file of allCommandFiles) {
 	client.modcommands.set(modcommand.name, modcommand);
 }
 
-//Loading command part 3
+
+//Shot on iPhone reactions
+client.on('message', message => {
+	if (message.author.bot)return;
+        if (message.channel.id != '616472674406760448')return;
+        const content = message.content.toLowerCase();
+        if (message.attachments.size != '0'){
+          if (!content.includes(`iphone`)){respond('',`<@${message.author.id}>, please specify the iPhone used to shoot the picture.`, message.channel);message.delete();return;}else
+          {
+          message.react('❤️');
+          message.react('👍');
+        }}
+})
+
+client.on('message', message => {
+	console.log(message.content)
+	if (message.content.includes(`<@!${client.user.id}>`) || (message.content.includes(`<@${client.user.id}>`)));{
+	
+	function informOfPrefix(){
+		message.channel.send(`Hello <@${message.author.id}>, if you want to use my commands, \`${prefix}\` is my prefix.`)
+	}
+}})
+
+
+//Commands
 client.on('message', async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 		const args = message.content.slice(prefix.length).split(/ +/);
 		const commandName = args.shift().toLowerCase();
 		const command = client.modcommands.get(commandName)
 			|| client.modcommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-//Not a command
-		if (!command) {
-			return;
-		}
-//Command disabled
-if (command.disable == true) {
-	respond('🛑 Command disabled',`<@${message.author.id}>, the command you are trying to run is disabled at the moment. Please try again later.`, message.channel)
-	return;
-}
-//Bot Manager (over mod)
+	//Not a command
+	if (!command) {
+		return;
+	}
+	//Command disabled
+	if (command.disable == true) {
+		respond('🛑 Command disabled',`<@${message.author.id}>, the command you are trying to run is disabled at the moment. Please try again later.`, message.channel)
+		return;
+	}
+	//Bot Manager (over mod)
 	if(command.botmanager == true && message.member.roles.cache.some(role => role.id === `${BotManagerRoleID}`)){
 		command.execute(message, args, client);
 		return;
 	}
-//Mod command and no permission
-	if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
+	//Mod command and no permission
+		if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
 		respond('🛑 Incorrect permissions',`<@${message.author.id}>, ${nopermreply}`, message.channel) 
 		message.react('❌')
 		return;
@@ -137,7 +209,7 @@ if (command.disable == true) {
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 
-	//Normal (with delay)
+	//Normal
 	try {
 		command.execute(message, args, client, this);
 	} catch (error) {
@@ -149,63 +221,9 @@ if (command.disable == true) {
 	
 });
 
-//Shot on iPhone reactions
-client.on('message', message => {
-	if (message.author.bot)return;
-        if (message.channel.id != '616472674406760448')return;
-        const content = message.content.toLowerCase();
-        if (message.attachments.size != '0'){
-          if (!content.includes(`iphone`)){respond('',`<@${message.author.id}>, please specify the iPhone used to shoot the picture.`, message.channel);message.delete();return;}else
-          {
-          message.react('❤️');
-          message.react('👍');
-        }}
-})
-
-client.on('message', message => {
-	if(message.content.includes(`<@!${client.user.id}>`)){
-		message.channel.send(`Hello <@${message.author.id}>, if you want to use my commands, \`${prefix}\` is my prefix.`)
-	}
-})
 
 
-respond = function (title, content, sendto, color){
-	var RespondEmbed = new Discord.MessageEmbed()
-		RespondEmbed.setTitle(title)
-		RespondEmbed.setDescription(content)
-		if(color){
-			RespondEmbed.setColor(color)
-		}
-		sendto.send(RespondEmbed)
-}
-modaction = function (RanCommand, RanBy, RanIn, FullCommand){
-	const ModReportEmbed = new Discord.MessageEmbed()
-		ModReportEmbed.setColor('#F3ECEC')
-		ModReportEmbed.setTitle('Mod Action')
-		ModReportEmbed.setDescription(`A moderation action has occurred.`)
-		ModReportEmbed.addFields(
-			{ name: 'Command', value: `${RanCommand}`, inline: false },
-			{ name: 'Executor', value: `${RanBy}`, inline: false },
-			{ name: 'Channel', value: `${RanIn}`, inline: false },
-			{name: 'Full message', value: `${FullCommand}`, inline:false}
-		)
-		ModReportEmbed.setTimestamp()
-		const modlogchannel = client.channels.cache.get(`${ModLog}`);
-		modlogchannel.send(ModReportEmbed)
-}
-errorlog = function (error){
-	errorcount = errorcount + 1
-	const ErrorReportEmbed = new Discord.MessageEmbed()
-		ErrorReportEmbed.setColor('#FF0000')
-		ErrorReportEmbed.setTitle('Bot Error')
-		ErrorReportEmbed.setDescription(`An error has occurred while the bot running.`)
-		ErrorReportEmbed.addFields(
-			{ name: 'Error information', value: `${error}`, inline: false },
-		)
-		ErrorReportEmbed.setTimestamp()
-		const ErrorLog = client.channels.cache.get(`${BotLog}`);
-		ErrorLog.send(ErrorReportEmbed)
-}
+
 
 
 
@@ -330,7 +348,9 @@ client.on('guildMemberRemove', member => {
 client.on('message', message => {
 	if(message.channel.type == 'dm')return;
 	const profanity = require('./profanity.json');
-	var blocked = profanity.filter(word => message.content.toLowerCase().includes(word));
+	var editedMessage = message.content.replace(/\*/g, "bad")
+	var editedMessage = editedMessage.replace(/\_/g, "bad")
+	var blocked = profanity.filter(word => editedMessage.toLowerCase().includes(word));
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
@@ -339,7 +359,7 @@ client.on('message', message => {
 		if(blocked == `${blocked}`)
 			console.log(`${message.author.tag} tried to use profanity. Logged word: ${blocked}`);
 			message.delete()
-			message.reply('please watch your language. A warning has been logged.')
+			respond('',`<@${message.author.id}>, watch your language. A warning has been logged.`, message.channel, 'FF0000')
     		const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
 	    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Warning\nReason: Profanity (' + reason +')\n\n');
     		fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Warning issued by AutomatedAppleModerator \nReason: Profanity (' + message.content +')\n\n');
@@ -488,10 +508,6 @@ client.on('StartupPassed', () => {
 
 //Hardcoded events
 
-client.on('message', message => {
-	return;
-events.execute(message)	
-})
 
 function clean(text) {
 	if (typeof(text) === "string")
