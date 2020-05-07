@@ -10,9 +10,7 @@ module.exports = {
       const text = args.join(' ');
       try {
         respond('Suggestion sent!','Your question has been sent to the developer of .trivia and is now under review!', message.channel)
-        message.author.send({
-        message: ['','You have a new question suggestion pending.\nIf you approve, mention the user and say "Yes", then get the question choices from them.\nOtherwise, mention the user and say "No, sorry".' + text]
-        })
+        respond('New question suggestion', 'A question has been sent for your review.\n' + text, message.guild.members.cache.get('454579681602043916'), 'FF000')
   }catch(error) {
     respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
     errorlog(error)
