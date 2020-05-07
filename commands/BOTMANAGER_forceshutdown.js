@@ -1,5 +1,6 @@
 module.exports = {
 	name: 'forceshutdown',
+	aliases: ['fshutdown', 'turnoff', 'forceoff', 'forceturnoff'],
 	description: 'Forces bot to shutdown. Can\'t be reactivated via command',
 	botmanager:true,
 	mod:true,

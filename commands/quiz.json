@@ -628,5 +628,25 @@
         "answer" : "b",
         "answer_case" : "B",
         "qid" : "63"
+      },
+      {
+        "question" : "How many times did Apple Moderator filter swear words as of May 7, 2020?",
+        "choice1" : "A. 300",
+        "choice2" : "B. 1900",
+        "choice3" : "C. 60",
+        "choice4" : "D. 100",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "64"
+      },
+      {
+        "question" : "What is Daniel's last initial?",
+        "choice1" : "A.",
+        "choice2" : "B.",
+        "choice3" : "C.",
+        "choice4" : "D.",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "65"
       }
 ]
