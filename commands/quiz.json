@@ -173,18 +173,18 @@
         "question" : "What was the sanity check phrase for .clearwarn?",
         "choice1" : "A. YES I WANT TO DO IT",
         "choice2" : "B. I AM NOT CRAZY, DO IT",
-        "choice3" : "C. CHECK ME FOR DRUG ABUSE, I DON'T HAVE ANY, DO IT",
+        "choice3" : "C. CHECK ME FOR CRAZY STUFF, I DON'T HAVE ANY, DO IT",
         "choice4" : "D. YES I AM SURE",
         "answer" : "d",
         "answer_case" : "D",
         "qid" : "18"
       },
       {
-        "question" : "What's the name of Tommy Stefanos' girlfriend?",
-        "choice1" : "A. Anna Hardy",
-        "choice2" : "B. Stephanie Alderney",
-        "choice3" : "C. Samantha Cook",
-        "choice4" : "D. Christine Michaels",
+        "question" : "What's the name of Tommy Stefanos's game company?",
+        "choice1" : "A. Nap Pod",
+        "choice2" : "B. Akapella Interaktive",
+        "choice3" : "C. Fift33n Games",
+        "choice4" : "D. None Taken Interactive",
         "answer" : "b",
         "answer_case" : "B",
         "qid" : "19"
@@ -270,13 +270,13 @@
         "qid" : "27"
       },
       {
-        "question" : "Where did Tommy Stefanos and Stephanie Alderney first meet?",
-        "choice1" : "A. At school",
-        "choice2" : "B. At a romantic view in Mountain Province",
-        "choice3" : "C. Paris, France",
-        "choice4" : "D. Tokyo, Japan",
-        "answer" : "a",
-        "answer_case" : "A",
+        "question" : "When did Tommy Stefanos first begin work on his first game?",
+        "choice1" : "A. May",
+        "choice2" : "B. April",
+        "choice3" : "C. March",
+        "choice4" : "D. February",
+        "answer" : "b",
+        "answer_case" : "B",
         "qid" : "28"
       },
       {
@@ -313,7 +313,7 @@
         "question" : "All of them are status messages for DebugBot EXCEPT:",
         "choice1" : "A. Watching Derpi host me",
         "choice2" : "B. Watching myself on Daniel's PC",
-        "choice3" : "C. Watching Tommy and Stephanie host me as their child",
+        "choice3" : "C. Watching Tommy code commands for me",
         "choice4" : "D. Watching LT-Tips mess with my code",
         "answer" : "d",
         "answer_case" : "D",
@@ -350,11 +350,11 @@
         "qid" : "35"
       },
       {
-        "question" : "What was the first thing Tommy did with Stephanie?",
-        "choice1" : "A. they went out on a date",
-        "choice2" : "B. they were chilling at a beautiful view",
-        "choice3" : "C. he invited her over to his house",
-        "choice4" : "D. they kissed once they looked at each other",
+        "question" : "What was the first thing Tommy did with his new MacBook Pro?",
+        "choice1" : "A. mess with it",
+        "choice2" : "B. game with it",
+        "choice3" : "C. make music with it",
+        "choice4" : "D. experimented on it like EverythingApplePro",
         "answer" : "c",
         "answer_case" : "C",
         "qid" : "36"
@@ -600,13 +600,13 @@
         "qid" : "60"
       },
       {
-        "question" : "What was the first thing Tommy said to Stephanie when they first met?",
-        "choice1" : "A. 'Hi' *awkward silence*",
-        "choice2" : "B. 'You actually like my speaker/lunchbox?'",
-        "choice3" : "C. 'wauw you look pretty'",
-        "choice4" : "D. *in my mind: love at first sight*",
-        "answer" : "b",
-        "answer_case" : "B",
+        "question" : "What was the first thing New Apple Moderator ever said?",
+        "choice1" : "A. Here are the available commands *shows list of commands*",
+        "choice2" : "B. <user>, watch your language!",
+        "choice3" : "C. Hello, <user>! Nice to see one of my managers!",
+        "choice4" : "D. i am sentient hahahahaha",
+        "answer" : "a",
+        "answer_case" : "A",
         "qid" : "61"
       },
       {
