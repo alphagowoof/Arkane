@@ -31,7 +31,7 @@ module.exports = {
 				.setTitle('Available Commands')
 				.setDescription('Here are the available commands.')
 				.addFields(
-					{ name: 'Commands', value: data, inline: false },
+					{ name: 'Commands', value: data, inline: true },
 				)
 				.setTimestamp()
 				.setFooter('Help command');
