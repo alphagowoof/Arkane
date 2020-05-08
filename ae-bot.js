@@ -157,16 +157,22 @@ getCommandList = function(){
 	for (const file of findCommandListBotManager) {
 		const command = require(`./commands/${file}`);
 		commandListBotManager.join(' ')
-		commandListBotManager.push(command.name.join())
+		commandListBotManager.push(command.name)
 		console.log(command.name)
 	}
-	commandList.push('\n__**User commands**__\n')
-	commandList.push(commandListUser.join('\n'))
-	commandList.push('\n__**Mod commands**__\n')
-	commandList.push(commandListMod.join('\n'))
-	commandList.push('\n__**Bot manager commands**__\n')
-	commandList.push(commandListBotManager.join('\n'))
-	return commandList
+	
+	//Not the best way, but will work on later
+	usercommandstring = ['__**User**__']
+	modcommandstring = ['__**Mod**__']
+	botmanagercommandstring = ['__**Bot Manager**__']
+	commandList.push(usercommandstring)
+	commandList.push(commandListUser)
+	commandList.push(modcommandstring)
+	commandList.push(commandListMod)
+	commandList.push(botmanagercommandstring)
+	commandList.push(commandListBotManager)
+	const newcommandlist = commandList.toString().replace(/,/g, '\n')
+	return newcommandlist
 }
 
 
