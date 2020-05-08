@@ -32,7 +32,7 @@ module.exports = {
         return
       } else {
         console.log("answer wrong")
-          respond('Wrong!',"7h47 15 wr0n6, y0u v1ru5!\n(That is wrong, you virus!)", message.channel) 
+          respond('Wrong!',"7h47 15 wr0n6, m8!\n(That is wrong, mate!)", message.channel) 
           return
       }
     }catch(error) {
