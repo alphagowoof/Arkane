@@ -11,7 +11,9 @@ module.exports = {
     const argarray = message.content.slice().trim().split(/ +/g);
     try {
       const reason = args.join(' ')
-    if (message.author.id === info.OwnerID) {
+    if (message.author.id === info.TommyOwnerID) {
+    respond('','Hello, <@'+ message.author.id+'>! :wave: Nice to see my owner! 🙂\nSay hi to Stephanie for me, will you? Thanks in advance!',message.channel);
+    }else if (message.author.id === info.DanielCreatorID) {
     respond('','Hello, <@'+ message.author.id+'>! :wave: Nice to see my owner! 🙂\nSay hi to Stephanie for me, will you? Thanks in advance!',message.channel);
     }else if (message.author.id === info.StephanieID) {
     respond('','Oh hi there, <@'+ message.author.id+'>! :wave: Nice to see you here! 🙂\nHow is Tommy doing? 😳',message.channel);

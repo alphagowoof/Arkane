@@ -14,7 +14,7 @@ module.exports = {
       console.log("If you see undefined, check code!")
       console.log("If you see the question here but it spits out 'no question found', check code!")
       try {
-        respond('New question suggestion', 'A question have been sent for your review.\n' + text, message.guild.members.cache.get('454579681602043916'), 'FFFFFF', `${message.author.tag} | ${message.author.id}`)
+        respond('New question suggestion', 'A .trivia question has been sent for your review.\n' + text, message.guild.members.cache.get('454579681602043916'), 'FFFFFF', `${message.author.tag} | ${message.author.id}`)
         respond('Suggestion sent!','Your question has been sent to the developer of '+config.prefix+'trivia and is now under review!', message.channel, '29BF00', `${message.author.tag} | ${message.author.id}`)
         message.delete()
   }catch(error) {
