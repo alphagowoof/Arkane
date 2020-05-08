@@ -1,7 +1,7 @@
 module.exports = {
   name: 'coingame',
   aliases: ['flipcoingame', 'flipgame', 'coinflipgame'],
-  description: '**This is a game command.**\nGuess the side of the coin with Apple Mod.\nMake sure you write them in lowercase.',
+  description: '**This is a game command.**\nGuess the side of the coin with Apple Mod.\nMake sure you type your guess as a number.\n**THIS COMMAND IS SENSITIVE.\nONLY TYPE 0 OR 1 AS YOUR GUESS OR YOU RISK THE BOT CRASHING.**',
   usage: '(0/1) [0 for tails, 1 for heads]',
   cooldown: 0,
 	execute(message, args, client) {
@@ -15,12 +15,8 @@ module.exports = {
       var number = Math.ceil(Math.random() * 10)
       if(arg[1] === 0) {
         var yourside = 'Tails'
-        } else if(arg[1] === 1) {
+      } else if(arg[1] === 1) {
         var yourside = 'Heads'
-      } else {
-        console.log("If you are seeing this message and the argument is not undefined, check code!")
-        respond('Missing parameter',"Where is your guess?\nType .coingame 0 for tails.\nType .coingame 1 for heads.", message.channel)
-        return
       }
       if (number > 5){
         var coinside = 'Heads'

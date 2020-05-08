@@ -13,7 +13,7 @@ module.exports = {
       console.log(text)
       console.log("If you see undefined, check code!")
       try {
-        respond('New question suggestion', 'A Never have I ever statement have been sent for your review.\n' + text, message.guild.members.cache.get('454579681602043916'), 'FFFFFF')
+        respond('New question suggestion', 'A "Never have I ever statement" has been sent for your review.\n' + text, message.guild.members.cache.get('454579681602043916'), 'FFFFFF')
         respond('Suggestion sent!','Your Never have I ever statement has been sent to the developer of '+config.prefix+'neverhaveiever and is now under review!', message.channel, '29BF00')
         message.delete()
   }catch(error) {
