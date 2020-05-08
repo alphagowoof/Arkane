@@ -4,6 +4,7 @@ module.exports = {
   description: '**This is a game command.**\nPlay a dice game with Apple Mod.',
   usage: '(number of dice to be rolled) | rolldicegame 1',
   cooldown: 0,
+  hidden:true,
     execute(message, args, client) {
     const fs = require('fs');
     // Get number of dice using arguments

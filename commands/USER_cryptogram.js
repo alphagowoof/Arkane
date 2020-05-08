@@ -4,6 +4,7 @@ module.exports = {
     description: '**This is a game command.**\nTest your decoding skills with this game!\n*(Disclaimer: Apple Moderator will NOT be speaking in robot for this one.)*',
     usage: '',
     cooldown: 0,
+    hidden:true,
       execute(message, args, client) {
       const fs = require('fs');
       const Discord = require('discord.js')

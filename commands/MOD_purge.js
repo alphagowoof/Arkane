@@ -15,8 +15,15 @@ module.exports = {
 			const amount = Number(`${preamount}`)
 			console.log(preamount)
 			try{
+				if(!argarray[1]){
+					respond('', 'Invalid arguments.', message.channel);
+					return;
+				}
+				message.channel.bulkDelete(amount+1)
+				modaction(this.name, message.author.tag, message.channel.name, message.content)
+				return //Broken
 				console.log(argarray[2])
-				if(preamount >= 20 && argarray[2] && argarray[2].includes('-override')){
+				if(amount >= 70 && argarray[2] && argarray[2].includes('-override')){
 					console.log('Allowed purge.')
 					message.channel.bulkDelete(amount+1)
 					modaction(this.name, message.author.tag, message.channel.name, message.content)

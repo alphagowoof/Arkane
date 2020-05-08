@@ -4,6 +4,7 @@ module.exports = {
     description: '**This is a game command.**\nFound the real meaning? Use this command to guess!\n(Make sure you run .cryptogram to get an encrypted message.)',
     usage: '(Cryptogram ID) (answer in one word) | .decrypt 5 HELLOWORLDHOWAREYOUDOING',
     cooldown: 0,
+    hidden:true,
       execute(message, args, client) {
       const fs = require('fs');
       const Discord = require('discord.js')

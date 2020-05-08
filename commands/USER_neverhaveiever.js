@@ -3,6 +3,7 @@ module.exports = {
     aliases: ['nhie', 'neverever', 'never'],
     description: '**This is a game command.**\nHave you done this? Have you done that?\nNo drinking included.',
     usage: '',
+    hidden:true,
     cooldown: 0,
       execute(message, args, client) {
       const fs = require('fs');

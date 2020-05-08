@@ -4,6 +4,7 @@ module.exports = {
     description: 'Suggests a statement for the .neverhaveiever command.',
     usage: '(your Never have I ever statement)',
     cooldown: 10,
+    hidden:true,
       execute(message, args, client) {
       const Discord = require('discord.js');
       const fs = require('fs');
