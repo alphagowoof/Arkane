@@ -18,10 +18,12 @@ module.exports = {
 			if (!args.length) {
 				if(message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){
 					console.log('Mod role detected.')
-					const result = getCommandList()
+					const result = getCommandList(true)
 					data.push(result);
 					console.log('Loaded mod help')
-				}else {data.push(commands.map(command => command.name).join('\n'));
+				}else {
+					const result = getCommandList(false)
+					data.push(result);
 			console.log('Loaded member help')}
 
 				data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);

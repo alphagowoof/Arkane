@@ -3,6 +3,7 @@ module.exports = {
     description: "**This is a game command.**\nAnswer a trivia question.\n(Run .trivia first before using .answer)",
     usage: "(Question ID) (Letter of answer) | .answer 4 D",
     cooldown: 10,
+    hidden:true,
       execute(message, args, client) {
       const Discord = require('discord.js');
       const fs = require('fs');

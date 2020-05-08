@@ -3,6 +3,7 @@ module.exports = {
     aliases: ['neverdone'],
     description: '**This is a game command.**\nAre you sure you never done this? 🤔\n(Make sure you run .neverhaveiever to get a statement.).',
     usage: '',
+    hidden:true,
     cooldown: 0,
       execute(message, args, client) {
       const fs = require('fs');
