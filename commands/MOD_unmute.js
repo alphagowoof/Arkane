@@ -9,10 +9,10 @@ module.exports = {
     const Discord = require('discord.js');
     
     const fs = require('fs');
-    const {MuteRoleID} = require('../info.json');
+    const {MuteRoleID} = require('../config.json');
     try {
       if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
-      const {ModeratorRoleID} = require('../info.json');
+      const {ModeratorRoleID} = require('../config.json');
 			const checkmemberforroles = message.mentions.members.first()
 			if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
     const reason = args.join(' ')

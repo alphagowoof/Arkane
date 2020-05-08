@@ -14,7 +14,7 @@ module.exports = {
     try {
       //Mod check
       if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
-      const {ModeratorRoleID} = require('../info.json');
+      const {ModeratorRoleID} = require('../config.json');
 			const checkmemberforroles = message.mentions.members.first()
 			if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
       
