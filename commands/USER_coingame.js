@@ -7,32 +7,48 @@ module.exports = {
 	execute(message, args, client) {
     const Discord = require('discord.js');
     const fs = require('fs');
-    const arg = message.content.slice('').trim().split(/ +/g); 
-    try {
+    var arg = message.content.slice('').trim().split(/ +/g); 
       console.log(arg[1])
-      var coinside = 'no'
       var yourside = 'no'
       var number = Math.ceil(Math.random() * 10)
       if(arg[1] === 0) {
         var yourside = 'Tails'
+        console.log(arg[1])
+        console.log(yourside)
+        coingen()
       } else if(arg[1] === 1) {
         var yourside = 'Heads'
+        console.log(arg[1])
+        console.log(yourside)
       }
+        var arg = message.content.slice('').trim().split(/ +/g); 
+        if(arg[1] >> 1) {
+          respond('?','Invalid coin side.\nMake sure you entered 0 for tails or 1 for heads.', message.channel)
+          return
+          } 
+        if(arg[1] << 0) {
+          respond('?','Invalid coin side.\nMake sure you entered 0 for tails or 1 for heads.', message.channel)
+          return
+          } 
+        var coinside = 'no'
       if (number > 5){
         var coinside = 'Heads'
         var csnum = 0
         var ysnum = arg[1]
+        console.log(ysnum)
       }else{
         var coinside = 'Tails'
         var csnum = 1
         var ysnum = arg[1]
+        console.log(ysnum)
       }
-      console.log(response)
-      console.log(arg[1])
-      console.log(csnum)
-      console.log(ysnum)
       console.log(coinside)
-      console.log(yourside)
+      console.log(csnum)
+      try {
+        var ysnum = ysnum
+        var csnum = csnum
+        var coinside = coinside
+        var yourside = yourside
       if (ysnum === 1) {
         if (csnum === 1) {
           console.log("Win")
@@ -60,5 +76,5 @@ module.exports = {
     // Your code broke (Leave untouched in most cases)
     console.error('an error has occured', error);
     }
-  }
+}
 }
