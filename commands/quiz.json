@@ -170,29 +170,6 @@
         "qid" : "18"
       },
       {
-<<<<<<< Updated upstream
-        "question" : "What's the name of Tommy Stefanos' girlfriend?",
-        "choice1" : "A. Anna Hardy",
-        "choice2" : "B. Stephanie Alderney",
-        "choice3" : "C. Samantha Cook",
-        "choice4" : "D. Christine Michaels",
-        "answer" : "b",
-        "answer_case" : "B",
-        "qid" : "19"
-      },
-      {
-        "question" : "When did Tommy Stefanos get the Apple User role?",
-        "choice1" : "A. January 27, 2020",
-        "choice2" : "B. February 3, 2020",
-        "choice3" : "C. December 31, 2019",
-        "choice4" : "D. March 1, 2020",
-        "answer" : "b",
-        "answer_case" : "B",
-        "qid" : "20"
-      },
-      {
-=======
->>>>>>> Stashed changes
         "question" : "When did Derpi first join the server?",
         "choice1" : "A. November 27, 2019",
         "choice2" : "B. October 3, 2019",
@@ -253,7 +230,6 @@
         "qid" : "27"
       },
       {
-<<<<<<< Updated upstream
         "question" : "Where did Tommy Stefanos and Stephanie Alderney first meet?",
         "choice1" : "A. At school",
         "choice2" : "B. At a romantic view in Mountain Province",
@@ -264,8 +240,6 @@
         "qid" : "28"
       },
       {
-=======
->>>>>>> Stashed changes
         "question" : "How many (rounded) total messages did Daniel send in the Apple Explained server as of May 6, 2020?",
         "choice1" : "A. 13,000",
         "choice2" : "B. 20,000",
@@ -326,19 +300,6 @@
         "qid" : "35"
       },
       {
-<<<<<<< Updated upstream
-        "question" : "What was the first thing Tommy did with Stephanie?",
-        "choice1" : "A. they went out on a date",
-        "choice2" : "B. they were chilling at a beautiful view",
-        "choice3" : "C. he invited her over to his house",
-        "choice4" : "D. they kissed once they looked at each other",
-        "answer" : "c",
-        "answer_case" : "C",
-        "qid" : "36"
-      },
-      {
-=======
->>>>>>> Stashed changes
         "question" : "When were voice channels removed from the Apple Explained server?",
         "choice1" : "A. May 1, 2020",
         "choice2" : "B. March 29, 2020",
@@ -477,36 +438,6 @@
         "answer" : "d",
         "answer_case" : "D",
         "qid" : "59"
-      },
-      {
-<<<<<<< Updated upstream
-        "question" : "How many songs does Tommy Stefanos have on his iPod?",
-        "choice1" : "A. 1212",
-        "choice2" : "B. 1374",
-        "choice3" : "C. 1124",
-        "choice4" : "D. 1919",
-        "answer" : "c",
-        "answer_case" : "C",
-        "qid" : "60"
-      },
-      {
-        "question" : "What was the first thing Tommy said to Stephanie when they first met?",
-        "choice1" : "A. 'Hi' *awkward silence*",
-        "choice2" : "B. 'You actually like my speaker/lunchbox?'",
-        "choice3" : "C. 'wauw you look pretty'",
-        "choice4" : "D. *in my mind: love at first sight*",
-        "answer" : "b",
-        "answer_case" : "B",
-=======
-        "question" : "What was the first thing New Apple Moderator ever said?",
-        "choice1" : "A. Here are the available commands *shows list of commands*",
-        "choice2" : "B. <user>, watch your language!",
-        "choice3" : "C. Hello, <user>! Nice to see one of my managers!",
-        "choice4" : "D. i am sentient hahahahaha",
-        "answer" : "a",
-        "answer_case" : "A",
->>>>>>> Stashed changes
-        "qid" : "61"
       },
       {
         "question" : "How many times did Apple Moderator filter swear words as of May 7, 2020?",
