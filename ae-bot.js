@@ -135,7 +135,7 @@ for (const file of allCommandFiles) {
 }
 
 //Command list
-getCommandList = function(){
+getCommandList = function(modCheck){
 	const findCommandListUser = fs.readdirSync('./commands').filter(file => file.startsWith('USER_'));
 	const findCommandListMod = fs.readdirSync('./commands').filter(file => file.startsWith('MOD_'));
 	const findCommandListBotManager = fs.readdirSync('./commands').filter(file => file.startsWith('BOTMANAGER_'));
@@ -152,13 +152,17 @@ getCommandList = function(){
 		}
 		
 	}
-	for (const file of findCommandListMod) {
+	if(modCheck == true){
+		for (const file of findCommandListMod) {
 		const command = require(`./commands/${file}`);
 		if(!command.hidden == true){
 		commandListMod.push(command.name)
 		console.log(command.name)
 		}
 	}
+}
+	
+	if(modCheck == true){
 	for (const file of findCommandListBotManager) {
 		const command = require(`./commands/${file}`);
 		commandListBotManager.join(' ')
@@ -167,6 +171,7 @@ getCommandList = function(){
 		console.log(command.name)
 		}	
 	}
+}
 	
 	//Not the best way, but will work on later
 	usercommandstring = ['__**User**__']
@@ -174,10 +179,12 @@ getCommandList = function(){
 	botmanagercommandstring = ['__**Bot Manager**__']
 	commandList.push(usercommandstring)
 	commandList.push(commandListUser)
+	if(modCheck == true){
 	commandList.push(modcommandstring)
 	commandList.push(commandListMod)
 	commandList.push(botmanagercommandstring)
 	commandList.push(commandListBotManager)
+	}
 	const newcommandlist = commandList.toString().replace(/,/g, '\n')
 	return newcommandlist
 }
