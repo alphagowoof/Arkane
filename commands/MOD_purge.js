@@ -15,6 +15,10 @@ module.exports = {
 			const amount = Number(`${preamount}`)
 			console.log(preamount)
 			try{
+				if(!argarray[1]){
+					respond('', 'Invalid arguments.', message.channel);
+					return;
+				}
 				console.log(argarray[2])
 				if(preamount >= 20 && argarray[2] && argarray[2].includes('-override')){
 					console.log('Allowed purge.')
