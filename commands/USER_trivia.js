@@ -18,7 +18,7 @@ module.exports = {
       return item.answer
     }
     console.log(item)
-        respond('Trivia',`<@${message.author.id}>'s question:\n` + item.question+ '\n' + item.choice1 + '\n' + item.choice2 +'\n' + item.choice3 + '\n' + item.choice4 + '\n' + "Question ID: " + item.qid + '\n' + `**use \`${config.prefix}answer (question ID) (your answer)\` to answer the question**\nExample: ${config.prefix}answer 2 C`, message.channel) 
+        respond('Trivia',`<@${message.author.id}>'s question:\n` + item.question+ '\n' + item.choice1 + '\n' + item.choice2 +'\n' + item.choice3 + '\n' + item.choice4 + '\n' + "Question ID: " + item.qid + '\n' + `**use \`.answer (question ID) (your answer)\` to answer the question**\nExample: .answer 2 C`, message.channel) 
   }catch(error) {
     respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
     errorlog(error)

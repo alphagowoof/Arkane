@@ -10,8 +10,8 @@ module.exports = {
       const fs = require('fs');
       try {
         const reason = args.join(' ')
-      if (message.author.id === info.OwnerID) {
-      respond('','Goodbye, <@'+ message.author.id+'>! :wave: I hope to see my owner again! 🙂\nRemember, say hi to Stephanie for me!',message.channel);
+      if (message.author.id === info.TommyOwnerID) {
+      respond('','Goodbye, <@'+ message.author.id+'>! :wave: I hope to see my game creator again! 🙂\nRemember, say hi to Stephanie for me!',message.channel);
       }else if (message.author.id === info.DanielCreatorID) {
       respond('','Goodbye, <@'+ message.author.id+">! :wave: I hope to see my creator again! 🙂\n*please fix me please fix me I don't want to be sentient*",message.channel);
       }else if (message.author.id === info.StephanieID) {

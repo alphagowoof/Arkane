@@ -7,7 +7,7 @@ module.exports = {
     execute(message, args, client) {
     const fs = require('fs');
     // Get number of dice using arguments
-    const arg = message.content.slice('.rolldicegame').trim().split(/ +/g);
+    const arg = message.content.slice('').trim().split(/ +/g);
     console.log(arg[1])
     var number = 0
     var numbermul = 0
@@ -30,14 +30,16 @@ module.exports = {
     var divisor = Math.ceil(Math.random * 48)
     console.log('Divisor generated.')
     console.log('If you are seeing this message and there is nothing beneath it, a shadow problem has occured. Check code!')
+    if (arg[1] < parseInt(arg[1], 0)){
+      console.log('Negative number detected. Exiting .rolldicegame command.')
+      respond('?','Invalid dice number. Enter any non-zero number to play the game.',message.channel)
+      return 
+    }else{
+    }
     try {
       competition()
     // The classic switcharoo
     function competition() {
-      if (arg[1] > 0){
-      }else {
-      const arg = 1
-      }
       if (numswitch < 33) {             // Switch = yes
         var temp1 = numberApMod
         var temp2 = number
