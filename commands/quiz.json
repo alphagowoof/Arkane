@@ -130,16 +130,6 @@
         "qid" : "13"
       },
       {
-        "question" : "When did Budget Darth Vader (tommystefanatic) begin work on the game commands?",
-        "choice1" : "A. May 3, 2020",
-        "choice2" : "B. May 2, 2020",
-        "choice3" : "C. May 1, 2020",
-        "choice4" : "D. May 4, 2020",
-        "answer" : "a",
-        "answer_case" : "A",
-        "qid" : "14"
-      },
-      {
         "question" : "What was the name of Steve Jobs' new company after he left Apple?",
         "choice1" : "A. PrEVIOUS",
         "choice2" : "B. Akapella Komputers",
@@ -250,16 +240,6 @@
         "qid" : "25"
       },
       {
-        "question" : "How many times did Tommy Stefanos say 'ollo'?",
-        "choice1" : "A. 5",
-        "choice2" : "B. 12",
-        "choice3" : "C. 30",
-        "choice4" : "D. 99",
-        "answer" : "b",
-        "answer_case" : "B",
-        "qid" : "26"
-      },
-      {
         "question" : "How many commits were made to the testing bot as of May 6, 2020?",
         "choice1" : "A. 332",
         "choice2" : "B. 911",
@@ -298,16 +278,6 @@
         "answer" : "d",
         "answer_case" : "D",
         "qid" : "30"
-      },
-      {
-        "question" : "How many times did Tommy Stefanos attempt to fix .answer before it finally worked?",
-        "choice1" : "A. 7",
-        "choice2" : "B. 12",
-        "choice3" : "C. 21",
-        "choice4" : "D. 2",
-        "answer" : "a",
-        "answer_case" : "A",
-        "qid" : "31"
       },
       {
         "question" : "All of them are status messages for DebugBot EXCEPT:",
@@ -350,16 +320,6 @@
         "qid" : "35"
       },
       {
-        "question" : "What was the first thing Tommy did with his new MacBook Pro?",
-        "choice1" : "A. mess with it",
-        "choice2" : "B. game with it",
-        "choice3" : "C. make music with it",
-        "choice4" : "D. experimented on it like EverythingApplePro",
-        "answer" : "c",
-        "answer_case" : "C",
-        "qid" : "36"
-      },
-      {
         "question" : "When were voice channels removed from the Apple Explained server?",
         "choice1" : "A. May 1, 2020",
         "choice2" : "B. March 29, 2020",
@@ -368,16 +328,6 @@
         "answer" : "a",
         "answer_case" : "A",
         "qid" : "37"
-      },
-      {
-        "question" : "How many times did Tommy Stefanos restart DebugBot to test game commands?",
-        "choice1" : "A. 119",
-        "choice2" : "B. 213",
-        "choice3" : "C. 99",
-        "choice4" : "D. 91",
-        "answer" : "d",
-        "answer_case" : "D",
-        "qid" : "38"
       },
       {
         "question" : "What year did Apple release the Macintosh IIcx?",
@@ -490,16 +440,6 @@
         "qid" : "49"
       },
       {
-        "question" : "What iPod Classic model does Tommy Stefanos own?",
-        "choice1" : "A. iPod Classic 5th Gen, 80 GB",
-        "choice2" : "B. iPod Classic 5th Gen, 60 GB",
-        "choice3" : "C. iPod Classic 6th Gen, 120 GB",
-        "choice4" : "D. iPod Classic 6th Gen, 160 GB",
-        "answer" : "a",
-        "answer_case" : "A",
-        "qid" : "50"
-      },
-      {
         "question" : "What Digital Audio Workstation does Tommy Stefanos use?",
         "choice1" : "A. FruityLoops (FL) Studio",
         "choice2" : "B. Ableton Live Suite",
@@ -510,76 +450,6 @@
         "qid" : "51"
       },
       {
-        "question" : "What key/s does Tommy Stefanos commonly use to compose trailer music?",
-        "choice1" : "A. E pentatonic minor",
-        "choice2" : "B. D minor/D melodic minor",
-        "choice3" : "C. G minor",
-        "choice4" : "D. A major",
-        "answer" : "b",
-        "answer_case" : "B",
-        "qid" : "52"
-      },
-      {
-        "question" : "What key does Tommy Stefanos commonly use to produce EDM?",
-        "choice1" : "A. F# major",
-        "choice2" : "B. D major",
-        "choice3" : "C. G# Minor",
-        "choice4" : "D. F major",
-        "answer" : "d",
-        "answer_case" : "D",
-        "qid" : "53"
-      },
-      {
-        "question" : "What's the favorite Sytrus preset of Tommy Stefanos?",
-        "choice1" : "A. LD Electric Beach",
-        "choice2" : "B. Marimba",
-        "choice3" : "C. String ensemble",
-        "choice4" : "D. Church bell",
-        "answer" : "a",
-        "answer_case" : "A",
-        "qid" : "54"
-      },
-      {
-        "question" : "Who made the Sytrus preset 'LD Electric Beach'?",
-        "choice1" : "A. Nicky Romero",
-        "choice2" : "B. deadmau5",
-        "choice3" : "C. Adam Szabo & Johan Vilborg",
-        "choice4" : "D. Alan Walker & K-391",
-        "answer" : "c",
-        "answer_case" : "C",
-        "qid" : "55"
-      },
-      {
-        "question" : "What's Tommy Stefanos's favorite orchestral plugin?",
-        "choice1" : "A. Miroslav Philharmonik 2",
-        "choice2" : "B. Metropolis Ark Complete",
-        "choice3" : "C. Nucleus",
-        "choice4" : "D. Layers",
-        "answer" : "a",
-        "answer_case" : "A",
-        "qid" : "56"
-      },
-      {
-        "question" : "What's Tommy Stefanos's first programming language he learned before JavaScript?",
-        "choice1" : "A. C++",
-        "choice2" : "B. UnityScript",
-        "choice3" : "C. Microsoft Windows Batch",
-        "choice4" : "D. Assembly",
-        "answer" : "c",
-        "answer_case" : "C",
-        "qid" : "57"
-      },
-      {
-        "question" : "What was one of Tommy Stefanos's local childhood channels before it finally shut down on May 5, 2020?",
-        "choice1" : "A. Jeepney TV",
-        "choice2" : "B. Cinema One",
-        "choice3" : "C. Star Movies",
-        "choice4" : "D. ABS-CBN",
-        "answer" : "d",
-        "answer_case" : "D",
-        "qid" : "58"
-      },
-      {
         "question" : "All of these statements are error messages for scientific calculators EXCEPT:",
         "choice1" : "A. Syntax Error",
         "choice2" : "B. Math Error",
@@ -588,16 +458,6 @@
         "answer" : "d",
         "answer_case" : "D",
         "qid" : "59"
-      },
-      {
-        "question" : "How many songs does Tommy Stefanos have on his iPod?",
-        "choice1" : "A. 1212",
-        "choice2" : "B. 1374",
-        "choice3" : "C. 1124",
-        "choice4" : "D. 1919",
-        "answer" : "c",
-        "answer_case" : "C",
-        "qid" : "60"
       },
       {
         "question" : "What was the first thing New Apple Moderator ever said?",
