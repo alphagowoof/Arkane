@@ -43,3 +43,15 @@ USAGE: ```errorlog([commandName(String)], [messageAuthor(String)], [channelRanIn
 [channelRanIn(String)]
 [fullCommandMessage(String)]
 ```
+
+## getCommandList function
+This function gets the list of commands organized by catergory.
+
+EXAMPLE: `Example needed.`
+
+USAGE: ```const result = errorlog()```
+
+### PARAMETERS
+```
+N/A.
+```
