@@ -45,7 +45,7 @@ USAGE: ```errorlog([commandName(String)], [messageAuthor(String)], [channelRanIn
 ```
 
 ## getCommandList function
-This function gets the list of commands organized by catergory.
+This function gets the list of commands organized by category.
 
 EXAMPLE: `Example needed.`
 
