@@ -146,19 +146,26 @@ getCommandList = function(){
 	for (const file of findCommandListUser) {
 		const command = require(`./commands/${file}`);
 		commandListUser.join(' ')
+		if(!command.hidden == true){
 		commandListUser.push(command.name)
-		console.log(command.name)
+		console.log(command.name)	
+		}
+		
 	}
 	for (const file of findCommandListMod) {
 		const command = require(`./commands/${file}`);
+		if(!command.hidden == true){
 		commandListMod.push(command.name)
 		console.log(command.name)
+		}
 	}
 	for (const file of findCommandListBotManager) {
 		const command = require(`./commands/${file}`);
 		commandListBotManager.join(' ')
+		if(!command.hidden == true){
 		commandListBotManager.push(command.name)
 		console.log(command.name)
+		}	
 	}
 	
 	//Not the best way, but will work on later
