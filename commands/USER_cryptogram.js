@@ -17,7 +17,7 @@ module.exports = {
         return item.answer
       }
       console.log(item)
-          respond('Cryptogram',"<@"+ message.author.id + ">'s cryptogram\n" + item.cryptogram + "\nCryptogram ID: " + item.cryptoid + "\nAnswer using .decrypt (Cryptogram ID) (answer).\nType .decrypthint (Cryptogram ID) for a hint.", message.channel) 
+          respond('Cryptogram',"<@"+ message.author.id + ">'s cryptogram\n" + item.cryptogram + "\nCryptogram ID: " + item.cryptoid + "\nAnswer using .decrypt (Cryptogram ID) (answer in one word).\nType .decrypthint (Cryptogram ID) for a hint.", message.channel) 
     }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
       errorlog(error)
