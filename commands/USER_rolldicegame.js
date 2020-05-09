@@ -83,9 +83,8 @@ module.exports = {
         console.log("NaN detected. Ending command.")
         respond('Invalid dice number. Please type a valid dice number.')
         return
-      } else {
-        actualwinner()
       }
+        actualwinner()
     function actualwinner() {
     if (numberApModmul < numbermul) {
       // You win!
