@@ -80,7 +80,7 @@
         "qid" : "8"
       }, 
       {
-        "question" : "When was the Apple Explained Discord server **re**made?",
+        "question" : "When was the Apple Explained Discord server made?",
         "choice1" : "A. March 7, 2019",
         "choice2" : "B. February 1, 2019",
         "choice3" : "C. February 9, 2019",
@@ -163,16 +163,16 @@
         "question" : "What was the sanity check phrase for .clearwarn?",
         "choice1" : "A. YES I WANT TO DO IT",
         "choice2" : "B. I AM NOT CRAZY, DO IT",
-        "choice3" : "C. CHECK ME FOR CRAZY STUFF, I DON'T HAVE ANY, DO IT",
+        "choice3" : "C. CHECK ME, I DON'T HAVE ANY, DO IT",
         "choice4" : "D. YES I AM SURE",
         "answer" : "d",
         "answer_case" : "D",
         "qid" : "18"
       },
       {
-        "question" : "What's the name of Tommy Stefanos's game company?",
+        "question" : "What's the name of the game company that makes macOS ports of games?",
         "choice1" : "A. Nap Pod",
-        "choice2" : "B. Akapella Interaktive",
+        "choice2" : "B. Feral Interactive",
         "choice3" : "C. Fift33n Games",
         "choice4" : "D. None Taken Interactive",
         "answer" : "b",
@@ -440,7 +440,7 @@
         "qid" : "49"
       },
       {
-        "question" : "What Digital Audio Workstation does Tommy Stefanos use?",
+        "question" : "What Digital Audio Workstation does most music producers use?",
         "choice1" : "A. FruityLoops (FL) Studio",
         "choice2" : "B. Ableton Live Suite",
         "choice3" : "C. Logic Pro X",
@@ -508,5 +508,15 @@
         "answer" : "c",
         "answer_case" : "C",
         "qid" : "65"
+      },
+      {
+        "question" : "What's listed in these choices are real iPod models EXCEPT:",
+        "choice1" : "A. iPod Nano",
+        "choice2" : "B. iPod Shuffle",
+        "choice3" : "C. iPod Touch",
+        "choice4" : "D. iPod Pro",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "66"
       }
 ]
