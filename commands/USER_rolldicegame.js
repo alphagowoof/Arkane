@@ -31,12 +31,6 @@ module.exports = {
     var divisor = Math.ceil(Math.random * 48)
     console.log('Divisor generated.')
     console.log('If you are seeing this message and there is nothing beneath it, a shadow problem has occured. Check code!')
-    if (arg[1] < parseInt(arg[1], 0)){
-      console.log('Negative number detected. Exiting .rolldicegame command.')
-      respond('?','Invalid dice number. Enter any non-zero number to play the game.',message.channel)
-      return 
-    }else{
-    }
     try {
       competition()
     // The classic switcharoo
@@ -79,9 +73,17 @@ module.exports = {
     // If statements with the dice
     function andthewinneris() {
       console.log("Never mind the message above, the code works!")
-      if (numbermul === "NaN") {
-        console.log("NaN detected. Ending command.")
-        respond('Invalid dice number. Please type a valid dice number.')
+      if(!arg[1]) {
+        console.log("NaN detected. Ending command...")
+        respond('How many are you going to roll, you decide, come on','Uhh... If you want to roll, you need to type how many dice we\'re gonna roll, bro.', message.channel)
+        return
+      } else if(numbermul < 0) {
+        console.log("Negative number detected. Ending command...")
+        respond('Think positive, not negative','Are we in the multiverse of negative? Type something positive, come on, bro.', message.channel)
+        return
+      } else if(arg[1] > 100) {
+        console.log("Number over 100 detected. Ending command...")
+        respond('I don\'t have that much dice!','I don\'t have ' + arg[1] + ' dice, can you please make it 100 or below, bro?', message.channel)
         return
       }
         actualwinner()
@@ -89,9 +91,11 @@ module.exports = {
     if (numberApModmul < numbermul) {
       // You win!
       respond('Win!',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou win, congratulations <@${message.author.id}>!` , message.channel)
+      return
     } else {
       // lol you lose
       respond('Lose',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou lose, better luck next time <@${message.author.id}>!` , message.channel)
+      return
     }
   }
 }
