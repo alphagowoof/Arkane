@@ -17,8 +17,11 @@ module.exports = {
         console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
         respond('', arg[1] + " is not a valid question number", message.channel)
         return
-      }else{
-        const ans = item.answer
+      }else if(!arg[1]){
+        console.log("oi m8 there's nothing to load")
+        console.log("no number defined, not an error. If it were, it would have the code NO_NUMBER_DEFINED.")
+        respond('',"What question am I supposed to check, again? 😂", message.channel)
+        return
       }
       const filter = response => {
         console.log(response)
@@ -31,14 +34,18 @@ module.exports = {
           console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
           respond('', arg[1] + " is not a valid question number", message.channel)
           return
-        }else{
+        }else if(!arg[1]){
+          console.log("oi m8 there's nothing to load")
+          console.log("no number defined, not an error. If it were, it would have the code NO_NUMBER_DEFINED.")
+          respond('',"What question am I supposed to check, again? 😂", message.channel)
+          return
+        }
           console.log(item)
           console.log(item.answer)
           console.log(arg[2])
           console.log("number ok. question loaded.")
           areyoucorrect()
         }
-      }
         function areyoucorrect(){
         if(arg[2] == 'BotsTakeOver'){
           console.log("uhh... SOMETHING IS HAPPENING I DON'T KNOW WHAT")
