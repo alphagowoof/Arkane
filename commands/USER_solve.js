@@ -16,14 +16,14 @@ module.exports = {
       console.log(arg[1])
       var modified = arg[1] - 1
       const item = topsecret[modified];
-      console.log(item)
-      console.log(item.decrypted)
       console.log(arg[2])
-      if(item === 'undefined')  {
+      if(!item)  {
         respond('Invalid Puzzle ID','I received a fatal error. Next time, please put a valid Puzzle ID.',message.channel)
         message.delete()
         return
       }
+      console.log(item)
+      console.log(item.answer)
         if(arg[2] === item.answercase){
         console.log("answer correct, capital letters")
         respond('Congratulations.',"You got Puzzle Number " + item.puzzlenumber + " right. Give yourselves a round of applause.", message.channel) 
