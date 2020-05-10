@@ -2,6 +2,7 @@ module.exports = {
     name: 'suggest',
     aliases: ['botsuggestion', 'suggestion'],
     description: 'Suggests a feature to add to the bot!',
+    cooldown: 30,
     usage: '<request>',
       execute(message, args, client) {
       const fs = require('fs');
@@ -12,6 +13,11 @@ module.exports = {
       } = require('../config.json')
       const text = args.join(' ');
       try {
+        if(text == ''){
+          respond('', 'Please enter a message to send.', message.channel)
+          return 'Message missing.'
+        }
+        message.delete()
         const icon = message.guild.iconURL()
         if(!botSuggestionWebhookID){throw 'Missing config entry. `botSuggestionWebhookID`'}else{}
         if(!botSuggestionWebhookToken){throw 'Missing config entry. `botSuggestionWebhookToken`'}else{}
