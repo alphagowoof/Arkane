@@ -4,6 +4,7 @@ module.exports = {
     description: '**This is a game command.**\nPlay on a slot machine like in Vegas.\n(No gambling included)',
     usage: '',
     cooldown: 0,
+    hidden: true,
       execute(message, args, client) {
       const fs = require('fs');
       const Discord = require('discord.js')
