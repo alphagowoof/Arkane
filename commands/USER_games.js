@@ -7,7 +7,7 @@ module.exports = {
       const Discord = require('discord.js');
       const fs = require('fs');
       try {
-        respond('Game Center 🎮',"**Welcome to the Game Center!**\nHere are some game commands you can use to play with Apple Moderator:\n**.cryptogram**\n**.neverhaveiever**\n**.rolldicegame**\n**.slots**\n**.trivia (broken currently)**\nIf you want to suggest questions/Never have I ever statements, use these:\n**.neverhaveieversuggest**\n**.suggestquestion**\nHave fun with Apple Mod!\nWith ❤️ from game creators: <@454579681602043916> and <@461560462991949863>.\nSupported by Tommy's IRL girlfriend <@707863465833791541>! Love you, Steph!", message.channel)
+        respond('Game Center 🎮',"**Welcome to the Game Center!**\nHere are some game commands you can use to play with Apple Moderator:\n----------------------\n**.cryptogram**\n**.neverhaveiever**\n**.rolldicegame**\n**.slots**\n**.trivia (broke 4 times and may be broken)**\n----------------------\nIf you want to suggest questions/Never have I ever statements, use these:\n**.neverhaveieversuggest**\n**.suggestquestion**\n----------------------\nHave fun with Apple Mod!\n*From the team of developers behind Apple Moderator.*", message.channel)
         message.delete()
   }catch(error) {
     respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)

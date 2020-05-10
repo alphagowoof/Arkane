@@ -19,7 +19,7 @@ module.exports = {
       try {
         respond('Bug Report', 'A user has reported a problem with the following command:\n**' + command + '**\nHere is their report: \n' + reason , message.guild.members.cache.get('454579681602043916'), 'd90e00', "\nDerpi and Daniel also got the message. Meet up in the dev server to assign a bugfixer.\n" + `${message.author.tag} | ${message.author.id}`)
         respond('Bug Report', 'A user has reported a problem with the following command:\n**' + command + '**\nHere is their report: \n' + reason , message.guild.members.cache.get('461560462991949863'), 'd90e00', "\nThomas and Derpi also got the message. Meet up in the dev server to assign a bugfixer.\n" + `${message.author.tag} | ${message.author.id}`)
-        //respond('Bug Report', 'A user has reported a problem with the following command:\n**' + command + '**\nHere is their report: \n' + reason , message.guild.members.cache.get('595397105103667236'), 'd90e00', "\nThomas and Daniel also got the message. Meet up in the dev server to assign a bugfixer.\n" + `${message.author.tag} | ${message.author.id}`)
+        respond('Bug Report', 'A user has reported a problem with the following command:\n**' + command + '**\nHere is their report: \n' + reason , message.guild.members.cache.get('595397105103667236'), 'd90e00', "\nThomas and Daniel also got the message. Meet up in the dev server to assign a bugfixer.\n" + `${message.author.tag} | ${message.author.id}`)
         respond('Report sent!','Your bug report has been sent to the bot developers and will be fixed soon!', message.channel, '29BF00', `${message.author.tag} | ${message.author.id}`)
         message.delete()
   }catch(error) {
