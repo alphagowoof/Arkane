@@ -4,6 +4,7 @@ module.exports = {
     description: 'Suggests a question for the .trivia command. (Question only!)',
     usage: '(question)',
     cooldown: 30,
+    hidden: true,
       execute(message, args, client) {
       const Discord = require('discord.js');
       const fs = require('fs');
