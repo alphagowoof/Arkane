@@ -25,7 +25,7 @@ module.exports = {
       }
         if(arg[2] === item.decryptedcase){
         console.log("answer correct, capital letters")
-        respond('Correct!',"c0n6ra7ul4710n5 h4ck3r, y0u g07 17 r16h7! m4k3 5ur3 t0 u53 4ll 5m4ll l3773r5, 7h0u6h.\n(Congratulations hacker, you got it right! Make sure you use small letters, though.)", message.channel) 
+        respond('Correct!',"c0n6ra7ul4710n5 h4ck3r, y0u g07 17 r16h7! m4k3 5ur3 t0 u53 4ll 5m4ll l3773r5, 7h0u6h.\n(Congratulations hacker, you got it right! Make sure you use all small letters, though.)", message.channel) 
         return
       } else if(arg[2] === item.decrypted){
         console.log("answer correct")

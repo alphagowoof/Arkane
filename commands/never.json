@@ -1,18 +1,18 @@
 [
     {
-        "neverhaveiever" : "tried to kiss my best friend",
+        "neverhaveiever" : "called the President of my country as a prank",
         "neverid" : "1"
     },
     {
-        "neverhaveiever" : "tried to touch my own poop",
+        "neverhaveiever" : "butt-dialed (accidentally called) someone",
         "neverid" : "2"
     },
     {
-        "neverhaveiever" : "tried to touch my pee (liquid)",
+        "neverhaveiever" : "contacted Apple Support as a joke",
         "neverid" : "3"
     },
     {
-        "neverhaveiever" : "exercised",
+        "neverhaveiever" : "exercised in a while",
         "neverid" : "4"
     },
     {
@@ -68,7 +68,7 @@
         "neverid" : "17"
     },
     {
-        "neverhaveiever" : "cheated on my girlfriend/wife",
+        "neverhaveiever" : "watched something rated R",
         "neverid" : "18"
     },
     {
@@ -98,5 +98,65 @@
     {
         "neverhaveiever" : "got Greg angry",
         "neverid" : "25"
+    },
+    {
+        "neverhaveiever" : "got warned by Daniel",
+        "neverid" : "26"
+    },
+    {
+        "neverhaveiever" : "got warned by Derpi",
+        "neverid" : "27"
+    },
+    {
+        "neverhaveiever" : "got warned by Greg",
+        "neverid" : "28"
+    },
+    {
+        "neverhaveiever" : "got warned by Nick Greenway",
+        "neverid" : "29"
+    },
+    {
+        "neverhaveiever" : "got warned by Alex",
+        "neverid" : "30"
+    },
+    {
+        "neverhaveiever" : "got muted by Daniel",
+        "neverid" : "31"
+    },
+    {
+        "neverhaveiever" : "got muted by Derpi",
+        "neverid" : "32"
+    },
+    {
+        "neverhaveiever" : "got muted by Greg",
+        "neverid" : "33"
+    },
+    {
+        "neverhaveiever" : "got warned by Jim",
+        "neverid" : "34"
+    },
+    {
+        "neverhaveiever" : "got muted by Alex",
+        "neverid" : "35"
+    },
+    {
+        "neverhaveiever" : "got muted by Nick Greenway",
+        "neverid" : "36"
+    },
+    {
+        "neverhaveiever" : "got muted by Jim",
+        "neverid" : "37"
+    },
+    {
+        "neverhaveiever" : "got banned in any server",
+        "neverid" : "38"
+    },
+    {
+        "neverhaveiever" : "received a spammy email",
+        "neverid" : "39"
+    },
+    {
+        "neverhaveiever" : "prank mailed someone as a joke",
+        "neverid" : "40"
     }
 ]
