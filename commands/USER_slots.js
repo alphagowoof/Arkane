@@ -9,11 +9,11 @@ module.exports = {
       const Discord = require('discord.js')
       const msg = message
       try {
-         var roll1 = Math.ceil(Math.random() * 99)
+         var roll1 = Math.ceil(Math.random() * 20)
          console.log("Slot 1 generated. " + roll1)
-         var roll2 = Math.ceil(Math.random() * 99)
+         var roll2 = Math.ceil(Math.random() * 20)
          console.log("Slot 2 generated. " + roll2)
-         var roll3 = Math.ceil(Math.random() * 99)
+         var roll3 = Math.ceil(Math.random() * 20)
          console.log("Slot 3 generated. " + roll3)
          var slot1 = roll1
          console.log("Slot 1 transferred. " + slot1)

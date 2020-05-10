@@ -38,6 +38,9 @@ module.exports = {
       } else if(item.cryptsystem === "Two Letter Switcharoo Cipher"){
         respond('Cryptogram Hint','I heard you can use this cipher to decrypt this message... 🤔\n**' + item.cryptsystem + '**\n You are going to need to contact the creator of the cipher <@454579681602043916> for the guide.', message.channel)
         return
+      } else if(item.cryptsystem === "Rotation Cipher"){
+        respond('Cryptogram Hint','I heard you can use this cipher to decrypt this message... 🤔\n**' + item.cryptsystem + '**\n You are going to need this coordinate: \n**a = ' + item.a_parameter + "**", message.channel)
+        return
       } else {
       respond('Cryptogram Hint','I heard you can use this cipher to decrypt this message... 🤔\n**' + item.cryptsystem + "**", message.channel)
       return

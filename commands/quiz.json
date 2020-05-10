@@ -250,7 +250,7 @@
         "qid" : "27"
       },
       {
-        "question" : "When did Tommy Stefanos first begin work on his first game?",
+        "question" : "When did Akapella Studios first begin work on their first game?",
         "choice1" : "A. May",
         "choice2" : "B. April",
         "choice3" : "C. March",
@@ -480,7 +480,7 @@
         "qid" : "62"
       },
       {
-        "question" : "What was the hardest game command to code according to Tommy Stefanos?",
+        "question" : "What was the hardest game command to code according to the Apple Mod game creators?",
         "choice1" : "A. slots",
         "choice2" : "B. coingame",
         "choice3" : "C. trivia",
@@ -518,5 +518,65 @@
         "answer" : "d",
         "answer_case" : "D",
         "qid" : "66"
+      },
+      {
+        "question" : "How many people did New Apple Moderator ban by command of the moderators/owner?",
+        "choice1" : "A. 25",
+        "choice2" : "B. 16",
+        "choice3" : "C. 18",
+        "choice4" : "D. 29",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "67"
+      },
+      {
+        "question" : "How many people did Corporal Desmond Doss save in Hacksaw Ridge?",
+        "choice1" : "A. 75",
+        "choice2" : "B. 96",
+        "choice3" : "C. 68",
+        "choice4" : "D. 89",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "68"
+      },
+      {
+        "question" : "What was the name of John Wick's dog?",
+        "choice1" : "A. John Wick Jr.",
+        "choice2" : "B. Desmond",
+        "choice3" : "C. Daisy",
+        "choice4" : "D. Mark",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "69"
+      },
+      {
+        "question" : "What was the cause of Steve Jobs' death?",
+        "choice1" : "A. Laryngeal cancer",
+        "choice2" : "B. AIDS infection",
+        "choice3" : "C. Neuroendocrine cancer",
+        "choice4" : "D. Severe food poisoning",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "70"
+      },
+      {
+        "question" : "When did Steve Jobs die?",
+        "choice1" : "A. October 12, 2011",
+        "choice2" : "B. October 17, 2011",
+        "choice3" : "C. October 29, 2011",
+        "choice4" : "D. October 5, 2011",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "71"
+      },
+      {
+        "question" : "Which macOS version is the easiest to Hackintosh?",
+        "choice1" : "A. Catalina",
+        "choice2" : "B. Snow Leopard",
+        "choice3" : "C. Mountain Lion",
+        "choice4" : "D. Mojave",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "72"
       }
 ]

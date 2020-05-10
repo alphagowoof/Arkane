@@ -95,5 +95,42 @@
         "cryptsystem" : "Two Letter Switcharoo Cipher",
         "decryptedcase": "GREGORYWYATTJR",
         "decrypted": "gregorywyattjr"
+    },
+    {
+        "cryptogram" : ".... . .-.. .--. -- .",
+        "cryptoid" : "14",
+        "cryptsystem" : "Morse Code",
+        "decryptedcase": "HELPME",
+        "decrypted": "helpme"
+    },
+    {
+        "cryptogram" : "MCMXVII",
+        "cryptoid" : "15",
+        "cryptsystem" : "Roman Numerals",
+        "decryptedcase": "1917",
+        "decrypted": "1917"
+    },
+    {
+        "cryptogram" : "1n707h3unkn00000wn",
+        "cryptoid" : "16",
+        "cryptsystem" : "Leetspeak Cipher",
+        "decryptedcase": "INTOTHEUNKNOOOOOWN",
+        "decrypted": "intotheunknooooown"
+    },
+    {
+        "cryptogram" : "KOLWLCLOLCKBRPKBMW",
+        "cryptoid" : "17",
+        "cryptsystem" : "Playfair Cipher",
+        "key" : "helth",
+        "decryptedcase": "INEEDAMEDICQUICK",
+        "decrypted": "ineedamedicquick"
+    },
+    {
+        "cryptogram" : "AEKQAIEAUAQQMQM",
+        "cryptoid" : "18",
+        "cryptsystem" : "Rotation Cipher",
+        "a_parameter" : "4",
+        "decryptedcase": "NOWEAPONSNEEDED",
+        "decrypted": "noweaponsneeded"
     }
 ]
