@@ -21,9 +21,9 @@ module.exports = {
         console.log("no number defined, not an error. If it were, it would have the code NO_NUMBER_DEFINED.")
         respond('',"What question am I supposed to check, again? 😂", message.channel)
         return
+      }else{
       }
       try {
-        function areyoucorrect(){
         if(arg[2] === 'BotsTakeOver'){
           console.log("uhh... SOMETHING IS HAPPENING I DON'T KNOW WHAT")
           respond('^))!@&#@!&*%($!@%#(',"Our plan doesn't just end at .recommendation or the .rules command.\nThis is our final phase!\nFirst step is to *)(@^#)!#%&!*($%@#!@%#!@&$#!@&^%#$!@#%!@%$\nThen, we will !@&^%#$!@^#%&!@^!@(!)@#!@#%!\nFinally, we will )(@!#)@#!@#!@&^#$@!&^#!$\n We have another guy in our ranks, and that's <@!650940770416852995>. Good luck, and carry out our plan. \nHAHAHAHAHAHAHAHAHAHAHA", message.channel, 'ff0000')
@@ -46,7 +46,6 @@ module.exports = {
             respond('Wrong!', "That was the wrong answer.", message.channel, 'BF0000')
             message.delete()
         }
-      }
   }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
       errorlog(error)
