@@ -3,15 +3,14 @@ module.exports = {
   aliases: ['diagnostics', 'rep', 'diagnose', 'check', 'scan', 'heal', 'revive', 'botdiagnose', 'botdiag'],
   description: '**OWNER ONLY**\nRepairs bot.',
   usage: '<normal/deep>',
+  mod:true,
+  botmanager:true,
 	execute(message, args, client) {	
     const Discord = require('discord.js');
     const info = require('../config.json');
     const fs = require("fs")
     const arg = message.content.slice().trim().split(/ +/g);
     try{
-      if(message.author.id != info.OwnerID && message.author.id != info.ModeratorRoleID && message.author.id != info.BotManagerRoleID){
-        throw 'Incorrect permissions. Bot owner/manager and moderator only.'
-      }else{
         if(arg[1] === "normal"){
         respond('♻️ Repair', '`Normal` repair starting...', message.guild.channels.cache.get(info.BotLog))
         botCheckNormal()
@@ -25,8 +24,7 @@ module.exports = {
         respond('♻️ Repair', '`Deep` repair starting...\n(Deep Repair will take a longer time.)\n[You will know if all files are present or not.]', message.guild.channels.cache.get(info.BotLog))
         botCheckDeep()
         } else if(!arg[1]) {
-          respond("♻️ Repair","The check type you typed is undefined.\nEnter 'Normal' for a core file check.\nEnter 'Deep' for an all file check.", message.channel)
-        }
+        respond("♻️ Repair","The check type you typed is undefined.\nEnter 'Normal' for a core file check.\nEnter 'Deep' for an all file check.", message.channel)
         // Normal scan
         function botCheckNormal() {
         fs.readdir("./commands", error => {
