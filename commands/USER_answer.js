@@ -35,15 +35,15 @@ module.exports = {
         console.log(item)
         if(arg[2] == item.answer) {
             console.log('answer correct')
-            respond('Correct!', "That was the correct answer!", message.channel, '29BF00')
+            respond('Correct!', `<@${message.author.id}>, that was the correct answer!`, message.channel, '29BF00')
             message.delete()
         }else if(arg[2] == item.answer_case) {
             console.log('answer correct, capital letter')
-            respond('Correct!', "That was the correct answer! Next time, try using lowercase for the answer.", message.channel, '29BF00')
+            respond('Correct!', `<@${message.author.id}>, that was the correct answer! Next time, try using lowercase for the answer.`, message.channel, '29BF00')
             message.delete()
         }else{
             console.log('answer wrong')
-            respond('Wrong!', "That was the wrong answer.", message.channel, 'BF0000')
+            respond('Wrong!', `<@${message.author.id}>, that was the wrong answer.`, message.channel, 'BF0000')
             message.delete()
         }
   }catch(error) {
