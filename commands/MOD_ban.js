@@ -23,7 +23,7 @@ module.exports = {
    			fs.appendFileSync('./logs/' + userid + '-modwarnings.log', 'Ban issued by '+ authorusername +'\nReason: ' + reason +'\n\n');
 			respond('Ban','<@'+userid+'> was banned.\nReason: '+reason, message.channel)
 			respond('Banned','You were banned from the Apple Explained server due to: '+ reason+'\n\nThis ban does not expire. ', user)
-			userToBan.ban({reason: reason})
+			userToBan.ban({reason: `${message.author.tag}, ${reason}`})
 			modaction(this.name, message.author.tag, message.channel.name, message.content)
         	}catch(error) {
 				respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
