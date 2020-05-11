@@ -2,6 +2,8 @@ module.exports = {
   name: 'repair',
   aliases: ['diagnostics', 'rep', 'diagnose', 'check'],
   description: '**OWNER ONLY**\nRepairs bot.',
+  mod:true,
+  botmanager:true,
 	execute(message, args, client) {	
     const Discord = require('discord.js');
     const info = require('../config.json');
@@ -15,9 +17,6 @@ module.exports = {
     var stringsFilePath = "./strings.json"
     var runstateFilePath = "./runstate.txt"
     try{
-      if(message.author.id != info.OwnerID){
-        throw 'Incorrect permissions. Bot owner only.'
-      }else{
         botCheck()
         function botCheck() {
         fs.readdir(commandsFolderPath, error => {
@@ -86,7 +85,6 @@ module.exports = {
             done()
           }
         });
-      }
       function done(){
       respond('♻️ Repair', "✅ Checks complete.", message.guild.channels.cache.get(info.BotLog))
       }
