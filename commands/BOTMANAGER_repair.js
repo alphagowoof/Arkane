@@ -25,6 +25,7 @@ module.exports = {
         botCheckDeep()
         } else if(!arg[1]) {
         respond("♻️ Repair","The check type you typed is undefined.\nEnter 'Normal' for a core file check.\nEnter 'Deep' for an all file check.", message.channel)
+        }
         // Normal scan
         function botCheckNormal() {
         fs.readdir("./commands", error => {
@@ -306,7 +307,6 @@ module.exports = {
         }
         );
       }}
-    }
     function gamesCheckCryptogram(){
       respond('♻️ Deep Repair','Now scanning game commands...', message.guild.channels.cache.get(info.BotLog))
       fs.readFile("./commands/USER_cryptogram.js", error => {
