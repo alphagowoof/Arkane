@@ -14,74 +14,10 @@ module.exports = {
 		const { MessageEmbed } = require('discord.js')
 		const {ModeratorRoleID, BotManagerRoleID} = require('../config.json')
 		try {
-			// code that might fail
-			if (!args.length) {
-				var modPerm = false
-				var botManagerPerm = false
+			
+			getCommandInfo = function(commandToFind){
+				var name = commandToFind
 
-				if(message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){
-					var modPerm = true
-				}
-				if(message.member.roles.cache.some(role => role.id === `${BotManagerRoleID}`)){
-					var botManagerPerm = true
-				}
-
-				const result = getCommandList(modPerm, botManagerPerm, message.author.id)
-                data.push(result);
-				data.push(`\nYou can send \`${prefix}help [category name]\` to see commands in that category.`);
-				//data.push(`\nYou can also send \`${prefix}help [category name] [command name]\` to get info\n on that command.`);
-
-                const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
-                .setTitle('Available Commands')
-                .setDescription('Here are the available commands.')
-                .addFields(
-                    { name: 'Commands', value: data, inline: true },
-                )
-                .setTimestamp()
-                .setFooter('Help command');
-            
-				return message.channel.send(helpEmbed)
-				}
-				if(args[1] && args[1].toLowerCase() == 'manager' || args[0]){
-					if(args[0].toLowerCase() == 'user'){
-						const result = getCommandList(false, false, message.author.id, true)
-						const helpInfoEmbed = new Discord.MessageEmbed()
-						helpInfoEmbed.setColor('#0099ff')
-						helpInfoEmbed.setTitle('Commands in '+args[0])
-						helpInfoEmbed.addField('Commands', `${result}`, false)
-						helpInfoEmbed.setFooter(footertext);
-						message.channel.send(helpInfoEmbed);
-						return;
-					}else if(args[0].toLowerCase() == 'mod'){
-						const result = getCommandList(true, false, message.author.id, false)
-						const helpInfoEmbed = new Discord.MessageEmbed()
-						helpInfoEmbed.setColor('#0099ff')
-						helpInfoEmbed.setTitle('Commands in '+args[0])
-						helpInfoEmbed.addField('Commands', `${result}`, false)
-						helpInfoEmbed.setFooter(footertext);
-						message.channel.send(helpInfoEmbed);
-						return;
-					}else if((`${args[0]} ${args[1]}`).toLowerCase() == 'bot manager'){
-						const result = getCommandList(false, true, message.author.id, false)
-						const helpInfoEmbed = new Discord.MessageEmbed()
-						helpInfoEmbed.setColor('#0099ff')
-						helpInfoEmbed.setTitle('Commands in '+args[0] +' '+ args[1])
-						helpInfoEmbed.addField('Commands', `${result}`, false)
-						helpInfoEmbed.setFooter(footertext);
-						message.channel.send(helpInfoEmbed);
-						return;
-					} else{
-						respond('', '❗ Something went wrong.', message.channel)
-						return;
-					}
-				}
-
-				return;
-			var name = args[1].toLowerCase();
-			if(arg[1] == 'manager'){
-				var name = args[2].toLowerCase();
-			}
 			const command = modcommands.get(name) || modcommands.find(c => c.aliases && c.aliases.includes(name));
 	
 			if (!command) {
@@ -109,6 +45,74 @@ module.exports = {
 				helpInfoEmbed.setTimestamp()
 				helpInfoEmbed.setFooter(footertext);
 			message.channel.send(helpInfoEmbed);
+			}
+
+			// code that might fail
+			if (!args.length) {
+				var modPerm = false
+				var botManagerPerm = false
+
+				if(message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){
+					var modPerm = true
+				}
+				if(message.member.roles.cache.some(role => role.id === `${BotManagerRoleID}`)){
+					var botManagerPerm = true
+				}
+
+				const result = getCommandList(modPerm, botManagerPerm, message.author.id)
+                data.push(result);
+				data.push(`\nYou can send \`${prefix}help [category name]\` to see commands in that category.`);
+				data.push(`\nYou can also send \`${prefix}help commands [command name]\` to get info\n on that command.`);
+
+                const helpEmbed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle('Available Commands')
+                .setDescription('Here are the available commands.')
+                .addFields(
+                    { name: 'Commands', value: data, inline: true },
+                )
+                .setTimestamp()
+                .setFooter('Help command');
+            
+				return message.channel.send(helpEmbed)
+				}
+				if(args[1] && args[1].toLowerCase() == 'manager' || args[0] ){
+					if(args[0].toLowerCase() == 'user'){
+						const result = getCommandList(false, false, message.author.id, true)
+						const helpInfoEmbed = new Discord.MessageEmbed()
+						helpInfoEmbed.setColor('#0099ff')
+						helpInfoEmbed.setTitle('Commands in '+args[0])
+						helpInfoEmbed.addField('Commands', `${result}`, false)
+						helpInfoEmbed.setFooter(footertext);
+						message.channel.send(helpInfoEmbed);
+						return;
+					}else if(args[0].toLowerCase() == 'mod'){
+						const result = getCommandList(true, false, message.author.id, false)
+						const helpInfoEmbed = new Discord.MessageEmbed()
+						helpInfoEmbed.setColor('#0099ff')
+						helpInfoEmbed.setTitle('Commands in '+args[0])
+						helpInfoEmbed.addField('Commands', `${result}`, false)
+						helpInfoEmbed.setFooter(footertext);
+						message.channel.send(helpInfoEmbed);
+						return;
+					}else if((`${args[0]} ${args[1]}`).toLowerCase() == 'bot manager'){
+						const result = getCommandList(false, true, message.author.id, false)
+						const helpInfoEmbed = new Discord.MessageEmbed()
+						helpInfoEmbed.setColor('#0099ff')
+						helpInfoEmbed.setTitle('Commands in '+args[0] +' '+ args[1])
+						helpInfoEmbed.addField('Commands', `${result}`, false)
+						helpInfoEmbed.setFooter(footertext);
+						message.channel.send(helpInfoEmbed);
+						return;
+					}else if(args[0].toLowerCase() == 'command' || args[0].toLowerCase() == 'commands'){
+						getCommandInfo(args[1])
+						return;
+					}else{
+						respond('', '❗ Something went wrong.', message.channel)
+						return;
+					}
+				}
+			
 		}catch(error) {
 			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
 			errorlog(error)
