@@ -4,7 +4,7 @@ module.exports = {
 	name: 'help',
 	description: 'List all of my commands or info about a specific command.',
 	aliases: ['commands'],
-	usage: '[command name]',
+	usage: 'commands [command name]',
 	cooldown: 2,
 	execute(message, args, client) {
 		const data = [];
@@ -59,7 +59,7 @@ module.exports = {
 					var botManagerPerm = true
 				}
 
-				const result = getCommandList(modPerm, botManagerPerm, message.author.id)
+				const result = getCommandList(modPerm, botManagerPerm, message.author.id, true)
                 data.push(result);
 				data.push(`\nYou can send \`${prefix}help [category name]\` to see commands in that category.`);
 				data.push(`\nYou can also send \`${prefix}help commands [command name]\` to get info\n on that command.`);
