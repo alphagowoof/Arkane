@@ -2,7 +2,7 @@ module.exports = {
     name: "answer",
     description: "**This is a game command.**\nAnswer a trivia question.\n(Run .trivia first before using .answer)",
     usage: "(Question ID) (Letter of answer) | .answer 4 D",
-    cooldown: 10,
+    cooldown: 5,
     hidden:true,
       execute(message, args, client) {
       const Discord = require('discord.js');
@@ -33,17 +33,17 @@ module.exports = {
         const modified = arg[1] - 1
         const item = quiz[modified]
         console.log(item)
-        if(arg[2] == item.answer) {
+        if(arg[2] === item["answer"]) {
             console.log('answer correct')
-            respond('Correct!', `<@${message.author.id}>, that was the correct answer!`, message.channel, '29BF00')
+            respond('Correct!', `<@${message.author.id}>, that was the correct answer!`, message.channel, '29BF00', `QID: ${item.qid}`)
             message.delete()
-        }else if(arg[2] == item.answer_case) {
+        }else if(arg[2] == item["answer_case"]) {
             console.log('answer correct, capital letter')
-            respond('Correct!', `<@${message.author.id}>, that was the correct answer! Next time, try using lowercase for the answer.`, message.channel, '29BF00')
+            respond('Correct!', `<@${message.author.id}>, that was the correct answer! Next time, try using lowercase for the answer.`, message.channel, '29BF00', `QID: ${item.qid}`)
             message.delete()
         }else{
             console.log('answer wrong')
-            respond('Wrong!', `<@${message.author.id}>, that was the wrong answer.`, message.channel, 'BF0000')
+            respond('Wrong!', `<@${message.author.id}>, that was the wrong answer.`, message.channel, 'BF0000', `QID: ${item.qid}`)
             message.delete()
         }
   }catch(error) {
