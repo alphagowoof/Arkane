@@ -1,5 +1,10 @@
 [
-    {
+      {
+        "version" : "2.0.0",
+        "author"  : "Thomas Stefanos",
+        "ignore"  : true
+      },
+      {
         "question" : "What was the title of the first Apple Explained video?",
         "choice1" : "A. Every Mac Startup and Crash Chime",
         "choice2" : "B. 'O8 MacBook Keynote",
