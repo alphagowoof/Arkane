@@ -135,6 +135,16 @@
         "qid" : "13"
       },
       {
+        "question" : "How many moderators has the Apple Explained Discord had total?",
+        "choice1" : "A. 3",
+        "choice2" : "B. 6",
+        "choice3" : "C. 4",
+        "choice4" : "D. 5",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "14"
+      },
+      {
         "question" : "What was the name of Steve Jobs' new company after he left Apple?",
         "choice1" : "A. PrEVIOUS",
         "choice2" : "B. Akapella Komputers",
@@ -245,6 +255,16 @@
         "qid" : "25"
       },
       {
+        "question" : "You get a free pass! Answer is `a`.",
+        "choice1" : "A. -",
+        "choice2" : "B. -",
+        "choice3" : "C. -",
+        "choice4" : "D. -",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "26"
+      },
+      {
         "question" : "How many commits were made to the testing bot as of May 6, 2020?",
         "choice1" : "A. 332",
         "choice2" : "B. 911",
@@ -283,6 +303,16 @@
         "answer" : "d",
         "answer_case" : "D",
         "qid" : "30"
+      },
+      {
+        "question" : "Did Greg (Apple Explained) create a music video?",
+        "choice1" : "A. Yes",
+        "choice2" : "B. No",
+        "choice3" : "C. -",
+        "choice4" : "D. -",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "31"
       },
       {
         "question" : "All of them are status messages for DebugBot EXCEPT:",
@@ -325,6 +355,16 @@
         "qid" : "35"
       },
       {
+        "question" : "Was the Apple Explained Discord server always a public server?",
+        "choice1" : "A. Yes",
+        "choice2" : "B. No",
+        "choice3" : "C. -",
+        "choice4" : "D. -",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "36"
+      },
+      {
         "question" : "When were voice channels removed from the Apple Explained server?",
         "choice1" : "A. May 1, 2020",
         "choice2" : "B. March 29, 2020",
@@ -333,6 +373,16 @@
         "answer" : "a",
         "answer_case" : "A",
         "qid" : "37"
+      },
+      {
+        "question" : "Which of these does **not** exist?",
+        "choice1" : "A. Apple Explained Subreddit",
+        "choice2" : "B. Apple Explained Website",
+        "choice3" : "C. Apple Explained Wiki",
+        "choice4" : "D. Apple Explained GitHub",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "38"
       },
       {
         "question" : "What year did Apple release the Macintosh IIcx?",
@@ -445,6 +495,16 @@
         "qid" : "49"
       },
       {
+        "question" : "What product has Apple **not** made?",
+        "choice1" : "A. iTV",
+        "choice2" : "B. Apple Watch",
+        "choice3" : "C. iPad",
+        "choice4" : "D. iPhone ",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "50"
+      },
+      {
         "question" : "What Digital Audio Workstation does most music producers use?",
         "choice1" : "A. FruityLoops (FL) Studio",
         "choice2" : "B. Ableton Live Suite",
@@ -462,7 +522,7 @@
         "choice4" : "D. Power Error",
         "answer" : "d",
         "answer_case" : "D",
-        "qid" : "59"
+        "qid" : "52"
       },
       {
         "question" : "What is the one thing 1CTF obsesses over with?",
@@ -472,7 +532,7 @@
         "choice4" : "D. Samsung Smart TVs",
         "answer" : "c",
         "answer_case" : "C",
-        "qid" : "60"
+        "qid" : "53"
       },
       {
         "question" : "What was the first thing New Apple Moderator ever said?",
@@ -482,7 +542,7 @@
         "choice4" : "D. i am sentient hahahahaha",
         "answer" : "a",
         "answer_case" : "A",
-        "qid" : "61"
+        "qid" : "54"
       },
       {
         "question" : "Identify the song that has these lyrics.\nLover come over, look what I've done.",
@@ -492,7 +552,7 @@
         "choice4" : "D. Heading Home",
         "answer" : "b",
         "answer_case" : "B",
-        "qid" : "62"
+        "qid" : "55"
       },
       {
         "question" : "What was the hardest game command to code according to the Apple Mod game creators?",
@@ -502,7 +562,7 @@
         "choice4" : "D. rolldicegame",
         "answer" : "b",
         "answer_case" : "B",
-        "qid" : "63"
+        "qid" : "56"
       },
       {
         "question" : "How many times did Apple Moderator filter swear words as of May 7, 2020?",
@@ -512,7 +572,7 @@
         "choice4" : "D. 100",
         "answer" : "c",
         "answer_case" : "C",
-        "qid" : "64"
+        "qid" : "57"
       },
       {
         "question" : "What is Daniel's last initial?",
@@ -522,7 +582,7 @@
         "choice4" : "D.",
         "answer" : "c",
         "answer_case" : "C",
-        "qid" : "65"
+        "qid" : "58"
       },
       {
         "question" : "What's listed in these choices are real iPod models EXCEPT:",
@@ -532,7 +592,7 @@
         "choice4" : "D. iPod Pro",
         "answer" : "d",
         "answer_case" : "D",
-        "qid" : "66"
+        "qid" : "59"
       },
       {
         "question" : "How many people did New Apple Moderator ban by command of the moderators/owner?",
@@ -542,7 +602,7 @@
         "choice4" : "D. 29",
         "answer" : "b",
         "answer_case" : "B",
-        "qid" : "67"
+        "qid" : "60"
       },
       {
         "question" : "How many people did Corporal Desmond Doss save in Hacksaw Ridge?",
@@ -552,7 +612,7 @@
         "choice4" : "D. 89",
         "answer" : "a",
         "answer_case" : "A",
-        "qid" : "68"
+        "qid" : "61"
       },
       {
         "question" : "What was the name of John Wick's dog?",
@@ -562,7 +622,7 @@
         "choice4" : "D. Mark",
         "answer" : "c",
         "answer_case" : "C",
-        "qid" : "69"
+        "qid" : "62"
       },
       {
         "question" : "What was the cause of Steve Jobs' death?",
@@ -572,7 +632,7 @@
         "choice4" : "D. Severe food poisoning",
         "answer" : "c",
         "answer_case" : "C",
-        "qid" : "70"
+        "qid" : "63"
       },
       {
         "question" : "When did Steve Jobs die?",
@@ -582,7 +642,7 @@
         "choice4" : "D. October 5, 2011",
         "answer" : "d",
         "answer_case" : "D",
-        "qid" : "71"
+        "qid" : "64"
       },
       {
         "question" : "Which macOS version is the easiest to Hackintosh?",
@@ -592,6 +652,6 @@
         "choice4" : "D. Mojave",
         "answer" : "d",
         "answer_case" : "D",
-        "qid" : "72"
+        "qid" : "65"
       }
 ]

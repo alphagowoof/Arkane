@@ -17,9 +17,9 @@ module.exports = {
           return
         }
         const quiz = require('./quiz.json');
-        const item = quiz[arg[2]]
+        const item = quiz[args[0]]
         console.log(item)
-        if(arg[2] === item["answer"]) {
+        if(arg[2].toLowerCase() === item.answer) {
             console.log('answer correct')
             respond('Correct!', `<@${message.author.id}>, that was the correct answer!`, message.channel, '29BF00', `QID: ${item.qid}`)
             message.delete()
