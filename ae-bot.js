@@ -430,6 +430,28 @@ client.on('message', message => {
 	}
 })
 
+//Sensitive topic filter
+client.on('message', message => {
+	if(message.channel.type == 'dm')return;
+	const sensitive = require('./sensitive.json');
+	var editedMessage = message.content.replace(/\*/g, "bad")
+	var editedMessage = editedMessage.replace(/\_/g, "bad")
+	var blocked = sensitive.filter(word => editedMessage.toLowerCase().includes(word));
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+	var dateTime = date+' '+time;
+	if (blocked.length > 0) {
+		if(blocked == `${blocked}`)
+			console.log(`${message.author.tag} tried to talk about a sensitive topic. Logged word: ${blocked}`);
+			respond('',`<@${message.author.id}>, don't talk about that here. A warning has been logged.`, message.channel, 'FF0000')
+    		const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+	    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Warning\nReason: Talking about a sensitive topic (' + reason +')\n\n');
+    		fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Warning issued by AutomatedAppleModerator \nReason: Talking about a sensitive topic (' + message.content +')\n\n');
+			respond('Sensitive Topic Filter 🗣️',`Hey <@${message.author.id}>, please don't talk about this topic next time. Punishment information was updated on your profile.\nYour message: ${reason}`, message.author)
+	}
+})
+
 //Log deleted messages
 client.on('messageDelete', async message => {
 	const fetchedLogs = await message.guild.fetchAuditLogs({

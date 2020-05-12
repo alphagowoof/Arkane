@@ -465,6 +465,16 @@
         "qid" : "59"
       },
       {
+        "question" : "What is the one thing 1CTF obsesses over with?",
+        "choice1" : "A. Android gadgets",
+        "choice2" : "B. Daniel's Raspberry Pi",
+        "choice3" : "C. iPods",
+        "choice4" : "D. Samsung Smart TVs",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "60"
+      },
+      {
         "question" : "What was the first thing New Apple Moderator ever said?",
         "choice1" : "A. Here are the available commands *shows list of commands*",
         "choice2" : "B. <user>, watch your language!",

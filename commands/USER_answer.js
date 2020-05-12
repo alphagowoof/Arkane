@@ -10,19 +10,6 @@ module.exports = {
       const arg = message.content.slice('').trim().split(/ +/g); 
       const quiz = require('./quiz.json');
       console.log(arg[1] + ", " + arg[2])
-      const modified = arg[1] - 1
-      if(arg[1] > 72){
-        console.log("oi m8 there's nothing to load")
-        console.log("number too high, not an error. If it were, it would have the code NUMBER_TOO_HIGH.")
-        respond('', arg[1] + " is not a valid question number.", message.channel)
-        return
-      }else if(!arg[1]){
-        console.log("oi m8 there's nothing to load")
-        console.log("no number defined, not an error. If it were, it would have the code NO_NUMBER_DEFINED.")
-        respond('',"What question am I supposed to check, again? 😂", message.channel)
-        return
-      }else{
-      }
       try {
         if(arg[2] === 'BotsTakeOver'){
           console.log("uhh... SOMETHING IS HAPPENING I DON'T KNOW WHAT")
@@ -30,8 +17,7 @@ module.exports = {
           return
         }
         const quiz = require('./quiz.json');
-        const modified = arg[1] - 1
-        const item = quiz[modified]
+        const item = quiz[arg[2]]
         console.log(item)
         if(arg[2] === item["answer"]) {
             console.log('answer correct')
