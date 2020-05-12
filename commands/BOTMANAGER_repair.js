@@ -70,7 +70,7 @@ module.exports = {
         // Normal scan
         function botCheckNormal() {
         fs.readdir("./commands", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The `commands` folder exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -78,7 +78,7 @@ module.exports = {
           }
         });
         fs.readdir("./files", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The `files` folder exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -86,7 +86,7 @@ module.exports = {
           }
         });
         fs.readdir("./logs", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The `logs` folder exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -94,7 +94,7 @@ module.exports = {
           }
         });
         fs.readdir("./node_modules", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The `node_modules` folder exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -102,7 +102,7 @@ module.exports = {
           }
         });
         fs.readFile("./config.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `config.json` exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -110,7 +110,7 @@ module.exports = {
           }
         });
         fs.readFile("./info.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('', '♻️ℹ️ Information. `info.json` exists and is unused.\nIt will be deleted soon.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -118,7 +118,7 @@ module.exports = {
           }
         });
         fs.readFile("./strings.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('', '♻️ℹ️ Information. `strings.json` exists and is unused.\nIt will be deleted soon.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -126,7 +126,7 @@ module.exports = {
           }
         });
         fs.readFile("./runstate.txt", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `runstate.txt` exists.', message.guild.channels.cache.get(info.BotLog))
             setTimeout(doneNormal, 10000);
@@ -137,7 +137,7 @@ module.exports = {
         });
       }
       function doneNormal(){
-        respond('♻️ Normal Repair', "✅ Checks complete.\nRun `repair` if you see any file missing.", message.guild.channels.cache.get(info.BotLog))
+        respond('♻️ Normal Repair', "✅ Checks complete.\nRun `restore` if you see any file missing.", message.guild.channels.cache.get(info.BotLog))
         fs.unlink("./botscan.flag", err => {
           if(!err){
             console.log("Successfully removed botscan.flag")
@@ -150,7 +150,7 @@ module.exports = {
       // Deeeeeeeeeeeep scan
       function botCheckDeep() {
         fs.readdir("./commands", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The `commands` folder exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -158,7 +158,7 @@ module.exports = {
           }
         });
         fs.readdir("./files", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The `files` folder exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -166,7 +166,7 @@ module.exports = {
           }
         });
         fs.readdir("./logs", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The `logs` folder exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -174,7 +174,7 @@ module.exports = {
           }
         });
         fs.readdir("./node_modules", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The `node_modules` folder exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -182,7 +182,7 @@ module.exports = {
           }
         });
         fs.readFile("./config.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `config.json` exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -190,7 +190,7 @@ module.exports = {
           }
         });
         fs.readFile("./info.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️ℹ️ Information', '`info.json` exists and is unused.\nIt will be deleted soon.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -198,7 +198,7 @@ module.exports = {
           }
         });
         fs.readFile("./strings.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('', '♻️ℹ️ Information. `strings.json` exists and is unused.\nIt will be deleted soon.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -206,7 +206,7 @@ module.exports = {
           }
         });
         fs.readFile("./runstate.txt", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `runstate.txt` exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -214,7 +214,7 @@ module.exports = {
           }
         });
         fs.readFile("./profanity.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `profanity.json` exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -222,7 +222,7 @@ module.exports = {
           }
         });
         fs.readFile("./sensitive.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `sensitive.json` exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -230,7 +230,7 @@ module.exports = {
           }
         });
         fs.readFile("./rec.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `rec.json` exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -238,7 +238,7 @@ module.exports = {
           }
         });
         fs.readFile("./rules.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `rules.json` exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -246,7 +246,7 @@ module.exports = {
           }
         });
         fs.readFile("./package.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `package.json` exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -254,7 +254,7 @@ module.exports = {
           }
         });
         fs.readFile("./package-lock.json", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `package-lock.json` exists.', message.guild.channels.cache.get(info.BotLog))
           } else {
@@ -262,7 +262,7 @@ module.exports = {
           }
         });
         fs.readFile("./events.js", error => {
-          console.log(error)
+          
           if (!error) {
             respond('♻️✅ Check passed.', 'The file `events.js` exists.', message.guild.channels.cache.get(info.BotLog))
             botManagerCheck()
@@ -274,16 +274,16 @@ module.exports = {
       function botManagerCheck(){
         respond('♻️ Deep Repair','Now scanning bot manager commands...', message.guild.channels.cache.get(info.BotLog))
       fs.readFile("./commands/BOTMANAGER_forceshutdown.js", error => {
-         console.log(error)
+         
          if (!error) {
            fs.readFile("./commands/BOTMANAGER_reload.js", error => {
-            console.log(error)
+            
              if (!error) {
               fs.readFile("./commands/BOTMANAGER_restart.js", error => {
-                 console.log(error)
+                 
                 if (!error) {
                   fs.readFile("./commands/BOTMANAGER_status.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','✅ All bot manager commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckCryptogram()
@@ -295,7 +295,7 @@ module.exports = {
                 } else {
                   respond('♻️❗ Issue found.', 'Bot manager command `restart` is missing.', message.guild.channels.cache.get(info.BotLog))
                   fs.readFile("./commands/BOTMANAGER_status.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some bot manager commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckCryptogram()
@@ -310,10 +310,10 @@ module.exports = {
             } else {
               respond('♻️❗ Issue found.', 'Bot manager command `reload` is missing.', message.guild.channels.cache.get(info.BotLog))
               fs.readFile("./commands/BOTMANAGER_restart.js", error => {
-                console.log(error)
+                
                 if (!error) {
                   fs.readFile("./commands/BOTMANAGER_status.js", error => {
-                    console.log(error)
+                    
                      if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some bot manager commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckCryptogram()
@@ -326,7 +326,7 @@ module.exports = {
                 } else {
                   respond('♻️❗ Issue found.', 'Bot manager command `restart` is missing.', message.guild.channels.cache.get(info.BotLog))
                   fs.readFile("./commands/BOTMANAGER_status.js", error => {
-                    console.log(error)
+                    
                      if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some bot manager commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckCryptogram()
@@ -343,13 +343,13 @@ module.exports = {
         } else {
           respond('♻️❗ Issue found.', 'Bot manager command `forceshutdown` is missing.', message.guild.channels.cache.get(info.BotLog))
           fs.readFile("./commands/BOTMANAGER_reload.js", error => {
-            console.log(error)
+            
              if (!error) {
               fs.readFile("./commands/BOTMANAGER_restart.js", error => {
-                console.log(error)
+                
                 if (!error) {
                   fs.readFile("./commands/BOTMANAGER_status.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some bot manager commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckCryptogram()
@@ -362,7 +362,7 @@ module.exports = {
                 } else {
                   respond('♻️❗ Issue found.', 'Bot manager command `restart` is missing.', message.guild.channels.cache.get(info.BotLog))
                   fs.readFile("./commands/BOTMANAGER_status.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some bot manager commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckCryptogram()
@@ -377,10 +377,10 @@ module.exports = {
             } else {
               respond('♻️❗ Issue found.', 'Bot manager command `reload` is missing.', message.guild.channels.cache.get(info.BotLog))
               fs.readFile("./commands/BOTMANAGER_restart.js", error => {
-                console.log(error)
+                
                 if (!error) {
                   fs.readFile("commands/BOTMANAGER_status.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some bot manager commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckCryptogram()
@@ -393,7 +393,7 @@ module.exports = {
                 } else {
                   respond('♻️❗ Issue found.', 'Bot manager command `restart` is missing.', message.guild.channels.cache.get(info.BotLog))
                   fs.readFile("./commands/BOTMANAGER_status.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some bot manager commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckCryptogram()
@@ -414,16 +414,16 @@ module.exports = {
     function gamesCheckCryptogram(){
       respond('♻️ Deep Repair','Now scanning game commands...', message.guild.channels.cache.get(info.BotLog))
       fs.readFile("./commands/USER_cryptogram.js", error => {
-        console.log(error)
+        
         if (!error) {
           fs.readFile("./commands/crypt.json", error => {
-            console.log(error)
+            
             if (!error) {
               fs.readFile("./commands/USER_decrypt.js", error => {
-                console.log(error)
+                
                 if (!error) {
                   fs.readFile("./commands/USER_decrypthint.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','✅ Game command `cryptogram` and all other related commands/files are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckRollDiceGame()
@@ -436,7 +436,7 @@ module.exports = {
                 } else {
                   respond('♻️❗ Issue found.', 'The `decrypt` game command for `cryptogram` is missing.', message.guild.channels.cache.get(info.BotLog))
                   fs.readFile("./commands/USER_decrypthint.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some `cryptogram` related commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckRollDiceGame()
@@ -451,10 +451,10 @@ module.exports = {
             } else {
               respond('♻️❗ Issue found.', 'The `crypt.json` file for `cryptogram` is missing.', message.guild.channels.cache.get(info.BotLog))
               fs.readFile("./commands/USER_decrypt.js", error => {
-                console.log(error)
+                
                 if (!error) {
                   fs.readFile("./commands/USER_decrypthint.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some `cryptogram` related commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckRollDiceGame()
@@ -468,7 +468,7 @@ module.exports = {
                 } else {
                   respond('♻️❗ Issue found.', 'The `decrypt` game command for `cryptogram` is missing.', message.guild.channels.cache.get(info.BotLog))
                   fs.readFile("./commands/USER_decrypthint.js", error => {
-                    console.log(error)
+                    
                     if (!error) {
                       respond('♻️ Deep Repair','⚠️ Some `cryptogram` related commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                       gamesCheckRollDiceGame()
@@ -485,14 +485,14 @@ module.exports = {
         } else {
           respond('♻️❗ Issue found.', 'The `cryptogram` core game command is missing.', message.guild.channels.cache.get(info.BotLog))
           fs.readFile("./commands/crypt.json", error => {
-            console.log(error)
+            
             if (!error) {
               if (!error) {
                 fs.readFile("./commands/USER_decrypt.js", error => {
-                  console.log(error)
+                  
                   if (!error) {
                     fs.readFile("./commands/USER_decrypthint.js", error => {
-                      console.log(error)
+                      
                       if (!error) {
                         respond('♻️ Deep Repair','Game command `cryptogram` and all other related commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                         gamesCheckRollDiceGame()
@@ -505,7 +505,7 @@ module.exports = {
                   } else {
                     respond('♻️❗ Issue found.', 'The `decrypt` game command for `cryptogram` is missing.', message.guild.channels.cache.get(info.BotLog))
                     fs.readFile("./commands/USER_decrypthint.js", error => {
-                      console.log(error)
+                      
                       if (!error) {
                         respond('♻️ Deep Repair','⚠️ Some `cryptogram` related commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                         gamesCheckRollDiceGame()
@@ -520,10 +520,10 @@ module.exports = {
               } else {
                 respond('♻️❗ Issue found.', 'The `crypt.json` file for `cryptogram` is missing.', message.guild.channels.cache.get(info.BotLog))
                 fs.readFile("./commands/USER_decrypt.js", error => {
-                  console.log(error)
+                  
                   if (!error) {
                     fs.readFile("./commands/USER_decrypthint.js", error => {
-                      console.log(error)
+                      
                       if (!error) {
                         respond('♻️ Deep Repair','⚠️ Some `cryptogram` related commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                         gamesCheckRollDiceGame()
@@ -536,7 +536,7 @@ module.exports = {
                   } else {
                     respond('♻️❗ Issue found.', 'The `decrypt` game command for `cryptogram` is missing.', message.guild.channels.cache.get(info.BotLog))
                     fs.readFile("./commands/USER_decrypthint.js", error => {
-                      console.log(error)
+                      
                       if (!error) {
                         respond('♻️ Deep Repair','⚠️ Some `cryptogram` related commands are nominal.', message.guild.channels.cache.get(info.BotLog))
                         gamesCheckRollDiceGame()
@@ -556,7 +556,7 @@ module.exports = {
     }
     function gamesCheckRollDiceGame(){
       fs.readFile("./commands/USER_rolldicegame.js", error => {
-        console.log(error)
+        
         if (!error) {
           respond('♻️ Deep Repair', '✅ The game `rolldicegame` is nominal.', message.guild.channels.cache.get(info.BotLog))
           gamesCheckTrivia()
@@ -568,7 +568,7 @@ module.exports = {
     }
     function gamesCheckTrivia(){
       fs.readFile("./commands/USER_trivia.js", error => {
-        console.log(error)
+        
         if (!error) {
           respond('♻️ Deep Repair', '✅ The core game command `trivia` is nominal.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -576,7 +576,7 @@ module.exports = {
         }
       });
       fs.readFile("./commands/USER_answer.js", error => {
-        console.log(error)
+        
         if (!error) {
           respond('♻️ Deep Repair', '✅ The `answer` game command for `trivia` is nominal.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -584,7 +584,7 @@ module.exports = {
         }
       });
       fs.readFile("./commands/quiz.json", error => {
-        console.log(error)
+        
         if (!error) {
           respond('♻️ Deep Repair', '✅ The `quiz.json` file for `trivia` is nominal.', message.guild.channels.cache.get(info.BotLog))
           deepScanNHIE()
@@ -596,7 +596,7 @@ module.exports = {
     }
     function deepScanNHIE(){
       fs.readFile("./commands/USER_neverhaveiever.js", error => {
-        console.log(error)
+        
         if (!error) {
           respond('♻️ Deep Repair', '✅ The core game command `neverhaveiever` is nominal.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -604,7 +604,7 @@ module.exports = {
         }
       });
       fs.readFile("./commands/USER_neverdonethat.js", error => {
-        console.log(error)
+        
         if (!error) {
           respond('♻️ Deep Repair', '✅ The `neverdonethat` game command for `neverhaveiever` is nominal.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -612,7 +612,7 @@ module.exports = {
         }
       });
       fs.readFile("./commands/USER_donethat.js", error => {
-        console.log(error)
+        
         if (!error) {
           respond('♻️ Deep Repair', '✅ The `donethat` game command for `neverhaveiever` is nominal.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -620,7 +620,7 @@ module.exports = {
         }
       });
       fs.readFile("./commands/never.json", error => {
-        console.log(error)
+        
         if (!error) {
           respond('♻️ Deep Repair', '✅ The `never.json` file for `neverhaveiever` is nominal.', message.guild.channels.cache.get(info.BotLog))
           deepScanNodeMods()
@@ -633,7 +633,6 @@ module.exports = {
     function deepScanNodeMods() {
       respond('♻️ Deep Repair', 'Now scanning all folders in `node_modules`...', message.guild.channels.cache.get(info.BotLog))
       fs.readdir("./node_modules/@discordjs", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `@discordjs` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -641,7 +640,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/@opencensus", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `@opencensus` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -649,7 +647,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/@pm2", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `@pm2` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -657,7 +654,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/@types", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `@types` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -665,7 +661,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/abbrev", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `abbrev` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -673,7 +668,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/abort-controller", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `abort-controller` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -681,7 +675,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/agent-base", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `agent-base` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -689,7 +682,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/amp", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `amp` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -697,7 +689,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/amp-message", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `amp-message` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -705,7 +696,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/ansi-colors", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `ansi-colors` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -713,7 +703,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/ansi-regex", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `ansi-regex` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -721,7 +710,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/ansi-styles", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `ansi-styles` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -729,7 +717,6 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/anymatch", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `anymatch` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
         } else {
@@ -737,18 +724,106 @@ module.exports = {
         }
       });
       fs.readdir("./node_modules/aproba", error => {
-        console.log(error)
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `aproba` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
-          setTimeout(doneDeep, 45000);
         } else {
           respond('♻️❗ Issue found.', 'The folder `aproba` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
-          setTimeout(doneDeep, 45000);
+        }
+      });
+      fs.readdir("./node_modules/are-we-there-yet", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `are-we-there-yet` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `are-we-there-yet` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/argparse", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `argparse` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `argparse` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/ast-types", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `ast-types` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `ast-types` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/async", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `async` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `async` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/async-limiter", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `async-limiter` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `async-limiter` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/async-listener", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `async-listener` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `async-listener` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/asynckit", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `asynckit` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `asynckit` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/axios", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `axios` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `axios` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/bad-words", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `bad-words` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `bad-words` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/badwords-list", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `badwords-list` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `badwords-list` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/balanced-match", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `balanced-match` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `balanced-match` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/binary-extensions", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `binary-extensions` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `binary-extensions` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+        }
+      });
+      fs.readdir("./node_modules/blessed", error => {
+        if (!error) {
+          respond('♻️ Deep Repair', '✅ The folder `blessed` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+        } else {
+          respond('♻️❗ Issue found.', 'The folder `blessed` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
         }
       });
     }
     function doneDeep(){
-      respond('♻️ Deep Repair', "✅ Checks complete.\nRun `repair` if you see any file missing.", message.guild.channels.cache.get(info.BotLog))
+      respond('♻️ Deep Repair', "✅ Checks complete.\nRun `restore` if you see any file missing.", message.guild.channels.cache.get(info.BotLog))
       fs.unlink("./botscan.flag", err => {
         if(!err){
           console.log("Successfully removed botscan.flag")
@@ -766,3 +841,4 @@ module.exports = {
     }
   }
 }
+// setTimeout(doneDeep, 45000);
