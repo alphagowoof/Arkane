@@ -241,10 +241,14 @@ client.on('message', async message => {
 	}
 	//Mod command and no permission
 		if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
-		return;
 			respond('🛑 Incorrect permissions',`<@${message.author.id}>, you don't seem to have the correct permissions to use this command or you can't run this command in this channel. Please try again later.`, message.channel) 		
 			return;
 	}
+	//Channel not allowed
+		if (channelRestrictions[command.name] && !channelRestrictions[command.name].includes(message.channel.id)) {
+			respond('🛑 Incorrect permissions',`<@${message.author.id}>, you don't seem to have the correct permissions to use this command or you can't run this command in this channel. Please try again later.`, message.channel) 
+			return;
+		}
 
 	if (!cooldowns.has(command.name)) {
 		cooldowns.set(command.name, new Discord.Collection());
