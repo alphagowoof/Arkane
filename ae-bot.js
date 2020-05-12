@@ -222,12 +222,15 @@ client.on('message', async message => {
 		const commandName = args.shift().toLowerCase();
 		const command = client.modcommands.get(commandName)
 			|| client.modcommands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+		var restrictions = require('./restrictions.json');
+		var channelRestrictions = restrictions[0];
+		var commandDisabled = restrictions[1];
 	//Not a command
 	if (!command) {
 		return;
 	}
 	//Command disabled
-	if (command.disable == true) {
+	if (commandDisabled[command.name] == true) {
 		respond('🛑 Command disabled',`<@${message.author.id}>, the command you are trying to run is disabled at the moment. Please try again later.`, message.channel)
 		return;
 	}
@@ -238,9 +241,9 @@ client.on('message', async message => {
 	}
 	//Mod command and no permission
 		if (command.mod && !message.member.roles.cache.some(role => role.id === `${ModeratorRoleID}`)) {
-		respond('🛑 Incorrect permissions',`<@${message.author.id}>, you don't seem to have the correct permissions to use this command. Please try again later. If you believe this is an error related to the bot, contact the bot owner.`, message.channel) 
-		message.react('❌')
 		return;
+			respond('🛑 Incorrect permissions',`<@${message.author.id}>, you don't seem to have the correct permissions to use this command or you can't run this command in this channel. Please try again later.`, message.channel) 		
+			return;
 	}
 
 	if (!cooldowns.has(command.name)) {
