@@ -31,9 +31,6 @@ errorcount = 0
 //Bot ready
 client.once('ready', () => {
 	console.log('Version '+version)
-	console.log('Cleaning bot log...')
-	fs.writeFileSync('./bot.log','');
-	console.log('Bot log cleaned.')
 	console.log('Ready!');
 		const path = './runstate.txt'
 		if (fs.existsSync(path) && CrashNotify == true) {
