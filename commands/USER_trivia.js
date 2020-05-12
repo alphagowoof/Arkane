@@ -10,9 +10,18 @@ module.exports = {
     const Discord = require('discord.js')
     const msg = message
     try {
+      if(args[0] == 'about' || args[0] == 'info'){
+        const quiz = require('./quiz.json');
+        var item = quiz[0];
+        respond('Trivia', `__**About Trivia**__\nVersion: ${item.version}\nAuthor: ${item.author}`, message.channel, '', `QID: -`);
+        return;
+      }
     //Pick a question
     const quiz = require('./quiz.json');
-    const item = quiz[Math.floor(Math.random() * quiz.length)];
+    var item = quiz[Math.floor(Math.random() * quiz.length)];
+    if(item.ignore && item.ignore == true){
+      var item = quiz[Math.floor(Math.random() * quiz.length)];
+    }
     const ans = item.answer
     const filter = response => {
       console.log(response)
