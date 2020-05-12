@@ -23,11 +23,11 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '6.0.0'
+version = '7.0.0'
 footertext = 'Version '+ version
 errorcount = 0
 
-
+if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is missing.')
 //Bot ready
 client.once('ready', () => {
 	console.log('Version '+version)
