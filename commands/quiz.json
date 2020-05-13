@@ -1,6 +1,6 @@
 [
       {
-        "version" : "2.0.0",
+        "version" : "2.0.0.181",
         "author"  : "Thomas Stefanos",
         "ignore"  : true
       },
@@ -653,5 +653,55 @@
         "answer" : "d",
         "answer_case" : "D",
         "qid" : "65"
+      },
+      {
+        "question" : "What was the first Apple Moderator version to support games?",
+        "choice1" : "A. 5.0.1",
+        "choice2" : "B. 4.0.0",
+        "choice3" : "C. 6.0.0",
+        "choice4" : "D. 7.0.0",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "66"
+      },
+      {
+         "question" : "The choices listed here are Guilermo Del Toro works EXCEPT FOR:",
+        "choice1" : "A. Pacific Rim",
+        "choice2" : "B. Trollhunters",
+        "choice3" : "C. Cthulhu: From The Mountains of Madness",
+        "choice4" : "D. The Simpsons",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "67"
+      },
+      {
+        "question" : "What is the first macOS version to have a UI similar to iOS 7?",
+        "choice1" : "A. Mavericks",
+        "choice2" : "B. Lion",
+        "choice3" : "C. El Capitan",
+        "choice4" : "D. Yosemite",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "68"
+      },
+      {
+        "question" : "What is the first macOS version that introduced dark mode?",
+        "choice1" : "A. Catalina",
+        "choice2" : "B. Mojave",
+        "choice3" : "C. Panther",
+        "choice4" : "D. Jaguar",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "69"
+      },
+      {
+      "question" : "What is the name of the guy you need to find in books and is always hiding?",
+        "choice1" : "A. William",
+        "choice2" : "B. Waldo/Wally",
+        "choice3" : "C. Warren",
+        "choice4" : "D. Winnie",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "70"
       }
 ]
