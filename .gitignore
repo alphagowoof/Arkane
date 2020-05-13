@@ -21,3 +21,4 @@ Apple Explained Moderation Bot.code-workspace
 .DS_Store
 shutdown.flag
 restrictions.json
+errorcount.txt
