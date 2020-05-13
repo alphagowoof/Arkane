@@ -8,7 +8,7 @@ module.exports = {
       try {
         const { exec } = require("child_process");
         exec("git pull", (error, stdout, stderr) => {
-          respond('', `\`\`\`stdout:\n${stdout}\n\nstderr:\n${stderr}\n\nerror:\n${error}\`\`\``, message.channel)
+          respond('', `\`\`\`stdout:\n${stdout}\n\nstderr:\n${stderr}\n\nerror:\n${error}\`\`\`\n\n**A RESTART IS RECOMMENDED AFTER TO PREVENT ERRORS**`, message.channel)
       });      }catch(error) {
     respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
     errorlog(error)
