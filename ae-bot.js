@@ -23,11 +23,19 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '7.0.0'
+version = '8.0.0'
 footertext = 'Version '+ version
 errorcount = 0
+var safemode = false
 
 if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is missing.')
+fs.readFile('./errorcount.txt', function(err, data){
+	if(err)return;
+	if(Number(data) > 3){
+		var safemode = true
+		console.log('WARNING: SAFE MODE ACTIVE')
+	}
+})
 //Bot ready
 client.once('ready', () => {
 	console.log('Version '+version)
@@ -122,13 +130,20 @@ const allCommandFiles = fs.readdirSync('./commands').filter(file => file.endsWit
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-		if(!command.mod){
+		if(!command.mod && !safemode ==true){
 			client.commands.set(command.name, command);
 		}
 }
 for (const file of allCommandFiles) {
 	const modcommand = require(`./commands/${file}`);
-	client.modcommands.set(modcommand.name, modcommand);
+	if(safemode == true && modcommand.essential == true){
+		client.modcommands.set(modcommand.name, modcommand);
+	}else{
+		if(!safemode == true){
+			client.modcommands.set(modcommand.name, modcommand);
+		}
+	}
+	
 }
 
 //Command list
@@ -144,8 +159,15 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 		const command = require(`./commands/${file}`);
 		commandListUser.join(' ')
 		if(!command.hidden == true){
-		commandListUser.push(command.name)
-		console.log(command.name)	
+			if(safemode == true && command.essential == true){
+				commandListUser.push(command.name)
+				console.log(command.name)	
+			}else{
+				if(!safemode == true){
+				commandListUser.push(command.name)
+				console.log(command.name)
+				}	
+			}
 		}
 		
 	}
@@ -153,8 +175,15 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 		for (const file of findCommandListMod) {
 		const command = require(`./commands/${file}`);
 		if(!command.hidden == true){
-		commandListMod.push(command.name)
-		console.log(command.name)
+			if(safemode == true && command.essential == true){
+				commandListMod.push(command.name)
+				console.log(command.name)
+			}else{
+				if(!safemode == true){
+				commandListMod.push(command.name)
+				console.log(command.name)
+				}
+			}
 		}
 	}
 }
@@ -164,8 +193,15 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 		const command = require(`./commands/${file}`);
 		commandListBotManager.join(' ')
 		if(!command.hidden == true){
-		commandListBotManager.push(command.name)
-		console.log(command.name)
+			if(safemode == true && command.essential == true){
+				commandListBotManager.push(command.name)
+				console.log(command.name)
+			}else{
+				if(!safemode == true){
+					commandListBotManager.push(command.name)
+					console.log(command.name)
+				}
+			}
 		}	
 	}
 }
@@ -195,6 +231,7 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 
 //Shot on iPhone reactions
 client.on('message', message => {
+	if(safemode = true)return;
 	if (message.author.bot)return;
         if (message.channel.id != '616472674406760448')return;
         const content = message.content.toLowerCase();
@@ -207,6 +244,7 @@ client.on('message', message => {
 })
 
 client.on('message', message => {
+	if(safemode = true)return;
 	if (message.content.includes(`<@!${client.user.id}>`) || (message.content.includes(`<@${client.user.id}>`)));{
 	
 	function informOfPrefix(){
@@ -227,6 +265,9 @@ client.on('message', async message => {
 		var commandDisabled = restrictions[1];
 	//Not a command
 	if (!command) {
+		return;
+	}
+	if(safemode == true && command.essential != true){
 		return;
 	}
 	//Command disabled
@@ -294,6 +335,10 @@ process.on('unhandledRejection', error => console.error('Uncaught Promise Reject
 
 //Error
 client.on('error', error => {
+	if(safemode = true){
+		console.log(error)
+		return;
+	}
 	console.error('ERROR: ', error);
 	errorcount + 1
 	const fs = require('fs');
@@ -308,6 +353,7 @@ client.on('error', error => {
 
 //Member join
 client.on('guildMemberAdd', member => {
+	if(safemode = true)return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -384,6 +430,7 @@ const MemberJoinEmbed = new Discord.MessageEmbed()
 
 //Member leave
 client.on('guildMemberRemove', member => {
+	if(safemode = true)return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -409,6 +456,7 @@ client.on('guildMemberRemove', member => {
 
 //Profanity filter
 client.on('message', message => {
+	if(safemode = true)return;
 	if(message.channel.type == 'dm')return;
 	const profanity = require('./profanity.json');
 	var editedMessage = message.content.replace(/\*/g, "bad")
@@ -432,6 +480,7 @@ client.on('message', message => {
 
 //Sensitive topic filter
 client.on('message', message => {
+	if(safemode = true)return;
 	if(message.channel.type == 'dm')return;
 	const sensitive = require('./sensitive.json');
 	var editedMessage = message.content.replace(/\*/g, "bad")
@@ -454,6 +503,7 @@ client.on('message', message => {
 
 //Log deleted messages
 client.on('messageDelete', async message => {
+	if(safemode = true)return;
 	const fetchedLogs = await message.guild.fetchAuditLogs({
 		limit: 1,
 		type: 'MESSAGE_DELETE',
@@ -519,6 +569,7 @@ client.on('messageDelete', async message => {
 
 //message log
 client.on('message', message => {
+	if(safemode = true)return;
 	if (message.channel.type == 'dm')return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
@@ -532,6 +583,7 @@ client.on('message', message => {
 
 //Message edit
 client.on('messageUpdate', (oldMessage, newMessage) => {
+	if(safemode = true)return;
 	if (oldMessage.author.bot)return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
@@ -560,21 +612,37 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 //Below are client emit actions
 client.on("StartupIssue", () => {
 	var today = new Date();
+	fs.readFile('./errorcount.txt', function(err, data){
+		if(err){
+			fs.writeFileSync('./errorcount.txt',0+1);
+		}else{
+			fs.writeFileSync('./errorcount.txt',Number(data)+1);
+		}
+	})
+	var titleofstartup = 'Bot Started - Issue Detected'
+	var descriptionofstartup = 'The bot loaded successfully, but restarted unexpectedly.'
+	if(safemode = true){
+		var titleofstartup = 'Bot Started - Safe Mode'
+		var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode.'
+	}
+
 		var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 		var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 		var dateTime = date+' '+time;
 		const StartupEmbed = new Discord.MessageEmbed()
 		.setColor('#ffa900')
-		.setTitle('Bot Started - Issue Detected')
-		.setDescription(`The bot loaded successfully, but restarted unexpectedly.`)
+		.setTitle(titleofstartup)
+		.setDescription(descriptionofstartup)
 		.setTimestamp()
 		.setFooter(footertext)
 		modlog = client.channels.cache.get(`${BotLog}`);
 		modlog.send(StartupEmbed);
+
 		return
 })
 
 client.on('StartupPassed', () => {
+	fs.unlinkSync(`./errorcount.txt`)
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
