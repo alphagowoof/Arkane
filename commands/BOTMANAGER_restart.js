@@ -6,6 +6,7 @@ module.exports = {
 	cooldown: 0,
 	botmanager:true,
 	mod:true,
+	essential:true,
 	execute(message, args, client) {
 		try{
 		const fs = require('fs');
