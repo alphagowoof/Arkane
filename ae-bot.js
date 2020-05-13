@@ -23,13 +23,16 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '8.0.0'
+version = '8.0.1'
 footertext = 'Version '+ version
 errorcount = 0
 var safemode = false
 
 if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is missing.')
+
 fs.readFile('./errorcount.txt', function(err, data){
+	console.log(err)
+	console.log(data)
 	if(err)return;
 	if(Number(data) > 3){
 		var safemode = true
@@ -231,7 +234,7 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 
 //Shot on iPhone reactions
 client.on('message', message => {
-	if(safemode = true)return;
+	if(safemode == true)return;
 	if (message.author.bot)return;
         if (message.channel.id != '616472674406760448')return;
         const content = message.content.toLowerCase();
@@ -244,7 +247,7 @@ client.on('message', message => {
 })
 
 client.on('message', message => {
-	if(safemode = true)return;
+	if(safemode == true)return;
 	if (message.content.includes(`<@!${client.user.id}>`) || (message.content.includes(`<@${client.user.id}>`)));{
 	
 	function informOfPrefix(){
@@ -335,7 +338,7 @@ process.on('unhandledRejection', error => console.error('Uncaught Promise Reject
 
 //Error
 client.on('error', error => {
-	if(safemode = true){
+	if(safemode == true){
 		console.log(error)
 		return;
 	}
@@ -353,7 +356,7 @@ client.on('error', error => {
 
 //Member join
 client.on('guildMemberAdd', member => {
-	if(safemode = true)return;
+	if(safemode == true)return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -430,7 +433,7 @@ const MemberJoinEmbed = new Discord.MessageEmbed()
 
 //Member leave
 client.on('guildMemberRemove', member => {
-	if(safemode = true)return;
+	if(safemode == true)return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -456,7 +459,7 @@ client.on('guildMemberRemove', member => {
 
 //Profanity filter
 client.on('message', message => {
-	if(safemode = true)return;
+	if(safemode == true)return;
 	if(message.channel.type == 'dm')return;
 	const profanity = require('./profanity.json');
 	var editedMessage = message.content.replace(/\*/g, "bad")
@@ -480,7 +483,7 @@ client.on('message', message => {
 
 //Sensitive topic filter
 client.on('message', message => {
-	if(safemode = true)return;
+	if(safemode == true)return;
 	if(message.channel.type == 'dm')return;
 	const sensitive = require('./sensitive.json');
 	var editedMessage = message.content.replace(/\*/g, "bad")
@@ -503,7 +506,7 @@ client.on('message', message => {
 
 //Log deleted messages
 client.on('messageDelete', async message => {
-	if(safemode = true)return;
+	if(safemode == true)return;
 	const fetchedLogs = await message.guild.fetchAuditLogs({
 		limit: 1,
 		type: 'MESSAGE_DELETE',
@@ -569,7 +572,7 @@ client.on('messageDelete', async message => {
 
 //message log
 client.on('message', message => {
-	if(safemode = true)return;
+	if(safemode == true)return;
 	if (message.channel.type == 'dm')return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
@@ -583,7 +586,7 @@ client.on('message', message => {
 
 //Message edit
 client.on('messageUpdate', (oldMessage, newMessage) => {
-	if(safemode = true)return;
+	if(safemode == true)return;
 	if (oldMessage.author.bot)return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
@@ -621,7 +624,7 @@ client.on("StartupIssue", () => {
 	})
 	var titleofstartup = 'Bot Started - Issue Detected'
 	var descriptionofstartup = 'The bot loaded successfully, but restarted unexpectedly.'
-	if(safemode = true){
+	if(safemode == true){
 		var titleofstartup = 'Bot Started - Safe Mode'
 		var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode.'
 	}
@@ -642,7 +645,9 @@ client.on("StartupIssue", () => {
 })
 
 client.on('StartupPassed', () => {
-	fs.unlinkSync(`./errorcount.txt`)
+	if (fs.existsSync('./errorcount.txt')){
+		fs.unlinkSync(`./errorcount.txt`)
+	}
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
