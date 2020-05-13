@@ -4,6 +4,7 @@ module.exports = {
   description: 'Pulls latest files for the bot from GitHub.',
   mod:true,
   botmanager:true,
+  essential:true,
 	execute(message, args, client) {
       try {
         const { exec } = require("child_process");
