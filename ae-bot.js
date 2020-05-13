@@ -268,6 +268,7 @@ client.on('message', async message => {
 		var commandDisabled = restrictions[1];
 	//Not a command
 	if (!command) {
+		if(message.content.startsWith("..")return;
 		respond('🛑 Command does not exist',`<@${message.author.id}>, the command you are trying to run is is non-existent.`, message.channel)
 		return;
 	}
