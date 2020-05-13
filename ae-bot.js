@@ -33,8 +33,9 @@ if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is miss
 fs.readFile('./errorcount.txt', function(err, data){
 	console.log(err)
 	console.log(data)
+	console.log(Number(data.toString().replace('<', '').replace('>', '').replace('Buffer', '')))
 	if(err)return;
-	if(Number(data) > 3){
+	if(Number(data.toString().replace('<', '').replace('>', '').replace('Buffer', '')) > 3){
 		var safemode = true
 		console.log('WARNING: SAFE MODE ACTIVE')
 	}
