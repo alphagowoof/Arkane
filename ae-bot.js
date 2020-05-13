@@ -30,16 +30,20 @@ var safemode = false
 
 if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is missing.')
 
+if (fs.existsSync(`./errorcount.txt`)){
 fs.readFile('./errorcount.txt', function(err, data){
 	console.log(err)
 	console.log(data)
 	console.log(Number(data.toString().replace('<', '').replace('>', '').replace('Buffer', '')))
-	if(err)return;
-	if(Number(data.toString().replace('<', '').replace('>', '').replace('Buffer', '')) > 3){
-		var safemode = true
-		console.log('WARNING: SAFE MODE ACTIVE')
+	if(err){return}else{
+		if(data)
+		if(Number(data.toString().replace('<', '').replace('>', '').replace('Buffer', '')) > 3){
+			var safemode = true
+			console.log('WARNING: SAFE MODE ACTIVE')
+		}
 	}
 })
+}
 //Bot ready
 client.once('ready', () => {
 	console.log('Version '+version)
