@@ -37,7 +37,7 @@ fs.readFile('./errorcount.txt', function(err, data){
 	console.log(Number(data.toString().replace('<', '').replace('>', '').replace('Buffer', '')))
 	if(err){return}else{
 		if(data)
-		if(Number(data.toString().replace('<', '').replace('>', '').replace('Buffer', '')) > 3){
+		if(data > 3){
 			var safemode = true
 			console.log('WARNING: SAFE MODE ACTIVE')
 		}
@@ -48,6 +48,27 @@ fs.readFile('./errorcount.txt', function(err, data){
 client.once('ready', () => {
 	console.log('Version '+version)
 	console.log('Ready!');
+	if (fs.existsSync(`./errorcount.txt`)){
+		fs.readFile('./errorcount.txt', function(err, data){
+			if(err){return}else{
+				if(data)
+				if(data > 3){
+					console.log('Safe mode found')
+			var titleofstartup = 'Bot Started - Safe Mode'
+			var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode. To deactivate safe mode, restart using the restart command, or delete the `errorcount.txt` file.'
+			const StartupEmbed = new Discord.MessageEmbed()
+			.setColor('#ff0000')
+			.setTitle(titleofstartup)
+			.setDescription(descriptionofstartup)
+			.setTimestamp()
+			.setFooter(footertext)
+			modlog = client.channels.cache.get(`${BotLog}`);
+			modlog.send(StartupEmbed);
+			return;
+				}
+			}
+		})
+		}
 		const path = './runstate.txt'
 		if (fs.existsSync(path) && CrashNotify == true) {
 			client.emit("StartupIssue")
