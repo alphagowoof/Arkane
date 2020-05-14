@@ -7,8 +7,8 @@ module.exports = {
   essential:true,
 	execute(message, args, client) {
     try {
-      var
-      safemode = true
+      safeMode(true)
+      respond('', '✅', message.channel)
     } catch (error) {
           respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
     errorlog(error)
