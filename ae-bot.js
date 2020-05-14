@@ -719,10 +719,10 @@ function clean(text) {
 		respond('⌨️ Eval Command Error',`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``, message.channel);
 	  }
 	}
-	client.on('message',message => {
+
 		//This code here
 	   
-		if (message.content.startsWith(prefix + "safemode","entersafemode")) {
+		if (message.content.startsWith(prefix + "safemode",)) {
 			if(!message.member.roles.cache.some(role => role.id == '706918759834583141')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 			try {
 				safemode = true
@@ -735,7 +735,7 @@ function clean(text) {
 			  console.error('an error has occured', error);
 			  }}}
   );
-  
+  client.on('message',message => { 
   if (message.content.startsWith(prefix + "exitsafemode")) {
 	if(!message.member.roles.cache.some(role => role.id == '706918759834583141')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 	try {
