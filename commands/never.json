@@ -158,5 +158,25 @@
     {
         "neverhaveiever" : "prank mailed someone as a joke",
         "neverid" : "40"
+    },
+    {
+        "neverhaveiever" : "rage quit while coding something",
+        "neverid" : "41"
+    },
+    {
+        "neverhaveiever" : "shouted at the top of my lungs",
+        "neverid" : "42"
+    },
+    {
+        "neverhaveiever" : "had the same song on repeat one",
+        "neverid" : "43"
+    },
+    {
+        "neverhaveiever" : "almost got warned",
+        "neverid" : "44"
+    },
+    {
+        "neverhaveiever" : "tried to annoy anyone",
+        "neverid" : "45"
     }
 ]

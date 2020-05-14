@@ -1,6 +1,6 @@
 [
       {
-        "version" : "2.0.0.181",
+        "version" : "2.0.0.231",
         "author"  : "Thomas Stefanos",
         "ignore"  : true
       },
@@ -695,7 +695,7 @@
         "qid" : "69"
       },
       {
-      "question" : "What is the name of the guy you need to find in books and is always hiding?",
+        "question" : "What is the name of the guy you need to find in books and is always hiding?",
         "choice1" : "A. William",
         "choice2" : "B. Waldo/Wally",
         "choice3" : "C. Warren",
@@ -703,5 +703,105 @@
         "answer" : "b",
         "answer_case" : "B",
         "qid" : "70"
+      },
+      {
+        "question" : "What is the real name of music producer Vories?",
+        "choice1" : "A. Martin Følsgaard",
+        "choice2" : "B. Hannes Gustafsson",
+        "choice3" : "C. Michael Hansen",
+        "choice4" : "D. Wouter Postelmans",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "71"
+      },
+      {
+        "question" : "What track did K-391 use as the base of Alan Walker collab song Lily?",
+        "choice1" : "A. Godzilla",
+        "choice2" : "B. Origin",
+        "choice3" : "C. Flux",
+        "choice4" : "D. Tesla",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "72"
+      },
+      {
+        "question" : "What track did K-391 use as the base of Alan Walker collab song Ignite?",
+        "choice1" : "A. Godzilla",
+        "choice2" : "B. Origin",
+        "choice3" : "C. Flux",
+        "choice4" : "D. Tesla",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "73"
+      },
+      {
+        "question" : "What is the name of the K-391 track that used Tesla car sounds as the base of the song?",
+        "choice1" : "A. Flux",
+        "choice2" : "B. East",
+        "choice3" : "C. Away",
+        "choice4" : "D. Tesla",
+        "answer" : "d",
+        "answer_case" : "d",
+        "qid" : "74"
+      },
+      {
+        "question" : "These GitHub users have permission to commit to the Apple Explained bot EXCEPT FOR:",
+        "choice1" : "A. LT-Tips",
+        "choice2" : "B. tommystefanatic",
+        "choice3" : "C. ThatDerpiGuy",
+        "choice4" : "D. TechGeekGamer",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "75"
+      },
+      {
+        "question" : "Which PC operating system has the most market share?",
+        "choice1" : "A. ChromeOS",
+        "choice2" : "B. macOS",
+        "choice3" : "C. Windows",
+        "choice4" : "D. Linux",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "76"
+      },
+      {
+        "question" : "Which mobile operating system has the most market share?",
+        "choice1" : "A. iOS",
+        "choice2" : "B. Android",
+        "choice3" : "C. Symbian",
+        "choice4" : "D. Tizen",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "77"
+      },
+      {
+        "question" : "Which company is THE biggest Android manufacturer?",
+        "choice1" : "A. Oppo",
+        "choice2" : "B. OnePlus",
+        "choice3" : "C. Vivo",
+        "choice4" : "D. Samsung",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "78"
+      },
+      {
+        "question" : "This/these song/s from Black Eyed Peas triggers nostalgia among 2000s kids. Which one/s? [two answers]",
+        "choice1" : "A. Let's Get It Started",
+        "choice2" : "B. Boom Boom Pow",
+        "choice3" : "C. I Gotta Feeling",
+        "choice4" : "D. Where Is The Love?",
+        "answer" : ["c", "b"],
+        "answer_case" : ["C", "B"],
+        "qid" : "79"
+      },
+      {
+        "question" : "Who produced the song Somebody Else from the Hopeful Dreams album?",
+        "choice1" : "A. Theorie und Hedges",
+        "choice2" : "B. Alan Walker",
+        "choice3" : "C. Manse",
+        "choice4" : "D. WildVibes",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "80"
       }
 ]
