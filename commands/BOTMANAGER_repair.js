@@ -6,6 +6,7 @@ module.exports = {
   cooldown: 20,
   mod:true,
   botmanager:true,
+  essential:true,
 	execute(message, args, client) {	
     const Discord = require('discord.js');
     const info = require('../config.json');

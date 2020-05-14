@@ -41,6 +41,12 @@ module.exports = {
       } else if(item.cryptsystem === "Rotation Cipher"){
         respond('Cryptogram Hint','I heard you can use this cipher to decrypt this message... 🤔\n**' + item.cryptsystem + '**\n You are going to need this coordinate: \n**a = ' + item.a_parameter + "**", message.channel)
         return
+      } else if(item.cryptsystem === "Rail Fence Cipher"){
+        respond('Cryptogram Hint','I heard you can use this cipher to decrypt this message... 🤔\n**' + item.cryptsystem + '**\n You are going to need this coordinate: \n**' + item.a_parameter + "**", message.channel)
+        return
+      } else if(item.cryptsystem === "Double Down Cipher"){
+        respond('Cryptogram Hint','I heard you can use this cipher to decrypt this message... 🤔\n**' + item.cryptsystem + '**\n You are going to need these other ciphers: \n**' + item.doubledown_1 + "**\n**" + item.doubledown_2 + "**", message.channel)
+        return
       } else {
       respond('Cryptogram Hint','I heard you can use this cipher to decrypt this message... 🤔\n**' + item.cryptsystem + "**", message.channel)
       return

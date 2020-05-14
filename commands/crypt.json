@@ -132,5 +132,31 @@
         "a_parameter" : "4",
         "decryptedcase": "NOWEAPONSNEEDED",
         "decrypted": "noweaponsneeded"
+    },
+    {
+        "cryptogram" : "TMRDEGYNINAIMINFHDDI",
+        "cryptoid" : "19",
+        "cryptsystem" : "Rail Fence Cipher",
+        "a_parameter" : "6",
+        "decryptedcase": "TRYANDFINDMEIMHIDING",
+        "decrypted": "tryandfindmeimhiding"
+    },
+    {
+        "cryptogram" : "QRLWDUEHOHFDVWLVQRLWDOXWDUJQRFBHK",
+        "cryptoid" : "20",
+        "cryptsystem" : "Double Down Cipher",
+        "doubledown_1" : "Inverted/Reverse Cipher",
+        "doubledown_2" : "Caesar Shift",
+        "decryptedcase": "HEYCONGRATULATIONSITSACELEBRATION",
+        "decrypted": "heycongratulationsitsacelebration"
+    },
+    {
+        "cryptogram" : "44.51.22.22.43.51.43.51.53.35.31.21.22.31.45.33.12.24.31.31.33.42.33.25.34.55.12.42.32.44.33.42.32.51.53.24.55.45.22",
+        "cryptoid" : "21",
+        "cryptsystem" : "Double Down Cipher",
+        "doubledown_1" : "Polybius Square",
+        "doubledown_2" : "Atbash Cipher",
+        "decryptedcase": "GETTHEHECKOUTOFMYROOMIMPLAYINGMINECRAFT",
+        "decrypted": "gettheheckoutofmyroomimplayingminecraft"
     }
 ]
