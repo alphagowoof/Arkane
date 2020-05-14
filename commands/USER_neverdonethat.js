@@ -18,7 +18,13 @@ module.exports = {
       const item = never[modified];
       console.log(item)
       console.log("If you see undefined and then an error, check code!")
-      if(arg[1] > 25) {
+      if(item === 'undefined') {
+        respond('Invalid Never ID','Please make sure you entered a valid Never ID.',message.channel)
+        return
+      }else if (!arg[1]) {
+        respond('Invalid Never ID','Please make sure you entered a valid Never ID.',message.channel)
+        return
+      } else if(arg[1] < 0) {
         respond('Invalid Never ID','Please make sure you entered a valid Never ID.',message.channel)
         return
       } else {

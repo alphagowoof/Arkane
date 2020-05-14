@@ -23,7 +23,7 @@ module.exports = {
             console.log('answer correct')
             respond('Correct!', `<@${message.author.id}>, that was the correct answer!`, message.channel, '29BF00', `QID: ${item.qid}`)
             message.delete()
-        }else if(arg[2] == item["answer_case"]) {
+        }else if(arg[2] == item.answer_case) {
             console.log('answer correct, capital letter')
             respond('Correct!', `<@${message.author.id}>, that was the correct answer! Next time, try using lowercase for the answer.`, message.channel, '29BF00', `QID: ${item.qid}`)
             message.delete()
