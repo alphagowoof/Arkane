@@ -24,14 +24,17 @@ module.exports = {
         return
       }
         if(arg[2] === item.decryptedcase){
+          message.delete()
         console.log("answer correct, capital letters")
         respond('Correct!',"c0n6ra7ul4710n5 h4ck3r, y0u g07 17 r16h7! m4k3 5ur3 t0 u53 4ll 5m4ll l3773r5, 7h0u6h.\n(Congratulations hacker, you got it right! Make sure you use all small letters, though.)", message.channel) 
         return
       } else if(arg[2] === item.decrypted){
+        message.delete()
         console.log("answer correct")
         respond('Correct!',"c0n6ra7ul4710n5 h4ck3r, y0u g07 17 r16h7!\n(Congratulations hacker, you got it right!)", message.channel) 
         return
       } else {
+        message.delete()
         console.log("answer wrong")
           respond('Wrong!',"7h47 15 wr0n6, m8!\n(That is wrong, mate!)", message.channel) 
           return
