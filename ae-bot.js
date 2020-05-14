@@ -125,15 +125,6 @@ if (fs.existsSync(`./strings.json`)){
 		}
 		
 }
-safeMode = function(istrue){
-	if(istrue = true){
-		var safemode = true
-	}else if (istrue = false){
-		var safemode = false
-	} else{
-		throw 'True/False wasn\'t given.'
-	}
-}
  modaction = function (RanCommand, RanBy, RanIn, FullCommand){
 	const ModReportEmbed = new Discord.MessageEmbed()
 		ModReportEmbed.setColor('#F3ECEC')
@@ -700,6 +691,8 @@ client.on('StartupPassed', () => {
 	return;
 })
 
+BotManagerID = "595397105103667236","461560462991949863","454579681602043916"
+
 //Hardcoded events
 
 
@@ -726,7 +719,33 @@ function clean(text) {
 		respond('⌨️ Eval Command Error',`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``, message.channel);
 	  }
 	}
-  });
-
+	client.on('message',message => {
+		//This code here
+	   
+		if (message.content.startsWith(prefix + "safemode","entersafemode")) {
+			if(!message.member.roles.cache.some(role => role.id == '706918759834583141')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+			try {
+				safemode = true
+				respond('', '✅', message.channel)
+				return;
+			  } catch (error) {
+					respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+			  errorlog(error)
+			  // Your code broke (Leave untouched in most cases)
+			  console.error('an error has occured', error);
+			  }}}
+  );
+  
+  if (message.content.startsWith(prefix + "exitsafemode")) {
+	if(!message.member.roles.cache.some(role => role.id == '706918759834583141')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+	try {
+		safemode = false
+		respond('', '✅', message.channel)
+	  } catch (error) {
+			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+	  errorlog(error)
+	  // Your code broke (Leave untouched in most cases)
+	  console.error('an error has occured', error);
+	  }}})
 //Login
 client.login(token);
