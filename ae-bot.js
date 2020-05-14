@@ -292,11 +292,7 @@ client.on('message', async message => {
 		var restrictions = require('./restrictions.json');
 		var channelRestrictions = restrictions[0];
 		var commandDisabled = restrictions[1];
-	//Not a command
-	if (!command) {
-		respond('🛑 Command does not exist',`<@${message.author.id}>, the command you are trying to run is is non-existent.`, message.channel)
-		return;
-	}
+
 	if(safemode == true && command.essential != true){
 		return;
 	}
@@ -723,7 +719,7 @@ function clean(text) {
 		//This code here
 	   
 		if (message.content.startsWith(prefix + "safemode",)) {
-			if(!message.member.roles.cache.some(role => role.id == '706918759834583141')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+			if(!message.member.roles.cache.some(role => role.id == '625888205459423234')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 			try {
 				safemode = true
 				respond('', '✅', message.channel)
@@ -737,7 +733,7 @@ function clean(text) {
   );
   client.on('message',message => { 
   if (message.content.startsWith(prefix + "exitsafemode")) {
-	if(!message.member.roles.cache.some(role => role.id == '706918759834583141')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+	if(!message.member.roles.cache.some(role => role.id == '625888205459423234')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 	try {
 		safemode = false
 		respond('', '✅', message.channel)
