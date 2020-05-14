@@ -125,6 +125,15 @@ if (fs.existsSync(`./strings.json`)){
 		}
 		
 }
+safeMode = function(istrue){
+	if(istrue = true){
+		var safemode = true
+	}else if (istrue = false){
+		var safemode = false
+	} else{
+		throw 'True/False wasn\'t given.'
+	}
+}
  modaction = function (RanCommand, RanBy, RanIn, FullCommand){
 	const ModReportEmbed = new Discord.MessageEmbed()
 		ModReportEmbed.setColor('#F3ECEC')
