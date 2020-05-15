@@ -4,6 +4,7 @@ module.exports = {
     description: 'Shows new features and more about Apple Mod',
     usage: '',
     cooldown: 5,
+    mod:false
       execute(message, args, client) {
       const Discord = require('discord.js');
       
