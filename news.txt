@@ -3,3 +3,5 @@ Apple Mod News
 By Derpi, developer for Apple Mod
 ----------------------------------
 Today we debut this new feature. A news feature for Apple Mod.
+We will use it to tell you and other members about features for
+Apple Mod, that are upcoming.
