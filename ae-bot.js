@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '8.1.1'
+version = '8.5.0'
 footertext = 'Version '+ version
 errorcount = 0
 var safemode = false
