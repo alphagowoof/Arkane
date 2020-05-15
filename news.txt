@@ -1,7 +1,9 @@
 Apple Mod News
-5/14/20 10:00 PM CDT
+5/15/20 4:46 PM CDT
 By Derpi, developer for Apple Mod
 ----------------------------------
-Today we debut this new feature. A news feature for Apple Mod.
-We will use it to tell you and other members about features for
-Apple Mod, that are upcoming.
+We now plan on adding more security
+features for Apple Mod, and improving
+the overall user experience. The games
+have beena  bit broken, we are working
+on them. 
