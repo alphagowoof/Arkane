@@ -1,9 +1,7 @@
 Apple Mod News
-5/15/20 4:46 PM CDT
-By Derpi, developer for Apple Mod
+5/16/2020 5:33 PM / 17:33 PST
+By Thomas Børn Stefanos, game developer for Apple Mod
 ----------------------------------
-We now plan on adding more security
-features for Apple Mod, and improving
-the overall user experience. The games
-have been a  bit broken, we are working
-on them. 
+Soon, you will be able to compete in games with your friends and 
+other members in the server! Yes, it's like ranking. The
+feature will be debuted soon, watch out!
