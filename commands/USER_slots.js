@@ -37,7 +37,10 @@ module.exports = {
           var slot3 = roll3
          }
          console.log("Checking if slot1 matches slot2 and slot3...")
-          if (slot1 === slot2 === slot3) {
+         console.log("Slot 1. " + slot1)
+         console.log("Slot 2. " + slot2)
+         console.log("Slot 3. " + slot3)
+          if (slot1 == slot2 && slot2 == slot3) {
             fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
               if(error) {
                 console.log("Match. Win. No leaderboard update.")
@@ -60,6 +63,7 @@ module.exports = {
             return
             }
             if (slot1 !== slot2 !== slot3) {
+            if (slot1 != slot2 && slot2 != slot3) {
               fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
                 if(error) {
                   console.log("Mismatch. Lose. No leaderboard update.")
@@ -81,6 +85,7 @@ module.exports = {
             respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you." , message.channel)
             return
             }
+          }
     }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
       errorlog(error)

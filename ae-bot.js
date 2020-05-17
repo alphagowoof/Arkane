@@ -736,6 +736,10 @@ function clean(text) {
 			if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 			try {
 				safemode = true
+				fs.writeFileSync('./safe_mode.flag', (error) => {
+					if(error)console.log(error)
+				});
+				console.log('WARNING: SAFE MODE ACTIVE')
 				respond('', '✅', message.channel)
 				return;
 			  } catch (error) {
@@ -750,6 +754,10 @@ function clean(text) {
 	if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 	try {
 		safemode = false
+		fs.unlinkSync('./safe_mode.flag', (error) => {
+			if(error)console.log(error)
+		});
+		console.log('WARNING: SAFE MODE ACTIVE')
 		respond('', '✅', message.channel)
 	  } catch (error) {
 			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
