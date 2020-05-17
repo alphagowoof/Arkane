@@ -12,7 +12,7 @@ module.exports = {
       const arg = message.content.slice('').trim().split(/ +/g); 
       try {
          if(arg[1] === 'init'){
-            fs.readFile('../leaderboards/' + message.author.tag + '_gamestats.json', err => {
+            fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
                 if(err) {
                     fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', JSON.stringify({
                         "triviawins" : 0, 
@@ -36,8 +36,9 @@ module.exports = {
           } else if(arg[1] === 'reset'){
             fs.existsSync('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
                 if(!err) {
-                    fs.unlink('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
+                    fs.unlinkSync('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
                         if(!err) {
+                            console.log(message.author.tag + " quit the leaderboards.")
                             respond('🎮 Game Leaderboard', 'Your Leaderboard stats have benen successfully wiped.\nType `leaderboard init` to start competing again.', message.channel);
                         }else {
                             respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
