@@ -22,3 +22,4 @@ Apple Explained Moderation Bot.code-workspace
 shutdown.flag
 restrictions.json
 errorcount.txt
+*.flag
