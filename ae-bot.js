@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '8.1.1.219 dev build 013'
+version = '8.5.1.212 build 128'
 footertext = 'Version '+ version
 errorcount = 0
 var safemode = false
@@ -519,7 +519,7 @@ client.on('message', message => {
 	if (blocked.length > 0) {
 		if(blocked == `${blocked}`)
 			console.log(`${message.author.tag} tried to talk about a sensitive topic. Logged word: ${blocked}`);
-			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FF0000')
+			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FFFF00')
     		const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
 	    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Note\nContent: Talking about a sensitive topic (' + reason +')\n\n');
     		fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Note issued by AutomatedAppleModerator \nContent: Talking about a sensitive topic (' + message.content +')\n\n');
