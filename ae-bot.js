@@ -198,7 +198,7 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	for (const file of findCommandListUser) {
 		const command = require(`./commands/${file}`);
 		commandListUser.join(' ')
-		if(!command.hidden == true){
+		if(!command.hidden == true || safemode ==true){
 			if(safemode == true && commandEssential && commandEssential[command.name] == true){
 				commandListUser.push(command.name)
 				console.log(command.name)	
@@ -214,7 +214,7 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	if(modCheck == true){
 		for (const file of findCommandListMod) {
 		const command = require(`./commands/${file}`);
-		if(!command.hidden == true){
+		if(!command.hidden == true || safemode ==true){
 			if(safemode == true && commandEssential && commandEssential[command.name] == true){
 				commandListMod.push(command.name)
 				console.log(command.name)
@@ -232,7 +232,7 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	for (const file of findCommandListBotManager) {
 		const command = require(`./commands/${file}`);
 		commandListBotManager.join(' ')
-		if(!command.hidden == true){
+		if(!command.hidden == true || safemode ==true){
 			if(safemode == true && commandEssential && commandEssential[command.name] == true){
 				commandListBotManager.push(command.name)
 				console.log(command.name)
@@ -309,8 +309,11 @@ client.on('message', async message => {
 	if(!command){
 		return;
 	}
-	if(safemode == true && commandEssential && commandEssential[command.name] == true){
-		return;
+	
+	if(safemode == true && commandEssential && !commandEssential[command.name] == true){
+		if(!command.name.includes('help')){
+			return;
+		}
 	}
 	//Command disabled
 	if (commandDisabled[command.name] == true) {

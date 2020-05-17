@@ -18,8 +18,10 @@ module.exports = {
 			const user = message.mentions.members.first()
 			const reason = args.join(' ')
 			const auditreason = reason.replace(argarray[1], '')
-			respond('⬅️ Kick','<@'+user.id+'> was kicked from the server.\nReason: '+reason, message.channel)
-			respond('⬅️ Kick','You have been kicked from the server. You may rejoin at anytime.\n\nReason for kick: '+reason, user)
+			fs.appendFileSync('./logs/' + user.id + '-warnings.log', 'Kick\nReason: ' + auditreason +'\n\n');
+			fs.appendFileSync('./logs/' + user.id + '-modwarnings.log', 'Kick issued by '+ message.author.tag +'\nReason: ' + auditreason +'\n\n');
+			respond('⬅️ Kick','<@'+user.id+'> was kicked from the server.\nReason: '+auditreason, message.channel)
+			respond('⬅️ Kick','You have been kicked from the server. You may rejoin at anytime.\n\nReason for kick: '+auditreason, user)
 			modaction(this.name, message.author.tag, message.channel.name, message.content)
 			message.members.mentions.first().user.kick({reason: `${message.author.tag} | ${auditreason}`})
 		}catch(error) {
