@@ -11,6 +11,10 @@ module.exports = {
 		try{
 		const fs = require('fs');
 		fs.unlinkSync('./runstate.txt')
+		if(safemode = true){
+			fs.unlinkSync('./safe_mode.flag')
+		}
+		fs.unlinkSync('./errorcount.txt')
 		console.log("A restart has been triggered. Wait 5 seconds before turning it on again.")
 		const { MessageEmbed } = require('discord.js')
 		const RestartedEmbed = new Discord.MessageEmbed()
