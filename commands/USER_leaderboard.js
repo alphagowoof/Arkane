@@ -36,13 +36,15 @@ module.exports = {
           } else if(arg[1] === 'reset'){
             fs.existsSync('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
                 if(!err) {
-                    fs.unlinkSync('../leaderboards/' + message.author.tag + '_gamestats.json', err => {
+                    fs.unlink('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
                         if(!err) {
                             respond('🎮 Game Leaderboard', 'Your Leaderboard stats have benen successfully wiped.\nType `leaderboard init` to start competing again.', message.channel);
                         }else {
                             respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
                         }
                     })
+                } else {
+                    respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
                 }
                 })
           } else if(arg[1] === 'info'){
