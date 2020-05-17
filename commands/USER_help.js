@@ -15,7 +15,11 @@ module.exports = {
 		const { MessageEmbed } = require('discord.js')
 		const {ModeratorRoleID, BotManagerRoleID} = require('../config.json')
 		try {
-			
+			if (fs.existsSync(`./safe_mode.flag`)){
+				helpEmbedColor = 'FF0000'
+			}else{
+				helpEmbedColor = '0099ff'
+			}
 			getCommandInfo = function(commandToFind){
 				var name = commandToFind
 
@@ -27,7 +31,7 @@ module.exports = {
 			if(command.mod)var isModOnly = ", mod only."
 	
 			const helpInfoEmbed = new Discord.MessageEmbed()
-				helpInfoEmbed.setColor('#0099ff')
+				helpInfoEmbed.setColor(helpEmbedColor)
 				helpInfoEmbed.setTitle('Command Info')
 				helpInfoEmbed.setDescription(`Here is some information about the ${command.name} command.`)
 				helpInfoEmbed.addField('Command name', `${command.name}`, false)
@@ -64,9 +68,11 @@ module.exports = {
                 data.push(result);
 				data.push(`\nYou can send \`${prefix}help [category name]\` to see commands in that category.`);
 				data.push(`\nYou can also send \`${prefix}help commands [command name]\` to get info\n on that command.`);
-
+				if (fs.existsSync(`./safe_mode.flag`)){
+					data.push(`\n**Safe mode is activated. Commands are limited to essential only.**`);
+				}
                 const helpEmbed = new Discord.MessageEmbed()
-                .setColor('#0099ff')
+                .setColor(helpEmbedColor)
                 .setTitle('Available Commands')
                 .setDescription('Here are the available commands.')
                 .addFields(

@@ -818,8 +818,10 @@ module.exports = {
       fs.readdir("./node_modules/blessed", error => {
         if (!error) {
           respond('♻️ Deep Repair', '✅ The folder `blessed` inside `node_modules` exists.', message.guild.channels.cache.get(info.BotLog))
+          doneDeep()
         } else {
           respond('♻️❗ Issue found.', 'The folder `blessed` inside `node_modules` does not exist.', message.guild.channels.cache.get(info.BotLog))
+          doneDeep()
         }
       });
     }

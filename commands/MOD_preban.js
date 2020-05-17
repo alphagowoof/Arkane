@@ -19,7 +19,7 @@ module.exports = {
 				respond('',`You can't perform this action on yourself.`, message.channel);
 				return;
 			}
-			const {ModeratorRoleID} = require('../info.json');
+			const {ModeratorRoleID} = require('../config.json');
 			if(message.guild.members.cache.get(idToBan)){
 				const checkmemberforroles = message.guild.members.cache.get(idToBan)
 

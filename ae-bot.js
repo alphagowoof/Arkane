@@ -23,8 +23,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '8.5.0'
-footertext = 'Version '+ version
+version = '8.5.1.212 build 128'
+codename = 'Digital Olympics'
+footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
 
@@ -32,6 +33,9 @@ if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is miss
 
 if (fs.existsSync(`./errorcount.txt`)){
 fs.readFile('./errorcount.txt', function(err, data){
+	if (fs.existsSync(`./safe_mode.flag`)){
+		console.log('WARNING: SAFE MODE ACTIVE')
+	}
 	console.log(err)
 	console.log(data)
 	console.log(Number(data.toString().replace('<', '').replace('>', '').replace('Buffer', '')))
@@ -39,6 +43,9 @@ fs.readFile('./errorcount.txt', function(err, data){
 		if(data)
 		if(data > 3){
 			var safemode = true
+			fs.writeFileSync('./safe_mode.flag', (error) => {
+				if(error)console.log(error)
+			});
 			console.log('WARNING: SAFE MODE ACTIVE')
 		}
 	}
@@ -47,15 +54,17 @@ fs.readFile('./errorcount.txt', function(err, data){
 //Bot ready
 client.once('ready', () => {
 	console.log('Version '+version)
+	console.log('Codename '+codename)
 	console.log('Ready!');
 	if (fs.existsSync(`./errorcount.txt`)){
 		fs.readFile('./errorcount.txt', function(err, data){
 			if(err){return}else{
 				if(data)
-				if(data > 3){
+				if (fs.existsSync(`./safe_mode.flag`)){
+					safemode = true
 					console.log('Safe mode found')
-			var titleofstartup = 'Bot Started - Safe Mode'
-			var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode. To deactivate safe mode, restart using the restart command, delete the `errorcount.txt` file, or use .exitsafemode.'
+			var titleofstartup = 'Bot Started - Safe Mode Activated'
+			var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode. To deactivate safe mode, restart using the restart command, delete these files (`errorcount.txt`, `safe_mode.flag`, `runstate.txt`), or use the exitsafemode command.'
 			const StartupEmbed = new Discord.MessageEmbed()
 			.setColor('#ff0000')
 			.setTitle(titleofstartup)
@@ -184,11 +193,13 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	const commandListMod = [];
 	const commandListBotManager = [];
 	var commandList = []
+	var restrictions = require('./restrictions.json')
+	var commandEssential = restrictions[2];
 	for (const file of findCommandListUser) {
 		const command = require(`./commands/${file}`);
 		commandListUser.join(' ')
-		if(!command.hidden == true){
-			if(safemode == true && command.essential == true){
+		if(!command.hidden == true || safemode ==true){
+			if(safemode == true && commandEssential && commandEssential[command.name] == true){
 				commandListUser.push(command.name)
 				console.log(command.name)	
 			}else{
@@ -203,8 +214,8 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	if(modCheck == true){
 		for (const file of findCommandListMod) {
 		const command = require(`./commands/${file}`);
-		if(!command.hidden == true){
-			if(safemode == true && command.essential == true){
+		if(!command.hidden == true || safemode ==true){
+			if(safemode == true && commandEssential && commandEssential[command.name] == true){
 				commandListMod.push(command.name)
 				console.log(command.name)
 			}else{
@@ -221,8 +232,8 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	for (const file of findCommandListBotManager) {
 		const command = require(`./commands/${file}`);
 		commandListBotManager.join(' ')
-		if(!command.hidden == true){
-			if(safemode == true && command.essential == true){
+		if(!command.hidden == true || safemode ==true){
+			if(safemode == true && commandEssential && commandEssential[command.name] == true){
 				commandListBotManager.push(command.name)
 				console.log(command.name)
 			}else{
@@ -292,9 +303,17 @@ client.on('message', async message => {
 		var restrictions = require('./restrictions.json');
 		var channelRestrictions = restrictions[0];
 		var commandDisabled = restrictions[1];
+		var commandEssential = restrictions[2];
 
-	if(safemode == true && command.essential != true){
+
+	if(!command){
 		return;
+	}
+	
+	if(safemode == true && commandEssential && !commandEssential[command.name] == true){
+		if(!command.name.includes('help')){
+			return;
+		}
 	}
 	//Command disabled
 	if (commandDisabled[command.name] == true) {
@@ -519,7 +538,7 @@ client.on('message', message => {
 	if (blocked.length > 0) {
 		if(blocked == `${blocked}`)
 			console.log(`${message.author.tag} tried to talk about a sensitive topic. Logged word: ${blocked}`);
-			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FF0000')
+			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FFFF00')
     		const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
 	    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Note\nContent: Talking about a sensitive topic (' + reason +')\n\n');
     		fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Note issued by AutomatedAppleModerator \nContent: Talking about a sensitive topic (' + message.content +')\n\n');
@@ -687,8 +706,6 @@ client.on('StartupPassed', () => {
 	return;
 })
 
-BotManagerID = "595397105103667236","461560462991949863","454579681602043916"
-
 //Hardcoded events
 
 
@@ -719,9 +736,13 @@ function clean(text) {
 		//This code here
 	   
 		if (message.content.startsWith(prefix + "safemode",)) {
-			if(!message.member.roles.cache.some(role => role.id == '625888205459423234')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+			if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 			try {
 				safemode = true
+				fs.writeFileSync('./safe_mode.flag', (error) => {
+					if(error)console.log(error)
+				});
+				console.log('WARNING: SAFE MODE ACTIVE')
 				respond('', '✅', message.channel)
 				return;
 			  } catch (error) {
@@ -733,9 +754,13 @@ function clean(text) {
   );
   client.on('message',message => { 
   if (message.content.startsWith(prefix + "exitsafemode")) {
-	if(!message.member.roles.cache.some(role => role.id == '625888205459423234')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+	if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 	try {
 		safemode = false
+		fs.unlinkSync('./safe_mode.flag', (error) => {
+			if(error)console.log(error)
+		});
+		console.log('WARNING: SAFE MODE ACTIVE')
 		respond('', '✅', message.channel)
 	  } catch (error) {
 			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
