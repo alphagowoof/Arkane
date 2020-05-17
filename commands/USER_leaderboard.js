@@ -42,7 +42,9 @@ module.exports = {
                     respond('🎮 Game Leaderboard', 'Your Leaderboard data does not exist.\nType `leaderboard init` to start competing.' , message.channel)
                 }
             })
-          } else if(!arg[1]){
+          } else if(arg[1] === 'info'){
+            respond('🎮 About Game Leaderboard', 'Version: 1.0.1.145 build 004\nAuthor: Thomas Stefanos/[thomas swim]' , message.channel)
+          }else if(!arg[1]){
         fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
             if (!error) {
             const stats = require('../leaderboards/' + message.author.tag + '_gamestats.json')

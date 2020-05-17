@@ -56,7 +56,8 @@ module.exports = {
           })
             respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You win this one!\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
             return
-            } else if (roll1 !== roll2 !== roll3) {
+            }
+            if (roll1 !== roll2 !== roll3) {
               fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
                 if(error) {
                   console.log("Mismatch. Lose. No leaderboard update.")

@@ -43,10 +43,12 @@ module.exports = {
         console.log(numbermul)
         console.log(numberApModmul)
         if (divisor < 25){             // Divide = no
-          var numberApModmul = temp1
+          var numbermul = temp2
+          console.log(numbermul)
+          console.log(numberApModmul)
           andthewinneris()
-        } else {                      // Divide = yes
-          var numbermul = Math.ceil(numbermul/1.5)
+        } else {                      // Divide = still no
+          var numbermul = temp1
           console.log(numbermul)
           console.log(numberApModmul)
           andthewinneris()
@@ -63,8 +65,8 @@ module.exports = {
           console.log(numbermul)
           console.log(numberApModmul)
           andthewinneris()
-        } else {                     // Divide = yes
-          var numbermul = Math.ceil(numbermul/1.5)
+        } else {                     // Divide = still no.
+          var numbermul = temp2
           console.log(numbermul)
           console.log(numberApModmul)
           andthewinneris()
