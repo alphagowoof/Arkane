@@ -90,11 +90,48 @@ module.exports = {
     function actualwinner() {
     if (numberApModmul < numbermul) {
       // You win!
+      fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+        if(error) {
+          console.log("dice roll win. no leaderboard update.")
+        } else {
+        console.log('dice roll win')
+        jsonfile = require('../leaderboards/' + message.author.tag + '_gamestats.json');
+        jsonfile.rdgwins = Number(jsonfile.rdgwins)+1;
+        data = JSON.stringify(jsonfile)
+        fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
+            if (err) throw err;
+            else {
+              console.log("Successfully updated Rolldicegame game stats of " + message.author.tag + ".")
+            }
+        })
+      }
+    })
       respond('Win!',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou win, congratulations <@${message.author.id}>!` , message.channel)
       return
-    } else {
+    } else if (numberApModmul > numbermul){
       // lol you lose
+      fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+        if(error) {
+          console.log("dice roll lose. no leaderboard update.")
+        } else {
+        console.log('dice roll lose')
+        jsonfile = require('../leaderboards/' + message.author.tag + '_gamestats.json');
+        jsonfile.rdglosses = Number(jsonfile.rdglosses)+1;
+        data = JSON.stringify(jsonfile)
+        fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
+            if (err) throw err;
+            else {
+              console.log("Successfully updated Rolldicegame game stats of " + message.author.tag + ".")
+            }
+        })
+      }
+    })
       respond('Lose',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou lose, better luck next time <@${message.author.id}>!` , message.channel)
+      return
+    } else if (numberApModmul === numbermul){
+      // Oh, it's a tie, lol
+      console.log('dice roll tie')
+      respond('Tie',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nWow, we tied, <@${message.author.id}>!` , message.channel)
       return
     }
   }
