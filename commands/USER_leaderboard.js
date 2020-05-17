@@ -30,15 +30,11 @@ module.exports = {
           } else if(!arg[1]){
         fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
             if (!error) {
-                const reader = new FileReader();
-                reader.readAsText('./leaderboards/' + message.author.tag + '_gamestats.json');
-                reader.onload = () => {
-                  callback(reader.result);
-                };
-                console.log(gamestats.triviawins)
-                console.log(gamestats.trivialosses)
-              respond('🎮 Game Leaderboard', 'Trivia correct answers: ' + tWins + "\nTrivia wrong answers:" + tLosses , message.channel);
-              return;
+            const stats = require('../commands/user_game_stats/' + message.author.id + '_gamestats.json')
+            const tWins = stats["triviawins"]
+            const tLosses = stats["trivialosses"]
+              respond('🎮 Game Leaderboard', 'Trivia correct answers: ' + tWins + "\nTrivia wrong answers:" + tLosses , message.channel)
+              return
             } else if(error) {
               respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
               return;
