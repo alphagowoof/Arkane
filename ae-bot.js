@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '8.1.1'
+version = '8.5.1.212 build 128'
 footertext = 'Version '+ version
 errorcount = 0
 var safemode = false
@@ -54,7 +54,7 @@ client.once('ready', () => {
 				if(data)
 				if(data > 3){
 					console.log('Safe mode found')
-			var titleofstartup = 'Bot Started - Safe Mode'
+			var titleofstartup = 'Bot Started - Safe Mode Activated'
 			var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode. To deactivate safe mode, restart using the restart command, delete the `errorcount.txt` file, or use .exitsafemode.'
 			const StartupEmbed = new Discord.MessageEmbed()
 			.setColor('#ff0000')
@@ -519,7 +519,7 @@ client.on('message', message => {
 	if (blocked.length > 0) {
 		if(blocked == `${blocked}`)
 			console.log(`${message.author.tag} tried to talk about a sensitive topic. Logged word: ${blocked}`);
-			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FF0000')
+			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FFFF00')
     		const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
 	    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Note\nContent: Talking about a sensitive topic (' + reason +')\n\n');
     		fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Note issued by AutomatedAppleModerator \nContent: Talking about a sensitive topic (' + message.content +')\n\n');
