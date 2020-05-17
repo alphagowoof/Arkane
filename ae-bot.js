@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '8.1.1.219 build 013'
+version = '8.1.1.219 dev build 013'
 footertext = 'Version '+ version
 errorcount = 0
 var safemode = false
@@ -54,7 +54,7 @@ client.once('ready', () => {
 				if(data)
 				if(data > 3){
 					console.log('Safe mode found')
-			var titleofstartup = 'Bot Started - Safe Mode'
+			var titleofstartup = 'Bot Started - Safe Mode Activated'
 			var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode. To deactivate safe mode, restart using the restart command, delete the `errorcount.txt` file, or use .exitsafemode.'
 			const StartupEmbed = new Discord.MessageEmbed()
 			.setColor('#ff0000')

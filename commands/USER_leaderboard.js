@@ -12,28 +12,36 @@ module.exports = {
       const arg = message.content.slice('').trim().split(/ +/g); 
       try {
          if(arg[1] === 'init'){
-            fs.readFile('./commands/user_game_stats/' + message.author.id + '_gamestats.json', err => {
+            fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
                 if(err) {
-                    fs.writeFile('./commands/user_game_stats/' + message.author.id + "_gamestats.json", JSON.parse([{"triviawins":"0", "trivialosses":"0"}]), (err) => {if(err)console.log(err)})
-                    console.log(message.author.tag + " is ready to compete.")
-                    respond('🎮 Game Leaderboard', 'Your Leaderboard data has been initialized.\nGo compete with other members in the server!' , message.channel)
-                    return
-                }else if(!err) {
+                    fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', JSON.stringify({
+                        "triviawins" : "0", 
+                        "trivialosses" : "0"
+                    }), (err) => {if(err)console.log(err)});
+                    console.log(message.author.tag + " is ready to compete.");
+                    respond('🎮 Game Leaderboard', 'Your Leaderboard data has been initialized.\nGo compete with other members in the server!' , message.channel);
+                    return;
+                }else {
+                    console.log(message.author.tag + " is already competing!");
                     respond('🎮 Game Leaderboard', 'You already have Leaderboard data!' , message.channel)
                     return
                 }
             })
           } else if(!arg[1]){
-        fs.readFile('./commands/user_game_stats//' + message.author.id + '_gamestats.json', error => {
+        fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
             if (!error) {
-            const stats = require('./commands/user_game_stats/' + message.author.id + '_gamestats.json')
-            const tWins = stats["triviawins"]
-            const tLosses = stats["trivialosses"]
-              respond('🎮 Game Leaderboard', 'Trivia correct answers: ' + tWins + "\nTrivia wrong answers:" + tLosses , message.channel)
-              return
+                const reader = new FileReader();
+                reader.readAsText('./leaderboards/' + message.author.tag + '_gamestats.json');
+                reader.onload = () => {
+                  callback(reader.result);
+                };
+                console.log(gamestats.triviawins)
+                console.log(gamestats.trivialosses)
+              respond('🎮 Game Leaderboard', 'Trivia correct answers: ' + tWins + "\nTrivia wrong answers:" + tLosses , message.channel);
+              return;
             } else if(error) {
-              respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel)
-              return
+              respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
+              return;
             }
           });
         }

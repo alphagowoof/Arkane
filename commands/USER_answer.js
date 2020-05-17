@@ -20,18 +20,18 @@ module.exports = {
         const item = quiz[args[0]]
         console.log(item)
         if(arg[2].toLowerCase() === item.answer) {
-          fs.readFile("./user_game_stats/" + message.author.id + "_gamestats.json", error => {
-            if(!error) {
+          fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+            if(error) {
               console.log("answer correct. no leaderboard update.")
               respond('Correct!', '<@' + message.author.id + '>, that was the correct answer!\nIf you want to compete in the leaderboards, type `leaderboard init`.', message.channel, '29BF00', `QID: ${item.qid}`)
               message.delete()
               return
             } else {
               console.log('answer correct')
-              jsonfile = require("./user_game_stats/" + message.author.id + "_gamestats.json");
+              jsonfile = require('./leaderboards/' + message.author.tag + '_gamestats.json');
               jsonfile.triviawins = triviawins+1;
               data = JSON.stringify(jsonfile)
-              fs.writeFile("./user_game_stats/" + message.author.id + "_gamestats.json", data, (err) => {
+              fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
                   if (err) throw err;
                   else {
                     console.log("Successfully updated Trivia game stats of" + message.author.tag + ".")
@@ -43,18 +43,18 @@ module.exports = {
             }
         })
         }else if(arg[2] == item.answer_case) {
-          fs.readFile("./user_game_stats/" + message.author.id + "_gamestats.json", error => {
-            if(!error) {
+          fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+            if(error) {
               console.log("answer correct, capital letter. no leaderboard update.")
               respond('Correct!', '<@' + message.author.id + '>, that was the correct answer! Next time, try using lowercase for the answer.\nIf you want to compete in the leaderboards, type `leaderboard init`.', message.channel, '29BF00', `QID: ${item.qid}`)
               message.delete()
               return
             } else {
             console.log('answer correct, capital letter')
-            jsonfile = require("./user_game_stats/" + message.author.id + "_gamestats.json");
+            jsonfile = require('./leaderboards/' + message.author.tag + '_gamestats.json');
             jsonfile.triviawins = triviawins+1;
             data = JSON.stringify(jsonfile)
-            fs.writeFile("./user_game_stats/" + message.author.id + "_gamestats.json", data, (err) => {
+            fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
                 if (err) throw err;
                 else {
                   console.log("Successfully updated Trivia game stats of" + message.author.tag + ".")
@@ -66,18 +66,18 @@ module.exports = {
             }
           })
         }else{
-          fs.readFile("./user_game_stats/" + message.author.id + "_gamestats.json", error => {
-            if(!error) {
+          fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+            if(error) {
               console.log("answer wrong. no leaderboard update.")
               respond('Correct!', '<@' + message.author.id + '>, that was the wrong answer.\nIf you want to compete in the leaderboards, type `leaderboard init`.', message.channel, '29BF00', `QID: ${item.qid}`)
               message.delete()
               return
             } else {
             console.log('answer wrong')
-            jsonfile = require("./user_game_stats/" + message.author.id + "_gamestats.json");
+            jsonfile = require('./leaderboards/' + message.author.tag + '_gamestats.json');
             jsonfile.trivialose = trivialose+1;
             data = JSON.stringify(jsonfile)
-            fs.writeFile("./user_game_stats/" + message.author.id + "_gamestats.json", data, (err) => {
+            fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
                 if (err) throw err;
                 else {
                   console.log("Successfully updated Trivia game stats of" + message.author.tag + ".")
