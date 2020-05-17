@@ -24,7 +24,8 @@ const {
 } = require('discord.js')
 
 version = '8.5.1.212 build 128'
-footertext = 'Version '+ version
+codename = 'Digital Olympics'
+footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
 
@@ -53,6 +54,7 @@ fs.readFile('./errorcount.txt', function(err, data){
 //Bot ready
 client.once('ready', () => {
 	console.log('Version '+version)
+	console.log('Codename '+codename)
 	console.log('Ready!');
 	if (fs.existsSync(`./errorcount.txt`)){
 		fs.readFile('./errorcount.txt', function(err, data){

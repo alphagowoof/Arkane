@@ -28,13 +28,13 @@ module.exports = {
               return
             } else {
               console.log('answer correct')
-              jsonfile = require('./leaderboards/' + message.author.tag + '_gamestats.json');
-              jsonfile.triviawins = triviawins+1;
+              jsonfile = require('../leaderboards/' + message.author.tag + '_gamestats.json');
+              jsonfile.triviawins = Number(jsonfile.triviawins)+1;
               data = JSON.stringify(jsonfile)
               fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
                   if (err) throw err;
                   else {
-                    console.log("Successfully updated Trivia game stats of" + message.author.tag + ".")
+                    console.log("Successfully updated Trivia game stats of " + message.author.tag + ".")
                   }
               })
               respond('Correct!', `<@${message.author.id}>, that was the correct answer!`, message.channel, '29BF00', `QID: ${item.qid}`)
@@ -51,41 +51,41 @@ module.exports = {
               return
             } else {
             console.log('answer correct, capital letter')
-            jsonfile = require('./leaderboards/' + message.author.tag + '_gamestats.json');
-            jsonfile.triviawins = triviawins+1;
+            jsonfile = require('../leaderboards/' + message.author.tag + '_gamestats.json');
+            jsonfile.triviawins = Number(jsonfile.triviawins)+1;
             data = JSON.stringify(jsonfile)
             fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
                 if (err) throw err;
                 else {
-                  console.log("Successfully updated Trivia game stats of" + message.author.tag + ".")
-                  respond('Correct!', `<@${message.author.id}>, that was the correct answer! Next time, try using lowercase for the answer.`, message.channel, '29BF00', `QID: ${item.qid}`)
-                  message.delete()
-                  return
+                  console.log("Successfully updated Trivia game stats of " + message.author.tag + ".")
                 }
             })
+            respond('Correct!', `<@${message.author.id}>, that was the correct answer! Next time, try using lowercase for the answer.`, message.channel, '29BF00', `QID: ${item.qid}`)
+            message.delete()
+            return
             }
           })
         }else{
           fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
             if(error) {
               console.log("answer wrong. no leaderboard update.")
-              respond('Correct!', '<@' + message.author.id + '>, that was the wrong answer.\nIf you want to compete in the leaderboards, type `leaderboard init`.', message.channel, '29BF00', `QID: ${item.qid}`)
+              respond('Wrong', '<@' + message.author.id + '>, that was the wrong answer.\nIf you want to compete in the leaderboards, type `leaderboard init`.', message.channel, 'BF0000', `QID: ${item.qid}`)
               message.delete()
               return
             } else {
             console.log('answer wrong')
-            jsonfile = require('./leaderboards/' + message.author.tag + '_gamestats.json');
-            jsonfile.trivialose = trivialose+1;
+            jsonfile = require('../leaderboards/' + message.author.tag + '_gamestats.json');
+            jsonfile.trivialosses = Number(jsonfile.trivialosses)+1;
             data = JSON.stringify(jsonfile)
             fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
                 if (err) throw err;
                 else {
-                  console.log("Successfully updated Trivia game stats of" + message.author.tag + ".")
-                  respond('Wrong!', `<@${message.author.id}>, that was the wrong answer.`, message.channel, 'BF0000', `QID: ${item.qid}`)
-                  message.delete()
-                  return
+                  console.log("Successfully updated Trivia game stats of " + message.author.tag + ".")
                 }
             })
+            respond('Wrong!', `<@${message.author.id}>, that was the wrong answer.`, message.channel, 'BF0000', `QID: ${item.qid}`)
+            message.delete()
+            return
           }
         })
         }
