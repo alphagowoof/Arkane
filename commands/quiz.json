@@ -803,5 +803,25 @@
         "answer" : "a",
         "answer_case" : "A",
         "qid" : "80"
+      },
+      {
+        "question" : "Rick and Morty is aired at what channel?",
+        "choice1" : "A. ABC",
+        "choice2" : "B. [adult swim]",
+        "choice3" : "C. CBS",
+        "choice4" : "D. Warner Bros. TV",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "81"
+      },
+      {
+        "question" : "Which company owns Warner Bros.? (as of 2019)",
+        "choice1" : "A. WarnerMedia",
+        "choice2" : "B. NBCUniversal",
+        "choice3" : "C. TimeWarner",
+        "choice4" : "D. Apple Explained",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "82"
       }
 ]
