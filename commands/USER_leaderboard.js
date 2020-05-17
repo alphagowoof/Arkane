@@ -26,7 +26,7 @@ module.exports = {
           } else if(!arg[1]){
         fs.readFile('./commands/user_game_stats//' + message.author.id + '_gamestats.json', error => {
             if (!error) {
-            const stats = require('./commands/user_game_stats/' + message.author.id + '_gamestats.json')
+            const stats = require('../commands/user_game_stats/' + message.author.id + '_gamestats.json')
             const tWins = stats["triviawins"]
             const tLosses = stats["trivialosses"]
               respond('🎮 Game Leaderboard', 'Trivia correct answers: ' + tWins + "\nTrivia wrong answers:" + tLosses , message.channel)
