@@ -40,6 +40,7 @@ module.exports = {
                 console.log(err)
                 if(!err) {
                     fs.unlinkSync('./leaderboards/' + message.author.tag + '_gamestats.json', err)
+                    console.log(message.author.id + " quit the leaderboards.")
                             respond('🎮 Game Leaderboard', 'Your Leaderboard stats have been successfully wiped.', message.channel);
                             return
                 } else {
