@@ -34,14 +34,17 @@ module.exports = {
                 }
             })
           } else if(arg[1] === 'reset'){
-            fs.unlink('../leaderboards/' + message.author.tag + '_gamestats.json', err => {
+            fs.existsSync('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
                 if(!err) {
-                    respond('🎮 Game Leaderboard', 'Your Leaderboard data has been erased successfully.\nType `leaderboard init` to start competing again.' , message.channel)
-                    return
-                }else {
-                    respond('🎮 Game Leaderboard', 'Your Leaderboard data does not exist.\nType `leaderboard init` to start competing.' , message.channel)
+                    fs.unlinkSync('../leaderboards/' + message.author.tag + '_gamestats.json', err => {
+                        if(!err) {
+                            respond('🎮 Game Leaderboard', 'Your Leaderboard stats have benen successfully wiped.\nType `leaderboard init` to start competing again.', message.channel);
+                        }else {
+                            respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
+                        }
+                    })
                 }
-            })
+                })
           } else if(arg[1] === 'info'){
             respond('🎮 About Game Leaderboard', 'Version: 1.0.1.145 build 004\nAuthor: Thomas Stefanos/[thomas swim]' , message.channel)
           }else if(!arg[1]){
