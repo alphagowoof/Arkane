@@ -293,6 +293,10 @@ client.on('message', async message => {
 		var channelRestrictions = restrictions[0];
 		var commandDisabled = restrictions[1];
 
+
+	if(!command){
+		return;
+	}
 	if(safemode == true && command.essential != true){
 		return;
 	}
