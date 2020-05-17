@@ -33,24 +33,24 @@ module.exports = {
                     return
                 }
             })
-          } else if(arg[1] === 'reset'){
-            fs.existsSync('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
+          }
+          if(arg[1] === 'wipe'){
+            console.log("If you see this message and nothing is under it, check code!")
+            fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
+                console.log(err)
                 if(!err) {
-                    fs.unlinkSync('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
-                        if(!err) {
-                            console.log(message.author.tag + " quit the leaderboards.")
-                            respond('🎮 Game Leaderboard', 'Your Leaderboard stats have benen successfully wiped.\nType `leaderboard init` to start competing again.', message.channel);
-                        }else {
-                            respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
-                        }
-                    })
+                    fs.unlinkSync('./leaderboards/' + message.author.tag + '_gamestats.json', err)
+                            respond('🎮 Game Leaderboard', 'Your Leaderboard stats have been successfully wiped.', message.channel);
+                            return
                 } else {
                     respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
+                    return
                 }
-                })
+             })
           } else if(arg[1] === 'info'){
             respond('🎮 About Game Leaderboard', 'Version: 1.0.1.145 build 004\nAuthor: Thomas Stefanos/[thomas swim]' , message.channel)
-          }else if(!arg[1]){
+            return
+          } else if(!arg[1]){
         fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
             if (!error) {
             const stats = require('../leaderboards/' + message.author.tag + '_gamestats.json')
