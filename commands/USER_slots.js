@@ -52,17 +52,17 @@ module.exports = {
               jsonfile.slotswins = Number(jsonfile.slotswins)+1;
               data = JSON.stringify(jsonfile)
               fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
-                  if (err) throw err;
-                  else {
+                  if (err) { 
+                  }else {
                     console.log("Successfully updated Slots game stats of " + message.author.id + ".")
+                    respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You win this one!\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
+                    return
                   }
               })
             }
           })
-            respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You win this one!\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
-            return
             } 
-            if (slot1 == slot2) {
+            else if (slot1 == slot2) {
               fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
                 if(error) {
                   console.log("Match. Minor Win. No leaderboard update.")
@@ -77,14 +77,14 @@ module.exports = {
                     if (err) throw err;
                     else {
                       console.log("Successfully updated Slots game stats of " + message.author.id + ".")
+                      respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You've won a minor victory.\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
                     }
                 })
               }
-            })
-              respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You've won a minor victory.\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
               return
+            })
               }
-              if (slot2 == slot3) {
+              else if (slot2 == slot3) {
                 fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
                   if(error) {
                     console.log("Match. Minor Win. No leaderboard update.")
@@ -99,14 +99,15 @@ module.exports = {
                       if (err) throw err;
                       else {
                         console.log("Successfully updated Slots game stats of " + message.author.id + ".")
+                        respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You've won a minor victory.\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
+                        
                       }
                   })
                 }
-              })
-                respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You've won a minor victory.\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
                 return
+              })
                 }
-                if (slot1 == slot3) {
+                else if (slot1 == slot3) {
                   fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
                     if(error) {
                       console.log("Match. Minor Win. No leaderboard update.")
@@ -121,14 +122,14 @@ module.exports = {
                         if (err) throw err;
                         else {
                           console.log("Successfully updated Slots game stats of " + message.author.id + ".")
+                          respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You've won a minor victory.\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
                         }
                     })
                   }
-                })
-                  respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You've won a minor victory.\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
                   return
+                })
                   }
-            if (slot1 !== slot2 !== slot3) {
+            else if (slot1 !== slot2 !== slot3) {
             if (slot1 != slot2 && slot2 != slot3) {
               fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
                 if(error) {
@@ -144,12 +145,12 @@ module.exports = {
                     if (err) throw err;
                     else {
                       console.log("Successfully updated Slots game stats of " + message.author.id + ".")
+                      respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you." , message.channel)
+                      return
                     }
                 })
               }
             })
-            respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you." , message.channel)
-            return
             }
           }
     }catch(error) {
