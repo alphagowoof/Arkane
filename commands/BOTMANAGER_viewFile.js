@@ -1,7 +1,7 @@
 module.exports = {
   name: 'viewfile',
   aliases: ['file'],
-  description: 'Views content of file given. Linux only.',
+  description: 'Views content of file path given.',
   mod:true,
   botmanager:true,
   essential:true,
