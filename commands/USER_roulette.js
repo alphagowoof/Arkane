@@ -10,8 +10,9 @@ module.exports = {
       const Discord = require('discord.js')
       const msg = message
       const arg = message.content.slice('').trim().split(/ +/g);
-      var rouletteroll = Math.ceil(Math.random() * 36)
-      if(rouletteroll = 0){
+      var rouletterollraw = Math.random() * 36
+      var rouletteroll = Math.ceil(rouletterollraw)
+      if(rouletteroll === 0){
         var rouletteColor = "green"
       } else if(rouletteroll === 1 || rouletteroll === 3 || rouletteroll === 5 || rouletteroll === 7 || rouletteroll === 9 || rouletteroll === 12 || rouletteroll === 14 || rouletteroll === 16 || rouletteroll === 18 || rouletteroll === 19 || rouletteroll === 21 || rouletteroll === 23 || rouletteroll === 25 || rouletteroll === 27 || rouletteroll === 30 || rouletteroll === 32 || rouletteroll === 34 || rouletteroll === 36){
         var rouletteColor = "red"
@@ -24,30 +25,43 @@ module.exports = {
         var rouletteNumberType = "even"
       }
       if(arg[1] > -1 && arg[1] < 37) {
+        console.log("Number guess in roulette.")
         var rouletteGuess = "number"
       } else if(arg[1] === "red"){         //red
+        console.log("Red guess in roulette.")
         var rouletteGuess = "red"
       } else if(arg[1] === "Red"){
+        console.log("Red guess in roulette.")
         var rouletteGuess = "red"
       } else if(arg[1] === "RED"){
+        console.log("Red guess in roulette.")
         var rouletteGuess = "red"
       } else if(arg[1] === "black"){      //black
+        console.log("Black guess in roulette.")
         var rouletteGuess = "black"
       } else if(arg[1] === "Black"){
+        console.log("Black guess in roulette.")
         var rouletteGuess = "black"
       } else if(arg[1] === "BLACK"){
+        console.log("Black guess in roulette.")
         var rouletteGuess = "black"
       } else if(arg[1] === "odd") {        //odd
+        console.log("Odd number guess in roulette.")
         var rouletteGuess = "odd"
       } else if(arg[1] === "Odd") {
+        console.log("Odd number guess in roulette.")
         var rouletteGuess = "odd"
       } else if(arg[1] === "ODD") {
+        console.log("Odd number guess in roulette.")
         var rouletteGuess = "odd"
       } else if(arg[1] === "even") {       //even
+        console.log("Even number guess in roulette.")
         var rouletteGuess = "even"
       } else if(arg[1] === "Even") {
+        console.log("Even number guess in roulette.")
         var rouletteGuess = "even"
       } else if(arg[1] === "EVEN") {
+        console.log("Even number guess in roulette.")
         var rouletteGuess = "even"
       } else if(!arg[1]) {
         respond('Roulette', "Invalid Roulette identifier. Please type a valid Roulette identifier.", message.channel)
@@ -60,6 +74,7 @@ module.exports = {
         return
       }
       try {
+        setTimeout(function(){ 
         if(rouletteGuess === "number"){
           numberComparison()
         } else if(rouletteGuess === "red" || rouletteGuess === "black"){
@@ -94,6 +109,7 @@ module.exports = {
             return
           }
         }
+      }, 5000);
     }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
       errorlog(error)
