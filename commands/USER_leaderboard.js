@@ -25,7 +25,8 @@ module.exports = {
                         "slotslosses" : 0,
                         "slotsminorwins" : 0,
                         "roulettewins" : 0, 
-                        "roulettelosses" : 0
+                        "roulettelosses" : 0,
+                        "rouletteminorwins" : 0
                     }), (err) => {if(err)console.log(err)});
                     console.log(message.author.tag + " is ready to compete.");
                     respond('🎮 Game Leaderboard', 'Your Leaderboard data has been initialized.\nGo compete with other members in the server!' , message.channel);
@@ -43,7 +44,7 @@ module.exports = {
                 console.log(err)
                 if(!err) {
                     fs.unlinkSync('./leaderboards/' + message.author.id + '_gamestats.json', err)
-                    console.log(message.author.id + " quit the leaderboards.")
+                    console.log(message.author.tag + " quit the leaderboards.")
                             respond('🎮 Game Leaderboard', 'Your Leaderboard stats have been successfully wiped.', message.channel);
                             return
                 } else {
@@ -69,7 +70,8 @@ module.exports = {
             const smWins = stats["slotsminorwins"]
             const roWins = stats["roulettewins"]
             const roLosses = stats["roulettelosses"]
-              respond('🎮 Game Leaderboard', message.author.tag + ', here are your Leaderboard stats:\n**Trivia**\nCorrect answers: ' + tWins + "\nWrong answers: " + tLosses + '\n**Cryptogram**\nSuccessful digital heists: ' + cWins + "\nInfected computers: " + cLosses + '\n**Roll Dice Game**\nHigh rolls: ' + rWins + "\nLosing rolls: " + rLosses + '\n**Slots**\nJackpots hit: ' + sWins + "\nMinor wins hit: " + smWins + "\nLosing rolls: " + sLosses + '\n**Roulette**\nHigh rolls: ' + roWins + "\nLosing rolls: " + roLosses, message.channel)
+            const romWins = stats["rouletteminorwins"]
+              respond('🎮 Game Leaderboard', message.author.tag + ', here are your Leaderboard stats:\n**Trivia**\nCorrect answers: ' + tWins + "\nWrong answers: " + tLosses + '\n**Cryptogram**\nSuccessful digital heists: ' + cWins + "\nInfected computers: " + cLosses + '\n**Roll Dice Game**\nHigh rolls: ' + rWins + "\nLosing rolls: " + rLosses + '\n**Slots**\nJackpots hit: ' + sWins + "\nMinor wins hit: " + smWins + "\nLosing rolls: " + sLosses + '\n**Roulette**\nWinning rolls: ' + roWins + "\nMinor winning rolls:" + romWins + "\nLosing rolls: " + roLosses, message.channel)
               return
             } else if(error) {
               respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
