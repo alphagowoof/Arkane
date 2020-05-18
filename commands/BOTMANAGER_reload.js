@@ -2,12 +2,18 @@ module.exports = {
 	name: 'reload',
 	description: 'Reloads a command',
 	aliases: ['fetch'],
-	usage: '[command]',
+	usage: '[command type | <mod/botmanager/user>] [command name or alias]',
 	cooldown: 0,
 	botmanager:true,
 	mod:true,
 	execute(message, args, client) {
-		const modcommandName = args[0].toLowerCase();
+		if(!args[0]){
+			respond('Reload', 'Please provide the command type (mod/botmanager/user).', message.channel)
+		}else if(!args[1]){
+			respond('Reload', 'Please provide the command name or alias.', message.channel)
+		}
+		const modcommandType = args[0].toUpperCase()
+		const modcommandName = args[1].toLowerCase()
 		const command = message.client.modcommands.get(modcommandName)
 			|| message.client.modcommands.find(cmd => cmd.aliases && cmd.aliases.includes(modcommandName));
 		
@@ -16,14 +22,14 @@ module.exports = {
 		}
 		
 		try{
-			delete require.cache[require.resolve(`./${modcommandName}.js`)]
+			delete require.cache[require.resolve(`../commands/${modcommandType}_${modcommandName}.js`)]
 		}catch(error){
 		respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
 		errorlog(error)
 		}
 
 		try {
-			const newCommand = require(`./${modcommandName}.js`);
+			const newCommand = require(`../commands/${modcommandType}_${modcommandName}.js`);
 			message.client.modcommands.set(newCommand.name, newCommand);
 		} catch (error) {
 			console.log(error);

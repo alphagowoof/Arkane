@@ -1,7 +1,9 @@
 Apple Mod News
-5/16/2020 5:33 PM / 17:33 PST
+5/18/2020 3:07 PM / 15:07 PST
 By Thomas Børn Stefanos, game developer for Apple Mod
 ----------------------------------
-Soon, you will be able to compete in games with your friends and 
-other members in the server! Yes, it's like ranking. The
-feature will be debuted soon, watch out!
+**MODERATORS**
+You don't have to worry about rule breakers while you sleep
+because Apple Moderator will do it for you!
+
+The command is `.sentrymode`. Coming soon!

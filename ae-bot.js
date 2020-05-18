@@ -23,8 +23,8 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '8.6.01.414 build 221'
-codename = 'Security Camera'
+version = '8.6.02.381 build 371.2'
+codename = 'Overbrook'
 footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
@@ -182,7 +182,7 @@ if (fs.existsSync(`./strings.json`)){
 	const ErrorReportEmbed = new Discord.MessageEmbed()
 		ErrorReportEmbed.setColor('#FF0000')
 		ErrorReportEmbed.setTitle('Bot Error')
-		ErrorReportEmbed.setDescription(`An error has occurred while the bot running.`)
+		ErrorReportEmbed.setDescription(`An error has occurred while the bot was running.`)
 		ErrorReportEmbed.addFields(
 			{ name: 'Error information', value: `${error}`, inline: false },
 		)

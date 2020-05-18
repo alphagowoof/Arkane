@@ -12,7 +12,7 @@ module.exports = {
       const arg = message.content.slice('').trim().split(/ +/g); 
       try {
          if(arg[1] === 'init'){
-            fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
+            fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', err => {
                 if(err) {
                     fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', JSON.stringify({
                         "triviawins" : 0, 
