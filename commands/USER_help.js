@@ -79,7 +79,7 @@ module.exports = {
                     { name: 'Commands', value: data, inline: true },
                 )
                 .setTimestamp()
-                .setFooter('Help command');
+                .setFooter(footertext);
             
 				return message.channel.send(helpEmbed)
 				}
@@ -87,7 +87,7 @@ module.exports = {
 					if(args[0].toLowerCase() == 'user'){
 						const result = getCommandList(false, false, message.author.id, true)
 						const helpInfoEmbed = new Discord.MessageEmbed()
-						helpInfoEmbed.setColor('#0099ff')
+						helpInfoEmbed.setColor(helpEmbedColor)
 						helpInfoEmbed.setTitle('Commands in '+args[0])
 						helpInfoEmbed.addField('Commands', `${result}`, false)
 						helpInfoEmbed.setFooter(footertext);
@@ -96,7 +96,7 @@ module.exports = {
 					}else if(args[0].toLowerCase() == 'mod'){
 						const result = getCommandList(true, false, message.author.id, false)
 						const helpInfoEmbed = new Discord.MessageEmbed()
-						helpInfoEmbed.setColor('#0099ff')
+						helpInfoEmbed.setColor(helpEmbedColor)
 						helpInfoEmbed.setTitle('Commands in '+args[0])
 						helpInfoEmbed.addField('Commands', `${result}`, false)
 						helpInfoEmbed.setFooter(footertext);
@@ -105,7 +105,7 @@ module.exports = {
 					}else if((`${args[0]} ${args[1]}`).toLowerCase() == 'bot manager'){
 						const result = getCommandList(false, true, message.author.id, false)
 						const helpInfoEmbed = new Discord.MessageEmbed()
-						helpInfoEmbed.setColor('#0099ff')
+						helpInfoEmbed.setColor(helpEmbedColor)
 						helpInfoEmbed.setTitle('Commands in '+args[0] +' '+ args[1])
 						helpInfoEmbed.addField('Commands', `${result}`, false)
 						helpInfoEmbed.setFooter(footertext);
