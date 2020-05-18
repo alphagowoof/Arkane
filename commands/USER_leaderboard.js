@@ -71,7 +71,9 @@ module.exports = {
             const roWins = stats["roulettewins"]
             const roLosses = stats["roulettelosses"]
             const romWins = stats["rouletteminorwins"]
-              respond('🎮 Game Leaderboard', message.author.tag + ', here are your Leaderboard stats:\n**Trivia**\nCorrect answers: ' + tWins + "\nWrong answers: " + tLosses + '\n**Cryptogram**\nSuccessful digital heists: ' + cWins + "\nInfected computers: " + cLosses + '\n**Roll Dice Game**\nHigh rolls: ' + rWins + "\nLosing rolls: " + rLosses + '\n**Slots**\nJackpots hit: ' + sWins + "\nMinor wins hit: " + smWins + "\nLosing rolls: " + sLosses + '\n**Roulette**\nWinning rolls: ' + roWins + "\nMinor winning rolls:" + romWins + "\nLosing rolls: " + roLosses, message.channel)
+            const roAllWins = roWins + romWins
+            const rWLrate = roAllWins/stats["rdglosses"]*100
+              respond('🎮 Game Leaderboard', message.author.tag + ', here are your Leaderboard stats:\n__**-=Trivia=-**__\nCorrect answers: ' + tWins + "\nWrong answers: " + tLosses + '\n__**-=Cryptogram=-**__\nSuccessful digital heists: ' + cWins + "\nInfected computers: " + cLosses + '\n__**-=Roll Dice Game=-**__\nHigh rolls: ' + rWins + "\nLosing rolls: " + rLosses + '\n__**-=Slots=-**__\nJackpots hit: ' + sWins + "\nMinor prize rolls hit: " + smWins + "\nLosing rolls: " + sLosses + '\n__**-=Roulette=-**__\nWinning rolls: ' + roWins + "\nMinor winning rolls: " + romWins + "\nLosing rolls: " + roLosses, message.channel)
               return
             } else if(error) {
               respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
