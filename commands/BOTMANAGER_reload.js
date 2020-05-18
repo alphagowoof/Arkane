@@ -2,7 +2,7 @@ module.exports = {
 	name: 'reload',
 	description: 'Reloads a command',
 	aliases: ['fetch'],
-	usage: '[command type | <mod/botmanager/user>] [command name or alias]',
+	usage: '[command type | <mod/botmanager/user>] [EXACT command name]',
 	cooldown: 0,
 	botmanager:true,
 	mod:true,
