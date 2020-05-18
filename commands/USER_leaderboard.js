@@ -12,9 +12,13 @@ module.exports = {
       const arg = message.content.slice('').trim().split(/ +/g); 
       try {
          if(arg[1] === 'init'){
+<<<<<<< Updated upstream
             fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
+=======
+            fs.readFile('../leaderboards/' + message.author.id + '_gamestats.json', err => {
+>>>>>>> Stashed changes
                 if(err) {
-                    fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', JSON.stringify({
+                    fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', JSON.stringify({
                         "triviawins" : 0, 
                         "trivialosses" : 0,
                         "cryptwins" : 0, 
@@ -22,7 +26,10 @@ module.exports = {
                         "rdgwins" : 0, 
                         "rdglosses" : 0,
                         "slotswins" : 0, 
-                        "slotslosses" : 0
+                        "slotslosses" : 0,
+                        "slotsminorwins" : 0,
+                        "roulettewins" : 0, 
+                        "roulettelosses" : 0
                     }), (err) => {if(err)console.log(err)});
                     console.log(message.author.tag + " is ready to compete.");
                     respond('🎮 Game Leaderboard', 'Your Leaderboard data has been initialized.\nGo compete with other members in the server!' , message.channel);
@@ -33,6 +40,7 @@ module.exports = {
                     return
                 }
             })
+<<<<<<< Updated upstream
           }
           if(arg[1] === 'wipe'){
             console.log("If you see this message and nothing is under it, check code!")
@@ -43,6 +51,18 @@ module.exports = {
                     console.log(message.author.id + " quit the leaderboards.")
                             respond('🎮 Game Leaderboard', 'Your Leaderboard stats have been successfully wiped.', message.channel);
                             return
+=======
+          } else if(arg[1] === 'reset'){
+            fs.existsSync('./leaderboards/' + message.author.id + '_gamestats.json', err => {
+                if(!err) {
+                    fs.unlink('./leaderboards/' + message.author.id + '_gamestats.json', err => {
+                        if(!err) {
+                            respond('🎮 Game Leaderboard', 'Your Leaderboard stats have benen successfully wiped.\nType `leaderboard init` to start competing again.', message.channel);
+                        }else {
+                            respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
+                        }
+                    })
+>>>>>>> Stashed changes
                 } else {
                     respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
                     return
@@ -50,11 +70,16 @@ module.exports = {
              })
           } else if(arg[1] === 'info'){
             respond('🎮 About Game Leaderboard', 'Version: 1.0.1.145 build 004\nAuthor: Thomas Stefanos/[thomas swim]' , message.channel)
+<<<<<<< Updated upstream
             return
           } else if(!arg[1]){
         fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+=======
+          }else if(!arg[1]){
+        fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
+>>>>>>> Stashed changes
             if (!error) {
-            const stats = require('../leaderboards/' + message.author.tag + '_gamestats.json')
+            const stats = require('../leaderboards/' + message.author.id + '_gamestats.json')
             const tWins = stats["triviawins"]
             const tLosses = stats["trivialosses"]
             const cWins = stats["cryptwins"]
@@ -63,7 +88,10 @@ module.exports = {
             const rLosses = stats["rdglosses"]
             const sWins = stats["slotswins"]
             const sLosses = stats["slotslosses"]
-              respond('🎮 Game Leaderboard', message.author.tag + ', here are your Leaderboard stats:\n**Trivia**\nCorrect answers: ' + tWins + "\nWrong answers: " + tLosses + '\n**Cryptogram**\nSuccessful digital heists: ' + cWins + "\nInfected computers: " + cLosses + '\n**Roll Dice Game**\nHigh rolls: ' + rWins + "\nLosing rolls: " + rLosses + '\n**Slots**\nJackpots hit: ' + sWins + "\nLosing rolls: " + sLosses, message.channel)
+            const smWins = stats["slotsminorwins"]
+            const roWins = stats["roulettewins"]
+            const roLosses = stats["roulettelosses"]
+              respond('🎮 Game Leaderboard', message.author.tag + ', here are your Leaderboard stats:\n**Trivia**\nCorrect answers: ' + tWins + "\nWrong answers: " + tLosses + '\n**Cryptogram**\nSuccessful digital heists: ' + cWins + "\nInfected computers: " + cLosses + '\n**Roll Dice Game**\nHigh rolls: ' + rWins + "\nLosing rolls: " + rLosses + '\n**Slots**\nJackpots hit: ' + sWins + "\nMinor wins hit: " + smWins + "\nLosing rolls: " + sLosses + '\n**Roulette**\nHigh rolls: ' + roWins + "\nLosing rolls: " + roLosses, message.channel)
               return
             } else if(error) {
               respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);

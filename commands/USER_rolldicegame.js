@@ -92,18 +92,18 @@ module.exports = {
     function actualwinner() {
     if (numberApModmul < numbermul) {
       // You win!
-      fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+      fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
         if(error) {
           console.log("dice roll win. no leaderboard update.")
         } else {
         console.log('dice roll win')
-        jsonfile = require('../leaderboards/' + message.author.tag + '_gamestats.json');
+        jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
         jsonfile.rdgwins = Number(jsonfile.rdgwins)+1;
         data = JSON.stringify(jsonfile)
-        fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
+        fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
             if (err) throw err;
             else {
-              console.log("Successfully updated Rolldicegame game stats of " + message.author.tag + ".")
+              console.log("Successfully updated Rolldicegame game stats of " + message.author.id + ".")
             }
         })
       }
@@ -112,18 +112,18 @@ module.exports = {
       return
     } else if (numberApModmul > numbermul){
       // lol you lose
-      fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+      fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
         if(error) {
           console.log("dice roll lose. no leaderboard update.")
         } else {
         console.log('dice roll lose')
-        jsonfile = require('../leaderboards/' + message.author.tag + '_gamestats.json');
+        jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
         jsonfile.rdglosses = Number(jsonfile.rdglosses)+1;
         data = JSON.stringify(jsonfile)
-        fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
+        fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
             if (err) throw err;
             else {
-              console.log("Successfully updated Rolldicegame game stats of " + message.author.tag + ".")
+              console.log("Successfully updated Rolldicegame game stats of " + message.author.id + ".")
             }
         })
       }

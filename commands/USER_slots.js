@@ -41,43 +41,64 @@ module.exports = {
          console.log("Slot 2. " + slot2)
          console.log("Slot 3. " + slot3)
           if (slot1 == slot2 && slot2 == slot3) {
-            fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+            fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
               if(error) {
                 console.log("Match. Win. No leaderboard update.")
                 respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You win this one!\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
                 return
               } else {
                 console.log("Match. Win.")
-              jsonfile = require('../leaderboards/' + message.author.tag + '_gamestats.json');
+              jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
               jsonfile.slotswins = Number(jsonfile.slotswins)+1;
               data = JSON.stringify(jsonfile)
-              fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
+              fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
                   if (err) throw err;
                   else {
-                    console.log("Successfully updated Slots game stats of " + message.author.tag + ".")
+                    console.log("Successfully updated Slots game stats of " + message.author.id + ".")
                   }
               })
             }
           })
             respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You win this one!\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
             return
-            }
+            } else if (slot1 == slot2 || slot1 == slot3) {
+              fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
+                if(error) {
+                  console.log("Match. Minor Win. No leaderboard update.")
+                  respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You've won a minor victory.\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
+                  return
+                } else {
+                  console.log("Match. Minor Win.")
+                jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
+                jsonfile.slotsminorwins = Number(jsonfile.slotsminorwins)+1;
+                data = JSON.stringify(jsonfile)
+                fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
+                    if (err) throw err;
+                    else {
+                      console.log("Successfully updated Slots game stats of " + message.author.id + ".")
+                    }
+                })
+              }
+            })
+              respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You've won a minor victory.\nThink carefully before you gamble in real life Vegas.\nThe .slots command is only a simulation." , message.channel)
+              return
+              }
             if (slot1 !== slot2 !== slot3) {
             if (slot1 != slot2 && slot2 != slot3) {
-              fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
+              fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
                 if(error) {
                   console.log("Mismatch. Lose. No leaderboard update.")
                   respond('Slots', "<@" + message.author.id + ">'s slot game:\n" + slot1 + "   " + slot2 + "   " + slot3 + "\n" + "You lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you." , message.channel)
                   return
                 } else {
                   console.log("Mismatch. Lose.")
-                jsonfile = require('../leaderboards/' + message.author.tag + '_gamestats.json');
+                jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
                 jsonfile.slotslosses = Number(jsonfile.slotslosses)+1;
                 data = JSON.stringify(jsonfile)
-                fs.writeFile('./leaderboards/' + message.author.tag + '_gamestats.json', data, (err) => {
+                fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
                     if (err) throw err;
                     else {
-                      console.log("Successfully updated Slots game stats of " + message.author.tag + ".")
+                      console.log("Successfully updated Slots game stats of " + message.author.id + ".")
                     }
                 })
               }
