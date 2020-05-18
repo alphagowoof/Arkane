@@ -706,40 +706,6 @@ client.on('message', message => {
 }
 })
 
-// Sentry mode filter for rule 7
-client.on('message', message => {
-	const info = require('./config.json');
-	if(message.channel.type == 'dm')return;
-	if(sentrymode == true) {
-		if(message.member.roles.cache.some(role => role.id !== ModeratorRoleID)){
-	var dict = require("./rules.json"); // The JSON data to load from
-	const sentry5 = require('./sentrymode/sentry_p5.json');
-	var editedMessage = message.content.replace(/\*/g, "bad")
-	var editedMessage = editedMessage.replace(/\_/g, "bad")
-	var blocked = sentry5.filter(word => editedMessage.toLowerCase().includes(word));
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-	var dateTime = date+' '+time;
-	if (blocked.length > 0) {
-		if(blocked == `${blocked}`)
-			console.log(`${message.author.tag} tried to break rule 7. Logged word/phrase: ${blocked}`);
-			respond('',`<@${message.author.id}>, do not break rule 7. The moderators have been notified.`, message.channel, 'FFFF00')
-			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rule 7.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
-			respond('Rule 7 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rule 7 next time.\nYour message: ${reason}`, message.author)
-			const RuleEmbed = new Discord.MessageEmbed()
-			.setTitle('About Rule 7')
-			.setDescription(dict.Rule7)
-			.setTimestamp()
-			message.channel.send(RuleEmbed);
-			return;
-	} else {
-		return
-	}
-}}
-})
-
 // Sentry mode filter for rule 9
 client.on('message', message => {
 	if(message.channel.type == 'dm')return;
