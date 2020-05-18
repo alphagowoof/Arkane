@@ -1,7 +1,7 @@
 module.exports = {
     name: 'leaderboard',
     aliases: ['lb', 'gamelb', 'rank', 'gamerank'],
-    description: '**This is a game command.**\nFeeling competitive? Check who\'s on top with this command!\n**Start by typing `.leaderboard init`!**\nWant to start over? Type `.leaderboard reset`.',
+    description: '**This is a game command.**\nFeeling competitive? Check who\'s on top with this command!\n**Start by typing `.leaderboard init`!**\nWant to start over? Type `.leaderboard wipe`.',
     usage: '',
     cooldown: 0,
     hidden: true,
@@ -12,11 +12,7 @@ module.exports = {
       const arg = message.content.slice('').trim().split(/ +/g); 
       try {
          if(arg[1] === 'init'){
-<<<<<<< Updated upstream
             fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', err => {
-=======
-            fs.readFile('../leaderboards/' + message.author.id + '_gamestats.json', err => {
->>>>>>> Stashed changes
                 if(err) {
                     fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', JSON.stringify({
                         "triviawins" : 0, 
@@ -40,7 +36,6 @@ module.exports = {
                     return
                 }
             })
-<<<<<<< Updated upstream
           }
           if(arg[1] === 'wipe'){
             console.log("If you see this message and nothing is under it, check code!")
@@ -51,18 +46,6 @@ module.exports = {
                     console.log(message.author.id + " quit the leaderboards.")
                             respond('🎮 Game Leaderboard', 'Your Leaderboard stats have been successfully wiped.', message.channel);
                             return
-=======
-          } else if(arg[1] === 'reset'){
-            fs.existsSync('./leaderboards/' + message.author.id + '_gamestats.json', err => {
-                if(!err) {
-                    fs.unlink('./leaderboards/' + message.author.id + '_gamestats.json', err => {
-                        if(!err) {
-                            respond('🎮 Game Leaderboard', 'Your Leaderboard stats have benen successfully wiped.\nType `leaderboard init` to start competing again.', message.channel);
-                        }else {
-                            respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
-                        }
-                    })
->>>>>>> Stashed changes
                 } else {
                     respond('🎮 Game Leaderboard', 'Your Leaderboard stats do not exist.\nType `leaderboard init` to start competing with other members in the server!', message.channel);
                     return
@@ -70,14 +53,9 @@ module.exports = {
              })
           } else if(arg[1] === 'info'){
             respond('🎮 About Game Leaderboard', 'Version: 1.0.1.145 build 004\nAuthor: Thomas Stefanos/[thomas swim]' , message.channel)
-<<<<<<< Updated upstream
             return
           } else if(!arg[1]){
         fs.readFile('./leaderboards/' + message.author.tag + '_gamestats.json', error => {
-=======
-          }else if(!arg[1]){
-        fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
->>>>>>> Stashed changes
             if (!error) {
             const stats = require('../leaderboards/' + message.author.id + '_gamestats.json')
             const tWins = stats["triviawins"]
