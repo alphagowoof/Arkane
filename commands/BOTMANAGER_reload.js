@@ -40,6 +40,7 @@ module.exports = {
 			console.error('an error has occured', error);
 			return
 		}
+		console.log(`The command ${modcommandType}_${modcommandName}.js has been reloaded.`)
 		respond('',`Command \`${modcommandName}\` was reloaded!`,message.channel);
 	},
 };

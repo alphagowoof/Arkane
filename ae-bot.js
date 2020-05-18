@@ -708,10 +708,11 @@ client.on('message', message => {
 
 // Sentry mode filter for rule 7
 client.on('message', message => {
-	if(message.channel.type == 'dm')return;
-	if(sentrymode == true && !message.member.roles.cache.some(role => role.id == ModeratorRoleID)) {
-	var dict = require("./rules.json"); // The JSON data to load from
 	const info = require('./config.json');
+	if(message.channel.type == 'dm')return;
+	if(sentrymode == true) {
+		if(message.member.roles.cache.some(role => role.id !== ModeratorRoleID)){
+	var dict = require("./rules.json"); // The JSON data to load from
 	const sentry5 = require('./sentrymode/sentry_p5.json');
 	var editedMessage = message.content.replace(/\*/g, "bad")
 	var editedMessage = editedMessage.replace(/\_/g, "bad")
@@ -736,7 +737,7 @@ client.on('message', message => {
 	} else {
 		return
 	}
-}
+}}
 })
 
 // Sentry mode filter for rule 9

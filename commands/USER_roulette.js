@@ -101,17 +101,18 @@ module.exports = {
               })
             }
           })
+          respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType +  "\nYou win this one!\nThink carefully before you gamble in real life Vegas.\nThe .roulette command is only a simulation.", message.channel)
             return
           } else {
             fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
               if(error) {
-                console.log("Roulette win. No leaderboard update.")
+                console.log("Roulette lose. No leaderboard update.")
                 respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType + "\nYou lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you.", message.channel)
                 return
               } else {
                 console.log("Match. Minor Win.")
               jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
-              jsonfile.roulettewins = Number(jsonfile.roulettewins)+1;
+              jsonfile.roulettelosses = Number(jsonfile.roulettelosses)+1;
               data = JSON.stringify(jsonfile)
               fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
                   if (err) throw err;
@@ -121,6 +122,7 @@ module.exports = {
               })
             }
           })
+          respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType + "\nYou lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you.", message.channel)
             return
           }
         }
@@ -132,7 +134,7 @@ module.exports = {
                 respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType +  "\nYou win this one!\nThink carefully before you gamble in real life Vegas.\nThe .roulette command is only a simulation.", message.channel)
                 return
               } else {
-                console.log("Match. Minor Win.")
+                console.log("Roulette win.")
               jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
               jsonfile.roulettewins = Number(jsonfile.roulettewins)+1;
               data = JSON.stringify(jsonfile)
@@ -144,17 +146,18 @@ module.exports = {
               })
             }
           })
+          respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType +  "\nYou win this one!\nThink carefully before you gamble in real life Vegas.\nThe .roulette command is only a simulation.", message.channel)
             return
           } else {
             fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
               if(error) {
-                console.log("Roulette win. No leaderboard update.")
+                console.log("Roulette lose. No leaderboard update.")
                 respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType + "\nYou lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you.", message.channel)
                 return
               } else {
-                console.log("Match. Minor Win.")
+                console.log("Roulette lose.")
               jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
-              jsonfile.roulettewins = Number(jsonfile.roulettewins)+1;
+              jsonfile.roulettelosses = Number(jsonfile.roulettelosses)+1;
               data = JSON.stringify(jsonfile)
               fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
                   if (err) throw err;
@@ -164,6 +167,7 @@ module.exports = {
               })
             }
           })
+          respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType + "\nYou lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you.", message.channel)
             return
           }
         }
@@ -175,7 +179,7 @@ module.exports = {
                 respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType +  "\nYou win this one!\nThink carefully before you gamble in real life Vegas.\nThe .roulette command is only a simulation.", message.channel)
                 return
               } else {
-                console.log("Match. Minor Win.")
+                console.log("Roulette win.")
               jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
               jsonfile.roulettewins = Number(jsonfile.roulettewins)+1;
               data = JSON.stringify(jsonfile)
@@ -187,17 +191,18 @@ module.exports = {
               })
             }
           })
+          respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType +  "\nYou win this one!\nThink carefully before you gamble in real life Vegas.\nThe .roulette command is only a simulation.", message.channel)
             return
           } else {
             fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
               if(error) {
-                console.log("Roulette win. No leaderboard update.")
+                console.log("Roulette lose. No leaderboard update.")
                 respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType + "\nYou lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you.", message.channel)
                 return
               } else {
-                console.log("Match. Minor Win.")
+                console.log("Roulette lose.")
               jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
-              jsonfile.roulettewins = Number(jsonfile.roulettewins)+1;
+              jsonfile.roulettelosses = Number(jsonfile.roulettelosses)+1;
               data = JSON.stringify(jsonfile)
               fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
                   if (err) throw err;
@@ -207,6 +212,7 @@ module.exports = {
               })
             }
           })
+          respond('Roulette', "You guessed: " + arg[1] + "\nThe roulette table says: " + rouletteroll + ", " + rouletteColor + ", " + rouletteNumberType + "\nYou lose this one.\nIf you want to gamble in Vegas, it's a bad idea for you.", message.channel)
             return
           }
         }
