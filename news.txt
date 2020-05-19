@@ -1,9 +1,7 @@
 Apple Mod News
-5/18/2020 3:07 PM / 15:07 PST
-By Thomas Børn Stefanos, game developer for Apple Mod
-----------------------------------
-**MODERATORS**
-You don't have to worry about rule breakers while you sleep
-because Apple Moderator will do it for you!
+5/18/2020 7:27 PM CST
+By Derpi, Moderator for Apple Explained and developer for Apple Mod
+---------------------------------------------------------------------
+The leaderboard function is now public! Compete with your friends
+to see who has the top score! Have fun with this feature!
 
-The command is `.sentrymode`. Coming soon!
