@@ -1,7 +1,10 @@
 Apple Mod News
-5/18/2020 7:27 PM CST
-By Derpi, Moderator for Apple Explained and developer for Apple Mod
+5/20/2020 1:43 AM CST
+By Derpi, Head Developer for Apple Mod
 ---------------------------------------------------------------------
-The leaderboard function is now public! Compete with your friends
-to see who has the top score! Have fun with this feature!
-
+Today is an unfortunate day. Our best member, Daniel,
+has resigned from the Apple Mod development team.
+Daniel, we wish you the best of luck in future endeavors.
+Thanks for all of your hard work, Daniel.
+But, we did find a replacement soon after.
+Avery R - Welcome to the team!
