@@ -941,7 +941,7 @@ function clean(text) {
 					if(error)console.log(error)
 				});
 				console.log('WARNING: SAFE MODE ACTIVE')
-				respond('', '✅', message.channel)
+				respond('Safe Mode', '✅ Successfully switched to Safe Mode.', message.channel)
 				return;
 			  } catch (error) {
 					respond('Error', `${error}`, message.channel)
@@ -950,16 +950,42 @@ function clean(text) {
 			  console.error('an error has occured', error);
 			  }}}
   );
+client.on('message',message =>{
+	if (message.content.startsWith(prefix + "entersafemode",)) {
+		if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+		try {
+			safemode = true
+			fs.writeFileSync('./safe_mode.flag', (error) => {
+				if(error)console.log(error)
+			});
+			console.log('WARNING: SAFE MODE ACTIVE')
+			respond('Safe Mode', '✅ Successfully switched to Safe Mode.', message.channel)
+			return;
+		  } catch (error) {
+				respond('Error', `${error}`, message.channel)
+		  errorlog(error)
+		  // Your code broke (Leave untouched in most cases)
+		  console.error('an error has occured', error);
+		  }}
+});
   client.on('message',message => { 
   if (message.content.startsWith(prefix + "exitsafemode")) {
 	if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 	try {
 		safemode = false
-		fs.unlinkSync('./safe_mode.flag', (error) => {
-			if(error)console.log(error)
-		});
-		console.log('WARNING: SAFE MODE ACTIVE')
-		respond('', '✅', message.channel)
+		fs.readFile('./safe_mode.flag', (error) => {
+			if(!error) {
+			fs.unlinkSync('./safe_mode.flag', (error) => {
+				if(error)console.log(error)
+			});
+			console.log('WARNING: SAFE MODE ACTIVE')
+			respond('Safe Mode', '✅ Successfully deactivated Safe mode.', message.channel)
+		}
+		    else {
+				respond('Safe Mode', 'Safe Mode has already been deactivated!', message.channel)
+			}
+		})
+
 	  } catch (error) {
 			respond('Error', `${error}`, message.channel)
 	  errorlog(error)
