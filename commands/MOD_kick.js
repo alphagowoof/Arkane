@@ -23,7 +23,7 @@ module.exports = {
 			respond('⬅️ Kick','<@'+user.id+'> was kicked from the server.\nReason: '+auditreason, message.channel)
 			respond('⬅️ Kick','You have been kicked from the server. You may rejoin at anytime.\n\nReason for kick: '+auditreason, user)
 			modaction(this.name, message.author.tag, message.channel.name, message.content)
-			message.members.mentions.first().user.kick({reason: `${message.author.tag} | ${auditreason}`})
+			message.mentions.members.first().kick({reason: `${message.author.tag} | ${auditreason}`})
 		}catch(error) {
 			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
 			errorlog(error)

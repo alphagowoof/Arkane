@@ -84,7 +84,7 @@ client.once('ready', () => {
 			}
 		})
 		}
-	if (fs.existsSync(`./sentry_mode.flag`)){
+	if (fs.existsSync(`./sentry_mode.flag`) && safemode != true){
 		fs.readFile('./sentry_mode.flag', function(err, data){
 			if(err){return}else{
 				if(data)
@@ -577,6 +577,7 @@ client.on('message', message => {
 // Sentry mode filter for rules 2-3
 client.on('message', message => {
 	if(message.channel.type == 'dm')return;
+	if(safemode == true)return;
 	if(sentrymode == true) {
 	var dict = require("./rules.json"); // The JSON data to load from
 	const info = require('./config.json');
@@ -912,6 +913,10 @@ function clean(text) {
 	const args = message.content.split(" ").slice(1);
    
 	if (message.content.startsWith(prefix + "eval")) {
+		if(safemode == true){
+			respond('', `❌ This command is not available while in safe mode.`, message.channel)
+			return
+		}
 	  if(message.author.id !== OwnerID){respond('❌ Bot Owner Command Only', 'This command can only be ran by the bot owner.', message.channel);return;}
 	  try {
 		const code = args.join(" ");
@@ -939,7 +944,7 @@ function clean(text) {
 				respond('', '✅', message.channel)
 				return;
 			  } catch (error) {
-					respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+					respond('Error', `${error}`, message.channel)
 			  errorlog(error)
 			  // Your code broke (Leave untouched in most cases)
 			  console.error('an error has occured', error);
@@ -956,7 +961,7 @@ function clean(text) {
 		console.log('WARNING: SAFE MODE ACTIVE')
 		respond('', '✅', message.channel)
 	  } catch (error) {
-			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+			respond('Error', `${error}`, message.channel)
 	  errorlog(error)
 	  // Your code broke (Leave untouched in most cases)
 	  console.error('an error has occured', error);
@@ -977,7 +982,7 @@ function clean(text) {
 				console.log('Sentry mode is active.')
 				respond('<:sus:662817457425219614> Sentry Mode', '✅ Successfully activated Sentry Mode.\nThe mods may not be here, but I\'ll be watching you... <:sus:662817457425219614>', message.channel)
 			} catch (error) {
-					respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+					respond('Error', `${error}`, message.channel)
 			errorlog(error)
 			// Your code broke (Leave untouched in most cases)
 			console.error('an error has occured', error);
@@ -998,7 +1003,7 @@ function clean(text) {
 				console.log('Sentry mode is active.')
 				respond('👀 Sentry Mode', '✅ Successfully deactivated Sentry Mode.\nHello, moderators! I\'ve stood guard while you\'re out! 👀', message.channel)
 			} catch (error) {
-					respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+					respond('Error', `${error}`, message.channel)
 			errorlog(error)
 			// Your code broke (Leave untouched in most cases)
 			console.error('an error has occured', error);

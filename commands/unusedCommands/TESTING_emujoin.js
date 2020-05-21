@@ -8,7 +8,7 @@ module.exports = {
   hidden:true,
 	execute(message, args, client) {
     if(message.mentions.members.size == 0){
-      client.emit("guildMemberAdd", message.member)
+      client.emit("guildMemberAdd", message.author)
       respond('✅', `<@${message.author.id}> has "joined" the server.`, message.channel)
     }else{
       client.emit("guildMemberAdd", message.mentions.members.first())
