@@ -11,7 +11,10 @@ module.exports = {
     const userlog = require('../logs/userwarnings.json')
     try {
       const mentionedUser = message.mentions.users.first()
-
+      if(!mentionedUser){
+        respond(``, `No member was mentioned.`, message.channel)
+        return;
+      }
         const memberinfoembed = new Discord.MessageEmbed()
         .setColor('#00FF00')
         .setTitle('User Information')
@@ -19,6 +22,11 @@ module.exports = {
         .setDescription(`Member ID: ${mentionedUser.id}\n\nAccount creation date: ${mentionedUser.createdAt}\n\nServer join date: ${message.mentions.members.first().joinedAt}`)
         .setTimestamp()
         message.channel.send(memberinfoembed)
+
+        if(!userlog[mentionedUser.id]){
+          respond(``, `No entries found for this user in the user log.`, message.channel)
+          return;
+        }
 
         const embed = new Discord.MessageEmbed()
         .setTitle('User Log')
