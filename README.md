@@ -1,12 +1,10 @@
 # Apple-Explained-Moderation-Bot
-A moderation bot for Apple Explained Discord server.
+A moderation bot for the Apple Explained Discord server.
 
 ## Config files
-`info.json` is where you put the channel/role IDs for the bot to use.
+`config.json` is where you put the channel/role IDs, bot token, prefix, and other stuff.
 
-`config.json` is where you put your bot token and prefix.
-
-`strings.json` is where you put the string when a moderator permission is required.
+`restrictions.json` is where you can disable commands and restrict them to certain channels.
 
 ## Setup
 
@@ -16,3 +14,8 @@ A moderation bot for Apple Explained Discord server.
 4. Move the configs from `/config_templates` to the main bot folder.
 5. Edit the configs as you wish.
 6. Run `node ae-bot.js`.
+
+## Support
+
+If you need any support, please join our Discord server.
+https://discord.gg/rPAyzNs

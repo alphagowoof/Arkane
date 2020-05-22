@@ -8,7 +8,7 @@ module.exports = {
   hidden:true,
 	execute(message, args, client) {
     if(message.mentions.members.size == 0){
-      client.emit("guildMemberRemove", message.member)
+      client.emit("guildMemberRemove", message.author)
       respond('⬅️', `<@${message.author.id}> has "left" the server.`, message.channel)
     }else{
       client.emit("guildMemberRemove", message.mentions.members.first())

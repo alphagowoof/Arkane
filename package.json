@@ -1,5 +1,5 @@
 {
-  "name": "AE_Moderator",
+  "name": "ae_moderator",
   "version": "1.0.0",
   "description": "Discord bot for the Apple Explained Discord server",
   "main": "ae-bot.js",

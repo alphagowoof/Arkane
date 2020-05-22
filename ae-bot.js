@@ -23,15 +23,21 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '8.1.1.219 build 013'
-footertext = 'Version '+ version
+version = '8.6.02.381 build 371.2'
+codename = 'Overbrook'
+footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
 
 if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is missing.')
-
+// Increase number of message listeners
+require('events').EventEmitter.defaultMaxListeners = 20;
+// Auto safe mode
 if (fs.existsSync(`./errorcount.txt`)){
 fs.readFile('./errorcount.txt', function(err, data){
+	if (fs.existsSync(`./safe_mode.flag`)){
+		console.log('WARNING: SAFE MODE ACTIVE')
+	}
 	console.log(err)
 	console.log(data)
 	console.log(Number(data.toString().replace('<', '').replace('>', '').replace('Buffer', '')))
@@ -39,23 +45,32 @@ fs.readFile('./errorcount.txt', function(err, data){
 		if(data)
 		if(data > 3){
 			var safemode = true
+			fs.writeFileSync('./safe_mode.flag', (error) => {
+				if(error)console.log(error)
+			});
 			console.log('WARNING: SAFE MODE ACTIVE')
 		}
 	}
 })
 }
+// Auto sentry mode
+if (fs.existsSync(`./sentry_mode.flag`)){
+	var sentrymode = true
+}
 //Bot ready
 client.once('ready', () => {
 	console.log('Version '+version)
+	console.log('Codename '+codename)
 	console.log('Ready!');
 	if (fs.existsSync(`./errorcount.txt`)){
 		fs.readFile('./errorcount.txt', function(err, data){
 			if(err){return}else{
 				if(data)
-				if(data > 3){
+				if (fs.existsSync(`./safe_mode.flag`)){
+					safemode = true
 					console.log('Safe mode found')
-			var titleofstartup = 'Bot Started - Safe Mode'
-			var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode. To deactivate safe mode, restart using the restart command, delete the `errorcount.txt` file, or use .exitsafemode.'
+			var titleofstartup = 'Bot Started - Safe Mode Activated'
+			var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode. To deactivate safe mode, restart using the restart command, delete these files (`errorcount.txt`, `safe_mode.flag`, `runstate.txt`), or use the exitsafemode command.'
 			const StartupEmbed = new Discord.MessageEmbed()
 			.setColor('#ff0000')
 			.setTitle(titleofstartup)
@@ -69,6 +84,28 @@ client.once('ready', () => {
 			}
 		})
 		}
+	if (fs.existsSync(`./sentry_mode.flag`) && safemode != true){
+		fs.readFile('./sentry_mode.flag', function(err, data){
+			if(err){return}else{
+				if(data)
+				if (fs.existsSync(`./sentry_mode.flag`)){
+					safemode = true
+					console.log('Sentry mode found')
+			var titleofstartup = 'Sentry Mode Activated'
+			var descriptionofstartup = 'Bot has booted into Sentry Mode. The bot will be the moderator for you.'
+			const StartupEmbed = new Discord.MessageEmbed()
+			.setColor('29BF00')
+			.setTitle(titleofstartup)
+			.setDescription(descriptionofstartup)
+			.setTimestamp()
+			.setFooter("\nSentry Mode by [thomas swim]")
+			modlog = client.channels.cache.get(`${BotLog}`);
+			modlog.send(StartupEmbed);
+			return;
+				}
+			}
+		})
+	}
 		const path = './runstate.txt'
 		if (fs.existsSync(path) && CrashNotify == true) {
 			client.emit("StartupIssue")
@@ -145,7 +182,7 @@ if (fs.existsSync(`./strings.json`)){
 	const ErrorReportEmbed = new Discord.MessageEmbed()
 		ErrorReportEmbed.setColor('#FF0000')
 		ErrorReportEmbed.setTitle('Bot Error')
-		ErrorReportEmbed.setDescription(`An error has occurred while the bot running.`)
+		ErrorReportEmbed.setDescription(`An error has occurred while the bot was running.`)
 		ErrorReportEmbed.addFields(
 			{ name: 'Error information', value: `${error}`, inline: false },
 		)
@@ -184,11 +221,13 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	const commandListMod = [];
 	const commandListBotManager = [];
 	var commandList = []
+	var restrictions = require('./restrictions.json')
+	var commandEssential = restrictions[2];
 	for (const file of findCommandListUser) {
 		const command = require(`./commands/${file}`);
 		commandListUser.join(' ')
-		if(!command.hidden == true){
-			if(safemode == true && command.essential == true){
+		if(!command.hidden == true || safemode ==true){
+			if(safemode == true && commandEssential && commandEssential[command.name] == true){
 				commandListUser.push(command.name)
 				console.log(command.name)	
 			}else{
@@ -203,8 +242,8 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	if(modCheck == true){
 		for (const file of findCommandListMod) {
 		const command = require(`./commands/${file}`);
-		if(!command.hidden == true){
-			if(safemode == true && command.essential == true){
+		if(!command.hidden == true || safemode ==true){
+			if(safemode == true && commandEssential && commandEssential[command.name] == true){
 				commandListMod.push(command.name)
 				console.log(command.name)
 			}else{
@@ -221,8 +260,8 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	for (const file of findCommandListBotManager) {
 		const command = require(`./commands/${file}`);
 		commandListBotManager.join(' ')
-		if(!command.hidden == true){
-			if(safemode == true && command.essential == true){
+		if(!command.hidden == true || safemode ==true){
+			if(safemode == true && commandEssential && commandEssential[command.name] == true){
 				commandListBotManager.push(command.name)
 				console.log(command.name)
 			}else{
@@ -292,10 +331,18 @@ client.on('message', async message => {
 		var restrictions = require('./restrictions.json');
 		var channelRestrictions = restrictions[0];
 		var commandDisabled = restrictions[1];
+		var commandEssential = restrictions[2];
 
-	if(safemode == true && command.essential != true){
+
+	if(!command){
 		return;
 	}
+	
+	if(safemode == true && commandEssential && !commandEssential[command.name] == true){
+		if(!command.name.includes('help')){
+			return;
+		}
+	}	
 	//Command disabled
 	if (commandDisabled[command.name] == true) {
 		respond('🛑 Command disabled',`<@${message.author.id}>, the command you are trying to run is disabled at the moment. Please try again later.`, message.channel)
@@ -409,7 +456,7 @@ client.on('guildMemberAdd', member => {
 		
 		fs.appendFileSync('./logs/user.log', `${member.user.tag} (${member.id}) joined at '${dateTime}'.\nAccount creation date: ${member.user.createdAt}\nCurrent guild user count: ${guild.memberCount}\n\n`)
 		function welcomeEmbedUserLog(dateTime, channel, guild, icon, member, joinedbefore){
-const MemberJoinEmbed = new Discord.MessageEmbed()
+        const MemberJoinEmbed = new Discord.MessageEmbed()
 		.setColor('#00FF00')
 		.setTitle('Member Join')
 		.setThumbnail(`${icon}`)
@@ -519,12 +566,178 @@ client.on('message', message => {
 	if (blocked.length > 0) {
 		if(blocked == `${blocked}`)
 			console.log(`${message.author.tag} tried to talk about a sensitive topic. Logged word: ${blocked}`);
-			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FF0000')
+			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FFFF00')
     		const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
 	    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Note\nContent: Talking about a sensitive topic (' + reason +')\n\n');
     		fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Note issued by AutomatedAppleModerator \nContent: Talking about a sensitive topic (' + message.content +')\n\n');
 			respond('Sensitive Topic Filter 🗣️',`Hey <@${message.author.id}>, please don't talk about this topic next time.\nYour message: ${reason}`, message.author)
 	}
+})
+
+// Sentry mode filter for rules 2-3
+client.on('message', message => {
+	if(message.channel.type == 'dm')return;
+	if(safemode == true)return;
+	if(sentrymode == true) {
+	var dict = require("./rules.json"); // The JSON data to load from
+	const info = require('./config.json');
+	const sentry1 = require('./sentrymode/sentry_p1.json');
+	var editedMessage = message.content.replace(/\*/g, "bad")
+	var editedMessage = editedMessage.replace(/\_/g, "bad")
+	var blocked = sentry1.filter(word => editedMessage.toLowerCase().includes(word));
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+	var dateTime = date+' '+time;
+	if (blocked.length > 0) {
+		if(blocked == `${blocked}`)
+			console.log(`${message.author.tag} tried to break rules 2-3. Logged word/phrase: ${blocked}`);
+			respond('',`<@${message.author.id}>, do not break rules 2-3. The moderators have been notified.`, message.channel, 'FFFF00')
+			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rules 2-3.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
+			respond('Rule 2-3 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rules 2-3 next time.\nYour message: ${reason}`, message.author)
+			const RuleEmbed = new Discord.MessageEmbed()
+			.setTitle('About Rules 2 and 3')
+			.setDescription("**-~Rule 2:~-**\n" + dict.Rule2 + "\n**-~Rule 3:~-**\n" + dict.Rule3)
+			.setTimestamp()
+			message.channel.send(RuleEmbed);
+			return;
+	} else {
+		return
+	}
+}
+})
+
+// Sentry mode filter for rule 4
+client.on('message', message => {
+	if(message.channel.type == 'dm')return;
+	if(sentrymode == true) {
+	var dict = require("./rules.json"); // The JSON data to load from
+	const info = require('./config.json');
+	const sentry2 = require('./sentrymode/sentry_p2.json');
+	var editedMessage = message.content.replace(/\*/g, "bad")
+	var editedMessage = editedMessage.replace(/\_/g, "bad")
+	var blocked = sentry2.filter(word => editedMessage.toLowerCase().includes(word));
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+	var dateTime = date+' '+time;
+	if (blocked.length > 0) {
+		if(blocked == `${blocked}`)
+			console.log(`${message.author.tag} tried to break rule 4. Logged word/phrase: ${blocked}`);
+			respond('',`<@${message.author.id}>, do not break rule 4. The moderators have been notified.`, message.channel, 'FFFF00')
+			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rule 4.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
+			respond('Rule 4 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rule 4 next time.\nYour message: ${reason}`, message.author)
+			const RuleEmbed = new Discord.MessageEmbed()
+			.setTitle('About Rule 4')
+			.setDescription(dict.Rule4)
+			.setTimestamp()
+			message.channel.send(RuleEmbed);
+			return;
+	} else {
+		return
+	}
+}
+})
+
+// Sentry mode filter for rule 5
+client.on('message', message => {
+	if(message.channel.type == 'dm')return;
+	if(sentrymode == true) {
+	var dict = require("./rules.json"); // The JSON data to load from
+	const info = require('./config.json');
+	const sentry3 = require('./sentrymode/sentry_p3.json');
+	var editedMessage = message.content.replace(/\*/g, "bad")
+	var editedMessage = editedMessage.replace(/\_/g, "bad")
+	var blocked = sentry3.filter(word => editedMessage.toLowerCase().includes(word));
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+	var dateTime = date+' '+time;
+	if (blocked.length > 0) {
+		if(blocked == `${blocked}`)
+			console.log(`${message.author.tag} tried to break rule 5. Logged word/phrase: ${blocked}`);
+			respond('',`<@${message.author.id}>, do not break rule 5. The moderators have been notified.`, message.channel, 'FFFF00')
+			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rule 5.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
+			respond('Rule 5 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rule 5 next time.\nYour message: ${reason}`, message.author)
+			const RuleEmbed = new Discord.MessageEmbed()
+			.setTitle('About Rule 5')
+			.setDescription(dict.Rule5)
+			.setTimestamp()
+			message.channel.send(RuleEmbed);
+			return;
+	} else {
+		return
+	}
+}
+})
+
+// Sentry mode filter for rule 6
+client.on('message', message => {
+	if(message.channel.type == 'dm')return;
+	if(sentrymode == true) {
+	var dict = require("./rules.json"); // The JSON data to load from
+	const info = require('./config.json');
+	const sentry4 = require('./sentrymode/sentry_p4.json');
+	var editedMessage = message.content.replace(/\*/g, "bad")
+	var editedMessage = editedMessage.replace(/\_/g, "bad")
+	var blocked = sentry4.filter(word => editedMessage.toLowerCase().includes(word));
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+	var dateTime = date+' '+time;
+	if (blocked.length > 0) {
+		if(blocked == `${blocked}`)
+			console.log(`${message.author.tag} tried to break rule 6. Logged word/phrase: ${blocked}`);
+			respond('',`<@${message.author.id}>, do not break rule 6. The moderators have been notified.`, message.channel, 'FFFF00')
+			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rule 6.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
+			respond('Rule 6 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rule 6 next time.\nYour message: ${reason}`, message.author)
+			const RuleEmbed = new Discord.MessageEmbed()
+			.setTitle('About Rule 6')
+			.setDescription(dict.Rule6)
+			.setTimestamp()
+			message.channel.send(RuleEmbed);
+			return;
+	} else {
+		return
+	}
+}
+})
+
+// Sentry mode filter for rule 9
+client.on('message', message => {
+	if(message.channel.type == 'dm')return;
+	if(sentrymode == true) {
+	var dict = require("./rules.json"); // The JSON data to load from
+	const info = require('./config.json');
+	const sentry6 = require('./sentrymode/sentry_p6.json');
+	var editedMessage = message.content.replace(/\*/g, "bad")
+	var editedMessage = editedMessage.replace(/\_/g, "bad")
+	var blocked = sentry6.filter(word => editedMessage.toLowerCase().includes(word));
+	var today = new Date();
+	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
+	var dateTime = date+' '+time;
+	if (blocked.length > 0) {
+		if(blocked == `${blocked}`)
+			console.log(`${message.author.tag} tried to break rule 9. Logged word/phrase: ${blocked}`);
+			respond('',`<@${message.author.id}>, do not break rule 9. The moderators have been notified.`, message.channel, 'FFFF00')
+			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rule 9.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
+			respond('Rule 9 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rule 9 next time.\nYour message: ${reason}`, message.author)
+			const RuleEmbed = new Discord.MessageEmbed()
+			.setTitle('About Rule 9')
+			.setDescription(dict.Rule9)
+			.setTimestamp()
+			message.channel.send(RuleEmbed);
+			return;
+	} else {
+		return
+	}
+}
 })
 
 //Log deleted messages
@@ -687,8 +900,6 @@ client.on('StartupPassed', () => {
 	return;
 })
 
-BotManagerID = "595397105103667236","461560462991949863","454579681602043916"
-
 //Hardcoded events
 
 
@@ -702,6 +913,10 @@ function clean(text) {
 	const args = message.content.split(" ").slice(1);
    
 	if (message.content.startsWith(prefix + "eval")) {
+		if(safemode == true){
+			respond('', `❌ This command is not available while in safe mode.`, message.channel)
+			return
+		}
 	  if(message.author.id !== OwnerID){respond('❌ Bot Owner Command Only', 'This command can only be ran by the bot owner.', message.channel);return;}
 	  try {
 		const code = args.join(" ");
@@ -719,29 +934,105 @@ function clean(text) {
 		//This code here
 	   
 		if (message.content.startsWith(prefix + "safemode",)) {
-			if(!message.member.roles.cache.some(role => role.id == '625888205459423234')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+			if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 			try {
 				safemode = true
-				respond('', '✅', message.channel)
+				fs.writeFileSync('./safe_mode.flag', (error) => {
+					if(error)console.log(error)
+				});
+				console.log('WARNING: SAFE MODE ACTIVE')
+				respond('Safe Mode', '✅ Successfully switched to Safe Mode.', message.channel)
 				return;
 			  } catch (error) {
-					respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+					respond('Error', `${error}`, message.channel)
 			  errorlog(error)
 			  // Your code broke (Leave untouched in most cases)
 			  console.error('an error has occured', error);
 			  }}}
   );
+client.on('message',message =>{
+	if (message.content.startsWith(prefix + "entersafemode",)) {
+		if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+		try {
+			safemode = true
+			fs.writeFileSync('./safe_mode.flag', (error) => {
+				if(error)console.log(error)
+			});
+			console.log('WARNING: SAFE MODE ACTIVE')
+			respond('Safe Mode', '✅ Successfully switched to Safe Mode.', message.channel)
+			return;
+		  } catch (error) {
+				respond('Error', `${error}`, message.channel)
+		  errorlog(error)
+		  // Your code broke (Leave untouched in most cases)
+		  console.error('an error has occured', error);
+		  }}
+});
   client.on('message',message => { 
   if (message.content.startsWith(prefix + "exitsafemode")) {
-	if(!message.member.roles.cache.some(role => role.id == '625888205459423234')){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+	if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 	try {
 		safemode = false
-		respond('', '✅', message.channel)
+		fs.readFile('./safe_mode.flag', (error) => {
+			if(!error) {
+			fs.unlinkSync('./safe_mode.flag', (error) => {
+				if(error)console.log(error)
+			});
+			console.log('WARNING: SAFE MODE ACTIVE')
+			respond('Safe Mode', '✅ Successfully deactivated Safe mode.', message.channel)
+		}
+		    else {
+				respond('Safe Mode', 'Safe Mode has already been deactivated!', message.channel)
+			}
+		})
+
 	  } catch (error) {
-			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+			respond('Error', `${error}`, message.channel)
 	  errorlog(error)
 	  // Your code broke (Leave untouched in most cases)
 	  console.error('an error has occured', error);
 	  }}})
+
+// Sentry mode
+	client.on('message',message => { 
+		if (message.content.startsWith(prefix + "entersentrymode")) {
+			if(!message.member.roles.cache.some(role => role.id == ModeratorRoleID)){
+				respond('❌ Moderator/Bot Owner Command Only', 'This command can only be ran by the moderator team.', message.channel);
+				return;
+			}
+			try {
+				sentrymode = true
+				fs.writeFileSync('./sentry_mode.flag', (error) => {
+					if(error)console.log(error)
+				});
+				console.log('Sentry mode is active.')
+				respond('<:sus:662817457425219614> Sentry Mode', '✅ Successfully activated Sentry Mode.\nThe mods may not be here, but I\'ll be watching you... <:sus:662817457425219614>', message.channel)
+			} catch (error) {
+					respond('Error', `${error}`, message.channel)
+			errorlog(error)
+			// Your code broke (Leave untouched in most cases)
+			console.error('an error has occured', error);
+			}}})
+
+// Sentry mode off
+	client.on('message',message => { 
+		if (message.content.startsWith(prefix + "exitsentrymode")) {
+			if(!message.member.roles.cache.some(role => role.id == ModeratorRoleID)){
+				respond('❌ Moderator/Bot Owner Command Only', 'This command can only be ran by the moderator team.', message.channel);
+				return;
+			}
+			try {
+				sentrymode = false
+				fs.unlinkSync('./sentry_mode.flag', (error) => {
+					if(error)console.log(error)
+				});
+				console.log('Sentry mode is active.')
+				respond('👀 Sentry Mode', '✅ Successfully deactivated Sentry Mode.\nHello, moderators! I\'ve stood guard while you\'re out! 👀', message.channel)
+			} catch (error) {
+					respond('Error', `${error}`, message.channel)
+			errorlog(error)
+			// Your code broke (Leave untouched in most cases)
+			console.error('an error has occured', error);
+			}}})
 //Login
 client.login(token);

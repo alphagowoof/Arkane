@@ -1,14 +1,7 @@
 Apple Mod News
-5/14/2020 10:00 PM CDT
-By Derpi, developer for Apple Mod
-----------------------------------
-Today we debut this new feature. A news feature for Apple Mod.
-We will use it to tell you and other members about features for
-Apple Mod, that are upcoming.
-==================================
-5/16/2020 5:33 PM / 17:33 PST
-By Thomas Børn Stefanos, game developer for Apple Mod
-----------------------------------
-Soon, you will be able to compete in games with your friends and 
-other members in the server! Yes, it's like ranking. The
-feature will be debuted soon, watch out!
+5/18/2020 7:27 PM CST
+By Derpi, Moderator for Apple Explained and developer for Apple Mod
+---------------------------------------------------------------------
+The leaderboard function is now public! Compete with your friends
+to see who has the top score! Have fun with this feature!
+

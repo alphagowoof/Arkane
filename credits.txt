@@ -1,6 +1,6 @@
 Thanks to `Greg#1810` for letting me put my bot in the Apple Explained server.
 
-`Derpi#0001` for helping with the profanity and sensitive topic filter, and for building various commands like "safemode", "alertsay", and more!
+`Derpi#0001` for helping with the profanity and sensitive topic filter, and for building various commands like "safemode", "alertsay", "sentrymode", and more!
 
 `MacLogical#6519` for general testing.
 
@@ -10,7 +10,7 @@ Thanks to `Greg#1810` for letting me put my bot in the Apple Explained server.
 
 `Daniel C#7205` for writing the bot and commands.
 
-`Toomuchjscode#9583` for developing the games, helping Daniel with the `repair` command and building the sensitive topic filter.
+`Toomuchjscode#9583` for developing the games, helping Daniel with the `repair` command, helping Derpi with the `sentrymode` command and building the sensitive topic filter.
 
 Thanks to everyone else who helped with this project too! :)
 

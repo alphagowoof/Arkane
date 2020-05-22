@@ -43,10 +43,12 @@ module.exports = {
         console.log(numbermul)
         console.log(numberApModmul)
         if (divisor < 25){             // Divide = no
-          var numberApModmul = temp1
+          var numbermul = temp2
+          console.log(numbermul)
+          console.log(numberApModmul)
           andthewinneris()
-        } else {                      // Divide = yes
-          var numbermul = Math.ceil(numbermul/1.5)
+        } else {                      // Divide = still no
+          var numbermul = temp1
           console.log(numbermul)
           console.log(numberApModmul)
           andthewinneris()
@@ -63,8 +65,8 @@ module.exports = {
           console.log(numbermul)
           console.log(numberApModmul)
           andthewinneris()
-        } else {                     // Divide = yes
-          var numbermul = Math.ceil(numbermul/1.5)
+        } else {                     // Divide = still no.
+          var numbermul = temp2
           console.log(numbermul)
           console.log(numberApModmul)
           andthewinneris()
@@ -90,11 +92,48 @@ module.exports = {
     function actualwinner() {
     if (numberApModmul < numbermul) {
       // You win!
+      fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
+        if(error) {
+          console.log("dice roll win. no leaderboard update.")
+        } else {
+        console.log('dice roll win')
+        jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
+        jsonfile.rdgwins = Number(jsonfile.rdgwins)+1;
+        data = JSON.stringify(jsonfile)
+        fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
+            if (err) throw err;
+            else {
+              console.log("Successfully updated Rolldicegame game stats of " + message.author.id + ".")
+            }
+        })
+      }
+    })
       respond('Win!',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou win, congratulations <@${message.author.id}>!` , message.channel)
       return
-    } else {
+    } else if (numberApModmul > numbermul){
       // lol you lose
+      fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
+        if(error) {
+          console.log("dice roll lose. no leaderboard update.")
+        } else {
+        console.log('dice roll lose')
+        jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
+        jsonfile.rdglosses = Number(jsonfile.rdglosses)+1;
+        data = JSON.stringify(jsonfile)
+        fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
+            if (err) throw err;
+            else {
+              console.log("Successfully updated Rolldicegame game stats of " + message.author.id + ".")
+            }
+        })
+      }
+    })
       respond('Lose',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nYou lose, better luck next time <@${message.author.id}>!` , message.channel)
+      return
+    } else if (numberApModmul === numbermul){
+      // Oh, it's a tie, lol
+      console.log('dice roll tie')
+      respond('Tie',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nWow, we tied, <@${message.author.id}>!` , message.channel)
       return
     }
   }

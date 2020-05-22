@@ -22,3 +22,7 @@ Apple Explained Moderation Bot.code-workspace
 shutdown.flag
 restrictions.json
 errorcount.txt
+*.flag
+leaderboards/toomuchjscode#9583_gamestats.json
+leaderboards/Daniel 💻#7205_gamestats.json
+leaderboards/454579681602043916_gamestats.json

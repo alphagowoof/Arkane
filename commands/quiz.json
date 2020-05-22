@@ -803,5 +803,55 @@
         "answer" : "a",
         "answer_case" : "A",
         "qid" : "80"
+      },
+      {
+        "question" : "Rick and Morty is aired at what channel?",
+        "choice1" : "A. ABC",
+        "choice2" : "B. [adult swim]",
+        "choice3" : "C. CBS",
+        "choice4" : "D. Warner Bros. TV",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "81"
+      },
+      {
+        "question" : "Which company owns Warner Bros.? (as of 2019)",
+        "choice1" : "A. WarnerMedia",
+        "choice2" : "B. NBCUniversal",
+        "choice3" : "C. TimeWarner",
+        "choice4" : "D. Apple Explained",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "82"
+      },
+      {
+        "question" : "How many cats does Derpi have?",
+        "choice1" : "A. 1",
+        "choice2" : "B. 4",
+        "choice3" : "C. 3",
+        "choice4" : "D. 2",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "83"
+      },
+      {
+        "question" : "What is the first Apple Moderator version to support the Leaderboard?",
+        "choice1" : "A. 8.5.0.145 build 126",
+        "choice2" : "B. 8.5.1.212 build 128",
+        "choice3" : "C. 8.5.1.112 build 041",
+        "choice4" : "D. 8.5.1.199 build 099",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "84"
+      },
+      {
+        "question" : "What is the first Apple Moderator version to add update codenames?",
+        "choice1" : "A. 8.0.0.124 build 122",
+        "choice2" : "B. 8.5.1.212 build 128",
+        "choice3" : "C. 7.9.10.592 build 241",
+        "choice4" : "D. 8.3.1.199 build 684",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "85"
       }
 ]
