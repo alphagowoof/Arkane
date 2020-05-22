@@ -30,6 +30,9 @@ errorcount = 0
 var safemode = false
 
 if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is missing.')
+if (!fs.existsSync('./logs/userwarnings.json')){
+	fs.writeFileSync('./logs/userwarnings.json', '{}')
+}
 // Increase number of message listeners
 require('events').EventEmitter.defaultMaxListeners = 20;
 // Auto safe mode
@@ -301,7 +304,7 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 client.on('message', message => {
 	if(safemode == true)return;
 	if (message.author.bot)return;
-        if (message.channel.id != '616472674406760448')return;
+        if (message.channel.id != '616472674406760448')return; //This locks it to the Apple Explained server
         const content = message.content.toLowerCase();
         if (message.attachments.size != '0'){
           if (!content.includes(`iphone`)){respond('',`<@${message.author.id}>, please specify the iPhone used to shoot the picture.`, message.channel);message.delete();return;}else
@@ -544,9 +547,23 @@ client.on('message', message => {
 			console.log(`${message.author.tag} tried to use profanity. Logged word: ${blocked}`);
 			message.delete()
 			respond('',`<@${message.author.id}>, watch your language. A warning has been logged.`, message.channel, 'FF0000')
-    		const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-	    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Warning\nReason: Profanity (' + reason +')\n\n');
-    		fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Warning issued by AutomatedAppleModerator \nReason: Profanity (' + message.content +')\n\n');
+			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+			
+			userwarnings = require('./logs/userwarnings.json')
+
+			if (!userwarnings[message.author.id])
+				userwarnings[message.author.id] = [];
+
+			userwarnings[message.author.id].push(`Profanity: ${reason}`);
+
+		fs.writeFile('./logs/userwarnings.json', JSON.stringify(userwarnings), (err) => {
+			if (err) {
+			  console.log(err);
+			  respond('',`An error occured during saving.`, message.channel);
+			  return;
+			}
+		})
+
 			respond('Profanity Filter 🗣️',`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`, message.author)
 	}
 })
@@ -567,9 +584,24 @@ client.on('message', message => {
 		if(blocked == `${blocked}`)
 			console.log(`${message.author.tag} tried to talk about a sensitive topic. Logged word: ${blocked}`);
 			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FFFF00')
-    		const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-	    	fs.appendFileSync('./logs/' + message.author.id + '-warnings.log', 'Note\nContent: Talking about a sensitive topic (' + reason +')\n\n');
-    		fs.appendFileSync('./logs/' + message.author.id + '-modwarnings.log', 'Note issued by AutomatedAppleModerator \nContent: Talking about a sensitive topic (' + message.content +')\n\n');
+			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+			
+			userwarnings = require('./logs/userwarnings.json')
+			u
+
+			if (!userwarnings[message.author.id])
+				userwarnings[message.author.id] = [];
+
+			userwarnings[message.author.id].push(`Sensitive topic: ${reason}`);
+
+			fs.writeFile('./logs/userwarnings.json', JSON.stringify(userwarnings), (err) => {
+				if (err) {
+				  console.log(err);
+				  respond('',`An error occured during saving.`, message.channel);
+				  return;
+				}
+			})
+
 			respond('Sensitive Topic Filter 🗣️',`Hey <@${message.author.id}>, please don't talk about this topic next time.\nYour message: ${reason}`, message.author)
 	}
 })
@@ -941,7 +973,7 @@ function clean(text) {
 					if(error)console.log(error)
 				});
 				console.log('WARNING: SAFE MODE ACTIVE')
-				respond('', '✅', message.channel)
+				respond('Safe Mode', '✅ Successfully switched to Safe Mode.', message.channel)
 				return;
 			  } catch (error) {
 					respond('Error', `${error}`, message.channel)
@@ -950,16 +982,42 @@ function clean(text) {
 			  console.error('an error has occured', error);
 			  }}}
   );
+client.on('message',message =>{
+	if (message.content.startsWith(prefix + "entersafemode",)) {
+		if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
+		try {
+			safemode = true
+			fs.writeFileSync('./safe_mode.flag', (error) => {
+				if(error)console.log(error)
+			});
+			console.log('WARNING: SAFE MODE ACTIVE')
+			respond('Safe Mode', '✅ Successfully switched to Safe Mode.', message.channel)
+			return;
+		  } catch (error) {
+				respond('Error', `${error}`, message.channel)
+		  errorlog(error)
+		  // Your code broke (Leave untouched in most cases)
+		  console.error('an error has occured', error);
+		  }}
+});
   client.on('message',message => { 
   if (message.content.startsWith(prefix + "exitsafemode")) {
 	if(!message.member.roles.cache.some(role => role.id == BotManagerRoleID)){respond('❌ Bot Manager Command Only', 'This command can only be ran by the dev team.', message.channel);return;}
 	try {
 		safemode = false
-		fs.unlinkSync('./safe_mode.flag', (error) => {
-			if(error)console.log(error)
-		});
-		console.log('WARNING: SAFE MODE ACTIVE')
-		respond('', '✅', message.channel)
+		fs.readFile('./safe_mode.flag', (error) => {
+			if(!error) {
+			fs.unlinkSync('./safe_mode.flag', (error) => {
+				if(error)console.log(error)
+			});
+			console.log('WARNING: SAFE MODE ACTIVE')
+			respond('Safe Mode', '✅ Successfully deactivated Safe mode.', message.channel)
+		}
+		    else {
+				respond('Safe Mode', 'Safe Mode has already been deactivated!', message.channel)
+			}
+		})
+
 	  } catch (error) {
 			respond('Error', `${error}`, message.channel)
 	  errorlog(error)

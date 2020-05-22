@@ -7,34 +7,41 @@ module.exports = {
   mod:true,
   nodelay:true,
 	execute(message, args, client) {
-    const Discord = require('discord.js');
-    const fs = require('fs');
-    const {prefix} = require('../config.json')
-    const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
+    //Prepares required
+    const config = require('../config.json')
+    userwarnings = require('../logs/userwarnings.json')
+    var reason = args.join(' ').replace(args[0], '')
+    const mentionedUser = message.mentions.members.first()
     try {
-      //Mod check
-      if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
-      const {ModeratorRoleID} = require('../config.json');
-			const checkmemberforroles = message.mentions.members.first()
-			if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
-      
-      //Prepares the reason
-      const userid = message.mentions.users.first().id
-      const mentionedmember = '<@'+message.mentions.users.first().id+'>'
-      const reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
-      var reason = reasonraw.join(' ')
-      const authorusername = message.author.username +'#' +message.author.discriminator + ` (${message.author.id}) `
-      if(reason == ''){var reason = 'No reason provided.'}
-      
-      //Writes reason to files
-      fs.appendFileSync('./logs/' + userid + '-warnings.log', 'Warning\nReason: ' + reason +'\n\n');
-      fs.appendFileSync('./logs/' + userid + '-modwarnings.log',`Warning issued by ${authorusername}: \nReason: ${reason}\n\n`);
+      //Permissions check
+      if (message.author.id == message.mentions.members.first().id){
+        respond('',`You can't perform this action on yourself.`, message.channel);
+        return;
+      }
+			if (message.mentions.members.first().roles.cache.some(role => role.id === config.ModeratorRoleID)){
+        respond('',`You can't perform that action on this user.`, message.channel);return;
+      }
+
+      //Writes reason to JSON
+
+      if (!userwarnings[mentionedUser.id])
+			  userwarnings[mentionedUser.id] = [];
+
+		  userwarnings[mentionedUser.id].push(reason);
+
+		fs.writeFile('./logs/userwarnings.json', JSON.stringify(userwarnings), (err) => {
+			if (err) {
+				console.log(err);
+				respond('',`An error occured during saving.`, message.channel);
+				return;
+      }
+    })
       
       //Notifies of the warn
-      respond('⚠️',mentionedmember + ' had a warning logged.\nReason: '+reason, message.channel)
+      respond('⚠️','<@'+message.mentions.members.first() + '> had a warning logged. User has '+userwarnings[mentionedUser.id].length+' warnings.\nReason: '+reason, message.channel)
       const warnedperson = message.mentions.users.first()
       const user = client.users.cache.get(warnedperson);
-      respond('⚠️','You have been warned due to: '+ reason, warnedperson)
+      respond('⚠️','You have been warned due to: '+ reason+'\n\nThis is warning '+userwarnings[mentionedUser.id].length+'.', warnedperson)
       
       //Mod action event
       modaction(this.name, message.author.tag, message.channel.name, message.content)
