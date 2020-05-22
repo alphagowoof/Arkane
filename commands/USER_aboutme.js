@@ -5,43 +5,27 @@ module.exports = {
 	execute(message, args, client) {
     const Discord = require('discord.js');
     const fs = require('fs');
+    const userlog = require('../logs/userwarnings.json')
     try {
-      const taggeduser = message.author.id
-      const taggeduserobject = message.author
-      fs.readFile('./logs/'+taggeduser+'-warnings.log', (err, data) => {
-        if (err) {
-          console.error(err)
-          const memberinfoembed = new Discord.MessageEmbed()
-          .setColor('#00FF00')
-          .setTitle('Member Information')
-          .setAuthor(taggeduserobject.username)
-          .addFields(
-            { name: 'Punishment Log', value: 'No punishment information found. Yay!', inline: false },
-          )
-          .setTimestamp()
-          message.channel.send(memberinfoembed)
-  
-          return
-        }else{
-          if(data.length > 1024){
-            var data = 'Uh oh, punishment information is too long to send. Please contact a moderator for access to your punishment information.';embed()
-          }else{var data= data;embed()}
-          function embed(){
-            const memberinfoembed = new Discord.MessageEmbed()
-            .setColor('#FF0000')
-            .setTitle('Member Information')
-            .setAuthor(taggeduserobject.username)
-            .addFields(
-              { name: 'Punishment Log', value: data, inline: false },
-            )
-            .setTimestamp()
-            message.channel.send(memberinfoembed)
-          }
+      const memberinfoembed = new Discord.MessageEmbed()
+        .setColor('#00FF00')
+        .setTitle('User Information')
+        .setAuthor(message.author.username)
+        .setDescription(`Server join date: ${message.member.joinedAt}\n\nWarning count: ${userlog[message.author.id].length}`)
+        .setTimestamp()
+        message.channel.send(memberinfoembed)
+
+        if(!userlog[message.author.id]){
+          respond(``, `No userlog data found.`, message.channel)
+          return;
         }
-  });
-  message.author.send({
-    files: ['./logs/' + message.author.id + '-messages.log']
-});
+
+        const embed = new Discord.MessageEmbed()
+        .setTitle('User Log')
+        userlog[message.author.id].forEach(function (warning, index) {
+          embed.addField('Warning: ' + (parseInt(index) + 1), warning)
+        });
+        message.channel.send(embed)
 }catch(error) {
   respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
   errorlog(error)
