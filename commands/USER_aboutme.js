@@ -11,7 +11,7 @@ module.exports = {
         .setColor('#00FF00')
         .setTitle('User Information')
         .setAuthor(message.author.username)
-        .setDescription(`Server join date: ${message.member.joinedAt}\n\nWarning count: ${userlog[message.author.id].length}`)
+        .setDescription(`Server join date: ${message.member.joinedAt}`)
         .setTimestamp()
         message.channel.send(memberinfoembed)
 
@@ -22,6 +22,7 @@ module.exports = {
 
         const embed = new Discord.MessageEmbed()
         .setTitle('User Log')
+        .setDescription(`Warning count: ${userlog[message.author.id].length}`)
         userlog[message.author.id].forEach(function (warning, index) {
           embed.addField('Warning: ' + (parseInt(index) + 1), warning)
         });
