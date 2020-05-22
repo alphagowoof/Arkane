@@ -304,7 +304,7 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 client.on('message', message => {
 	if(safemode == true)return;
 	if (message.author.bot)return;
-        if (message.channel.id != '616472674406760448')return;
+        if (message.channel.id != '616472674406760448')return; //This locks it to the Apple Explained server
         const content = message.content.toLowerCase();
         if (message.attachments.size != '0'){
           if (!content.includes(`iphone`)){respond('',`<@${message.author.id}>, please specify the iPhone used to shoot the picture.`, message.channel);message.delete();return;}else
