@@ -16,12 +16,6 @@ module.exports = {
 			return;
 		}
 
-
-		if (!args[1]) {
-			respond('',`Invalid warning number.`,message.channel);
-			return;
-		}
-
 		var warningNr = args[1]-1;
 
 		// Delete warnings
@@ -29,12 +23,6 @@ module.exports = {
 		var userLog = require('../logs/userwarnings.json')
 		if (!userLog[mentionedUser.id]) {
 			respond('',`Unable to find warnings for this user.`, message.channel);
-			return;
-		}
-
-
-		if (!userLog[mentionedUser.id][warningNr]) {
-			respond('',`Warning doesn't exist.`, message.channel)
 			return;
 		}
 
