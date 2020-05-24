@@ -587,7 +587,7 @@ client.on('message', message => {
 			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
 			
 			userwarnings = require('./logs/userwarnings.json')
-			u
+			
 
 			if (!userwarnings[message.author.id])
 				userwarnings[message.author.id] = [];
