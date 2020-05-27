@@ -1,5 +1,6 @@
 module.exports = {
 	name:"aiModule",
+	module:0,	
 	execute(input, author, returnFunction){
 		input = input.replace(/\!/g, '').replace(/\?/g, '').replace(/\./g,'')
 		if(input == 'hi'){
@@ -41,12 +42,12 @@ module.exports = {
 		if(input.includes(`:sus:`) || input.includes(`:supersus:`)){
 			returnFunction(`😰`)
 		} else 
-		if(input != '' && !fs.existsSync('./aiModule1.js')){
+		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
 			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
 		}else 
-		if(input != '' && fs.existsSync('./aiModule1.js')){
-			aiModule1 = require('./aiModule1.js')
-			aiModule1.execute(input, author, returnFunction)
+		if(fs.existsSync(`./aiModule${this.module+1}.js`)){
+			aiModule = require(`./aiModule${this.module+1}.js`)
+			aiModule.execute(input, author, returnFunction)
 		}
 	}
 }
