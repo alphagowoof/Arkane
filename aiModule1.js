@@ -13,6 +13,12 @@ module.exports = {
 		if(input == 'who are you'){
 			returnFunction('I am Apple Mod!')
 		} else
+		if(input == 'good job'|| input == 'nice job'|| input =='you did well'){
+            returnFunction('Thanks!')
+		} else
+		if(input.includes('come back')){
+			returnFunction('Okay!')
+		} else
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
             returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
