@@ -3,9 +3,12 @@ module.exports = {
 	execute(input, author, returnFunction){
 		input = input.replace(/\!/g, '').replace(/\?/g, '').replace(/\./g,'')
 
-		if(input == 'TEXT'){
-			returnFunction(`TEXT`)
+		if(input == 'Why?'){
+			returnFunction(`Why are we here? Just to suffer?`)
 		} else 
+		if(input == 'Easter Egg'){	
+			returnFunction('Oh! You found it! Now, would you like an egg? :egg:')
+		} else
 		//Auto
 		if(input != '' && !fs.existsSync('./aiModule2.js')){
 			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
