@@ -314,14 +314,25 @@ client.on('message', message => {
         }}
 })
 
+if (fs.existsSync('./aiModule.js')){
+	aiModule = require('./aiModule.js')
+}
 client.on('message', message => {
-	if(safemode == true)return;
-	if (message.content.includes(`<@!${client.user.id}>`) || (message.content.includes(`<@${client.user.id}>`)));{
-	
-	function informOfPrefix(){
-		message.channel.send(`Hello <@${message.author.id}>, if you want to use my commands, \`${prefix}\` is my prefix.`)
+	if(!safemode == true)
+	if (fs.existsSync('./aiModule.js'))
+
+	function returnFunction(result){
+		message.channel.send(result)
 	}
-}})
+
+	if(message.content.startsWith(`<@${client.user.id}>`) && !message.author.bot){
+		const text = message.content.slice(`<@${client.user.id}>`.length+1).toLowerCase()
+		aiModule.execute(text, message.author, returnFunction)
+	}else if(message.content.startsWith(`<@!${client.user.id}>`) && !message.author.bot){
+		const text = message.content.slice(`<@!${client.user.id}>`.length+1).toLowerCase()
+		aiModule.execute(text, message.author, returnFunction)
+	}
+})
 
 
 //Commands
@@ -373,7 +384,7 @@ client.on('message', async message => {
 
 	const now = Date.now();
 	const timestamps = cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
+	const cooldownAmount = (command.cooldown || 0) * 1000;
 
 	if (timestamps.has(message.author.id)) {
 		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
@@ -407,7 +418,7 @@ client.on('message', async message => {
 
 
 
-process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
+process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection: ', error));
 
 //Error
 client.on('error', error => {
