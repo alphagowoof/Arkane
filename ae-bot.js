@@ -23,8 +23,8 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-//version = '8.6.02.381 build 371.2'
-version = "Debug Mode"
+version = '9.0.0'
+//version = "Debug Mode"
 codename = 'Interactive'
 footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
@@ -33,6 +33,9 @@ var safemode = false
 if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is missing.')
 if (!fs.existsSync('./logs/userwarnings.json')){
 	fs.writeFileSync('./logs/userwarnings.json', '{}')
+}
+if (!fs.existsSync('./logs/prebanlist.json')){
+	fs.writeFileSync('./logs/prebanlist.json', '{}')
 }
 // Increase number of message listeners
 require('events').EventEmitter.defaultMaxListeners = 20;
@@ -471,6 +474,7 @@ client.on('guildMemberAdd', member => {
 		}
 		
 		fs.appendFileSync('./logs/user.log', `${member.user.tag} (${member.id}) joined at '${dateTime}'.\nAccount creation date: ${member.user.createdAt}\nCurrent guild user count: ${guild.memberCount}\n\n`)
+		
 		function welcomeEmbedUserLog(dateTime, channel, guild, icon, member, joinedbefore){
         const MemberJoinEmbed = new Discord.MessageEmbed()
 		.setColor('#00FF00')
@@ -486,24 +490,24 @@ client.on('guildMemberAdd', member => {
 		.setTimestamp()
 		channel.send(MemberJoinEmbed)
 		}
-		
-
+	})
+			const guild = member.guild
+			if (fs.existsSync('./logs/prebanlist.json')){
+			prebanList = require('./logs/prebanlist.json')
+			
+			if(prebanList[member.id]){
+				respond('Banned',`You were banned from the Apple Explained server. (PREBAN)\n\nReason: ${prebanList[member.id]}`, member)
+				respond('Banned',`${member.user.tag} was banned from the server. (PREBAN)\nReason: ${prebanList[member.id]}`, guild.channels.cache.get(UserLog))
+				modaction('ban', client.user.tag, 'Automatic preban.', `Automatic preban. Reason: ${prebanList[member.id]}`)
+				member.ban({reason: `Prebanned. Reason: ${prebanList[member.id]}`});
+			}
+			delete require.cache[require.resolve(`./logs/prebanlist.json`)]
+		}
 		if(AssignMemberRoleOnJoin == true){
 			const role = member.guild.roles.cache.find(role => role.id === `${MemberRoleID}`);
 			member.roles.add(role);
-		}
-		fs.readFile('./logs/idbanlist.txt', function(err, data){
-			if(err){
-				console.log(err);
-				errorlog(err)
-				return;
-			}
-			if(data.toString().includes(member.id)){
-				respond('Banned','You were banned from the Apple Explained server. (PREBAN)', member)
-				respond('Banned',`${member.tag} was banned from the server. (PREBAN)`, guild.channels.cache.get(UserLog))
-				member.ban({reason: 'Prebanned.'});
-			}
-		})
+		
+
 		fs.readFile('./files/welcomemessage.txt', function(err, data){
 			const WelcomeEmbedDM = new Discord.MessageEmbed()
 			WelcomeEmbedDM.setTitle('Welcome! 👋')
@@ -514,7 +518,7 @@ client.on('guildMemberAdd', member => {
 			}
 			member.send(WelcomeEmbedDM)
 		})
-	})
+	}
 });
 
 //Member leave
