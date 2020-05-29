@@ -29,10 +29,8 @@ module.exports = {
 			}
 			}
 			
-
-			fs.readFile('./logs/idbanlist.txt', function(err, data){
-				if(err)console.log(err);
-				if(data.toString().includes(idToBan)){
+				prebanList = require('../logs/prebanlist.json')
+				if(prebanList[idToBan]){
 					respond('Error', 'User is already on the pre-ban list.', message.channel)
 					return;
 				}else{
@@ -43,13 +41,11 @@ module.exports = {
 					if(reason == ''){
 						var reason = 'No reason provided.'
 					}
-					fs.appendFileSync('./logs/idbanlist.txt', `${userid}\n`);
-					fs.appendFileSync('./logs/' + userid + '-warnings.log', 'Ban\nReason: ' + reason +'\n\n');
-					fs.appendFileSync('./logs/' + userid + '-modwarnings.log', 'Ban issued by '+ authorusername +'\nReason: ' + reason +'\n\n');
+					prebanList[idToBan] = reason
+					fs.writeFileSync('./logs/prebanlist.json', JSON.stringify(prebanList))
 					respond('Ban',argarray[1]+' was banned.\nReason: '+reason, message.channel)
 					modaction(this.name, message.author.tag, message.channel.name, message.content)
 				}
-			})
 			
 			
         	}catch(error) {
