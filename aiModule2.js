@@ -4,8 +4,26 @@ module.exports = {
 	execute(input, author, returnFunction){
 		console.log(`AI Module ${this.module} loaded.`)
 		console.log(input)
-		if(input == 'haha'){
-			returnFunction(`:laughing:`)
+		if(input == 'who made your profanity filter'){
+			returnFunction(`Jack did`)
+		} else if(input.includes("watching you")){
+			returnFunction(`:cold_sweat:`)
+		} else if(input == 'meow'){
+			returnFunction(`:cat:`)
+		} else if(input == 'what did you do'){
+			returnFunction(`UHH I DID NOTHING I SWEAR`)
+		} else if(input == 'did you miss me'){
+			returnFunction(`Sure did!`)
+		} else if(input == 'bark'){
+			returnFunction(`:dog:`)
+		} else if(input == 'where are you'){
+			returnFunction(`pls help me I am being held hostage in Daniel\'s Raspberry Pi, call this number if you see me <REDACTED>`)
+		} else if(input == 'how was time descending'){
+			returnFunction(`It got me hooked! Good work on it!`)
+		} else if(input == 'how\'s stephanie doing'){
+			returnFunction(`UHH :cold_sweat: SHE'S-- SHE'S DOING OK (please don\'t yeet me)`)
+		} else if(input == 'yeet'){
+			returnFunction(`YEEEEEET`)
 		} else 
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
