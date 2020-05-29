@@ -1,8 +1,8 @@
 module.exports = {
-	name:"aiModule1",
+	name:"aiModule2",
 	module:2,
 	execute(input, author, returnFunction){
-		console.log('Loaded aiModule '+this.module)
+		console.log(`AI Module ${this.module} loaded.`)
 		console.log(input)
 		if(input == 'haha'){
 			returnFunction(`:laughing:`)
@@ -12,8 +12,11 @@ module.exports = {
 			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
 		}else 
 		if(fs.existsSync(`./aiModule${this.module+1}.js`)){
+			delete require.cache[require.resolve(`./aiModule${this.module+1}.js`)]
 			aiModule = require(`./aiModule${this.module+1}.js`)
 			aiModule.execute(input, author, returnFunction)
+		}else{
+			return
 		}
 	}
 }

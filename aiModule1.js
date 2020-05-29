@@ -2,7 +2,7 @@ module.exports = {
 	name:"aiModule1",
 	module:1,
 	execute(input, author, returnFunction){
-		input = input.replace(/\!/g, '').replace(/\?/g, '').replace(/\./g,'')
+		console.log(`AI Module ${this.module} loaded.`)
 
 		if(input == 'why'){
 			returnFunction(`Why are we still here? Just to suffer?`)
@@ -13,17 +13,18 @@ module.exports = {
 		if(input == 'who are you'){
 			returnFunction('I am Apple Mod!')
 		} else
-		if(input == 'good job'|| input == 'nice job'|| input =='you did well'){
+		/*if(input == 'good job'|| input == 'nice job'|| input =='you did well'){
             returnFunction('Thanks!')
 		} else
-		if(input.includes('come back')){
+		*/if(input.includes('come back')){
 			returnFunction('Okay!')
 		} else
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
-            returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
-        }
+			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+        }else
         if(fs.existsSync(`./aiModule${this.module+1}.js`)){
+			delete require.cache[require.resolve(`./aiModule${this.module+1}.js`)]
             aiModule = require(`./aiModule${this.module+1}.js`)
             aiModule.execute(input, author, returnFunction)
         }

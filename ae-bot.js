@@ -23,8 +23,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '8.6.02.381 build 371.2'
-codename = 'Overbrook'
+//version = '8.6.02.381 build 371.2'
+version = "Debug Mode"
+codename = 'Interactive'
 footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
@@ -314,10 +315,11 @@ client.on('message', message => {
         }}
 })
 
-if (fs.existsSync('./aiModule.js')){
-	aiModule = require('./aiModule.js')
-}
+
 client.on('message', message => {
+	if (fs.existsSync('./aiModule.js')){
+		aiModule = require('./aiModule.js')
+	}
 	if(!safemode == true)
 	if (fs.existsSync('./aiModule.js'))
 
