@@ -22,6 +22,9 @@ module.exports = {
 		if(input.includes('hands up')){
 			returnFunction(':raised_hands: Uhhh...')
 		} else
+		if(input.includes('why do you exist')){
+			returnFunction('To moderate the server while the mods are away, of course!')
+		} else
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
 			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
