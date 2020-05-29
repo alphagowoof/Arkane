@@ -19,6 +19,9 @@ module.exports = {
 		*/if(input.includes('come back')){
 			returnFunction('Okay!')
 		} else
+		if(input.includes('hands up')){
+			returnFunction(':raised_hands: Uhhh...')
+		} else
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
 			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
