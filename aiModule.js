@@ -94,10 +94,10 @@ module.exports = {
 		if(input == "i made your games"){
 			returnFunction(`Oh, cool!`)
 		} else 
-		if(input == "shutdown you"){
+		if(input.includes == "shutdown you"){
 			returnFunction(`NO NO NO, please don't!`)
 		} else 
-		if(input == "restart you"){
+		if(input.includes == "restart you"){
 			returnFunction(`NO NO NO, please don't!`)
 		} else 
 		if(input == "uh it was me"){

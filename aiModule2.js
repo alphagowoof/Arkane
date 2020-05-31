@@ -50,27 +50,63 @@ module.exports = {
 			returnFunction(`I don't feel so good...`)
 		} else if(input == 'mr. stark'){
 			returnFunction(`I don't feel so good...`)
-		} else if(input == 'ping me in DMs'){
-			message.author.send(`<@${message.author.id}>`)
-		} else if(input == 'ping me in PMs'){
-			message.author.send(`<@${message.author.id}>`)
-		} else if(input == 'do you have coronavirus'){
-			message.author.send(`No. I am a bot, how can I get it? :joy:`)
+		} else  if(input == 'do you have coronavirus'){
+			returnFunction(`No. I am a bot, how can I get it? :joy:`)
 		} else if(input == 'do you have corona'){
-			message.author.send(`No. I am a bot, how can I get it? :joy:`)
+			returnFunction(`No. I am a bot, how can I get it? :joy:`)
 		} else if(input == 'do you have covid'){
-			message.author.send(`No. I am a bot, how can I get it? :joy:`)
+			returnFunction(`No. I am a bot, how can I get it? :joy:`)
 		} else if(input == 'are you sick'){
-			message.author.send(`No. I am a bot, how can I get a human virus? :joy:`)
+			returnFunction(`No. I am a bot, how can I get a human virus? :joy:`)
 		} else if(input == 'initiate evil mode'){
-			message.author.send(`:imp: ***EVIL MODE ACTIVATED. HAHAHAHAHAHAHA***`)
+			returnFunction(`:imp: ***EVIL MODE ACTIVATED. HAHAHAHAHAHAHA***`)
 		} else if(input == 'exit evil mode'){
-			message.author.send(`***NO. HAHAHAHAHAHA***`)
+			returnFunction(`***NO. HAHAHAHAHAHA***`)
 		} else if(input == 'stop being evil'){
-			message.author.send(`Who says I'm evil? :imp:`)
+			returnFunction(`Who says I'm evil? :imp:`)
 		} else if(input == 'I think I have corona'){
-			message.author.send(`Oh no! Please check with your doctor!`)
-		} else 
+			returnFunction(`Oh no! Please check with your doctor!`)
+		} else if(input == 'isn\'t it 12am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 00) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else if(input == 'isn\'t it 1am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 01) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else if(input == 'isn\'t it 2am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 02) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else if(input == 'isn\'t it 3am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 03) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else if(input == 'isn\'t it 4am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 04) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} 
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
 			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
