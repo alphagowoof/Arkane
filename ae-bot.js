@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.0.0'
+version = '9.1.0'
 //version = "Debug Mode"
 codename = 'Interactive'
 footertext = 'Version '+ version +'\nCodename: '+ codename
@@ -552,8 +552,7 @@ client.on('message', message => {
 	if(safemode == true)return;
 	if(message.channel.type == 'dm')return;
 	const profanity = require('./profanity.json');
-	var editedMessage = message.content.replace(/\*/g, "bad")
-	var editedMessage = editedMessage.replace(/\_/g, "bad")
+	var editedMessage = message.content.replace(/\*/g, "").replace(/\_/g, "")
 	var blocked = profanity.filter(word => editedMessage.toLowerCase().includes(word));
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
@@ -582,44 +581,6 @@ client.on('message', message => {
 		})
 
 			respond('Profanity Filter 🗣️',`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`, message.author)
-	}
-})
-
-//Sensitive topic filter
-client.on('message', message => {
-	if(safemode == true)return;
-	if(message.channel.type == 'dm')return;
-	const sensitive = require('./sensitive.json');
-	var editedMessage = message.content.replace(/\*/g, "bad")
-	var editedMessage = editedMessage.replace(/\_/g, "bad")
-	var blocked = sensitive.filter(word => editedMessage.toLowerCase().includes(word));
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-	var dateTime = date+' '+time;
-	if (blocked.length > 0) {
-		if(blocked == `${blocked}`)
-			console.log(`${message.author.tag} tried to talk about a sensitive topic. Logged word: ${blocked}`);
-			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FFFF00')
-			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-			
-			userwarnings = require('./logs/userwarnings.json')
-			
-
-			if (!userwarnings[message.author.id])
-				userwarnings[message.author.id] = [];
-
-			userwarnings[message.author.id].push(`Sensitive topic: ${reason}`);
-
-			fs.writeFile('./logs/userwarnings.json', JSON.stringify(userwarnings), (err) => {
-				if (err) {
-				  console.log(err);
-				  respond('',`An error occured during saving.`, message.channel);
-				  return;
-				}
-			})
-
-			respond('Sensitive Topic Filter 🗣️',`Hey <@${message.author.id}>, please don't talk about this topic next time.\nYour message: ${reason}`, message.author)
 	}
 })
 
@@ -894,7 +855,32 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	.setTimestamp()
 	const channel = client.channels.cache.get(`${ModLog}`);
 	channel.send(MessageEditEmbed);
+	const profanity = require('./profanity.json');
+	var editedMessage = newMessage.toString().replace(/\*/g, "").replace(/\_/g, "")
+	var blocked = profanity.filter(word => editedMessage.toLowerCase().includes(word));
+	if (blocked.length > 0) {
+		if(blocked == `${blocked}`)
+			oldMessage.delete()
+			respond('',`<@${oldMessage.author.id}>, please don't edit your message to bypass the profanity filter. A warning has been logged.`, oldMessage.channel, 'FF0000')
+			const reason = newMessage.toString().toLowerCase().replace(`${blocked}`, `**${blocked}**`)
+			
+			userwarnings = require('./logs/userwarnings.json')
 
+			if (!userwarnings[oldMessage.author.id])
+				userwarnings[oldMessage.author.id] = [];
+
+			userwarnings[oldMessage.author.id].push(`Profanity (Message Edit): ${reason}`);
+
+		fs.writeFile('./logs/userwarnings.json', JSON.stringify(userwarnings), (err) => {
+			if (err) {
+			  console.log(err);
+			  respond('',`An error occured during saving.`, oldMessage.channel);
+			  return;
+			}
+		})
+
+			respond('Profanity Filter 🗣️',`Hey <@${oldMessage.author.id}>, please don't edit your message to bypass the profanity filter. Punishment information has been updated on your profile.\nYour message: ${reason}`, oldMessage.author)
+	}
 })
 
 //Below are client emit actions
