@@ -106,7 +106,55 @@ module.exports = {
 			} else {
 				returnFunction(`Uh... no?`)
 			}
-     	} 
+     	} else if(input == 'isn\'t it 12 am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 00) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else if(input == 'isn\'t it 1 am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 01) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else if(input == 'isn\'t it 2 am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 02) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else if(input == 'isn\'t it 3 am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 03) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else if(input == 'isn\'t it 4 am for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour == 04) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else if(input == 'isn\'t it late for you') {
+		    var today = new Date();
+			var hour = today.getHours()
+			if(hour > 00 && hour < 05) {
+				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
+			} else {
+				returnFunction(`Uh... no?`)
+			}
+     	} else
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
 			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
