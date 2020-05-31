@@ -856,7 +856,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	const channel = client.channels.cache.get(`${ModLog}`);
 	channel.send(MessageEditEmbed);
 	const profanity = require('./profanity.json');
-	var editedMessage = message.toString().replace(/[^\w\s]/g, "").replace(/\_/g, "")
+	var editedMessage = newMessage.toString().replace(/[^\w\s]/g, "").replace(/\_/, "")
 	var blocked = profanity.filter(word => editedMessage.toLowerCase().includes(word));
 	if (blocked.length > 0) {
 		if(blocked == `${blocked}`)
