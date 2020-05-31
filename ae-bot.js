@@ -585,44 +585,6 @@ client.on('message', message => {
 	}
 })
 
-//Sensitive topic filter
-client.on('message', message => {
-	if(safemode == true)return;
-	if(message.channel.type == 'dm')return;
-	const sensitive = require('./sensitive.json');
-	var editedMessage = message.content.replace(/\*/g, "bad")
-	var editedMessage = editedMessage.replace(/\_/g, "bad")
-	var blocked = sensitive.filter(word => editedMessage.toLowerCase().includes(word));
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-	var dateTime = date+' '+time;
-	if (blocked.length > 0) {
-		if(blocked == `${blocked}`)
-			console.log(`${message.author.tag} tried to talk about a sensitive topic. Logged word: ${blocked}`);
-			respond('',`<@${message.author.id}>, please don't talk about that here. A note has been logged.`, message.channel, 'FFFF00')
-			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-			
-			userwarnings = require('./logs/userwarnings.json')
-			u
-
-			if (!userwarnings[message.author.id])
-				userwarnings[message.author.id] = [];
-
-			userwarnings[message.author.id].push(`Sensitive topic: ${reason}`);
-
-			fs.writeFile('./logs/userwarnings.json', JSON.stringify(userwarnings), (err) => {
-				if (err) {
-				  console.log(err);
-				  respond('',`An error occured during saving.`, message.channel);
-				  return;
-				}
-			})
-
-			respond('Sensitive Topic Filter 🗣️',`Hey <@${message.author.id}>, please don't talk about this topic next time.\nYour message: ${reason}`, message.author)
-	}
-})
-
 // Sentry mode filter for rules 2-3
 client.on('message', message => {
 	if(message.channel.type == 'dm')return;
