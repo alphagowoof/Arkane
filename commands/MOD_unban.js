@@ -16,12 +16,6 @@ module.exports = {
 				respond('',`You can't perform this action on yourself.`, message.channel);
 				return;
 			}
-			const {ModeratorRoleID} = require('../config.json');
-			const checkmemberforroles = message.guild.members.cache.get(argarray[1])
-			if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){
-				respond('',`You can't perform that action on this user.`, message.channel);
-				return;
-			}
 			if(reason == ''){
 				var reason = 'No reason provided.'
 			}
