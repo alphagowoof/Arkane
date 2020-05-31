@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.1.0'
+version = '9.1.1'
 //version = "Debug Mode"
 codename = 'Interactive'
 footertext = 'Version '+ version +'\nCodename: '+ codename
@@ -552,7 +552,7 @@ client.on('message', message => {
 	if(safemode == true)return;
 	if(message.channel.type == 'dm')return;
 	const profanity = require('./profanity.json');
-	var editedMessage = message.content.replace(/\*/g, "").replace(/\_/g, "")
+	var editedMessage = message.toString().replace(/[^\w\s]/g, "").replace(/\_/g, "")
 	var blocked = profanity.filter(word => editedMessage.toLowerCase().includes(word));
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
@@ -856,7 +856,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	const channel = client.channels.cache.get(`${ModLog}`);
 	channel.send(MessageEditEmbed);
 	const profanity = require('./profanity.json');
-	var editedMessage = newMessage.toString().replace(/\*/g, "").replace(/\_/g, "")
+	var editedMessage = newMessage.toString().replace(/[^\w\s]/g, "")
 	var blocked = profanity.filter(word => editedMessage.toLowerCase().includes(word));
 	if (blocked.length > 0) {
 		if(blocked == `${blocked}`)
