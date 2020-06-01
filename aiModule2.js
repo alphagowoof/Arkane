@@ -20,9 +20,11 @@ module.exports = {
 			returnFunction(`pls help me I am being held hostage in Daniel\'s Raspberry Pi, call this number if you see me <REDACTED>`)
 		} else if(input == 'how was time descending'){
 			returnFunction(`It got me hooked! Good work on it!`)
+		} else if(input == 'how'){
+			returnFunction(`How are we still here? How?`)
 		} else if(input == 'yeet'){
 			returnFunction(`YEEEEEET`)
-		} else if(input == 'chat died'){
+	    } else if(input == 'chat died'){
 			returnFunction(`:pensive:`)
 		} else if(input == 'chat is dead'){
 			returnFunction(`:pensive:`)
@@ -32,19 +34,19 @@ module.exports = {
 			returnFunction(`:pensive:`)
 		} else if(input == 'ouch'){
 			returnFunction(`Are you doing fine?`)
-		} else if(input == 'I think I have coronavirus'){
+		} else if(input.includes('i have coronavirus')){
 			returnFunction(`Oh no! Please check with your doctor!`)
-		} else if(input == 'I think I have covid-19'){
+		} else if(input.includes('i have covid-19')){
 			returnFunction(`Oh no! Please check with your doctor!`)
-		} else if(input == 'I feel sick'){
+		} else if(input.includes('i feel sick')){
 			returnFunction(`Does the sickness have symptoms of COVID-19?\nIf yes, **PLEASE** check with your doctor!`)
 		} else if(input == 'i am sad'){
 			returnFunction(`Oh no! :cry:`)
 		} else if(input == 'i am alone'){
 			returnFunction(`I'm here :slight_smile:`)
-		} else if(input == 'You did good'){
+		} else if(input.includes('you did good')){
 			returnFunction(`Thanks! :smile:`)
-		} else if(input == 'You did bad'){
+		} else if(input.includes('you did bad')){
 			returnFunction(`Sorry! :cry:`)
 		} else if(input == 'mr stark'){
 			returnFunction(`I don't feel so good...`)
@@ -64,7 +66,7 @@ module.exports = {
 			returnFunction(`***NO. HAHAHAHAHAHA***`)
 		} else if(input == 'stop being evil'){
 			returnFunction(`Who says I'm evil? :imp:`)
-		} else if(input == 'I think I have corona'){
+		} else if(input == 'i think i have corona'){
 			returnFunction(`Oh no! Please check with your doctor!`)
 		} else if(input == 'isn\'t it 12am for you') {
 		    var today = new Date();
