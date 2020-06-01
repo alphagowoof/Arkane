@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.1.1'
+version = '9.1.2'
 //version = "Debug Mode"
 codename = 'Interactive'
 footertext = 'Version '+ version +'\nCodename: '+ codename
@@ -503,11 +503,6 @@ client.on('guildMemberAdd', member => {
 			}
 			delete require.cache[require.resolve(`./logs/prebanlist.json`)]
 		}
-		if(AssignMemberRoleOnJoin == true){
-			const role = member.guild.roles.cache.find(role => role.id === `${MemberRoleID}`);
-			member.roles.add(role);
-		
-
 		fs.readFile('./files/welcomemessage.txt', function(err, data){
 			const WelcomeEmbedDM = new Discord.MessageEmbed()
 			WelcomeEmbedDM.setTitle('Welcome! 👋')
@@ -518,8 +513,11 @@ client.on('guildMemberAdd', member => {
 			}
 			member.send(WelcomeEmbedDM)
 		})
-	}
-});
+		if(AssignMemberRoleOnJoin == true){
+			const role = member.guild.roles.cache.find(role => role.id === `${MemberRoleID}`);
+			member.roles.add(role);
+		}
+	});
 
 //Member leave
 client.on('guildMemberRemove', member => {
