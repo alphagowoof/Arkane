@@ -158,12 +158,12 @@ module.exports = {
 			}
      	} else if(input.includes('favorite moderator')){
      	const moderator = require('./mod.json')
-        var number = Math.floor(Math.random() * moderator.length)
+        var number = Math.floor(Math.random() * 4)
          var favmod = moderator[number]
          returnFunction(`Eh... I think ` + favmod + `?`)
          } else if(input.includes('favorite bot manager')){
      	const botm = require('./botm.json')
-         var number = Math.floor(Math.random() * botm.length)
+         var number = Math.floor(Math.random() * 7)
          var favbotm = botm[number]
          returnFunction(`Eh... I think ` + favbotm + `?`)
          }else if(input.includes('are you sure')){
