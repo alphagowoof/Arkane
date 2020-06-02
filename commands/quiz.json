@@ -853,5 +853,55 @@
         "answer" : "b",
         "answer_case" : "B",
         "qid" : "85"
+      },
+      {
+        "question" : "What game had the 'oof' sound (besides Roblox)?",
+        "choice1" : "A. Minecraft",
+        "choice2" : "B. Fortnite",
+        "choice3" : "C. Crysis",
+        "choice4" : "D. Medal of Honor",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "86"
+      },
+      {
+        "question" : "What was the message shown on an iPhone if it is stolen?",
+        "choice1" : "A. Please return to Apple <location> This device has been disabled and is being tracked. Local authorities will be alerted.",
+        "choice2" : "B. hey pls return this to apple <location>",
+        "choice3" : "C. Return this iPhone to Apple <location> or the phone explodes in 24 hours.",
+        "choice4" : "D. You can keep it I don't care",
+        "answer" : "a",
+        "answer_case" : "A",
+        "qid" : "87"
+      }
+      {
+        "question" : "What is the video game that utilized CryEngine?",
+        "choice1" : "A. Outlast",
+        "choice2" : "B. TWD: The Series",
+        "choice3" : "C. SOMA",
+        "choice4" : "D. Crysis series of games",
+        "answer" : "d",
+        "answer_case" : "D",
+        "qid" : "88"
+      }
+      {
+        "question" : "These games utilize the Frostbite game engine EXCEPT:",
+        "choice1" : "A. Battlefield 4",
+        "choice2" : "B. Resident Evil series of games",
+        "choice3" : "C. Mirror's Edge duology",
+        "choice4" : "D. Battlefield 1",
+        "answer" : "b",
+        "answer_case" : "B",
+        "qid" : "89"
+      }
+      {
+        "question" : "One of these programming languages power the Frostbite engine. Which one is it?",
+        "choice1" : "A. Perl",
+        "choice2" : "B. Pascal",
+        "choice3" : "C. IronPython",
+        "choice4" : "D. JavaScript",
+        "answer" : "c",
+        "answer_case" : "C",
+        "qid" : "90"
       }
 ]
