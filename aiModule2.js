@@ -158,7 +158,7 @@ module.exports = {
 			}
      	} else if(input.includes('favorite moderator'){
      	const moderator = require('./mod.json')
-        var number = Math.floor(Math.random() * mod.length)
+        var number = Math.floor(Math.random() * moderator.length)
          var favmod = moderator[number]
          returnFunction(`Eh... I think ` + favmod + `?`)
          } else if(input.includes('favorite bot manager'){
@@ -168,7 +168,7 @@ module.exports = {
          returnFunction(`Eh... I think ` + favbotm + `?`)
          }else if(input.includes('are you sure')){
          returnFunction('uhh... YES I AM SURE :cold_sweat:')
-         }
+         }else
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
 			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
