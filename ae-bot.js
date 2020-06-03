@@ -32,7 +32,7 @@ var safemode = false
 
 fs.exists('./runOnStartup.js', result =>{
 	if(result == true)
-	runOnStartModule = require('.runOnStartup.js')
+	runOnStartModule = require('./runOnStartup.js')
 	runOnStartModule.execute()
 })
 
