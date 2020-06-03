@@ -10,6 +10,7 @@ module.exports = {
       const memberinfoembed = new Discord.MessageEmbed()
         .setColor('#00FF00')
         .setTitle('User Information')
+        .setThumbnail(message.author.displayAvatarURL())
         .setAuthor(message.author.username)
         .setDescription(`Server join date: ${message.member.joinedAt}`)
         .setTimestamp()
