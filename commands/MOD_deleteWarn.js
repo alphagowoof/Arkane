@@ -49,6 +49,6 @@ module.exports = {
 		})
 
 		respond('',`Warning ${warningNr+1} was removed.`, message.channel);
-		delete require.cache[require.resolve(`../warnings.json`)]
+		delete require.cache[require.resolve(`../logs/userwarnings.json`)]
 	}
 };
