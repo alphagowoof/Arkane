@@ -582,172 +582,6 @@ client.on('message', message => {
 	}
 })
 
-// Sentry mode filter for rules 2-3
-client.on('message', message => {
-	if(message.channel.type == 'dm')return;
-	if(safemode == true)return;
-	if(sentrymode == true) {
-	var dict = require("./rules.json"); // The JSON data to load from
-	const info = require('./config.json');
-	const sentry1 = require('./sentrymode/sentry_p1.json');
-	var editedMessage = message.content.replace(/\*/g, "bad")
-	var editedMessage = editedMessage.replace(/\_/g, "bad")
-	var blocked = sentry1.filter(word => editedMessage.toLowerCase().includes(word));
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-	var dateTime = date+' '+time;
-	if (blocked.length > 0) {
-		if(blocked == `${blocked}`)
-			console.log(`${message.author.tag} tried to break rules 2-3. Logged word/phrase: ${blocked}`);
-			respond('',`<@${message.author.id}>, do not break rules 2-3. The moderators have been notified.`, message.channel, 'FFFF00')
-			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rules 2-3.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
-			respond('Rule 2-3 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rules 2-3 next time.\nYour message: ${reason}`, message.author)
-			const RuleEmbed = new Discord.MessageEmbed()
-			.setTitle('About Rules 2 and 3')
-			.setDescription("**-~Rule 2:~-**\n" + dict.Rule2 + "\n**-~Rule 3:~-**\n" + dict.Rule3)
-			.setTimestamp()
-			message.channel.send(RuleEmbed);
-			return;
-	} else {
-		return
-	}
-}
-})
-
-// Sentry mode filter for rule 4
-client.on('message', message => {
-	if(message.channel.type == 'dm')return;
-	if(sentrymode == true) {
-	var dict = require("./rules.json"); // The JSON data to load from
-	const info = require('./config.json');
-	const sentry2 = require('./sentrymode/sentry_p2.json');
-	var editedMessage = message.content.replace(/\*/g, "bad")
-	var editedMessage = editedMessage.replace(/\_/g, "bad")
-	var blocked = sentry2.filter(word => editedMessage.toLowerCase().includes(word));
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-	var dateTime = date+' '+time;
-	if (blocked.length > 0) {
-		if(blocked == `${blocked}`)
-			console.log(`${message.author.tag} tried to break rule 4. Logged word/phrase: ${blocked}`);
-			respond('',`<@${message.author.id}>, do not break rule 4. The moderators have been notified.`, message.channel, 'FFFF00')
-			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rule 4.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
-			respond('Rule 4 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rule 4 next time.\nYour message: ${reason}`, message.author)
-			const RuleEmbed = new Discord.MessageEmbed()
-			.setTitle('About Rule 4')
-			.setDescription(dict.Rule4)
-			.setTimestamp()
-			message.channel.send(RuleEmbed);
-			return;
-	} else {
-		return
-	}
-}
-})
-
-// Sentry mode filter for rule 5
-client.on('message', message => {
-	if(message.channel.type == 'dm')return;
-	if(sentrymode == true) {
-	var dict = require("./rules.json"); // The JSON data to load from
-	const info = require('./config.json');
-	const sentry3 = require('./sentrymode/sentry_p3.json');
-	var editedMessage = message.content.replace(/\*/g, "bad")
-	var editedMessage = editedMessage.replace(/\_/g, "bad")
-	var blocked = sentry3.filter(word => editedMessage.toLowerCase().includes(word));
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-	var dateTime = date+' '+time;
-	if (blocked.length > 0) {
-		if(blocked == `${blocked}`)
-			console.log(`${message.author.tag} tried to break rule 5. Logged word/phrase: ${blocked}`);
-			respond('',`<@${message.author.id}>, do not break rule 5. The moderators have been notified.`, message.channel, 'FFFF00')
-			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rule 5.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
-			respond('Rule 5 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rule 5 next time.\nYour message: ${reason}`, message.author)
-			const RuleEmbed = new Discord.MessageEmbed()
-			.setTitle('About Rule 5')
-			.setDescription(dict.Rule5)
-			.setTimestamp()
-			message.channel.send(RuleEmbed);
-			return;
-	} else {
-		return
-	}
-}
-})
-
-// Sentry mode filter for rule 6
-client.on('message', message => {
-	if(message.channel.type == 'dm')return;
-	if(sentrymode == true) {
-	var dict = require("./rules.json"); // The JSON data to load from
-	const info = require('./config.json');
-	const sentry4 = require('./sentrymode/sentry_p4.json');
-	var editedMessage = message.content.replace(/\*/g, "bad")
-	var editedMessage = editedMessage.replace(/\_/g, "bad")
-	var blocked = sentry4.filter(word => editedMessage.toLowerCase().includes(word));
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-	var dateTime = date+' '+time;
-	if (blocked.length > 0) {
-		if(blocked == `${blocked}`)
-			console.log(`${message.author.tag} tried to break rule 6. Logged word/phrase: ${blocked}`);
-			respond('',`<@${message.author.id}>, do not break rule 6. The moderators have been notified.`, message.channel, 'FFFF00')
-			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rule 6.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
-			respond('Rule 6 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rule 6 next time.\nYour message: ${reason}`, message.author)
-			const RuleEmbed = new Discord.MessageEmbed()
-			.setTitle('About Rule 6')
-			.setDescription(dict.Rule6)
-			.setTimestamp()
-			message.channel.send(RuleEmbed);
-			return;
-	} else {
-		return
-	}
-}
-})
-
-// Sentry mode filter for rule 9
-client.on('message', message => {
-	if(message.channel.type == 'dm')return;
-	if(sentrymode == true) {
-	var dict = require("./rules.json"); // The JSON data to load from
-	const info = require('./config.json');
-	const sentry6 = require('./sentrymode/sentry_p6.json');
-	var editedMessage = message.content.replace(/\*/g, "bad")
-	var editedMessage = editedMessage.replace(/\_/g, "bad")
-	var blocked = sentry6.filter(word => editedMessage.toLowerCase().includes(word));
-	var today = new Date();
-	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-	var dateTime = date+' '+time;
-	if (blocked.length > 0) {
-		if(blocked == `${blocked}`)
-			console.log(`${message.author.tag} tried to break rule 9. Logged word/phrase: ${blocked}`);
-			respond('',`<@${message.author.id}>, do not break rule 9. The moderators have been notified.`, message.channel, 'FFFF00')
-			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
-			respond('<:sus:662817457425219614> Sentry Mode Notification',`<@${message.author.id}> tried to break rule 9.\nMessage: ` + reason + "\nTime and date: **" + dateTime + "**\nIf you feel this needs action, go to this channel: **#" + message.channel.name + "**", message.guild.channels.cache.get(info.ModLog), 'FFFF00', "Sentry Mode by [thomas swim]")
-			respond('Rule 9 Filter 🗣️',`Hey <@${message.author.id}>, please do not break rule 9 next time.\nYour message: ${reason}`, message.author)
-			const RuleEmbed = new Discord.MessageEmbed()
-			.setTitle('About Rule 9')
-			.setDescription(dict.Rule9)
-			.setTimestamp()
-			message.channel.send(RuleEmbed);
-			return;
-	} else {
-		return
-	}
-}
-})
-
 //Log deleted messages
 client.on('messageDelete', async message => {
 	if(safemode == true)return;
@@ -813,6 +647,30 @@ client.on('messageDelete', async message => {
 		return;
 	}
 });
+
+//Member update
+client.on('guildMemberUpdate', ( oldmember, newmember) => { 
+	if(oldmember.bot)return
+
+	let oldNickname = oldmember ? oldmember.displayName : null;
+	let newNickname = newmember ? newmember.displayName : null;
+
+	const memberUpdateEmbed = new Discord.MessageEmbed()
+	memberUpdateEmbed.setAuthor(`${newmember.user.tag}`, `${newmember.user.displayAvatarURL()}`)
+	if(oldmember.roles.cache.array().toString() != newmember.roles.cache.array().toString()){
+		memberUpdateEmbed.addField('Role Update',`Old roles: ${oldmember.roles.cache.array().toString()}\nUpdated roles: ${newmember.roles.cache.array().toString()}`, false)
+	}
+	if(oldNickname != newNickname ){
+		memberUpdateEmbed.addField('Nickname Update',`Old nickname: ${oldNickname}\nUpdated nickname: ${newNickname}`, false)
+	}
+	if(newmember.user.displayAvatarURL() != oldmember.user.displayAvatarURL()){
+		memberUpdateEmbed.addField('Icon Update',`Old icon: ${oldmember.user.displayAvatarURL()}\nUpdated icon: ${newmember.user.displayAvatarURL()}`, false)
+	}
+
+	const channel = client.channels.cache.get(`${ModLog}`);
+	channel.send(memberUpdateEmbed)
+    
+}) 
 
 //message log
 client.on('message', message => {
