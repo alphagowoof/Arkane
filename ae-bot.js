@@ -321,7 +321,7 @@ client.on('message', message => {
 
 client.on('message', message => {
 	if (fs.existsSync('./aiModule.js' && !fs.existsSync('./safe_mode.flag'))){
-		aiModule = require('./aiModule.js')
+		var aiModule = require('./aiModule.js')
 	}
 	if(!safemode == true)
 	if (fs.existsSync('./aiModule.js'))
