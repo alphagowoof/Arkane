@@ -152,7 +152,7 @@ module.exports = {
      	} else if(input == 'isn\'t it late for you') {
 		    var today = new Date();
 			var hour = today.getHours()
-			if(hour > 00 && hour < 05) {
+			if(hour == 0 && hour < 05) {
 				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
 			} else {
 				returnFunction(`Uh... no?`)
@@ -225,7 +225,15 @@ module.exports = {
 			} else 
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
-			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+			fs.appendFile('./aiModule_MissingInputs.txt', input+"\n", error => {
+				if(!error){
+					console.log('Added input to missing inputs text file.')
+					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+				} else {
+					console.log('Failed to add input to missing inputs text file.')
+					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+				}
+			})
 		}else 
 		if(fs.existsSync(`./aiModule${this.module+1}.js`)){
 			delete require.cache[require.resolve(`./aiModule${this.module+1}.js`)]
