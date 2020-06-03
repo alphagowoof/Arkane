@@ -650,7 +650,6 @@ client.on('messageDelete', async message => {
 
 //Member update
 client.on('guildMemberUpdate', ( oldmember, newmember) => { 
-	if(oldmember.bot)return
 
 	let oldNickname = oldmember ? oldmember.displayName : null;
 	let newNickname = newmember ? newmember.displayName : null;
@@ -662,9 +661,6 @@ client.on('guildMemberUpdate', ( oldmember, newmember) => {
 	}
 	if(oldNickname != newNickname ){
 		memberUpdateEmbed.addField('Nickname Update',`Old nickname: ${oldNickname}\nUpdated nickname: ${newNickname}`, false)
-	}
-	if(newmember.user.displayAvatarURL() != oldmember.user.displayAvatarURL()){
-		memberUpdateEmbed.addField('Icon Update',`Old icon: ${oldmember.user.displayAvatarURL()}\nUpdated icon: ${newmember.user.displayAvatarURL()}`, false)
 	}
 
 	const channel = client.channels.cache.get(`${ModLog}`);
