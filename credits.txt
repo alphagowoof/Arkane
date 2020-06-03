@@ -8,9 +8,9 @@ Thanks to `Greg#1810` for letting me put my bot in the Apple Explained server.
 
 `LT-Tips#8200` for general testing.
 
-`Daniel C#7205` for writing the bot and commands.
+`Daniel C#7205` for writing the bot, commands, and aiModules.
 
-`Toomuchjscode#9583` for developing the games, helping Daniel with the `repair` command, helping Derpi with the `sentrymode` command and building the sensitive topic filter.
+`GoodlookingJSprogrammer#9583` for developing the games, helping Daniel with the `repair` command, helping Derpi with the `sentrymode` command and building the sensitive topic filter. Also for building the `leaderboard` command and the upcoming `achievements` command.
 
 Thanks to everyone else who helped with this project too! :)
 
