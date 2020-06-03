@@ -31,9 +31,11 @@ errorcount = 0
 var safemode = false
 
 fs.exists('./runOnStartup.js', result =>{
-	if(result == true)
-	runOnStartModule = require('./runOnStartup.js')
-	runOnStartModule.execute()
+	if(result == true){
+		runOnStartModule = require('./runOnStartup.js')
+		runOnStartModule.execute()
+	}
+
 })
 
 if (!fs.existsSync('./restrictions.json')){
