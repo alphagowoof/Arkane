@@ -2,6 +2,7 @@ module.exports = {
 	name:"aiModule2",
 	module:2,
 	execute(input, author, returnFunction){
+		const Discord = require('discord.js');
 		console.log(`AI Module ${this.module} loaded.`)
 		console.log(input)
 		if(input == 'who made your profanity filter'){
@@ -151,11 +152,12 @@ module.exports = {
      	} else if(input == 'isn\'t it late for you') {
 		    var today = new Date();
 			var hour = today.getHours()
-			if(hour > 00 && hour < 05) {
+			if(hour == 0 && hour < 05) {
 				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
 			} else {
 				returnFunction(`Uh... no?`)
 			}
+			// Favorite stuff
      	} else if(input.includes('favorite moderator')){
      	const moderator = require('./mod.json')
         var number = Math.floor(Math.random() * moderator.length)
@@ -170,10 +172,68 @@ module.exports = {
          returnFunction(`Eh... I think ` + favbotm + `?`)
          }else if(input.includes('are you sure')){
          returnFunction('uhh... YES I AM SURE :cold_sweat:')
-         }else
+         }else if(input.includes('fave moderator')){
+			const moderator = require('./mod.json')
+		    var number = Math.floor(Math.random() * moderator.length)
+			var favmod = moderator[number]
+			console.log(favmod)
+			returnFunction(`Eh... I think ` + favmod + `?`)
+			} else if(input.includes('fave bot manager')){
+			const botm = require('./botm.json')
+			var number = Math.floor(Math.random() * botm.length)
+			var favbotm = botm[number]
+			console.log(favbotm)
+			returnFunction(`Eh... I think ` + favbotm + `?`)
+			}else if(input.includes('are you sure')){
+			returnFunction('uhh... YES I AM SURE :cold_sweat:')
+			}else if(input.includes('say something random')){
+				const letterbank = require('./letterbank.json')
+				const rL1 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL2 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL3 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL4 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL5 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL6 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				console.log(rL1+rL2+rL3+rL4+rL5+rL6)
+				returnFunction(rL1+rL2+rL3+rL4+rL5+rL6)
+			} else if(input.includes('can\'t sleep')){
+				returnFunction(`please sleep... <:sus:662817457425219614>`)
+			} else if(input.includes('how')){
+				returnFunction(`How?`)
+			} else if(input.includes('who is your father')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('sup comrade')){
+				returnFunction(`hello comrade how are you doing?`)
+				setTimeout(function(){ 
+					returnFunction(`OH SORRY I MEANT "HOW ARE __**WE**__ DOING!!!"`)
+				}, 2500);
+				setTimeout(function(){ 
+					returnFunction(`don't take me to gulag pls :cry:`)
+				}, 3500);
+			} else if(input.includes('it works')){
+				returnFunction(`Yay! :smile:`)
+			} else if(input.includes('who\'s your father')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('who is your dad')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('who\'s your dad')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('who is your daddy')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('who\'s your daddy')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else 
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
-			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+			fs.appendFile('./aiModule_MissingInputs.txt', input+"\n", error => {
+				if(!error){
+					console.log('Added input to missing inputs text file.')
+					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+				} else {
+					console.log('Failed to add input to missing inputs text file.')
+					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+				}
+			})
 		}else 
 		if(fs.existsSync(`./aiModule${this.module+1}.js`)){
 			delete require.cache[require.resolve(`./aiModule${this.module+1}.js`)]

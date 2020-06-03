@@ -324,10 +324,10 @@ client.on('message', message => {
         }}
 })
 
-
+//AI Modules
 client.on('message', message => {
 	if (fs.existsSync('./aiModule.js' && !fs.existsSync('./safe_mode.flag'))){
-		var aiModule = require('./aiModule.js')
+		const aiModule = require('./aiModule.js')
 	}
 	if(!safemode == true)
 	if (fs.existsSync('./aiModule.js'))
@@ -336,10 +336,16 @@ client.on('message', message => {
 		message.channel.send(result)
 	}
 
+	function returnFunctionRandomizer(result){
+		message.channel.send(result)
+	}
+
 	if(message.content.startsWith(`<@${client.user.id}>`) && !message.author.bot){
+		const aiModule = require('./aiModule.js')
 		const text = message.content.slice(`<@${client.user.id}>`.length+1).toLowerCase()
 		aiModule.execute(text, message.author, returnFunction)
 	}else if(message.content.startsWith(`<@!${client.user.id}>`) && !message.author.bot){
+		const aiModule = require('./aiModule.js')
 		const text = message.content.slice(`<@!${client.user.id}>`.length+1).toLowerCase()
 		aiModule.execute(text, message.author, returnFunction)
 	}
