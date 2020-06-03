@@ -14,7 +14,7 @@ module.exports = {
 					const { MessageEmbed } = require('discord.js')
 					const updatingNews = new Discord.MessageEmbed()
 					updatingNews.setTitle('📥 Update News')
-					updatingNews.setDescription('Invalid file given. Please make sure to only give news.json')
+					updatingNews.setDescription('Invalid file given. Please make sure to only give news.json.')
 					message.channel.send(updatingNews)
 					return
 				}
