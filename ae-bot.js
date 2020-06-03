@@ -23,9 +23,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.1.2'
+version = '9.2.2'
 //version = "Debug Mode"
-codename = 'Interactive'
+codename = 'Medal of Honor'
 footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false

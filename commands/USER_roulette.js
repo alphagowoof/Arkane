@@ -11,7 +11,7 @@ module.exports = {
       const msg = message
       const arg = message.content.slice('').trim().split(/ +/g);
       var rouletterollraw = Math.random() * 36
-      var rouletteroll = Math.ceil(rouletterollraw)
+      var rouletteroll = Math.floor(rouletterollraw)
       if(rouletteroll === 0){
         var rouletteColor = "green"
       } else if(rouletteroll === 1 || rouletteroll === 3 || rouletteroll === 5 || rouletteroll === 7 || rouletteroll === 9 || rouletteroll === 12 || rouletteroll === 14 || rouletteroll === 16 || rouletteroll === 18 || rouletteroll === 19 || rouletteroll === 21 || rouletteroll === 23 || rouletteroll === 25 || rouletteroll === 27 || rouletteroll === 30 || rouletteroll === 32 || rouletteroll === 34 || rouletteroll === 36){
@@ -88,7 +88,11 @@ module.exports = {
           return
         }
         function numberComparison(){
-          if(arg[1] === rouletteroll){
+          var numberguess = arg[1]
+          // Generate fair win number
+          var winrate = Math.ceil(Math.random() * 100)
+          if(winrate > 50) {var rouletteroll = numberguess}
+          if(numberguess === rouletteroll){
             fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
               if(error) {
                 console.log("Roulette win. No leaderboard update.")
