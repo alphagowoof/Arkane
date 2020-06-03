@@ -30,6 +30,12 @@ footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
 
+fs.exists('./runOnStartup.js', result =>{
+	if(result == true)
+	runOnStartModule = require('.runOnStartup.js')
+	runOnStartModule.execute()
+})
+
 if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is missing.')
 if (!fs.existsSync('./logs/userwarnings.json')){
 	fs.writeFileSync('./logs/userwarnings.json', '{}')
