@@ -134,8 +134,16 @@ module.exports = {
       // Oh, it's a tie, lol
       console.log('dice roll tie')
       respond('Tie',`You rolled a ${numbermul}, <@${message.author.id}>.\nI rolled a ${numberApModmul}.\nWow, we tied, <@${message.author.id}>!` , message.channel)
-      return
-    }
+      jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
+      jsonfile.rdgties = Number(jsonfile.rdgties)+1;
+      data = JSON.stringify(jsonfile)
+      fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
+          if (err) throw err;
+          else {
+            console.log("Successfully updated Rolldicegame game stats of " + message.author.id + ".")
+          }
+          return
+    })}
   }
 }
     }

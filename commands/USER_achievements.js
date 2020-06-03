@@ -9,7 +9,8 @@ module.exports = {
       const fs = require('fs');
       const Discord = require('discord.js')
       const msg = message
-      const arg = msg.content.slice('').trim().split(/ +/g); 
+      const arg = msg.content.slice('').trim().split(/ +/g);
+      const lbStats = require('../leaderboards/' + message.author.id + "_gamestats.json")
       try {
          if(arg[1] === 'init'){
             fs.readFile('./leaderboards/' + message.author.id + '_achievements.json', err => {
@@ -69,15 +70,14 @@ module.exports = {
 
             console.log("Successfully loaded achievement stats of " + message.author.tag + ".")
               respond('🏆 Game Achievements',message.author.tag+', here are your achievement stats:', message.channel)
-              const achievements = require('./leaderboards/' + message.author.id + '_achievements.json')
-              if(achievements.hasAchievements = false){
+              const achievements = require('../leaderboards/' + message.author.id + '_achievements.json')
+              if(achievements.hasAchievements === false){
                 respond('','That\'s weird... You don\'t have any!\nGo play some games to get achievements!', message.channel)
                 return
               } else {
-                respond('','This part will be coded soon!', message.channel)
-                return
+                //respond('','This part will be coded soon!', message.channel)
+                respond('','__***Trivia achievements:***__\n', message.channel)
               }
-              return
             } else if(error) {
               respond('🏆 Game Achievements', 'Your Achievements stats do not exist.\nType `achievements init` to start flexing your achievements with other members in the server!', message.channel);
               return;
