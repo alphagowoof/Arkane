@@ -36,7 +36,9 @@ fs.exists('./runOnStartup.js', result =>{
 	runOnStartModule.execute()
 })
 
-if (!fs.existsSync('./restrictions.json'))console.log('restrictions.json is missing.')
+if (!fs.existsSync('./restrictions.json')){
+	console.log('restrictions.json is missing.')
+}
 if (!fs.existsSync('./logs/userwarnings.json')){
 	fs.writeFileSync('./logs/userwarnings.json', '{}')
 }
