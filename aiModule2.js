@@ -222,6 +222,73 @@ module.exports = {
 				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
 			} else if(input.includes('who\'s your daddy')){
 				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('what\'s your favorite movie')){
+				returnFunction(`Anything from the Terminator series of movies.`)
+				setTimeout(function(){ 
+					returnFunction(`**A T-800 HAS HACKED INTO YOUR BOT. YOU CAN'T DO ANYTHING. HASTA LA VISTA.**`)
+				}, 3500);
+			} else if(input.includes('make me laugh')){
+				const jokebook = require('./jokes.json')
+				const jokepick = jokebook[Math.floor(Math.random()*jokebook.length)]
+				const joke = jokepick.joke
+				const punchline = jokepick.punchline
+				returnFunction(joke)
+				setTimeout(function(){ 
+					returnFunction(punchline)
+				}, 3000);
+			} else if(input.includes('tell me a joke')){
+				const jokebook = require('./jokes.json')
+				const jokepick = jokebook[Math.floor(Math.random()*jokebook.length)]
+				const joke = jokepick.joke
+				const punchline = jokepick.punchline
+				returnFunction(joke)
+				setTimeout(function(){ 
+					returnFunction(punchline)
+				}, 3000);
+			} else if(input.includes('tell me jokes')){
+				jokeLoop()
+				function jokeLoop() {
+				const jokebook = require('./jokes.json')
+				var jokenumber = Math.floor(Math.random()*jokebook.length)
+				console.log(jokenumber)
+				const jokepick = jokebook[jokenumber]
+				const joke = jokepick.joke
+				const punchline = jokepick.punchline
+				returnFunction(joke)
+				setTimeout(function(){ 
+					returnFunction(punchline)
+				}, 3000);
+			}
+			} else if(input.includes('i\'m gonna sleep now')){
+				returnFunction(`Good night <@${author.id}>!`)
+				setTimeout(function(){ 
+					returnFunction('__***i    w i l l     h a u n t     y o u      i n     y o u r      d r e a m s . . .\nm u a h a h a h a h a h a h a h a h a***__')
+				}, 3000);
+				setTimeout(function(){ 
+					returnFunction(':imp:')
+				}, 5000);
+				setTimeout(function(){ 
+					returnFunction('i   a m    y o u r    s l e e p    p a r a l y s i s    d e m o n . . .\nw a t c h    o u t . . .')
+				}, 7000);
+			} else if(input.includes('i\'m gonna sleep')){
+				returnFunction(`Good night <@${author.id}>!`)
+				setTimeout(function(){ 
+					returnFunction('__***i    w i l l     h a u n t     y o u      i n     y o u r      d r e a m s . . .\nm u a h a h a h a h a h a h a h a h a***__')
+				}, 3000);
+				setTimeout(function(){ 
+					returnFunction(':imp:')
+				}, 5000);
+				setTimeout(function(){ 
+					returnFunction('i   a m    y o u r    s l e e p    p a r a l y s i s    d e m o n . . .\nw a t c h    o u t . . .')
+				}, 7000);
+			} else if(input.includes('who\'s your crush here')){
+				returnFunction(`I don't have one <:sus:662817457425219614>`)
+			} else if(input.includes('scare')){
+				returnFunction(`__***BOO!***__\nScared ya! :joy:`)
+			} else if(input.includes('wop bop a loo bop a loop bam boom')){
+				returnFunction(`boop a loop, boop a loop, boom boom bop!`)
+			} else if(input.includes('favorite quote')){
+				returnFunction(`***PLEASE*** commit to dev!\n- Daniel (TechGeekGamer)`)
 			} else 
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){

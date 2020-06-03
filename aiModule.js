@@ -141,7 +141,7 @@ module.exports = {
 			returnFunction(`For me it is ${time}, on ${date}`)
 		} else 
 		if(input == "what's your favorite book"){
-			returnFunction(`uhhh, how bots work 101?`)
+			returnFunction(`uhhh, how bots work 101?\nmaybe time descending? idk`)
 		} else 
 		if(input == "who's your favorite member"){
 			returnFunction(`Uh, uh, uh, my favorite is ||ERROR UNABLE TO LOAD||`)
