@@ -18,8 +18,9 @@ module.exports = {
         const memberinfoembed = new Discord.MessageEmbed()
         .setColor('#00FF00')
         .setTitle('User Information')
-        .setAuthor(mentionedUser.username)
+        .setAuthor(mentionedUser.tag)
         .setDescription(`Member ID: ${mentionedUser.id}\n\nAccount creation date: ${mentionedUser.createdAt}\n\nServer join date: ${message.mentions.members.first().joinedAt}`)
+        .setThumbnail(mentionedUser.displayAvatarURL())
         .setTimestamp()
         message.channel.send(memberinfoembed)
 
