@@ -679,6 +679,13 @@ client.on('guildMemberUpdate', ( oldmember, newmember) => {
 	}
 	if(oldNickname != newNickname ){
 		memberUpdateEmbed.addField('Nickname Update',`Old nickname: ${oldNickname}\nUpdated nickname: ${newNickname}`, false)
+		var profanity = require('./profanity.json');
+		var editedMessage = newNickname.toString().replace(/[^\w\s]/g, "").replace(/\_/g, "")
+		var blocked = profanity.filter(word => editedMessage.toLowerCase().includes(word));
+		if (blocked.length > 0) {
+			newmember.setNickname('User (Renamed by filter)', `Profanity: ${blocked}`)
+			respond('📛 Name Change', `Your name was changed since it included profanity. The caught word was: ${blocked}`, newmember)
+		}
 		count = count+1
 	}
 
