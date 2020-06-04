@@ -682,9 +682,11 @@ client.on('guildMemberUpdate', ( oldmember, newmember) => {
 		count = count+1
 	}
 
-	if(count != 0)
-	const channel = client.channels.cache.get(`${ModLog}`);
-	channel.send(memberUpdateEmbed)
+	if(count != 0){
+		const channel = client.channels.cache.get(`${ModLog}`);
+		channel.send(memberUpdateEmbed)
+	}
+
     
 }) 
 
