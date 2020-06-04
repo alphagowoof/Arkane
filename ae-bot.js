@@ -666,6 +666,7 @@ client.on('messageDelete', async message => {
 
 //Member update
 client.on('guildMemberUpdate', ( oldmember, newmember) => { 
+	count = 0
 
 	let oldNickname = oldmember ? oldmember.displayName : null;
 	let newNickname = newmember ? newmember.displayName : null;
@@ -674,11 +675,14 @@ client.on('guildMemberUpdate', ( oldmember, newmember) => {
 	memberUpdateEmbed.setAuthor(`${newmember.user.tag}`, `${newmember.user.displayAvatarURL()}`)
 	if(oldmember.roles.cache.array().toString() != newmember.roles.cache.array().toString()){
 		memberUpdateEmbed.addField('Role Update',`Old roles: ${oldmember.roles.cache.array().toString()}\nUpdated roles: ${newmember.roles.cache.array().toString()}`, false)
+		count = count+1
 	}
 	if(oldNickname != newNickname ){
 		memberUpdateEmbed.addField('Nickname Update',`Old nickname: ${oldNickname}\nUpdated nickname: ${newNickname}`, false)
+		count = count+1
 	}
 
+	if(count != 0)
 	const channel = client.channels.cache.get(`${ModLog}`);
 	channel.send(memberUpdateEmbed)
     
