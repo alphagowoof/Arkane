@@ -15,9 +15,9 @@ module.exports = {
       .addFields(
         { name: 'Version', value: version, inline: false },
         { name: 'Codename', value: codename, inline: false },
-        { name: 'Author', value: 'Daniel C (TechGeekGamer)', inline:false},
-        { name: 'Source', value: 'https://github.com/TechGeekGamer/Apple-Explained-Moderation-Bot', inline: false },
-        { name: 'Written in', value: '[Discord.JS V12](https://discord.js.org/)', inline: false },
+        { name: 'Creator', value: `[Freshman Devs](https://github.com/Freshman-Devs/)`, inline:false},
+        { name: 'Source', value: `[GitHub](https://github.com/Freshman-Devs/Apple-Explained-Moderation-Bot)`, inline: false },
+        { name: 'Written in', value: '[Discord.JS](https://discord.js.org/)', inline: false },
         
 			)
       .setThumbnail(`${icon}`)

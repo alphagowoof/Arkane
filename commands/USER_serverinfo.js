@@ -17,7 +17,7 @@ module.exports = {
         { name: 'Guild owner', value: `<@${guild.owner.id}>`, inline:false},
         { name: 'Guild member count', value: guild.memberCount, inline: false },
         { name: 'Guild creation date', value: guild.createdAt, inline: false },
-        
+        { name: 'Guild roles', value: guild.roles.cache.array().toString(), inline: false },
         
 			)
       .setThumbnail(`${icon}`)

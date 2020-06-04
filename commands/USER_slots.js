@@ -24,7 +24,9 @@ module.exports = {
          console.log("Slot 3 transferred. " + slot3)
          console.log("Generating duplicator...")
          var dup = Math.ceil(Math.random() * 1000)
-         console.log("Duplicator generated.")
+         var minordup = Math.ceil(Math.random() * 1000)
+         console.log("Duplicator generated. " + dup)
+         console.log("Minor duplicator generated. " + minordup)
          if(dup > 700) {
           console.log("Duplicate success.")
            var slot1 = roll1
@@ -32,6 +34,24 @@ module.exports = {
            var slot3 = roll1
          } else {
           console.log("No duplicate.")
+          var slot1 = roll1
+          var slot2 = roll2
+          var slot3 = roll3
+         }
+         if(minordup > 200 && minordup < 400) {
+          console.log("Minor duplicate success. S1/S3")
+           var slot1 = roll1
+           var slot3 = roll1
+         } else if(minordup > 500 && minordup < 650){
+          console.log("Minor duplicate success. S2/S3")
+           var slot2 = roll1
+           var slot3 = roll1
+         } else if(minordup > 650 && minordup < 800){
+          console.log("Minor duplicate success. S1/S2")
+           var slot1 = roll1
+           var slot2 = roll1
+         } else {
+          console.log("No minor duplicate.")
           var slot1 = roll1
           var slot2 = roll2
           var slot3 = roll3

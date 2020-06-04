@@ -2,6 +2,7 @@ module.exports = {
 	name:"aiModule2",
 	module:2,
 	execute(input, author, returnFunction){
+		const Discord = require('discord.js');
 		console.log(`AI Module ${this.module} loaded.`)
 		console.log(input)
 		if(input == 'who made your profanity filter'){
@@ -151,27 +152,155 @@ module.exports = {
      	} else if(input == 'isn\'t it late for you') {
 		    var today = new Date();
 			var hour = today.getHours()
-			if(hour > 00 && hour < 05) {
+			if(hour == 0 && hour < 05) {
 				returnFunction(`Oh no! I want to sleep but the RPi is not letting me! HELP!`)
 			} else {
 				returnFunction(`Uh... no?`)
 			}
+			// Favorite stuff
      	} else if(input.includes('favorite moderator')){
      	const moderator = require('./mod.json')
-        var number = Math.floor(Math.random() * 4)
-         var favmod = moderator[number]
+        var number = Math.floor(Math.random() * moderator.length)
+		 var favmod = moderator[number]
+		 console.log(favmod)
          returnFunction(`Eh... I think ` + favmod + `?`)
          } else if(input.includes('favorite bot manager')){
      	const botm = require('./botm.json')
-         var number = Math.floor(Math.random() * 7)
-         var favbotm = botm[number]
+         var number = Math.floor(Math.random() * botm.length)
+		 var favbotm = botm[number]
+		 console.log(favbotm)
          returnFunction(`Eh... I think ` + favbotm + `?`)
          }else if(input.includes('are you sure')){
          returnFunction('uhh... YES I AM SURE :cold_sweat:')
-         }else
+         }else if(input.includes('fave moderator')){
+			const moderator = require('./mod.json')
+		    var number = Math.floor(Math.random() * moderator.length)
+			var favmod = moderator[number]
+			console.log(favmod)
+			returnFunction(`Eh... I think ` + favmod + `?`)
+			} else if(input.includes('fave bot manager')){
+			const botm = require('./botm.json')
+			var number = Math.floor(Math.random() * botm.length)
+			var favbotm = botm[number]
+			console.log(favbotm)
+			returnFunction(`Eh... I think ` + favbotm + `?`)
+			}else if(input.includes('are you sure')){
+			returnFunction('uhh... YES I AM SURE :cold_sweat:')
+			}else if(input.includes('say something random')){
+				const letterbank = require('./letterbank.json')
+				const rL1 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL2 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL3 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL4 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL5 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				const rL6 = letterbank[Math.floor(Math.random() * letterbank.length)]
+				console.log(rL1+rL2+rL3+rL4+rL5+rL6)
+				returnFunction(rL1+rL2+rL3+rL4+rL5+rL6)
+			} else if(input.includes('can\'t sleep')){
+				returnFunction(`please sleep... <:sus:662817457425219614>`)
+			} else if(input.includes('how')){
+				returnFunction(`How?`)
+			} else if(input.includes('who is your father')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('sup comrade')){
+				returnFunction(`hello comrade how are you doing?`)
+				setTimeout(function(){ 
+					returnFunction(`OH SORRY I MEANT "HOW ARE __**WE**__ DOING!!!"`)
+				}, 2500);
+				setTimeout(function(){ 
+					returnFunction(`don't take me to gulag pls :cry:`)
+				}, 3500);
+			} else if(input.includes('it works')){
+				returnFunction(`Yay! :smile:`)
+			} else if(input.includes('who\'s your father')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('who is your dad')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('who\'s your dad')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('who is your daddy')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('who\'s your daddy')){
+				returnFunction(`Daniel C, so I guess that makes me Apple Mod C? :sweat_smile:`)
+			} else if(input.includes('what\'s your favorite movie')){
+				returnFunction(`Anything from the Terminator series of movies.`)
+				setTimeout(function(){ 
+					returnFunction(`**A T-800 HAS HACKED INTO YOUR BOT. YOU CAN'T DO ANYTHING. HASTA LA VISTA.**`)
+				}, 3500);
+			} else if(input.includes('make me laugh')){
+				const jokebook = require('./jokes.json')
+				const jokepick = jokebook[Math.floor(Math.random()*jokebook.length)]
+				const joke = jokepick.joke
+				const punchline = jokepick.punchline
+				returnFunction(joke)
+				setTimeout(function(){ 
+					returnFunction(punchline)
+				}, 3000);
+			} else if(input.includes('tell me a joke')){
+				const jokebook = require('./jokes.json')
+				const jokepick = jokebook[Math.floor(Math.random()*jokebook.length)]
+				const joke = jokepick.joke
+				const punchline = jokepick.punchline
+				returnFunction(joke)
+				setTimeout(function(){ 
+					returnFunction(punchline)
+				}, 3000);
+			} else if(input.includes('tell me jokes')){
+				jokeLoop()
+				function jokeLoop() {
+				const jokebook = require('./jokes.json')
+				var jokenumber = Math.floor(Math.random()*jokebook.length)
+				console.log(jokenumber)
+				const jokepick = jokebook[jokenumber]
+				const joke = jokepick.joke
+				const punchline = jokepick.punchline
+				returnFunction(joke)
+				setTimeout(function(){ 
+					returnFunction(punchline)
+				}, 3000);
+			}
+			} else if(input.includes('i\'m gonna sleep now')){
+				returnFunction(`Good night <@${author.id}>!`)
+				setTimeout(function(){ 
+					returnFunction('__***i    w i l l     h a u n t     y o u      i n     y o u r      d r e a m s . . .\nm u a h a h a h a h a h a h a h a h a***__')
+				}, 3000);
+				setTimeout(function(){ 
+					returnFunction(':imp:')
+				}, 5000);
+				setTimeout(function(){ 
+					returnFunction('i   a m    y o u r    s l e e p    p a r a l y s i s    d e m o n . . .\nw a t c h    o u t . . .')
+				}, 7000);
+			} else if(input.includes('i\'m gonna sleep')){
+				returnFunction(`Good night <@${author.id}>!`)
+				setTimeout(function(){ 
+					returnFunction('__***i    w i l l     h a u n t     y o u      i n     y o u r      d r e a m s . . .\nm u a h a h a h a h a h a h a h a h a***__')
+				}, 3000);
+				setTimeout(function(){ 
+					returnFunction(':imp:')
+				}, 5000);
+				setTimeout(function(){ 
+					returnFunction('i   a m    y o u r    s l e e p    p a r a l y s i s    d e m o n . . .\nw a t c h    o u t . . .')
+				}, 7000);
+			} else if(input.includes('who\'s your crush here')){
+				returnFunction(`I don't have one <:sus:662817457425219614>`)
+			} else if(input.includes('scare')){
+				returnFunction(`__***BOO!***__\nScared ya! :joy:`)
+			} else if(input.includes('wop bop a loo bop a loop bam boom')){
+				returnFunction(`boop a loop, boop a loop, boom boom bop!`)
+			} else if(input.includes('favorite quote')){
+				returnFunction(`***PLEASE*** commit to dev!\n- Daniel (TechGeekGamer)`)
+			} else 
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
-			returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+			fs.appendFile('./aiModule_MissingInputs.txt', input+"\n", error => {
+				if(!error){
+					console.log('Added input to missing inputs text file.')
+					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+				} else {
+					console.log('Failed to add input to missing inputs text file.')
+					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+				}
+			})
 		}else 
 		if(fs.existsSync(`./aiModule${this.module+1}.js`)){
 			delete require.cache[require.resolve(`./aiModule${this.module+1}.js`)]

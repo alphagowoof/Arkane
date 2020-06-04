@@ -23,7 +23,17 @@ shutdown.flag
 restrictions.json
 errorcount.txt
 *.flag
-leaderboards/toomuchjscode#9583_gamestats.json
-leaderboards/Daniel 💻#7205_gamestats.json
-leaderboards/454579681602043916_gamestats.json
-leaderboards/454579681602043916_achievements.json
+resources/classified.json
+resources/classifiedpieces.json
+resources/crypt.json
+resources/never.json
+resources/quiz.json
+package.json
+package-lock.json
+LICENSE 2
+key.js
+configb.json
+bot.js
+runOnStartup.js
+aiModule_MissingInputs.txt
+files/news.json
