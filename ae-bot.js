@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.2.2'
+version = '9.3.0'
 //version = "Debug Mode"
 codename = 'Medal of Honor'
 footertext = 'Version '+ version +'\nCodename: '+ codename
