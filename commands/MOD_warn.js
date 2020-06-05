@@ -52,4 +52,31 @@ module.exports = {
       console.error('an error has occured', error);
       }
     
-  }}
+  },
+  executeNoCheck(message, publicReason, privateReason, whoToWarn){
+    const config = require('../config.json')
+    userwarnings = require('../logs/userwarnings.json')
+    const warnedperson = whoToWarn
+          //Writes reason to JSON
+
+          if (!userwarnings[warnedperson.id])
+          userwarnings[warnedperson.id] = [];
+  
+        userwarnings[warnedperson.id].push(privateReason);
+  
+      fs.writeFile('./logs/userwarnings.json', JSON.stringify(userwarnings), (err) => {
+        if (err) {
+          console.log(err);
+          respond('',`An error occured during saving.`, message.channel);
+          return;
+        }
+      })
+        
+        //Notifies of the warn
+        respond('⚠️','<@'+warnedperson.id + '> had a warning logged. User has '+userwarnings[warnedperson.id].length+' warnings.\nReason: '+publicReason, message.channel)
+        respond('⚠️','You have been warned due to: '+ publicReason+'\n\nThis is warning '+userwarnings[warnedperson.id].length+'.', warnedperson)
+        
+        //Mod action event
+        modaction(this.name, 'AutomaticModeration', message.channel.name, `Auto.\nPublic reason: ${publicReason}\nPrivate reason: ${privateReason}`)
+  }
+}

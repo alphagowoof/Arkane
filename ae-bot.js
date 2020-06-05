@@ -23,9 +23,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.3.0'
+version = '9.4.0'
 //version = "Debug Mode"
-codename = 'Medal of Honor'
+codename = 'Resourceful'
 footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
@@ -46,6 +46,9 @@ if (!fs.existsSync('./logs/userwarnings.json')){
 }
 if (!fs.existsSync('./logs/prebanlist.json')){
 	fs.writeFileSync('./logs/prebanlist.json', '{}')
+}
+if (!fs.existsSync('./logs/amountOfMessagesSent.json')){
+	fs.writeFileSync('./logs/amountOfMessagesSent.json', '{}')
 }
 // Increase number of message listeners
 require('events').EventEmitter.defaultMaxListeners = 20;
@@ -433,12 +436,6 @@ client.on('message', async message => {
 	
 });
 
-
-
-
-
-
-
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection: ', error));
 
 //Error
@@ -576,31 +573,43 @@ client.on('message', message => {
 		if(blocked == `${blocked}`)
 			console.log(`${message.author.tag} tried to use profanity. Logged word: ${blocked}`);
 			message.delete()
-			respond('',`<@${message.author.id}>, watch your language. A warning has been logged.`, message.channel, 'FF0000')
-			const reason = message.content.replace(`${blocked}`, `**${blocked}**`)
+			const reason = message.content.replace(/$blocked/g, `**${blocked}**`)
+			warnModule = require('./commands/MOD_warn.js')
+			warnModule.executeNoCheck(message, 'Profanity. Please watch your language.', `Profanity: ${reason}`, message.author)
 			
-			userwarnings = require('./logs/userwarnings.json')
-
-			if (!userwarnings[message.author.id])
-				userwarnings[message.author.id] = [];
-
-			userwarnings[message.author.id].push(`Profanity: ${reason}`);
-
-		fs.writeFile('./logs/userwarnings.json', JSON.stringify(userwarnings), (err) => {
-			if (err) {
-			  console.log(err);
-			  respond('',`An error occured during saving.`, message.channel);
-			  return;
-			}
-		})
-
-			respond('Profanity Filter 🗣️',`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`, message.author)
+		const profanityEmbed = new Discord.MessageEmbed()
+		.setColor('#ff0000')
+		.setTitle('Profanity')
+		.addFields(
+			{ name: 'Author', value: message.author.tag + `\n(${message.author.id})`, inline: true },
+			{ name: 'Channel', value: message.channel.name, inline: true },
+			{ name: 'Message', value: reason, inline: false },
+		)
+		.setTimestamp()
+		const channel = client.channels.cache.get(`${ModLog}`);
+		channel.send(profanityEmbed)
+			//respond('Profanity Filter 🗣️',`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`, message.author)
 	}
 })
 
 //Log deleted messages
 client.on('messageDelete', async message => {
 	if(safemode == true)return;
+	guild = client.guilds.cache.get(message.guild.id)
+	if(!guild.me.hasPermission('VIEW_AUDIT_LOG')){
+		const DeletionEmbed = new Discord.MessageEmbed()
+		.setColor('#ff0000')
+		 .setTitle('Deleted Message')
+		.addField('Author', message.author.tag+`\n(${message.author.id})`, true)
+		.addField('Channel', message.channel.name, true )
+		.addField('Deleted by', `Unknown - Unable to view audit log.`, true )
+		.addField('Message', message.content, false )
+		.setTimestamp()
+		const channel = client.channels.cache.get(`${ModLog}`);
+		channel.send(DeletionEmbed)
+		return;
+	}
+
 	const fetchedLogs = await message.guild.fetchAuditLogs({
 		limit: 1,
 		type: 'MESSAGE_DELETE',
@@ -612,11 +621,11 @@ client.on('messageDelete', async message => {
 	if (!deletionLog) {  console.log(`A message by ${message.author.tag} was deleted, but no relevant audit logs were found.`);
 	const DeletionEmbed = new Discord.MessageEmbed()
 	.setColor('#ff0000')
-	.setTitle('Message Deleted')
+	 .setTitle('Deleted Message')
 	.addFields(
-		{ name: 'Message sent by', value: message.author.tag, inline: false },
-		{ name: 'Deleted by', value: 'Unknown - Audit log not found.', inline: false },
-		{ name: 'Sent in', value: message.channel.name, inline: false },
+		{ name: 'Author', value: message.author.tag + `\n(${message.author.id})`, inline: true },
+		{ name: 'Channel', value: message.channel.name, inline: true },
+		{ name: 'Deleted by', value: 'Unknown - Audit log not found.', inline: true },
 		{ name: 'Message', value: message.content, inline: false },
 	)
 	.setTimestamp()
@@ -634,11 +643,11 @@ client.on('messageDelete', async message => {
 		console.log(`A message by ${message.author.tag} was deleted by ${executor.tag}.`)
 		const DeletionEmbed = new Discord.MessageEmbed()
 		.setColor('#ff0000')
-		.setTitle('Message Deleted')
+		 .setTitle('Deleted Message')
 		.addFields(
-			{ name: 'Message sent by', value: message.author.tag, inline: false },
-			{ name: 'Deleted by', value: executor.tag, inline: false },
-			{ name: 'Sent in', value: message.channel.name, inline: false },
+			{ name: 'Author', value: message.author.tag + `\n(${message.author.id})`, inline: true },
+			{ name: 'Channel', value: message.channel.name, inline: true },
+			{ name: 'Deleted by', value: executor.tag, inline: true },
 			{ name: 'Message', value: message.content, inline: false },
 		)
 		.setTimestamp()
@@ -650,11 +659,11 @@ client.on('messageDelete', async message => {
 		console.log(`A message by ${message.author.tag} was deleted, but we don't know by who.`)
 		const DeletionEmbed = new Discord.MessageEmbed()
 		.setColor('#ff0000')
-		.setTitle('Message Deleted')
+		 .setTitle('Deleted Message')
 		.addFields(
-			{ name: 'Message sent by', value: message.author.tag, inline: false },
-			{ name: 'Deleted by', value: 'Unknown - Unable to find who deleted message. - May occur when the message author erases their own message', inline: false },
-			{ name: 'Sent in', value: message.channel.name, inline: false },
+			{ name: 'Author', value: message.author.tag + `\n(${message.author.id})`, inline: true },
+			{ name: 'Channel', value: message.channel.name, inline: true },
+			{ name: 'Deleted by', value: 'Unknown - Unable to find who deleted message.', inline: true },
 			{ name: 'Message', value: message.content, inline: false },
 		)
 		.setTimestamp()
@@ -679,6 +688,13 @@ client.on('guildMemberUpdate', ( oldmember, newmember) => {
 	}
 	if(oldNickname != newNickname ){
 		memberUpdateEmbed.addField('Nickname Update',`Old nickname: ${oldNickname}\nUpdated nickname: ${newNickname}`, false)
+		var profanity = require('./profanity.json');
+		var editedMessage = newNickname.toString().replace(/[^\w\s]/g, "").replace(/\_/g, "")
+		var blocked = profanity.filter(word => editedMessage.toLowerCase().includes(word));
+		if (blocked.length > 0) {
+			newmember.setNickname('User (Renamed by filter)', `Profanity: ${blocked}`)
+			respond('📛 Name Change', `Your name was changed since it included profanity. The caught word was: ${blocked}`, newmember)
+		}
 		count = count+1
 	}
 
@@ -699,9 +715,45 @@ client.on('message', message => {
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	var dateTime = date+' '+time;
 	const fs = require('fs');
-	fs.appendFileSync('./logs/allmessages.log', '\n\nMessage sent by ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
-	fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\nSent in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
-	fs.appendFileSync('./logs/allmessages_'+date +'.log', '\n\nMessage sent by ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
+	fs.appendFileSync('./logs/allmessages.log', '\n\nAuthor ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
+	fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\nChannel '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
+	fs.appendFileSync('./logs/allmessages_'+date +'.log', '\n\nAuthor ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
+})
+
+//Spam detection
+wipeTempMsgCount = function(){
+	fs.unlinkSync('./logs/amountOfMessagesSent.json')
+	fs.writeFileSync('./logs/amountOfMessagesSent.json', '{}')
+	setTimeout(function(){ 
+		wipeTempMsgCount(); 
+	}, 30000);
+}
+wipeTempMsgCount(); 
+client.on('message', message => {
+	if(message.author.bot)return;
+	if(safemode == true)return;
+
+	checkIfSpam = function(messageCountTemp){
+		if(messageCountTemp[message.author.id] == 20){
+			console.log(message.author.id)
+			muteCommand = require('./commands/MOD_mute.js')
+			muteCommand.executeNoCheck(message, message.author)
+			delete require.cache[require.resolve(`./logs/amountOfMessagesSent.json`)]
+		}
+	}
+
+	messageCountTemp = require('./logs/amountOfMessagesSent.json')
+	if(!messageCountTemp[message.author.id]){
+		messageCountTemp[message.author.id] = 1
+		fs.writeFileSync('./logs/amountOfMessagesSent.json', JSON.stringify(messageCountTemp))
+		checkIfSpam(messageCountTemp)
+		delete require.cache[require.resolve(`./logs/amountOfMessagesSent.json`)]
+	}else{
+		messageCountTemp[message.author.id] = messageCountTemp[message.author.id]+1
+		fs.writeFileSync('./logs/amountOfMessagesSent.json', JSON.stringify(messageCountTemp))
+		checkIfSpam(messageCountTemp)
+		delete require.cache[require.resolve(`./logs/amountOfMessagesSent.json`)]
+	}
 })
 
 //Message edit
@@ -716,14 +768,13 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	var ref = "http://discordapp.com/channels/" + oldMessage.guild.id + "/" + oldMessage.channel.id + "/" + oldMessage.id;
 	const MessageEditEmbed = new Discord.MessageEmbed()
 	.setColor('#eea515')
-	.setTitle('Message Edit')
-	.setDescription('A message edit was detected.')
+	.setTitle('Edited Message')
 	.addFields(
-		{ name: 'Channel sent: ', value: oldMessage.channel.name, inline: false },
-		{ name: 'Message author', value: oldMessage.author.tag, inline: false },
+		{ name: 'Message author', value: oldMessage.author.tag + `\n(${oldMessage.author.id})`, inline: true },
+		{ name: 'Channel sent: ', value: oldMessage.channel.name, inline: true },
+		{ name: 'Message link', value: `[Jump](${ref})`, inline: true },
 		{ name: 'Old message', value: oldMessage, inline: true },
 		{ name: 'Updated message', value: newMessage, inline: true },
-		{ name: 'Message link', value: `[Jump](${ref})`, inline: false },
 		
 	)
 	.setTimestamp()
@@ -735,25 +786,11 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	if (blocked.length > 0) {
 		if(blocked == `${blocked}`)
 			oldMessage.delete()
-			respond('',`<@${oldMessage.author.id}>, please don't edit your message to bypass the profanity filter. A warning has been logged.`, oldMessage.channel, 'FF0000')
-			const reason = newMessage.toString().toLowerCase().replace(`${blocked}`, `**${blocked}**`)
+			reason = newMessage.toString().toLowerCase().replace(`${blocked}`, `**${blocked}**`)
+			warnModule = require('./commands/MOD_warn.js')
+			warnModule.executeNoCheck(oldMessage, 'Profanity (Message edit). Please don\'t edit your message to bypass the profanity filter.', `Profanity (Message edit): ${reason}`, oldMessage.author)
 			
-			userwarnings = require('./logs/userwarnings.json')
-
-			if (!userwarnings[oldMessage.author.id])
-				userwarnings[oldMessage.author.id] = [];
-
-			userwarnings[oldMessage.author.id].push(`Profanity (Message Edit): ${reason}`);
-
-		fs.writeFile('./logs/userwarnings.json', JSON.stringify(userwarnings), (err) => {
-			if (err) {
-			  console.log(err);
-			  respond('',`An error occured during saving.`, oldMessage.channel);
-			  return;
-			}
-		})
-
-			respond('Profanity Filter 🗣️',`Hey <@${oldMessage.author.id}>, please don't edit your message to bypass the profanity filter. Punishment information has been updated on your profile.\nYour message: ${reason}`, oldMessage.author)
+			//respond('Profanity Filter 🗣️',`Hey <@${oldMessage.author.id}>, please don't edit your message to bypass the profanity filter. Punishment information has been updated on your profile.\nYour message: ${reason}`, oldMessage.author)
 	}
 })
 

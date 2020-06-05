@@ -1,0 +1,46 @@
+module.exports = {
+  name: "aiModule4",
+  module: 4,
+  execute(input, author, returnFunction) {
+    const Discord = require("discord.js");
+    console.log(`AI Module ${this.module} loaded`);
+    console.log(input);
+    if (input == "are you broken") {
+      returnFunction(`I don't believe so... :think:`);
+    } else if (input == "are you siri") {
+      returnFunction(`No, :wink:`);
+    } else if (input == "what is project multifeature") {
+      returnFunction(`:wink:`);
+    } else if (input == "do you have a youtube channel") {
+      returnFunction(`I'm not allowed to do self promo here :pensive:`);
+    } else if (input == "are you choking") {
+      returnFunction(
+        `All I eat is data, how could I choke? I guess unless I ran out of storage :think:`
+      );
+    } else if (input == "are you doing ok") {
+      returnFunction(`:think:`);
+    } else if (input == "nyet") {
+      returnFunction(`Comrade?`);
+    } else if (input == "are you an apple user") {
+      returnFunction(`My name is **Apple** Mod for pete's sake`);
+    } else if (input == "whos pete") {
+      returnFunction(`I have no idea`);
+    } else if (input == "are you drowning") {
+      returnFunction(`I cant get wet, otherwise Ill shortcircut`);
+    } else if (input == "are you an android user") {
+      returnFunction(`sometimes :wink:`);
+    } else if (input == "woof") {
+      returnFunction(`:dog:`);
+    } else if (input == "the chat is dead") {
+      returnFunction(`Oh no! we must revive it ASAP. :crying_cat_face:`);
+    } else if (input == "teach me discord.js") {
+      returnFunction(`idk how to teach it, ask a bot manager`);
+    } else if (input == "someone likes you") {
+      returnFunction(`who? :flushed:`);
+    } else if (input == "when is the next apple keynote") {
+      returnFunction(`idk, go to apple’s website`);
+    } else if (input == "volt") {
+      returnFunction(`:eyes:`);
+    }
+  }
+};
