@@ -25,7 +25,7 @@ module.exports = {
       const member = message.mentions.members.first();
      member.roles.add([role]);
      respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
-     respond('🔇 Muted',mentionedmember+' was muted.', message.channel);
+     respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
       fs.appendFileSync('./logs/' + taggeduser + '-warnings.log', 'Mute\nReason: ' + reason +'\n\n');
       fs.appendFileSync('./logs/' + taggeduser + '-modwarnings.log', 'Mute issued by '+ message.author.tag +'\nReason: ' + reason +'\n\n');
       modaction(this.name, message.author.tag, message.channel.name, message.content)
@@ -35,4 +35,17 @@ module.exports = {
       // Your code broke (Leave untouched in most cases)
       console.error('an error has occured', error);
       }
-  }}
+  },
+  executeNoCheck(message, whoToMute){
+    const {MuteRoleID} = require('../config.json');
+    const reason = `Spam detection. Auto mute. `
+    const guild = message.guild
+    const role = guild.roles.cache.find(role => role.id === `${MuteRoleID}`);
+    const mentionedmember = '<@'+whoToMute.id+'>'
+    const member = whoToMute
+    message.member.roles.add([role]);
+    respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
+    respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
+    modaction(this.name, `AutomaticModeration`, message.channel.name, 'Spam detection. Auto mute')
+  }
+}
