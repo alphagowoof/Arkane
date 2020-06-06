@@ -10,8 +10,8 @@ module.exports = {
 		const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
         try {
 			var reason = args.join(' ')
-			let userID = argarray[1]
-			var reason = reason.replace(argarray[1], '')
+			let userID = args[0]
+			var reason = reason.replace(args[0], '')
 			if (message.author.id == argarray[1]){
 				respond('',`You can't perform this action on yourself.`, message.channel);
 				return;
@@ -19,8 +19,6 @@ module.exports = {
 			if(reason == ''){
 				var reason = 'No reason provided.'
 			}
-			fs.appendFileSync('./logs/' + userID + '-warnings.log', 'Unban\nReason: ' + reason +'\n\n');
-			fs.appendFileSync('./logs/' + userID + '-modwarnings.log', 'Unban issued by '+ message.author.tag +'\nReason: ' + reason +'\n\n');
 			   
 			respond('Unban',userID+' was unbanned.\nReason: '+reason, message.channel)
 			
