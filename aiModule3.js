@@ -1,6 +1,6 @@
 module.exports = {
-  name: "aiModule4",
-  module: 4,
+  name: "aiModule3",
+  module: 3,
   execute(input, author, returnFunction) {
     const Discord = require("discord.js");
     console.log(`AI Module ${this.module} loaded`);
