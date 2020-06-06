@@ -4,7 +4,7 @@ module.exports = {
   description: 'Sends a notice.',
   usage: '<notice number>',
   cooldown: 5,
-  disable:false
+  disable:false,
   execute(message, args, client) {
     const Discord = require('discord.js');
     const fs = require('fs')
