@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.4.0'
+version = '9.4.1'
 //version = "Debug Mode"
 codename = 'Resourceful'
 footertext = 'Version '+ version +'\nCodename: '+ codename
@@ -494,11 +494,12 @@ client.on('guildMemberAdd', member => {
 		.setTitle('Member Join')
 		.setThumbnail(`${icon}`)
 		.addFields(
-			{ name: 'Username', value: member.user.tag, inline: false },
-			{ name: 'Member ID', value: member.id, inline: false },
-			{ name: 'Account creation date', value: member.user.createdAt, inline: false },
-			{ name: 'Joined before?', value: joinedbefore, inline: false },
-			{ name: 'Server member count', value: `${guild.memberCount}`, inline: false },
+			{ name: 'Member', value: `<@${member.id}>`, inline: true },
+			{ name: 'Username', value: member.user.tag, inline: true },
+			{ name: 'ID', value: member.id, inline: true },
+			{ name: 'Joined before?', value: joinedbefore, inline: true },
+			{ name: 'Server member count', value: `${guild.memberCount}`, inline: true },
+			{ name: 'Account creation', value: member.user.createdAt, inline: false },
 		)
 		.setTimestamp()
 		channel.send(MemberJoinEmbed)
@@ -549,10 +550,10 @@ client.on('guildMemberRemove', member => {
 	.setTitle('Member Leave')
 	.setThumbnail(`${icon}`)
 	.addFields(
-		{ name: 'Username', value: member.user.tag, inline: false },
-		{ name: 'Member ID', value: member.user.id, inline: false },
-		{ name: 'Account creation date', value: member.user.createdAt, inline: false },
-		{ name: 'Server member count', value: `${guild.memberCount}`, inline: false },
+		{ name: 'Member', value: `<@${member.id}>`, inline: true },
+		{ name: 'Username', value: member.user.tag, inline: true },
+		{ name: 'ID', value: member.id, inline: true },
+		{ name: 'Account creation', value: member.user.createdAt, inline: false },
 	)
 	.setTimestamp()
 	channel.send(MemberLeaveEmbed)
