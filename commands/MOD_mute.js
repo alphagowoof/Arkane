@@ -37,15 +37,25 @@ module.exports = {
       }
   },
   executeNoCheck(message, whoToMute){
-    const {MuteRoleID} = require('../config.json');
+    const config = require('../config.json');
     const reason = `Spam detection. Auto mute. `
     const guild = message.guild
-    const role = guild.roles.cache.find(role => role.id === `${MuteRoleID}`);
+    const role = guild.roles.cache.find(role => role.id === `${config.MuteRoleID}`);
     const mentionedmember = '<@'+whoToMute.id+'>'
     const member = whoToMute
     message.member.roles.add([role]);
+    if (!message.member.roles.cache.some(role => role.id === `${config.MuteRoleID}`)){
     respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
     respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
-    modaction(this.name, `AutomaticModeration`, message.channel.name, 'Spam detection. Auto mute')
+    modaction(this.name, `AutomaticModeration`, message.channel.name, reason)
+    }
+    if (message.member.roles.cache.some(role => role.id === `${config.MuteRoleID}`) && config.FullMuteRoleID && config.FullMuteRoleID != ''){
+      fullMuteRole = guild.roles.cache.find(role => role.id === `${config.FullMuteRoleID}`);
+      message.member.roles.add([fullMuteRole]);
+      const reason = `Spam detection. Repeated spam. Auto mute. `
+      respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
+      respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
+      modaction(this.name, `AutomaticModeration`, message.channel.name, reason)
+    }
   }
 }
