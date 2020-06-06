@@ -1,7 +1,7 @@
 module.exports = {
   name: 'notice',
   aliases: ['none'],
-  description: 'Sends a notice.'
+  description: 'Sends a notice.',
   usage: '<notice number>',
   cooldown: 5,
   disable:false
