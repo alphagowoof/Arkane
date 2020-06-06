@@ -13,7 +13,7 @@ module.exports = {
     const rulenumber = argarray[1]
     var entry = rulenumber;
     var dict = require("../notice.json");
-    var result = dict['Notice'+argarray[1]];
+    var result = dict['notice'+argarray[1]];
     if(`${result}` == 'undefined'){respond('', 'Please make sure you entered a valid notice number.',message.channel);return;}
             try {
               const RuleEmbed = new Discord.MessageEmbed()
