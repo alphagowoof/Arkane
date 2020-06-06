@@ -1,6 +1,6 @@
 module.exports = {
-  name: "aiModule4",
-  module: 4,
+  name: "aiModule3",
+  module: 3,
   execute(input, author, returnFunction) {
     const Discord = require("discord.js");
     console.log(`AI Module ${this.module} loaded`);
@@ -42,5 +42,24 @@ module.exports = {
     } else if (input == "volt") {
       returnFunction(`:eyes:`);
     }
+    //Auto
+		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
+			fs.appendFile('./aiModule_MissingInputs.txt', input+"\n", error => {
+				if(!error){
+					console.log('Added input to missing inputs text file.')
+					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+				} else {
+					console.log('Failed to add input to missing inputs text file.')
+					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+				}
+			})
+		}else 
+		if(fs.existsSync(`./aiModule${this.module+1}.js`)){
+			delete require.cache[require.resolve(`./aiModule${this.module+1}.js`)]
+			aiModule = require(`./aiModule${this.module+1}.js`)
+			aiModule.execute(input, author, returnFunction)
+		}else{
+			return
+		}
   }
 };
