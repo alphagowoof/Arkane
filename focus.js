@@ -23,7 +23,7 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.4.1'
+version = '9.4.1.1'
 //version = "Debug Mode"
 codename = 'Resourceful'
 footertext = 'Version '+ version +'\nCodename: '+ codename

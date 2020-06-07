@@ -41,6 +41,25 @@ module.exports = {
       returnFunction(`I have no idea, ask Derpi`);
     } else if (input == "someone is :sus:ing at you") {
       returnFunction(`:cold_sweat:`);
+    }else
+    //Auto
+if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
+  fs.appendFile('./aiModule_MissingInputs.txt', input+"\n", error => {
+    if(!error){
+      console.log('Added input to missing inputs text file.')
+      returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+    } else {
+      console.log('Failed to add input to missing inputs text file.')
+      returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
     }
+  })
+}else 
+if(fs.existsSync(`./aiModule${this.module+1}.js`)){
+  delete require.cache[require.resolve(`./aiModule${this.module+1}.js`)]
+  aiModule = require(`./aiModule${this.module+1}.js`)
+  aiModule.execute(input, author, returnFunction)
+}else{
+  return
+}
   }
 };

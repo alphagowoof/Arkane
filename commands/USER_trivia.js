@@ -9,108 +9,35 @@ module.exports = {
     const fs = require('fs');
     const Discord = require('discord.js')
     const msg = message
-      if(args[0] == 'about' || args[0] == 'info'){
-        const quiz = require('../quiz.json');
-        var item = quiz[0];
-        respond('Trivia', `__**About Trivia**__\nVersion: ${item.version}\nAuthor: ${item.author}`, message.channel, '', `QID: -`);
-        return;
-      }
+    try {
     //Pick a question
-    const quiz = require('../quiz.json');
-    var item = quiz[Math.floor(Math.random() * quiz.length)];
-    if(item.ignore && item.ignore == true){
-      var item = quiz[Math.floor(Math.random() * quiz.length)];
+    const quiz = require('./quiz.json');
+    var randgen = Math.floor(Math.random() * quiz.length)
+    if(randgen === 0) {
+      var randgen = 69
     }
+    const item = quiz[randgen];
     const ans = item.answer
+    console.log(ans)
     const filter = response => {
       console.log(response)
       return item.answer
     }
     console.log(item)
-        //Posts question and asks for response
-        respond('Trivia',`<@${message.author.id}>'s question:\n` + item.question+ '\n' + item.choice1 + '\n' + item.choice2 +'\n' + item.choice3 + '\n' + item.choice4 + '\n' + "Question ID: " + item.qid, message.channel) 
-        
-        function responseReceived(result, responseMessage){
-          if(result){
-            console.log(item)
-            responseMessage.delete().catch(err => {
-              error(err)
-            })
-            if(result.toLowerCase() === item.answer) {
-              fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
-                if(error) {
-                  console.log("answer correct. no leaderboard update.")
-                  respond('Correct!', '<@' + message.author.id + '>, that was the correct answer!\nIf you want to compete in the leaderboards, type `leaderboard init`.', message.channel, '29BF00', `QID: ${item.qid}`)
-                  message.delete()
-                  return
-                } else {
-                  console.log('answer correct')
-                  jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
-                  jsonfile.triviawins = Number(jsonfile.triviawins)+1;
-                  data = JSON.stringify(jsonfile)
-                  fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
-                      if (err) throw err;
-                      else {
-                        console.log("Successfully updated Trivia game stats of " + message.author.id + ".")
-                      }
-                  })
-                  respond('Correct!', `<@${message.author.id}>, that was the correct answer!`, message.channel, '29BF00', `QID: ${item.qid}`)
-                  message.delete()
-                  return
-                }
-            })
-            }else if(result.toLowerCase() == item.answer_case) {
-              fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
-                if(error) {
-                  console.log("answer correct, capital letter. no leaderboard update.")
-                  respond('Correct!', '<@' + message.author.id + '>, that was the correct answer! Next time, try using lowercase for the answer.\nIf you want to compete in the leaderboards, type `leaderboard init`.', message.channel, '29BF00', `QID: ${item.qid}`)
-                  message.delete()
-                  return
-                } else {
-                console.log('answer correct, capital letter')
-                jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
-                jsonfile.triviawins = Number(jsonfile.triviawins)+1;
-                data = JSON.stringify(jsonfile)
-                fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
-                    if (err) throw err;
-                    else {
-                      console.log("Successfully updated Trivia game stats of " + message.author.id + ".")
-                    }
-                })
-                respond('Correct!', `<@${message.author.id}>, that was the correct answer! Next time, try using lowercase for the answer.`, message.channel, '29BF00', `QID: ${item.qid}`)
-                message.delete()
-                return
-                }
-              })
-            }else{
-              fs.readFile('./leaderboards/' + message.author.id + '_gamestats.json', error => {
-                if(error) {
-                  console.log("answer wrong. no leaderboard update.")
-                  respond('Wrong', '<@' + message.author.id + '>, that was the wrong answer.\nIf you want to compete in the leaderboards, type `leaderboard init`.', message.channel, 'BF0000', `QID: ${item.qid}`)
-                  message.delete()
-                  return
-                } else {
-                console.log('answer wrong')
-                jsonfile = require('../leaderboards/' + message.author.id + '_gamestats.json');
-                jsonfile.trivialosses = Number(jsonfile.trivialosses)+1;
-                data = JSON.stringify(jsonfile)
-                fs.writeFile('./leaderboards/' + message.author.id + '_gamestats.json', data, (err) => {
-                    if (err) throw err;
-                    else {
-                      console.log("Successfully updated Trivia game stats of " + message.author.id + ".")
-                    }
-                })
-                respond('Wrong!', `<@${message.author.id}>, that was the wrong answer.`, message.channel, 'BF0000', `QID: ${item.qid}`)
-                message.delete()
-                return
-              }
-            })
-            }
+        respond('Trivia',`<@${message.author.id}>'s question:\n` + item.question+ '\n' + item.choice1 + '\n' + item.choice2 +'\n' + item.choice3 + '\n' + item.choice4 + '\n' + "Question ID: " + item.qid + '\n' + `**use \`.answer (question ID) (your answer)\` to answer the question**\nExample: .answer 2 C`, message.channel) 
+        fs.writeFile('./temp/'+message.author.id+'_current-trivia.json', JSON.stringify([{"qid":item.qid}]), error => {
+          console.log(error)
+          if(!error){
+            console.log('Successfully written current QID to file.')
           }else{
-            reply('', result, '', message.channel);
+            console.log('Failed to write current QID to file.')
           }
-        }
-
-        awaitMessageResponse('', 'What is your answer?', '', message.channel, '', responseReceived, message.author) 
+        })
+  }catch(error) {
+    respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+    errorlog(error)
+    // Your code broke (Leave untouched in most cases)
+    console.error('an error has occured', error);
+    }
   }
 }

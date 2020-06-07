@@ -37,3 +37,6 @@ bot.js
 runOnStartup.js
 aiModule_MissingInputs.txt
 files/news.json
+config_templates/config.json
+config_templates/config.json
+temp/454579681602043916_current-trivia.json

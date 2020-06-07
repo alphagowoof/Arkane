@@ -1,8 +1,8 @@
 {
-  "name": "ae_moderator",
+  "name": "focus_bot",
   "version": "1.0.0",
-  "description": "Discord bot for the Apple Explained Discord server",
-  "main": "ae-bot.js",
+  "description": "Discord bot for general moderation of servers",
+  "main": "focus.js",
   "dependencies": {
     "discord.js": "^12.1.1",
     "node-fetch": "^2.6.0",
