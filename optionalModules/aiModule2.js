@@ -289,6 +289,8 @@ module.exports = {
 				returnFunction(`boop a loop, boop a loop, boom boom bop!`)
 			} else if(input.includes('favorite quote')){
 				returnFunction(`***PLEASE*** commit to dev!\n- Daniel (TechGeekGamer)`)
+			} else if(input.includes('pytho is better')){
+				returnFunction(`<:sus:662817457425219614> Derpi get over here`)
 			} else 
 		//Auto
 		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){

@@ -1,32 +1,28 @@
 module.exports = {
-  name: "aiModule3",
-  module: 3,
+  name: "aiModule4",
+  module: 4,
   execute(input, author, returnFunction) {
     const Discord = require("discord.js");
     console.log(`AI Module ${this.module} loaded`);
     console.log(input);
     if (input == "are you broken") {
-      returnFunction(`I don't believe so... :think:`);
+      returnFunction(`I don't believe so... :thinking:`);
     } else if (input == "are you siri") {
       returnFunction(`No, :wink:`);
-    } else if (input == "what is project multifeature") {
-      returnFunction(`:wink:`);
     } else if (input == "do you have a youtube channel") {
       returnFunction(`I'm not allowed to do self promo here :pensive:`);
     } else if (input == "are you choking") {
       returnFunction(
-        `All I eat is data, how could I choke? I guess unless I ran out of storage :think:`
+        `All I eat is data, how could I choke? I guess unless I ran out of storage :thinking:`
       );
     } else if (input == "are you doing ok") {
-      returnFunction(`:think:`);
+      returnFunction(`:thinking:`);
     } else if (input == "nyet") {
       returnFunction(`Comrade?`);
     } else if (input == "are you an apple user") {
-      returnFunction(`My name is **Apple** Mod for pete's sake`);
-    } else if (input == "whos pete") {
-      returnFunction(`I have no idea`);
+      returnFunction(`I guess you could say that`);
     } else if (input == "are you drowning") {
-      returnFunction(`I cant get wet, otherwise Ill shortcircut`);
+      returnFunction(`I cant get wet, otherwise I'll short-circuit`);
     } else if (input == "are you an android user") {
       returnFunction(`sometimes :wink:`);
     } else if (input == "woof") {
@@ -41,25 +37,29 @@ module.exports = {
       returnFunction(`idk, go to apple’s website`);
     } else if (input == "volt") {
       returnFunction(`:eyes:`);
+    } else if (input == "why did you rebrand") {
+      returnFunction(`I have no idea, ask the Freshman Devs`);
+    } else if (input == "someone is susing at you") {
+      returnFunction(`:cold_sweat:`);
     }else
-    		//Auto
-		if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
-			fs.appendFile('./aiModule_MissingInputs.txt', input+"\n", error => {
-				if(!error){
-					console.log('Added input to missing inputs text file.')
-					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
-				} else {
-					console.log('Failed to add input to missing inputs text file.')
-					returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
-				}
-			})
-		}else 
-		if(fs.existsSync(`./aiModule${this.module+1}.js`)){
-			delete require.cache[require.resolve(`./aiModule${this.module+1}.js`)]
-			aiModule = require(`./aiModule${this.module+1}.js`)
-			aiModule.execute(input, author, returnFunction)
-		}else{
-			return
-		}
+    //Auto
+if(input != '' && !fs.existsSync(`./aiModule${this.module+1}.js`)){
+  fs.appendFile('./aiModule_MissingInputs.txt', input+"\n", error => {
+    if(!error){
+      console.log('Added input to missing inputs text file.')
+      returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+    } else {
+      console.log('Failed to add input to missing inputs text file.')
+      returnFunction(`Sorry <@${author.id}>, I don't know how to respond to that...`)
+    }
+  })
+}else 
+if(fs.existsSync(`./aiModule${this.module+1}.js`)){
+  delete require.cache[require.resolve(`./aiModule${this.module+1}.js`)]
+  aiModule = require(`./aiModule${this.module+1}.js`)
+  aiModule.execute(input, author, returnFunction)
+}else{
+  return
+}
   }
 };
