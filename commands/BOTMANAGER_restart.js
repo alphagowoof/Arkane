@@ -41,9 +41,7 @@ module.exports = {
 			if (fs.existsSync(`./errorcount.txt`)){
 			fs.unlinkSync('./errorcount.txt')
 			}
-			client.logout
 			var config = require('../config.json')
-			client.login(config.token)
 			restartedchannel = message.guild.channels.cache.get(config.BotLog)
 			respond('', '✅ Restart completed.', restartedchannel)
 			respond('', '✅ Restart completed.', message.channel)
