@@ -324,11 +324,11 @@ client.on('message', message => {
 
 //AI Modules
 client.on('message', message => {
-	if (fs.existsSync('./aiModule.js' && !fs.existsSync('./safe_mode.flag'))){
+	if (fs.existsSync('./aiModule.js') && !fs.existsSync('./safe_mode.flag')){
 		const aiModule = require('./aiModule.js')
 	}
 	if(!safemode == true)
-	if (fs.existsSync('./aiModule.js'))
+	if (!fs.existsSync('./aiModule.js'))return
 
 	function returnFunction(result){
 		message.channel.send(result)
