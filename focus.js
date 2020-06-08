@@ -788,6 +788,10 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 
 //Below are client emit actions
 client.on("StartupIssue", () => {
+	if(fs.existsSync('./customBotLogging.js')){
+		const logger = require('./customBotLogging.js')
+		logger.botStartIssue()
+	}
 	var today = new Date();
 	fs.readFile('./errorcount.txt', function(err, data){
 		if(err){
@@ -819,6 +823,10 @@ client.on("StartupIssue", () => {
 })
 
 client.on('StartupPassed', () => {
+	if(fs.existsSync('./customBotLogging.js')){
+		const logger = require('./customBotLogging.js')
+		logger.botStartNormal()
+	}
 	if (fs.existsSync('./errorcount.txt')){
 		fs.unlinkSync(`./errorcount.txt`)
 	}
