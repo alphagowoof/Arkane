@@ -22,9 +22,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.4.1.1'
+version = '9.5.0'
 //version = "Debug Mode"
-codename = 'Resourceful'
+codename = 'Remote Control'
 footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
