@@ -1,10 +1,9 @@
 console.log('Loading, please wait a moment.')
 fs = require('fs');
 Discord = require('discord.js');
-const client = new Discord.Client();
+client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
-const cooldowns = new Discord.Collection();
 const { 
 	prefix, 
 	token, 
@@ -77,6 +76,11 @@ fs.readFile('./errorcount.txt', function(err, data){
 if (fs.existsSync(`./sentry_mode.flag`)){
 	var sentrymode = true
 }
+
+//Login
+client.login(token);
+
+
 //Bot ready
 client.once('ready', () => {
 	console.log('Version '+version)
@@ -207,16 +211,16 @@ const allCommandFiles = fs.readdirSync('./commands').filter(file => file.endsWit
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-		if(!command.mod && !safemode ==true){
+		if(!command.mod && !fs.existsSync('./safe_mode.flag')){
 			client.commands.set(command.name, command);
 		}
 }
 for (const file of allCommandFiles) {
 	const modcommand = require(`./commands/${file}`);
-	if(safemode == true && modcommand.essential == true){
+	if(fs.existsSync('./safe_mode.flag') && modcommand.essential == true){
 		client.modcommands.set(modcommand.name, modcommand);
 	}else{
-		if(!safemode == true){
+		if(!fs.existsSync('./safe_mode.flag')){
 			client.modcommands.set(modcommand.name, modcommand);
 		}
 	}
@@ -237,12 +241,12 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	for (const file of findCommandListUser) {
 		const command = require(`./commands/${file}`);
 		commandListUser.join(' ')
-		if(!command.hidden == true || safemode ==true){
-			if(safemode == true && commandEssential && commandEssential[command.name] == true){
+		if(!command.hidden == true || fs.existsSync('./safe_mode.flag')){
+			if(fs.existsSync('./safe_mode.flag') && commandEssential && commandEssential[command.name] == true){
 				commandListUser.push(command.name)
 				console.log(command.name)	
 			}else{
-				if(!safemode == true){
+				if(!fs.existsSync('./safe_mode.flag')){
 				commandListUser.push(command.name)
 				console.log(command.name)
 				}	
@@ -253,12 +257,12 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	if(modCheck == true){
 		for (const file of findCommandListMod) {
 		const command = require(`./commands/${file}`);
-		if(!command.hidden == true || safemode ==true){
-			if(safemode == true && commandEssential && commandEssential[command.name] == true){
+		if(!command.hidden == true || fs.existsSync('./safe_mode.flag')){
+			if(fs.existsSync('./safe_mode.flag') && commandEssential && commandEssential[command.name] == true){
 				commandListMod.push(command.name)
 				console.log(command.name)
 			}else{
-				if(!safemode == true){
+				if(!fs.existsSync('./safe_mode.flag')){
 				commandListMod.push(command.name)
 				console.log(command.name)
 				}
@@ -271,12 +275,12 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 	for (const file of findCommandListBotManager) {
 		const command = require(`./commands/${file}`);
 		commandListBotManager.join(' ')
-		if(!command.hidden == true || safemode ==true){
-			if(safemode == true && commandEssential && commandEssential[command.name] == true){
+		if(!command.hidden == true || fs.existsSync('./safe_mode.flag')){
+			if(fs.existsSync('./safe_mode.flag') && commandEssential && commandEssential[command.name] == true){
 				commandListBotManager.push(command.name)
 				console.log(command.name)
 			}else{
-				if(!safemode == true){
+				if(!fs.existsSync('./safe_mode.flag')){
 					commandListBotManager.push(command.name)
 					console.log(command.name)
 				}
@@ -310,7 +314,7 @@ getCommandList = function(modCheck, botManagerCheck, userID, showMemberCommands)
 
 //Shot on iPhone reactions
 client.on('message', message => {
-	if(safemode == true)return;
+	if(fs.existsSync('./safe_mode.flag'))return;
 	if (message.author.bot)return;
         if (message.channel.id != '616472674406760448')return; //This locks it to the Apple Explained server
         const content = message.content.toLowerCase();
@@ -327,7 +331,7 @@ client.on('message', message => {
 	if (fs.existsSync('./aiModule.js') && !fs.existsSync('./safe_mode.flag')){
 		const aiModule = require('./aiModule.js')
 	}
-	if(!safemode == true)
+	if(!fs.existsSync('./safe_mode.flag'))
 	if (!fs.existsSync('./aiModule.js'))return
 
 	function returnFunction(result){
@@ -352,6 +356,12 @@ client.on('message', message => {
 
 //Commands
 client.on('message', async message => {
+	if(fs.existsSync('./customCommandHandler.js')){
+		const commandHandler = require('./customCommandHandler.js')
+		commandHandler.execute(message, client, prefix)
+		console.log('Handed off to custom command handler.')
+		return;
+	}
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 		const args = message.content.slice(prefix.length).split(/ +/);
 		const commandName = args.shift().toLowerCase();
@@ -367,7 +377,7 @@ client.on('message', async message => {
 		return;
 	}
 	
-	if(safemode == true && commandEssential && !commandEssential[command.name] == true){
+	if(fs.existsSync('./safe_mode.flag') && commandEssential && !commandEssential[command.name] == true){
 		if(!command.name.includes('help')){
 			return;
 		}
@@ -431,13 +441,12 @@ process.on('unhandledRejection', error => console.error('Uncaught Promise Reject
 
 //Error
 client.on('error', error => {
-	if(safemode == true){
+	if(fs.existsSync('./safe_mode.flag')){
 		console.log(error)
 		return;
 	}
 	console.error('ERROR: ', error);
 	errorcount + 1
-	const fs = require('fs');
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -449,7 +458,7 @@ client.on('error', error => {
 
 //Member join
 client.on('guildMemberAdd', member => {
-	if(safemode == true)return;
+	if(fs.existsSync('./safe_mode.flag'))return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -526,7 +535,7 @@ client.on('guildMemberAdd', member => {
 
 //Member leave
 client.on('guildMemberRemove', member => {
-	if(safemode == true)return;
+	if(fs.existsSync('./safe_mode.flag'))return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -552,7 +561,7 @@ client.on('guildMemberRemove', member => {
 
 //Profanity filter
 client.on('message', message => {
-	if(safemode == true)return;
+	if(fs.existsSync('./safe_mode.flag'))return;
 	if(message.channel.type == 'dm')return;
 	const profanity = require('./profanity.json');
 	var editedMessage = message.toString().replace(/[^\w\s]/g, "").replace(/\_/g, "")
@@ -586,7 +595,7 @@ client.on('message', message => {
 
 //Log deleted messages
 client.on('messageDelete', async message => {
-	if(safemode == true)return;
+	if(fs.existsSync('./safe_mode.flag'))return;
 	guild = client.guilds.cache.get(message.guild.id)
 	if(!guild.me.hasPermission('VIEW_AUDIT_LOG')){
 		const DeletionEmbed = new Discord.MessageEmbed()
@@ -700,13 +709,12 @@ client.on('guildMemberUpdate', ( oldmember, newmember) => {
 
 //message log
 client.on('message', message => {
-	if(safemode == true)return;
+	if(fs.existsSync('./safe_mode.flag'))return;
 	if (message.channel.type == 'dm')return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	var dateTime = date+' '+time;
-	const fs = require('fs');
 	fs.appendFileSync('./logs/allmessages.log', '\n\nAuthor ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
 	fs.appendFileSync('./logs/' + message.author.id + '-messages.log', '\n\nChannel '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
 	fs.appendFileSync('./logs/allmessages_'+date +'.log', '\n\nAuthor ' +message.author.username + '('+message.author.id+') in '+message.channel.name+'('+message.channel.id+')'+'\n\n' + message.content);
@@ -723,7 +731,7 @@ wipeTempMsgCount = function(){
 wipeTempMsgCount(); 
 client.on('message', message => {
 	if(message.author.bot)return;
-	if(safemode == true)return;
+	if(fs.existsSync('./safe_mode.flag'))return;
 
 	checkIfSpam = function(messageCountTemp){
 		if(messageCountTemp[message.author.id] == 20){
@@ -750,7 +758,7 @@ client.on('message', message => {
 
 //Message edit
 client.on('messageUpdate', (oldMessage, newMessage) => {
-	if(safemode == true)return;
+	if(fs.existsSync('./safe_mode.flag'))return;
 	if (oldMessage.author.bot)return;
 	var today = new Date();
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
@@ -790,7 +798,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 client.on("StartupIssue", () => {
 	if(fs.existsSync('./customBotLogging.js')){
 		const logger = require('./customBotLogging.js')
-		logger.botStartIssue()
+		logger.botStartIssue(client)
 	}
 	var today = new Date();
 	fs.readFile('./errorcount.txt', function(err, data){
@@ -802,7 +810,7 @@ client.on("StartupIssue", () => {
 	})
 	var titleofstartup = 'Bot Started - Issue Detected'
 	var descriptionofstartup = 'The bot loaded successfully, but restarted unexpectedly.'
-	if(safemode == true){
+	if(fs.existsSync('./safe_mode.flag')){
 		var titleofstartup = 'Bot Started - Safe Mode'
 		var descriptionofstartup = 'The bot was unable to start normally multiple times, so it entered safe mode.'
 	}
@@ -825,7 +833,7 @@ client.on("StartupIssue", () => {
 client.on('StartupPassed', () => {
 	if(fs.existsSync('./customBotLogging.js')){
 		const logger = require('./customBotLogging.js')
-		logger.botStartNormal()
+		logger.botStartNormal(client)
 	}
 	if (fs.existsSync('./errorcount.txt')){
 		fs.unlinkSync(`./errorcount.txt`)
@@ -859,7 +867,7 @@ function clean(text) {
 	const args = message.content.split(" ").slice(1);
    
 	if (message.content.startsWith(prefix + "eval")) {
-		if(safemode == true){
+		if(fs.existsSync('./safe_mode.flag')){
 			respond('', `❌ This command is not available while in safe mode.`, message.channel)
 			return
 		}
@@ -980,5 +988,3 @@ client.on('message',message =>{
 			// Your code broke (Leave untouched in most cases)
 			console.error('an error has occured', error);
 			}}})
-//Login
-client.login(token);
