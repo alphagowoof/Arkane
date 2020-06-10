@@ -25,19 +25,24 @@ module.exports = {
         .setTimestamp()
         message.channel.send(memberinfoembed)
 
-        if(!userlog[mentionedUser.id]){
+        if(!userlog[mentionedUser.id] && !noteLog[mentionedUser.id]){
           respond(``, `No entries found for this user in the user log.`, message.channel)
           return;
         }
 
         const embed = new Discord.MessageEmbed()
         .setTitle('User Log')
+      if(userlog[mentionedUser.id]){
         userlog[mentionedUser.id].forEach(function (warning, index) {
           embed.addField('Warning: ' + (parseInt(index) + 1), warning)
         });
+      }
+      if(noteLog[mentionedUser.id]){
         noteLog[mentionedUser.id].forEach(function (note, index) {
           embed.addField('Note: ' + (parseInt(index) + 1), note)
+          console.log(note)
         });
+      }
         message.channel.send(embed)
   }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
