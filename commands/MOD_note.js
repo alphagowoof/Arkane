@@ -1,0 +1,68 @@
+module.exports = {
+  name: 'note',
+  description: 'Logs a note.',
+  usage: '<user> <note>',
+  cooldown: 0,
+  mod:true,
+  nodelay:true,
+	execute(message, args, client) {
+    //Prepares required
+    const config = require('../config.json')
+    usernotes = require('../logs/userNotes.json') || {}
+    var reason = args.join(' ').replace(args[0], '')
+    const mentionedUser = message.mentions.members.first()
+    try {
+      //Writes reason to JSON
+
+      if (!usernotes[mentionedUser.id])
+			  usernotes[mentionedUser.id] = [];
+
+		  usernotes[mentionedUser.id].push(reason);
+
+		fs.writeFile('./logs/userNotes.json', JSON.stringify(usernotes), (err) => {
+			if (err) {
+				console.log(err);
+				respond('',`An error occured during saving.`, message.channel);
+				return;
+      }
+    })
+      
+      //Notifies of the note
+      respond('📝','<@'+message.mentions.members.first() + '> had a note logged.', message.channel)
+      
+      //Mod action event
+      modaction(this.name, message.author.tag, message.channel.name, message.content, message)
+    }catch(error) {
+      respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+      errorlog(error)
+      // Your code broke (Leave untouched in most cases)
+      console.error('an error has occured', error);
+      }
+    
+  },
+  executeNoCheck(message, publicReason, privateReason, whoTonote){
+    const config = require('../config.json')
+    usernotes = require('../logs/usernotes.json')
+    const noteedperson = whoTonote
+          //Writes reason to JSON
+
+          if (!usernotes[noteedperson.id])
+          usernotes[noteedperson.id] = [];
+  
+        usernotes[noteedperson.id].push(privateReason);
+  
+      fs.writeFile('./logs/usernotes.json', JSON.stringify(usernotes), (err) => {
+        if (err) {
+          console.log(err);
+          respond('',`An error occured during saving.`, message.channel);
+          return;
+        }
+      })
+        
+        //Notifies of the note
+        respond('📝','<@'+message.mentions.members.first().id + '> had a note logged.', message.channel)
+        
+        //Mod action event
+        modaction(this.name, 'AutomaticModeration', message.channel.name, `Auto.\nPublic reason: ${publicReason}\nPrivate reason: ${privateReason}`, message)
+  }
+}
