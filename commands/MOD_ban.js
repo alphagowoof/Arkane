@@ -24,9 +24,9 @@ module.exports = {
 			respond('Ban','<@'+userid+'> was banned.\nReason: '+reason, message.channel)
 			respond('Banned','You were banned from the Apple Explained server due to: '+ reason+'\n\nThis ban does not expire. ', user)
 			userToBan.ban({reason: `${message.author.tag}, ${reason}`})
-			modaction(this.name, message.author.tag, message.channel.name, message.content)
+			modaction(this.name, message.author.tag, message.channel.name, message.content, message)
         	}catch(error) {
-				respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+				respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel, message)
 				errorlog(error)
 				// Your code broke (Leave untouched in most cases)
 				console.error('an error has occured', error);

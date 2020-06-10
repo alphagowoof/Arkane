@@ -44,7 +44,7 @@ module.exports = {
       respond('⚠️','You have been warned due to: '+ reason+'\n\nThis is warning '+userwarnings[mentionedUser.id].length+'.', warnedperson)
       
       //Mod action event
-      modaction(this.name, message.author.tag, message.channel.name, message.content)
+      modaction(this.name, message.author.tag, message.channel.name, message.content, message)
     }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
       errorlog(error)
@@ -77,6 +77,6 @@ module.exports = {
         respond('⚠️','You have been warned due to: '+ publicReason+'\n\nThis is warning '+userwarnings[warnedperson.id].length+'.', warnedperson)
         
         //Mod action event
-        modaction(this.name, 'AutomaticModeration', message.channel.name, `Auto.\nPublic reason: ${publicReason}\nPrivate reason: ${privateReason}`)
+        modaction(this.name, 'AutomaticModeration', message.channel.name, `Auto.\nPublic reason: ${publicReason}\nPrivate reason: ${privateReason}`, message)
   }
 }

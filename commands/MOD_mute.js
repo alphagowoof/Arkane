@@ -28,7 +28,7 @@ module.exports = {
      respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
       fs.appendFileSync('./logs/' + taggeduser + '-warnings.log', 'Mute\nReason: ' + reason +'\n\n');
       fs.appendFileSync('./logs/' + taggeduser + '-modwarnings.log', 'Mute issued by '+ message.author.tag +'\nReason: ' + reason +'\n\n');
-      modaction(this.name, message.author.tag, message.channel.name, message.content)
+      modaction(this.name, message.author.tag, message.channel.name, message.content, message)
     }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
       errorlog(error)
@@ -47,15 +47,15 @@ module.exports = {
     if (!message.member.roles.cache.some(role => role.id === `${config.MuteRoleID}`)){
     respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
     respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
-    modaction(this.name, `AutomaticModeration`, message.channel.name, reason)
+    modaction(this.name, `AutomaticModeration`, message.channel.name, reason, message)
     }
     if (message.member.roles.cache.some(role => role.id === `${config.MuteRoleID}`) && config.FullMuteRoleID && config.FullMuteRoleID != ''){
       fullMuteRole = guild.roles.cache.find(role => role.id === `${config.FullMuteRoleID}`);
       message.member.roles.add([fullMuteRole]);
       const reason = `Spam detection. Repeated spam. Auto mute. `
       respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
-      respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
-      modaction(this.name, `AutomaticModeration`, message.channel.name, reason)
+      respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel, message);
+      modaction(this.name, `AutomaticModeration`, message.channel.name, reason, message)
     }
   }
 }

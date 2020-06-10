@@ -22,10 +22,10 @@ module.exports = {
 			fs.appendFileSync('./logs/' + user.id + '-modwarnings.log', 'Kick issued by '+ message.author.tag +'\nReason: ' + auditreason +'\n\n');
 			respond('⬅️ Kick','<@'+user.id+'> was kicked from the server.\nReason: '+auditreason, message.channel)
 			respond('⬅️ Kick','You have been kicked from the server. You may rejoin at anytime.\n\nReason for kick: '+auditreason, user)
-			modaction(this.name, message.author.tag, message.channel.name, message.content)
+			modaction(this.name, message.author.tag, message.channel.name, message.content, message)
 			message.mentions.members.first().kick({reason: `${message.author.tag} | ${auditreason}`})
 		}catch(error) {
-			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
+			respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel, message)
 			errorlog(error)
 			// Your code broke (Leave untouched in most cases)
 			console.error('an error has occured', error);
