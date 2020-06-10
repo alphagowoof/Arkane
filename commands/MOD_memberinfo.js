@@ -29,21 +29,47 @@ module.exports = {
           respond(``, `No entries found for this user in the user log.`, message.channel)
           return;
         }
-
+        var currentFields = 0
+        var list = []
         const embed = new Discord.MessageEmbed()
         .setTitle('User Log')
       if(userlog[mentionedUser.id]){
         userlog[mentionedUser.id].forEach(function (warning, index) {
           embed.addField('Warning: ' + (parseInt(index) + 1), warning)
+          list.push(`Warning ${parseInt(index) + 1}: ${warning}`)
+          var currentFields = currentFields + 1
         });
       }
       if(noteLog[mentionedUser.id]){
         noteLog[mentionedUser.id].forEach(function (note, index) {
           embed.addField('Note: ' + (parseInt(index) + 1), note)
-          console.log(note)
+          list.push(`Note ${parseInt(index) + 1}: ${note}`)
+          var currentFields = currentFields + 1
         });
+        console.log(currentFields)
+        if(currentFields > 25 && args[1] != '--send'){
+          respond('User Log', 'Error: Too many entries. Add `--send` to send a text file', message.channel)
+          return
+        }else if(args[1] == '--send'){
+          fs.writeFile('./tempUserLog.txt', list.join('\n'), (err) => {
+            if(!err){
+            message.channel.send({
+              files: [{
+                attachment: './tempUserLog.txt',
+                name: 'userLog.txt'
+              }]
+            })
+              .then(fs.unlinkSync('./tempUserLog.txt'))
+              .catch(console.error);
+          }else if(err){
+            errorlog(err)
+          }
+          })
+        }
       }
-        message.channel.send(embed)
+        message.channel.send(embed).catch(err => {
+          errorlog(err)
+        })
   }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
       errorlog(error)
