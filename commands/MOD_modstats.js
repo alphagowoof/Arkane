@@ -12,6 +12,7 @@ module.exports = {
       const mentionedUser = message.mentions.users.first() || message.author
         if(!modStats[mentionedUser+"_warnCount"]){
           respond('Mod Stats',"Unable to find mod stats for this user.", message.channel)
+          return;
         }
         const modStatsEmbed = new Discord.MessageEmbed()
         .setTitle('Mod Stats')
