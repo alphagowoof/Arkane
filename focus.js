@@ -49,6 +49,9 @@ if (!fs.existsSync('./logs/prebanlist.json')){
 if (!fs.existsSync('./logs/amountOfMessagesSent.json')){
 	fs.writeFileSync('./logs/amountOfMessagesSent.json', '{}')
 }
+if (!fs.existsSync('./logs/modStats.json')){
+	fs.writeFileSync('./logs/modStats.json', '{}')
+}
 // Increase number of message listeners
 require('events').EventEmitter.defaultMaxListeners = 20;
 // Auto safe mode
@@ -177,20 +180,70 @@ if (fs.existsSync(`./shutdown.flag`)){
 		}
 		
 }
- modaction = function (RanCommand, RanBy, RanIn, FullCommand){
+ modaction = function (RanCommand, RanBy, RanIn, FullCommand, messageObject){
 	const ModReportEmbed = new Discord.MessageEmbed()
 		ModReportEmbed.setColor('#F3ECEC')
 		ModReportEmbed.setTitle('Mod Action')
-		ModReportEmbed.setDescription(`A moderation action has occurred.`)
 		ModReportEmbed.addFields(
-			{ name: 'Command', value: `${RanCommand}`, inline: false },
-			{ name: 'Executor', value: `${RanBy}`, inline: false },
-			{ name: 'Channel', value: `${RanIn}`, inline: false },
+			{ name: 'Command', value: `${RanCommand}`, inline: true },
+			{ name: 'Executor', value: `${RanBy}`, inline: true },
+			{ name: 'Channel', value: `${RanIn}`, inline: true },
 			{name: 'Full message', value: `${FullCommand}`, inline:false}
 		)
 		ModReportEmbed.setTimestamp()
 		const modlogchannel = client.channels.cache.get(`${ModLog}`);
 		modlogchannel.send(ModReportEmbed)
+		if(messageObject){
+			modStats = require('./logs/modStats.json')
+			if(RanCommand == 'warn'){
+				if(modStats[`${messageObject.author.id}_warnCount`]){
+				modStats[`${messageObject.author.id}_warnCount`] = modStats[`${messageObject.author.id}_warnCount`] +1
+				}else{
+					modStats[`${messageObject.author.id}_warnCount`] = 1
+				}
+			}
+			if(RanCommand == 'mute'){
+				if(modStats[`${messageObject.author.id}_muteCount`]){
+					modStats[`${messageObject.author.id}_muteCount`] = modStats[`${messageObject.author.id}_muteCount`] +1
+					}else{
+						modStats[`${messageObject.author.id}_muteCount`] = 1
+					}
+			}
+			if(RanCommand == 'ban'){
+				if(modStats[`${messageObject.author.id}_banCount`]){
+					modStats[`${messageObject.author.id}_banCount`] = modStats[`${messageObject.author.id}_banCount`] +1
+					}else{
+						modStats[`${messageObject.author.id}_banCount`] = 1
+					}
+			}
+			if(RanCommand == 'kick'){
+				if(modStats[`${messageObject.author.id}_kickCount`]){
+					modStats[`${messageObject.author.id}_kickCount`] = modStats[`${messageObject.author.id}_kickCount`] +1
+					}else{
+						modStats[`${messageObject.author.id}_kickCount`] = 1
+					}
+			}
+			if(RanCommand == 'note'){
+				if(modStats[`${messageObject.author.id}_noteCount`]){
+					modStats[`${messageObject.author.id}_noteCount`] = modStats[`${messageObject.author.id}_noteCount`] +1
+					}else{
+						modStats[`${messageObject.author.id}_noteCount`] = 1
+					}
+			}
+			if(!modStats[`${messageObject.author.id}_warnCount`]){
+				modStats[`${messageObject.author.id}_warnCount`] = 0
+			}
+			if(!modStats[`${messageObject.author.id}_muteCount`]){
+				modStats[`${messageObject.author.id}_muteCount`] = 0
+			}
+			if(!modStats[`${messageObject.author.id}_banCount`]){
+				modStats[`${messageObject.author.id}_banCount`] = 0
+			}
+			if(!modStats[`${messageObject.author.id}_kickCount`]){
+				modStats[`${messageObject.author.id}_kickCount`] = 0
+			}
+			fs.writeFileSync('./logs/modStats.json', JSON.stringify(modStats))
+		}
 }
  errorlog = function (error){
 	errorcount = errorcount + 1
