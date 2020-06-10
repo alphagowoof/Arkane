@@ -8,18 +8,18 @@ module.exports = {
 	execute(message, args, client) {
     //Prepares required
     const config = require('../config.json')
-    usernotes = require('../logs/userNotes.json') || {}
+    userNotes = require('../logs/userNotes.json') || {}
     var reason = args.join(' ').replace(args[0], '')
     const mentionedUser = message.mentions.members.first()
     try {
       //Writes reason to JSON
 
-      if (!usernotes[mentionedUser.id])
-			  usernotes[mentionedUser.id] = [];
+      if (!userNotes[mentionedUser.id])
+			  userNotes[mentionedUser.id] = [];
 
-		  usernotes[mentionedUser.id].push(reason);
+		  userNotes[mentionedUser.id].push(reason);
 
-		fs.writeFile('./logs/userNotes.json', JSON.stringify(usernotes), (err) => {
+		fs.writeFile('./logs/userNotes.json', JSON.stringify(userNotes), (err) => {
 			if (err) {
 				console.log(err);
 				respond('',`An error occured during saving.`, message.channel);
@@ -42,16 +42,16 @@ module.exports = {
   },
   executeNoCheck(message, publicReason, privateReason, whoTonote){
     const config = require('../config.json')
-    usernotes = require('../logs/usernotes.json')
+    userNotes = require('../logs/userNotes.json')
     const noteedperson = whoTonote
           //Writes reason to JSON
 
-          if (!usernotes[noteedperson.id])
-          usernotes[noteedperson.id] = [];
+          if (!userNotes[noteedperson.id])
+          userNotes[noteedperson.id] = [];
   
-        usernotes[noteedperson.id].push(privateReason);
+        userNotes[noteedperson.id].push(privateReason);
   
-      fs.writeFile('./logs/usernotes.json', JSON.stringify(usernotes), (err) => {
+      fs.writeFile('./logs/userNotes.json', JSON.stringify(userNotes), (err) => {
         if (err) {
           console.log(err);
           respond('',`An error occured during saving.`, message.channel);
