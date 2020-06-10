@@ -43,6 +43,9 @@ if (!fs.existsSync('./restrictions.json')){
 if (!fs.existsSync('./logs/userwarnings.json')){
 	fs.writeFileSync('./logs/userwarnings.json', '{}')
 }
+if (!fs.existsSync('./logs/userNotes.json')){
+	fs.writeFileSync('./logs/userNotes.json', '{}')
+}
 if (!fs.existsSync('./logs/prebanlist.json')){
 	fs.writeFileSync('./logs/prebanlist.json', '{}')
 }

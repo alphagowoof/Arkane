@@ -12,6 +12,10 @@ module.exports = {
     var reason = args.join(' ').replace(args[0], '')
     const mentionedUser = message.mentions.members.first()
     try {
+      if (!args[1]){
+        respond('',`Please provide a reason.`, message.channel);
+        return;
+      }
       //Writes reason to JSON
 
       if (!userNotes[mentionedUser.id])

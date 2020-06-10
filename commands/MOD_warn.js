@@ -13,13 +13,22 @@ module.exports = {
     var reason = args.join(' ').replace(args[0], '')
     const mentionedUser = message.mentions.members.first()
     try {
+      if(!mentionedUser){
+        respond('', 'No user mention was found.', message.channel)
+        return;
+      }
       //Permissions check
       if (message.author.id == message.mentions.members.first().id){
         respond('',`You can't perform this action on yourself.`, message.channel);
         return;
       }
 			if (message.mentions.members.first().roles.cache.some(role => role.id === config.ModeratorRoleID)){
-        respond('',`You can't perform that action on this user.`, message.channel);return;
+        respond('',`You can't perform that action on this user.`, message.channel);
+        return;
+      }
+      if (!args[1]){
+        respond('',`Please provide a reason.`, message.channel);
+        return;
       }
 
       //Writes reason to JSON

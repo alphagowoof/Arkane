@@ -12,6 +12,10 @@ module.exports = {
     const fs = require('fs');
     const {MuteRoleID} = require('../config.json');
     try {
+      if (!args[1]){
+        respond('',`Please provide a reason.`, message.channel);
+        return;
+      }
       if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
       const {ModeratorRoleID} = require('../config.json');
       const checkmemberforroles = message.mentions.members.first()
@@ -54,7 +58,7 @@ module.exports = {
       message.member.roles.add([fullMuteRole]);
       const reason = `Spam detection. Repeated spam. Auto mute. `
       respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
-      respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel, message);
+      respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
       modaction(this.name, `AutomaticModeration`, message.channel.name, reason, message)
     }
   }
