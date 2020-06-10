@@ -9,6 +9,7 @@ module.exports = {
     const Discord = require('discord.js');
     const fs = require('fs');
     const userlog = require('../logs/userwarnings.json')
+    const noteLog = require('../logs/userNotes.json')
     try {
       const mentionedUser = message.mentions.users.first()
       if(!mentionedUser){
@@ -33,6 +34,9 @@ module.exports = {
         .setTitle('User Log')
         userlog[mentionedUser.id].forEach(function (warning, index) {
           embed.addField('Warning: ' + (parseInt(index) + 1), warning)
+        });
+        noteLog[mentionedUser.id].forEach(function (note, index) {
+          embed.addField('Note: ' + (parseInt(index) + 1), note)
         });
         message.channel.send(embed)
   }catch(error) {
