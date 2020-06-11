@@ -22,9 +22,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.5.0'
+version = '9.5.1'
 //version = "Debug Mode"
-codename = 'Remote Control'
+codename = 'Clean Soap'
 footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
@@ -630,6 +630,22 @@ client.on('guildMemberRemove', member => {
 
 //Profanity filter
 client.on('message', message => {
+	//False positive section
+	const positive = require('./falsepositive.json');
+	var falsePositiveEditedMessage = message.toString().replace(/[^\w\s]/g, "").replace(/\_/g, "")
+	var fP = positive.filter(word => falsePositiveEditedMessage.toLowerCase().includes(word));
+	if(fP.length > 0) {
+		var noprofanity = 1
+		if(positive == `${positive}`) {
+			console.log('Someone swore-- wait never mind, they said '+fP+".")
+		}
+	}
+	if(noprofanity === 1){
+		var noprofanity = 0
+		return;
+	} else if(!noprofanity) {
+
+	//"Oi there's profanity in there" section
 	if(fs.existsSync('./safe_mode.flag'))return;
 	if(message.channel.type == 'dm')return;
 	const profanity = require('./profanity.json');
@@ -646,6 +662,7 @@ client.on('message', message => {
 			const reason = message.content.replace(/$blocked/g, `**${blocked}**`)
 			warnModule = require('./commands/MOD_warn.js')
 			warnModule.executeNoCheck(message, 'Profanity. Please watch your language.', `Profanity: ${reason}`, message.author)
+			respond('','If you think this was a false positive, ping a moderator.',message.channel)
 			
 		const profanityEmbed = new Discord.MessageEmbed()
 		.setColor('#ff0000')
@@ -659,6 +676,7 @@ client.on('message', message => {
 		const channel = client.channels.cache.get(`${ModLog}`);
 		channel.send(profanityEmbed)
 			//respond('Profanity Filter 🗣️',`Hey <@${message.author.id}>, please watch your language next time. Punishment information was updated on your profile.\nYour message: ${reason}`, message.author)
+		}
 	}
 })
 
