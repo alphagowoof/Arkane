@@ -29,7 +29,7 @@ module.exports = {
         .setTimestamp()
         message.channel.send(memberinfoembed)
 
-        if(!warnLog[mentionedUser.id] && !noteLog[mentionedUser.id]){
+        if(!warnLog[mentionedUser.id] && !noteLog[mentionedUser.id] && !muteLog[mentionedUser.id] && !banLog[mentionedUser.id] && !kickLog[mentionedUser.id]){
           respond(``, `No entries found for this user in the user log.`, message.channel)
           return;
         }
@@ -65,6 +65,7 @@ module.exports = {
             embed.addField('Ban: ' + (parseInt(index) + 1), Ban)
           list.push(`Ban ${parseInt(index) + 1}: ${Ban}`)
         });
+      }
         console.log(list.length)
         console.log(list)
         console.log(args[1])
@@ -91,7 +92,6 @@ module.exports = {
               sendUserLog(list)
               return;
         }
-      }
         message.channel.send(embed).catch(err => {
           errorlog(err)
         })
