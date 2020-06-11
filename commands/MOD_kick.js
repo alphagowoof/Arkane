@@ -10,6 +10,11 @@ module.exports = {
 	execute(message, args, client) {
 		const argarray = message.content.slice(prefix.length).trim().split(/ +/g);
 		try {
+			mentionedUser = message.mentions.members.first()
+			if(!mentionedUser){
+				respond('', 'User mention was not found.', message.channel)
+				return;
+			}
 			if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
 			const {ModeratorRoleID} = require('../config.json');
 			const checkmemberforroles = message.mentions.members.first()
@@ -20,8 +25,24 @@ module.exports = {
 			const auditreason = reason.replace(argarray[1], '')
 			fs.appendFileSync('./logs/' + user.id + '-warnings.log', 'Kick\nReason: ' + auditreason +'\n\n');
 			fs.appendFileSync('./logs/' + user.id + '-modwarnings.log', 'Kick issued by '+ message.author.tag +'\nReason: ' + auditreason +'\n\n');
-			respond('⬅️ Kick','<@'+user.id+'> was kicked from the server.\nReason: '+auditreason, message.channel)
-			respond('⬅️ Kick','You have been kicked from the server. You may rejoin at anytime.\n\nReason for kick: '+auditreason, user)
+
+			           //Writes reason to JSON
+					   userLog = require('../logs/userKicks.json')
+
+					   if (!userLog[mentionedUser.id]){
+						userLog[mentionedUser.id] = [];
+				   }
+			   
+					   userLog[mentionedUser.id].push(reason);
+			   
+				   fs.writeFile('./logs/userKicks.json', JSON.stringify(userLog), (err) => {
+					 if (err) {
+					   console.log(err);
+					   respond('',`An error occured during saving.`, message.channel);
+					   return;
+					 }
+				   })
+
 			modaction(this.name, message.author.tag, message.channel.name, message.content, message)
 			message.mentions.members.first().kick({reason: `${message.author.tag} | ${auditreason}`})
 		}catch(error) {
