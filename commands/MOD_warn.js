@@ -86,6 +86,6 @@ module.exports = {
         respond('⚠️','You have been warned due to: '+ publicReason+'\n\nThis is warning '+userwarnings[warnedperson.id].length+'.', warnedperson)
         
         //Mod action event
-        modaction(this.name, 'AutomaticModeration', message.channel.name, `Auto.\nPublic reason: ${publicReason}\nPrivate reason: ${privateReason}`, message)
+        modaction(this.name, 'AutomaticModeration', message.channel.name, `Auto.\nPublic reason: ${publicReason}\nPrivate reason: ${privateReason}`)
   }
 }
