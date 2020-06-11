@@ -26,7 +26,7 @@ module.exports = {
 			RestartedEmbed.setDescription('Restarting bot and reloading commands, please wait a moment.')
 			message.channel.send(RestartedEmbed)
 			setTimeout(function(){ 
-				console.log("Apple Moderator has been shut down.")
+				console.log("Focus has been shut down.")
 				console.log("You can now restart it manually, or install PM2 using `npm install pm2 -g`.")
 				process.exit()
 			}, 5000);
