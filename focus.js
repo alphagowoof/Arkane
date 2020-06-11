@@ -662,7 +662,7 @@ client.on('message', message => {
 			const reason = message.content.replace(/$blocked/g, `**${blocked}**`)
 			warnModule = require('./commands/MOD_warn.js')
 			warnModule.executeNoCheck(message, 'Profanity. Please watch your language.', `Profanity: ${reason}`, message.author)
-			respond('','If you think this was a false positive, ping a moderator.',message.channel)
+			respond('','If you think this was a false positive, please notify the moderators.',message.channel)
 			
 		const profanityEmbed = new Discord.MessageEmbed()
 		.setColor('#ff0000')
