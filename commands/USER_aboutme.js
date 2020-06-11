@@ -27,7 +27,11 @@ module.exports = {
         userlog[message.author.id].forEach(function (warning, index) {
           embed.addField('Warning: ' + (parseInt(index) + 1), warning)
         });
-        message.channel.send(embed)
+        message.author.send(embed)
+        const embedPublic = new Discord.MessageEmbed()
+        .setTitle('User Log')
+        .setDescription(`User Log information was sent to your Direct Message!`)
+        message.channel.send(embedPublic)
 }catch(error) {
   respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
   errorlog(error)
