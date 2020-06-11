@@ -10,7 +10,12 @@ module.exports = {
 			mentionedUser = message.mentions.members.first()
 			if(!mentionedUser){
 				respond('', 'User mention was not found.', message.channel)
+				return;
 			}
+			if (!args[1]){
+				respond('',`Please provide a reason.`, message.channel);
+				return;
+			  }
 			if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
 			const {ModeratorRoleID} = require('../config.json');
 			const checkmemberforroles = message.mentions.members.first()

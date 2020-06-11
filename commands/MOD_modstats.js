@@ -9,8 +9,8 @@ module.exports = {
     const fs = require('fs');
     const modStats = require('../logs/modStats.json')
     try {
-      const mentionedUser = message.mentions.users.first() || message.author
-        if(!modStats[mentionedUser+"_warnCount"]){
+      mentionedUser = message.mentions.members.first() || message.author
+        if(!modStats[mentionedUser.id+"_noteCount"]&& !modStats[mentionedUser.id+"_warnCount"] && !modStats[mentionedUser.id+"_muteCount"] && !modStats[mentionedUser.id+"_kickCount"] && !modStats[mentionedUser.id+"_banCount"]){
           respond('Mod Stats',"Unable to find mod stats for this user.", message.channel)
           return;
         }else{
