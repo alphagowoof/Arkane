@@ -12,7 +12,9 @@ module.exports = {
 
 		function fullRestart(){
 			const fs = require('fs');
+			if (fs.existsSync(`./runstate.txt`)){
 			fs.unlinkSync('./runstate.txt')
+			}
 			if (fs.existsSync(`./safe_mode.flag`)){
 				fs.unlinkSync('./safe_mode.flag')
 			}
@@ -22,8 +24,8 @@ module.exports = {
 			console.log("A restart has been triggered. Wait 5 seconds before turning it on again.")
 			const { MessageEmbed } = require('discord.js')
 			const RestartedEmbed = new Discord.MessageEmbed()
-			RestartedEmbed.setTitle('🔄 Restarting')
-			RestartedEmbed.setDescription('Restarting bot and reloading commands, please wait a moment.')
+			RestartedEmbed.setTitle('🔁')
+			RestartedEmbed.setDescription('Restarting, please wait a moment.')
 			message.channel.send(RestartedEmbed)
 			setTimeout(function(){ 
 				console.log("Apple Moderator has been shut down.")
