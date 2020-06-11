@@ -43,8 +43,17 @@ if (!fs.existsSync('./restrictions.json')){
 if (!fs.existsSync('./logs/userwarnings.json')){
 	fs.writeFileSync('./logs/userwarnings.json', '{}')
 }
+if (!fs.existsSync('./logs/userMutes.json')){
+	fs.writeFileSync('./logs/userMutes.json', '{}')
+}
 if (!fs.existsSync('./logs/userNotes.json')){
 	fs.writeFileSync('./logs/userNotes.json', '{}')
+}
+if (!fs.existsSync('./logs/userKicks.json')){
+	fs.writeFileSync('./logs/userKicks.json', '{}')
+}
+if (!fs.existsSync('./logs/userBans.json')){
+	fs.writeFileSync('./logs/userBans.json', '{}')
 }
 if (!fs.existsSync('./logs/prebanlist.json')){
 	fs.writeFileSync('./logs/prebanlist.json', '{}')
@@ -198,6 +207,7 @@ if (fs.existsSync(`./shutdown.flag`)){
 		modlogchannel.send(ModReportEmbed)
 		if(messageObject){
 			modStats = require('./logs/modStats.json')
+			if(messageObject.author.bot)return;
 			if(RanCommand == 'warn'){
 				if(modStats[`${messageObject.author.id}_warnCount`]){
 				modStats[`${messageObject.author.id}_warnCount`] = modStats[`${messageObject.author.id}_warnCount`] +1
@@ -244,6 +254,9 @@ if (fs.existsSync(`./shutdown.flag`)){
 			}
 			if(!modStats[`${messageObject.author.id}_kickCount`]){
 				modStats[`${messageObject.author.id}_kickCount`] = 0
+			}
+			if(!modStats[`${messageObject.author.id}_noteCount`]){
+				modStats[`${messageObject.author.id}_noteCount`] = 0
 			}
 			fs.writeFileSync('./logs/modStats.json', JSON.stringify(modStats))
 		}
