@@ -22,9 +22,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.5.1'
+version = '9.6.1'
 //version = "Debug Mode"
-codename = 'Clean Soap'
+codename = 'JSON Files'
 footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
@@ -63,6 +63,9 @@ if (!fs.existsSync('./logs/amountOfMessagesSent.json')){
 }
 if (!fs.existsSync('./logs/modStats.json')){
 	fs.writeFileSync('./logs/modStats.json', '{}')
+}
+if (!fs.existsSync('./logs/userJoinLeaveLog.json')){
+	fs.writeFileSync('./logs/userJoinLeaveLog.json', '[]')
 }
 // Increase number of message listeners
 require('events').EventEmitter.defaultMaxListeners = 20;
@@ -532,75 +535,16 @@ client.on('guildMemberAdd', member => {
 	var date = today.getMonth()+1+'-'+(today.getDate())+'-'+today.getFullYear();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 	var dateTime = date+' '+time;
-		if (!fs.existsSync('./logs/user.log')) {
-			fs.appendFileSync('./logs/user.log', `__USER LOG CREATED ${dateTime}__\n\n`)
-		}
-	fs.readFile('./logs/user.log', function(err, data){
-		if(err){
-			errorlog(err)
-			console.error
-		}
-		
-		const channel = member.guild.channels.cache.find(ch => ch.id === `${UserLog}`);
-		const guild = member.guild
-		const icon = member.user.displayAvatarURL()
-		if (!channel) return;
-			if(data.toString().includes(member.id)){
-			const joinedbefore = 'True.'
-			console.log(joinedbefore)
-			welcomeEmbedUserLog(dateTime, channel, guild, icon, member, joinedbefore)
-		}else{
-			const joinedbefore = 'False.'
-			console.log(joinedbefore)
-			welcomeEmbedUserLog(dateTime, channel, guild, icon, member, joinedbefore)
-		}
-		
-		fs.appendFileSync('./logs/user.log', `${member.user.tag} (${member.id}) joined at '${dateTime}'.\nAccount creation date: ${member.user.createdAt}\nCurrent guild user count: ${guild.memberCount}\n\n`)
-		
-		function welcomeEmbedUserLog(dateTime, channel, guild, icon, member, joinedbefore){
-        const MemberJoinEmbed = new Discord.MessageEmbed()
-		.setColor('#00FF00')
-		.setTitle('Member Join')
-		.setThumbnail(`${icon}`)
-		.addFields(
-			{ name: 'Member', value: `<@${member.id}>`, inline: true },
-			{ name: 'Username', value: member.user.tag, inline: true },
-			{ name: 'ID', value: member.id, inline: true },
-			{ name: 'Joined before?', value: joinedbefore, inline: true },
-			{ name: 'Server member count', value: `${guild.memberCount}`, inline: true },
-			{ name: 'Account creation', value: member.user.createdAt, inline: false },
-		)
-		.setTimestamp()
-		channel.send(MemberJoinEmbed)
-		}
-	})
-			const guild = member.guild
-			if (fs.existsSync('./logs/prebanlist.json')){
-			prebanList = require('./logs/prebanlist.json')
-			
-			if(prebanList[member.id]){
-				respond('Banned',`You were banned from the Apple Explained server. (PREBAN)\n\nReason: ${prebanList[member.id]}`, member)
-				respond('Banned',`${member.user.tag} was banned from the server. (PREBAN)\nReason: ${prebanList[member.id]}`, guild.channels.cache.get(UserLog))
-				modaction('ban', client.user.tag, 'Automatic preban.', `Automatic preban. Reason: ${prebanList[member.id]}`)
-				member.ban({reason: `Prebanned. Reason: ${prebanList[member.id]}`});
-			}
-			delete require.cache[require.resolve(`./logs/prebanlist.json`)]
-		}
-		fs.readFile('./files/welcomemessage.txt', function(err, data){
-			const WelcomeEmbedDM = new Discord.MessageEmbed()
-			WelcomeEmbedDM.setTitle('Welcome! 👋')
-			if(err){
-				WelcomeEmbedDM.setDescription('Welcome to '+member.guild.name+'!\n')
-			}else{
-				WelcomeEmbedDM.setDescription('Welcome to '+member.guild.name+'!\n'+data)
-			}
-			member.send(WelcomeEmbedDM)
-		})
-		if(AssignMemberRoleOnJoin == true){
-			const role = member.guild.roles.cache.find(role => role.id === `${MemberRoleID}`);
-			member.roles.add(role);
-		}
-	});
+
+	userJoinLeaveLog = require('./logs/userJoinLeaveLog.json')
+	data = {}
+	data.username = member.user.tag
+	data.id = member.id
+	data.accountCreation = member.user.createdAt
+	data.joinedAt = member.joinedAt
+	userJoinLeaveLog.push(data)
+	fs.writeFileSync('./logs/userJoinLeaveLog.json', JSON.stringify(userJoinLeaveLog, null, 2))
+});
 
 //Member leave
 client.on('guildMemberRemove', member => {
