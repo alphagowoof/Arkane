@@ -5,19 +5,18 @@ module.exports = {
   usage: '<user>',
   cooldown: 0,
 
-	execute(message, args, client) {
+	async execute(message, args, client) {
     const Discord = require('discord.js');
     
     const fs = require('fs');
     try{
-      const member = message.mentions.users.first().user || message.author.user || message.guild.members.cache.get(argarray[1]).user;
-    }catch(error){console.log(error)}
-    try {
+      const member = await message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.get('name', args[0]) || message.author;
+      if(message.guild.members.cache.get('name', args[0]) || message.guild.members.cache.get(args[0]))
+          icon = member.user.displayAvatarURL({ dynamic: true });
+        else
+        icon = member.displayAvatarURL({ dynamic: true });
       const prefix = require('../config.json')
-      const argarray = message.content.slice(prefix.length+this.name.length).trim().split(/ +/g);
-      console.log(member)
-      const icon = member.displayAvatarURL({ dynamic: true })
-      const name = member.tag
+      const name = member.tag || member.user.tag
       const AvatarEmbed = new Discord.MessageEmbed()
       .setTitle(name+'\'s Avatar')
       .setThumbnail(`${icon}`)
