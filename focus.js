@@ -435,6 +435,11 @@ client.on('message', async message => {
 		return;
 	}
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+	//Disables commands in DMs
+	if(message.channel.type == 'dm')
+		return respond('', 'Commands in Direct Messages are disabled.', message.channel);
+	else;
 		const args = message.content.slice(prefix.length).split(/ +/);
 		const commandName = args.shift().toLowerCase();
 		const command = client.modcommands.get(commandName)
