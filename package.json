@@ -5,6 +5,7 @@
   "main": "focus.js",
   "dependencies": {
     "discord.js": "^12.1.1",
+    "keyv": "^4.0.1",
     "node-fetch": "^2.6.0",
     "request": "^2.88.2"
   },
