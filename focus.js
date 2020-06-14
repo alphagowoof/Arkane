@@ -23,9 +23,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = '9.6.1'
+version = '9.6.2'
 //version = "Debug Mode"
-codename = 'JSON Files'
+codename = 'Restrictions'
 footertext = 'Version '+ version +'\nCodename: '+ codename
 errorcount = 0
 var safemode = false
