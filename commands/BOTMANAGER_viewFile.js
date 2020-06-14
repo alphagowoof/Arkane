@@ -6,8 +6,9 @@ module.exports = {
   botmanager:true,
   essential:true,
 	execute(message, args, client) {
+    const fs = require('fs')
       try {
-        if(args.join(' ').startsWith('/') || args.join(' ').startsWith('\\')){
+        if(args.join(' ').startsWith('/') || args.join(' ').startsWith('\\') || args.join(' ').startsWith('.') || fs.existsSync('./viewFileBlacklist.txt') && fs.readFileSync('./viewFileBlacklist.txt').includes(args.join(' ').toLowerCase())){
           respond('', '❌ Request denied.', message.channel)
           return;
         }else{}
