@@ -22,10 +22,11 @@ module.exports = {
             const checkmemberforroles = message.mentions.members.first()
             if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
             member.roles.remove([role])
-            if(error){
+            .catch(err)
+            if(err){
                 respond('🚫 Remove Restrict','That doesn\'t seem to be the right level.\nTry again.',message.channel)
                 return
-            }else if(!error){
+            }else if(!err){
                 respond('🚫 Remove Restrict',`Successfully removed <@${member}>'s restrictions.`,message.channel)
                 modaction('removerestrict', message.author.tag, message.channel.name, message.content, message)
                 return
@@ -39,10 +40,11 @@ module.exports = {
             const checkmemberforroles = message.mentions.members.first()
             if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
             member.roles.remove([role])
-            if(error){
+            .catch(err)
+            if(err){
                 respond('🚫 Remove Restrict','That doesn\'t seem to be the right level.\nTry again.',message.channel)
                 return
-            }else if(!error){
+            }else if(!err){
                 respond('🚫 Remove Restrict',`Successfully removed <@${member}>'s restrictions.`,message.channel)
                 modaction('removerestrict', message.author.tag, message.channel.name, message.content, message)
                 return
@@ -56,10 +58,11 @@ module.exports = {
             const checkmemberforroles = message.mentions.members.first()
             if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
             member.roles.remove([role])
-            if(error){
+            .catch(err)
+            if(err){
                 respond('🚫 Remove Restrict','That doesn\'t seem to be the right level.\nTry again.',message.channel)
                 return
-            }else if(!error){
+            }else if(!err){
                 respond('🚫 Remove Restrict',`Successfully removed <@${member}>'s restrictions.`,message.channel)
                 modaction('removerestrict', message.author.tag, message.channel.name, message.content, message)
                 return
@@ -73,15 +76,15 @@ module.exports = {
             const checkmemberforroles = message.mentions.members.first()
             if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
             member.roles.remove([role])
-            if(error){
+            .catch(err)
+            if(err){
                 respond('🚫 Remove Restrict','That doesn\'t seem to be the right level.\nTry again.',message.channel)
                 return
-            }else if(!error){
+            }else if(!err){
                 respond('🚫 Remove Restrict',`Successfully removed <@${member}>'s restrictions.`,message.channel)
                 modaction('removerestrict', message.author.tag, message.channel.name, message.content, message)
                 return
             }
-
 		}
 		console.log(args[1])
 		if(args[1] && args[1] == '1'){
