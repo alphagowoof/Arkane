@@ -12,8 +12,12 @@ module.exports = {
     var reason = args.join(' ').replace(args[0], '')
     const mentionedUser = message.mentions.members.first()
     try {
+      if(!mentionedUser){
+        respond('', 'User mention was not found.', message.channel)
+        return
+      }
       if (!args[1]){
-        respond('',`Please provide a reason.`, message.channel);
+        respond('',`Please provide text you want to note.`, message.channel);
         return;
       }
       //Writes reason to JSON

@@ -11,27 +11,48 @@ module.exports = {
     
     const fs = require('fs');
     const {MuteRoleID} = require('../config.json');
+    mentionedUser = message.mentions.members.first()
     try {
+      if(!mentionedUser){
+        respond('', 'User mention was not found.', message.channel)
+        return
+      }
       if (!args[1]){
         respond('',`Please provide a reason.`, message.channel);
         return;
       }
-      if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
+      if (message.author.id == mentionedUser.id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
       const {ModeratorRoleID} = require('../config.json');
-      const checkmemberforroles = message.mentions.members.first()
+      const checkmemberforroles = mentionedUser
       if (checkmemberforroles.roles.cache.some(role => role.id === `${ModeratorRoleID}`)){respond('',`You can't perform that action on this user.`, message.channel);return;;return;}
       let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
       const reason = reasonraw.join(' ')
-     const taggeduser = message.mentions.members.first().id
+     const taggeduser = mentionedUser.id
      const guild = message.guild
      const role = guild.roles.cache.find(role => role.id === `${MuteRoleID}`);
      const mentionedmember = '<@'+message.mentions.users.first().id+'>'
-      const member = message.mentions.members.first();
+      const member = mentionedUser;
      member.roles.add([role]);
      respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
      respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
-      fs.appendFileSync('./logs/' + taggeduser + '-warnings.log', 'Mute\nReason: ' + reason +'\n\n');
-      fs.appendFileSync('./logs/' + taggeduser + '-modwarnings.log', 'Mute issued by '+ message.author.tag +'\nReason: ' + reason +'\n\n');
+
+           //Writes reason to JSON
+           userLog = require('../logs/userMutes.json')
+
+           if (!userLog[mentionedUser.id]){
+            userLog[mentionedUser.id] = [];
+           }
+   
+           userLog[mentionedUser.id].push(reason);
+   
+       fs.writeFile('./logs/userMutes.json', JSON.stringify(userLog), (err) => {
+         if (err) {
+           console.log(err);
+           respond('',`An error occured during saving.`, message.channel);
+           return;
+         }
+       })
+
       modaction(this.name, message.author.tag, message.channel.name, message.content, message)
     }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
@@ -51,7 +72,7 @@ module.exports = {
     if (!message.member.roles.cache.some(role => role.id === `${config.MuteRoleID}`)){
     respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
     respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
-    modaction(this.name, `AutomaticModeration`, message.channel.name, reason, message)
+    modaction(this.name, `AutomaticModeration`, message.channel.name, reason)
     }
     if (message.member.roles.cache.some(role => role.id === `${config.MuteRoleID}`) && config.FullMuteRoleID && config.FullMuteRoleID != ''){
       fullMuteRole = guild.roles.cache.find(role => role.id === `${config.FullMuteRoleID}`);
@@ -59,7 +80,7 @@ module.exports = {
       const reason = `Spam detection. Repeated spam. Auto mute. `
       respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
       respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
-      modaction(this.name, `AutomaticModeration`, message.channel.name, reason, message)
+      modaction(this.name, `AutomaticModeration`, message.channel.name, reason)
     }
   }
 }

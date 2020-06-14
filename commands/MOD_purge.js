@@ -1,7 +1,6 @@
 module.exports = {
     name: 'purge',
     description: 'Purges messages at once.',
-    aliases: ['clear'],
 	usage: '<amount>',
 	cooldown: 0,
 	mod:true,

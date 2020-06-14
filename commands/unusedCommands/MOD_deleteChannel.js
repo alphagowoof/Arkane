@@ -4,8 +4,9 @@ module.exports = {
   description: 'Deletes something.',
   usage: '<message / channel> <id / channel mention>',
   cooldown: 0,
-  mod:true,
+  disable:true,
 	execute(message, args, client) {
+		return;
 	const reason = args.join(' ')
 	const {prefix} = require('../config.json')
     const argarray = message.content.slice(prefix.length).trim().split(/ +/g);

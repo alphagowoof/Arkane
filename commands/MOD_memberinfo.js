@@ -8,8 +8,12 @@ module.exports = {
 	execute(message, args, client) {
     const Discord = require('discord.js');
     const fs = require('fs');
-    const userlog = require('../logs/userwarnings.json')
+
     const noteLog = require('../logs/userNotes.json')
+    const warnLog = require('../logs/userwarnings.json')
+    const muteLog = require('../logs/userMutes.json')
+    const kickLog = require(`../logs/userKicks.json`)
+    const banLog = require('../logs/userBans.json')
     try {
       const mentionedUser = message.mentions.users.first()
       if(!mentionedUser){
@@ -25,48 +29,69 @@ module.exports = {
         .setTimestamp()
         message.channel.send(memberinfoembed)
 
-        if(!userlog[mentionedUser.id] && !noteLog[mentionedUser.id]){
+        if(!warnLog[mentionedUser.id] && !noteLog[mentionedUser.id] && !muteLog[mentionedUser.id] && !banLog[mentionedUser.id] && !kickLog[mentionedUser.id]){
           respond(``, `No entries found for this user in the user log.`, message.channel)
           return;
         }
-        var currentFields = 0
         var list = []
         const embed = new Discord.MessageEmbed()
         .setTitle('User Log')
-      if(userlog[mentionedUser.id]){
-        userlog[mentionedUser.id].forEach(function (warning, index) {
-          embed.addField('Warning: ' + (parseInt(index) + 1), warning)
-          list.push(`Warning ${parseInt(index) + 1}: ${warning}`)
-          var currentFields = currentFields + 1
+      if(noteLog[mentionedUser.id]){
+         noteLog[mentionedUser.id].forEach(function (note, index) {
+            embed.addField('Note: ' + (parseInt(index) + 1), note)
+          list.push(`Note ${parseInt(index) + 1}: ${note}`)
         });
       }
-      if(noteLog[mentionedUser.id]){
-        noteLog[mentionedUser.id].forEach(function (note, index) {
-          embed.addField('Note: ' + (parseInt(index) + 1), note)
-          list.push(`Note ${parseInt(index) + 1}: ${note}`)
-          var currentFields = currentFields + 1
+      if(warnLog[mentionedUser.id]){
+        warnLog[mentionedUser.id].forEach(function (warning, index) {
+            embed.addField('Warning: ' + (parseInt(index) + 1), warning)
+          list.push(`Warning ${parseInt(index) + 1}: ${warning}`)
         });
-        console.log(currentFields)
-        if(currentFields > 25 && args[1] != '--send'){
+      }
+      if(muteLog[mentionedUser.id]){
+        muteLog[mentionedUser.id].forEach(function (Mute, index) {
+            embed.addField('Mute: ' + (parseInt(index) + 1), Mute)
+          list.push(`Mute ${parseInt(index) + 1}: ${Mute}`)
+        });
+      }
+      if(kickLog[mentionedUser.id]){
+        kickLog[mentionedUser.id].forEach(function (Kick, index) {
+            embed.addField('Kick: ' + (parseInt(index) + 1), Kick)
+          list.push(`Kick ${parseInt(index) + 1}: ${Kick}`)
+        });
+      }
+      if(banLog[mentionedUser.id]){
+        banLog[mentionedUser.id].forEach(function (Ban, index) {
+            embed.addField('Ban: ' + (parseInt(index) + 1), Ban)
+          list.push(`Ban ${parseInt(index) + 1}: ${Ban}`)
+        });
+      }
+        console.log(list.length)
+        console.log(list)
+        console.log(args[1])
+        if(list.length > 25 && args[1] != '--send'){
           respond('User Log', 'Error: Too many entries. Add `--send` to send a text file', message.channel)
           return
-        }else if(args[1] == '--send'){
-          fs.writeFile('./tempUserLog.txt', list.join('\n'), (err) => {
-            if(!err){
+        }else if(list.length > 25 && args[1] == '--send'){
+          sendUserLog = function(){
+            fs.writeFile('./tempUserLog.txt', list.join('\n'), (err) => {
             message.channel.send({
               files: [{
                 attachment: './tempUserLog.txt',
                 name: 'userLog.txt'
               }]
             })
-              .then(fs.unlinkSync('./tempUserLog.txt'))
               .catch(console.error);
-          }else if(err){
-            errorlog(err)
-          }
+              setTimeout(()=>{
+                if(fs.existsSync('./tempUserLog.txt')){
+                  fs.unlinkSync('./tempUserLog.txt')
+                }
+              },3000)
           })
+          }
+              sendUserLog(list)
+              return;
         }
-      }
         message.channel.send(embed).catch(err => {
           errorlog(err)
         })

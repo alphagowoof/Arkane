@@ -7,6 +7,15 @@ module.exports = {
 	mod:true,
     execute(message, args, client) {
         try {
+			mentionedUser = message.mentions.members.first()
+			if(!mentionedUser){
+				respond('', 'User mention was not found.', message.channel)
+				return;
+			}
+			if (!args[1]){
+				respond('',`Please provide a reason.`, message.channel);
+				return;
+			  }
 			if (message.author.id == message.mentions.members.first().id){respond('',`You can't perform this action on yourself.`, message.channel);return;}
 			const {ModeratorRoleID} = require('../config.json');
 			const checkmemberforroles = message.mentions.members.first()
@@ -19,14 +28,29 @@ module.exports = {
 			let reasonraw = args.filter(arg => !Discord.MessageMentions.USERS_PATTERN.test(arg));
 			var reason = reasonraw.join(' ')
 			if(reason == ''){var reason = 'No reason provided.'}
-			fs.appendFileSync('./logs/' + userid + '-warnings.log', 'Ban\nReason: ' + reason +'\n\n');
-   			fs.appendFileSync('./logs/' + userid + '-modwarnings.log', 'Ban issued by '+ authorusername +'\nReason: ' + reason +'\n\n');
-			respond('🔨 Ban','<@'+userid+'> was banned.\nReason: '+reason, message.channel)
-			respond('🔨 Banned','You were banned from the Apple Explained server due to: '+ reason+'\n\nThis ban does not expire. ', user)
+
+						//Writes reason to JSON
+					   userLog = require('../logs/userBans.json')
+
+					   if (!userLog[mentionedUser.id]){
+							userLog[mentionedUser.id] = [];
+					   }
+			   
+					   userLog[mentionedUser.id].push(reason);
+			   
+				   fs.writeFile('./logs/userBans.json', JSON.stringify(userLog), (err) => {
+					 if (err) {
+					   console.log(err);
+					   respond('',`An error occured during saving.`, message.channel);
+					   return;
+					 }
+				   })
+			respond('Ban','<@'+userid+'> was banned.\nReason: '+reason, message.channel)
+			respond('Banned','You were banned from the Apple Explained server due to: '+ reason+'\n\nThis ban does not expire. ', user)
 			userToBan.ban({reason: `${message.author.tag}, ${reason}`})
 			modaction(this.name, message.author.tag, message.channel.name, message.content, message)
         	}catch(error) {
-				respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel, message)
+				respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
 				errorlog(error)
 				// Your code broke (Leave untouched in most cases)
 				console.error('an error has occured', error);
