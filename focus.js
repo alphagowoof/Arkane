@@ -4,6 +4,7 @@ Discord = require('discord.js');
 client = new Discord.Client();
 client.commands = new Discord.Collection();
 client.modcommands = new Discord.Collection();
+const cooldowns = new Discord.Collection();
 const { 
 	prefix, 
 	token, 
@@ -458,6 +459,7 @@ client.on('message', async message => {
 			respond('🛑 Incorrect permissions',`<@${message.author.id}>, you don't seem to have the correct permissions to use this command or you can't run this command in this channel. Please try again later.`, message.channel) 
 			return;
 		}
+
 
 	if (!cooldowns.has(command.name)) {
 		cooldowns.set(command.name, new Discord.Collection());
