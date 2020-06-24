@@ -24,7 +24,7 @@ module.exports = {
         .setColor('#00FF00')
         .setTitle('User Information')
         .setAuthor(mentionedUser.tag)
-        .setDescription(`Member ID: ${mentionedUser.id}\n\nAccount creation date: ${mentionedUser.createdAt}\n\nServer join date: ${message.mentions.members.first().joinedAt}`)
+        .setDescription(`Member ID: ${mentionedUser.id}\n\nAccount creation date: ${mentionedUser.createdAt}\n\nServer join date: ${message.mentions.members.first().joinedAt}\n\nRoles: ${message.member.roles.cache.array().toString()}`)
         .setThumbnail(mentionedUser.displayAvatarURL())
         .setTimestamp()
         message.channel.send(memberinfoembed)
