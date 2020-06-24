@@ -1,6 +1,6 @@
 module.exports = {
   name: 'idmemberinfo',
-  aliases: ['memberinfoid'],
+  aliases: ['memberinfoid', 'userinfoid', 'userlogid'],
   description: 'Gets info about ID number mentioned',
   usage: '<id>',
   cooldown: 0,

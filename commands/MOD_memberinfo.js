@@ -1,6 +1,6 @@
 module.exports = {
   name: 'memberinfo',
-  aliases: ['infomember'],
+  aliases: ['infomember', 'userinfo', 'userlog'],
   description: 'Gets info about mentioned user',
   usage: '<user>',
   cooldown: 0,
@@ -24,7 +24,7 @@ module.exports = {
         .setColor('#00FF00')
         .setTitle('User Information')
         .setAuthor(mentionedUser.tag)
-        .setDescription(`Member ID: ${mentionedUser.id}\n\nAccount creation date: ${mentionedUser.createdAt}\n\nServer join date: ${message.mentions.members.first().joinedAt}\n\nRoles: ${message.member.roles.cache.array().toString()}`)
+        .setDescription(`Member ID: ${mentionedUser.id}\n\nAccount creation date: ${mentionedUser.createdAt}\n\nServer join date: ${message.mentions.members.first().joinedAt}\n\nRoles: ${message.mentions.members.first().roles.cache.array().toString()}`)
         .setThumbnail(mentionedUser.displayAvatarURL())
         .setTimestamp()
         message.channel.send(memberinfoembed)
