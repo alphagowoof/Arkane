@@ -23,36 +23,30 @@ module.exports = {
         
         const embed = new Discord.MessageEmbed()
         list = []
-        if(!warnLog[user] && !noteLog[user] && !muteLog[user] && !banLog[user] && !kickLog[user]){
+        if(!warnLog[user.id] && !noteLog[user.id] && !muteLog[user.id] && !banLog[user.id] && !kickLog[user.id]){
           embed.setDescription('No User Log entries found.')
           return message.channel.send(embed)
           }
-        if(noteLog[user]){
-           noteLog[user].forEach(function (note, index) {
-              embed.addField('Note: ' + (parseInt(index) + 1), note)
-            list.push(`Note ${parseInt(index) + 1}: ${note}`)
-          });
-        }
-        if(warnLog[user]){
-          warnLog[user].forEach(function (warning, index) {
+        if(warnLog[user.id]){
+          warnLog[user.id].forEach(function (warning, index) {
               embed.addField('Warning: ' + (parseInt(index) + 1), warning)
             list.push(`Warning ${parseInt(index) + 1}: ${warning}`)
           });
         }
-        if(muteLog[user]){
-          muteLog[user].forEach(function (Mute, index) {
+        if(muteLog[user.id]){
+          muteLog[user.id].forEach(function (Mute, index) {
               embed.addField('Mute: ' + (parseInt(index) + 1), Mute)
             list.push(`Mute ${parseInt(index) + 1}: ${Mute}`)
           });
         }
-        if(kickLog[user]){
-          kickLog[user].forEach(function (Kick, index) {
+        if(kickLog[user.id]){
+          kickLog[user.id].forEach(function (Kick, index) {
               embed.addField('Kick: ' + (parseInt(index) + 1), Kick)
             list.push(`Kick ${parseInt(index) + 1}: ${Kick}`)
           });
         }
-        if(banLog[user]){
-          banLog[user].forEach(function (Ban, index) {
+        if(banLog[user.id]){
+          banLog[user.id].forEach(function (Ban, index) {
               embed.addField('Ban: ' + (parseInt(index) + 1), Ban)
             list.push(`Ban ${parseInt(index) + 1}: ${Ban}`)
           });
