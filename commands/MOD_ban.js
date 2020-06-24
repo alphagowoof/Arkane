@@ -45,7 +45,7 @@ module.exports = {
 					   return;
 					 }
 				   })
-			respond('Ban','<@'+userid+'> was banned.\nReason: '+reason, message.channel)
+			respond('🔨 Ban','<@'+userid+`> was banned. User has ${userLog[mentionedUser.id].length} bans.\nReason: `+reason, message.channel)
 			respond('Banned','You were banned from the Apple Explained server due to: '+ reason+'\n\nThis ban does not expire. ', user)
 			userToBan.ban({reason: `${message.author.tag}, ${reason}`})
 			modaction(this.name, message.author.tag, message.channel.name, message.content, message)

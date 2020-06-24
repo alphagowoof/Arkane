@@ -36,7 +36,7 @@ module.exports = {
     })
       
       //Notifies of the note
-      respond('📝','<@'+message.mentions.members.first() + '> had a note logged.', message.channel)
+      respond('📝 Note','<@'+message.mentions.members.first() + `> had a note logged. User has ${userNotes[mentionedUser.id].length} notes.`, message.channel)
       
       //Mod action event
       modaction(this.name, message.author.tag, message.channel.name, message.content, message)

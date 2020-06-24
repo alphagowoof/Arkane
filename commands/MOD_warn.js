@@ -47,7 +47,7 @@ module.exports = {
     })
       
       //Notifies of the warn
-      respond('⚠️','<@'+message.mentions.members.first() + '> had a warning logged. User has '+userwarnings[mentionedUser.id].length+' warnings.\nReason: '+reason, message.channel)
+      respond('⚠️ Warn','<@'+message.mentions.members.first() + '> was warned. User has '+userwarnings[mentionedUser.id].length+' warnings.\nReason: '+reason, message.channel)
       const warnedperson = message.mentions.users.first()
       const user = client.users.cache.get(warnedperson);
       respond('⚠️','You have been warned due to: '+ reason+'\n\nThis is warning '+userwarnings[mentionedUser.id].length+'.', warnedperson)

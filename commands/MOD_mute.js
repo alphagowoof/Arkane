@@ -33,8 +33,6 @@ module.exports = {
      const mentionedmember = '<@'+message.mentions.users.first().id+'>'
       const member = mentionedUser;
      member.roles.add([role]);
-     respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
-     respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
 
            //Writes reason to JSON
            userLog = require('../logs/userMutes.json')
@@ -45,6 +43,9 @@ module.exports = {
    
            userLog[mentionedUser.id].push(reason);
    
+           respond('🔇 Mute',`You were muted due to:\n ${reason}`, member)
+           respond('🔇 Mute',mentionedmember+` was muted. User has ${userLog[mentionedUser.id].length} mutes.`+`\nReason: ${reason}`, message.channel);
+
        fs.writeFile('./logs/userMutes.json', JSON.stringify(userLog), (err) => {
          if (err) {
            console.log(err);
