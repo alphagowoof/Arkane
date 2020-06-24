@@ -24,8 +24,8 @@ module.exports = {
 			console.log("A restart has been triggered. Wait 5 seconds before turning it on again.")
 			const { MessageEmbed } = require('discord.js')
 			const RestartedEmbed = new Discord.MessageEmbed()
-			RestartedEmbed.setTitle('🔁')
-			RestartedEmbed.setDescription('Restarting, please wait a moment.')
+			RestartedEmbed.setTitle('♻️ Restart')
+			RestartedEmbed.setDescription('Please wait a moment.')
 			message.channel.send(RestartedEmbed)
 			setTimeout(function(){ 
 				console.log("Focus has been shut down.")
