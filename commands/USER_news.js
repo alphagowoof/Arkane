@@ -10,7 +10,27 @@ module.exports = {
     if(fs.existsSync('./files/news.json')){
         data = []
 
-        newsData = require('../files/news.json')
+        const newsData = require('../files/news.json')
+        const config = require('../config.json')
+        if(args[0] == '--raw' && message.member.roles.cache.some(role => role.id === `${config.BotManagerRoleID}`)){
+          const newsEmbed = new Discord.MessageEmbed()
+          .setColor('#0000ff')
+          .setTitle('News')
+          .setDescription(fs.readFileSync('./files/news.json'))
+          if(newsEmbed.description.length > 6000){
+            newsEmbed.setDescription('Data too long!')
+          }
+          newsEmbed.setTimestamp()
+          return message.channel.send(newsEmbed)
+        }
+        if(!newsData.visible && newsData.visible != false || !newsData.title || !newsData.date || !newsData.content){
+          const newsEmbed = new Discord.MessageEmbed()
+          .setColor('#0000ff')
+          .setTitle('News')
+          .setDescription("⚠️ Warning: Invalid news data!")
+          .setTimestamp()
+          return message.channel.send(newsEmbed)
+        }
         if(newsData.visible == true){
 
         data.push(newsData.title)
