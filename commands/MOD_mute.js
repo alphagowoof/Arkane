@@ -72,7 +72,7 @@ module.exports = {
     message.member.roles.add([role]);
     if (!message.member.roles.cache.some(role => role.id === `${config.MuteRoleID}`)){
     respond('🔇 Muted',`You were muted due to:\n ${reason}`, member)
-    respond('🔇 Muted',mentionedmember+' was muted.'+`\nReason: ${reason}`, message.channel);
+    respond('🔇 Mute',mentionedmember+` was muted. User has ${userLog[whoToMute.id].length} mutes.`+`\nReason: ${reason}`, message.channel);
     modaction(this.name, `AutomaticModeration`, message.channel.name, reason)
     }
     if (message.member.roles.cache.some(role => role.id === `${config.MuteRoleID}`) && config.FullMuteRoleID && config.FullMuteRoleID != ''){

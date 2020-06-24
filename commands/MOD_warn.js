@@ -82,7 +82,7 @@ module.exports = {
       })
         
         //Notifies of the warn
-        respond('⚠️','<@'+warnedperson.id + '> had a warning logged. User has '+userwarnings[warnedperson.id].length+' warnings.\nReason: '+publicReason, message.channel)
+        respond('⚠️','<@'+warnedperson.id + '> was warned. User has '+userwarnings[warnedperson.id].length+' warnings.\nReason: '+publicReason, message.channel)
         respond('⚠️','You have been warned due to: '+ publicReason+'\n\nThis is warning '+userwarnings[warnedperson.id].length+'.', warnedperson)
         
         //Mod action event

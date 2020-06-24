@@ -68,7 +68,7 @@ module.exports = {
       })
         
         //Notifies of the note
-        respond('📝','<@'+message.mentions.members.first().id + '> had a note logged.', message.channel)
+        respond('📝 Note','<@'+message.mentions.members.first() + `> had a note logged. User has ${userNotes[mentionedUser.id].length} notes.`, message.channel)
         
         //Mod action event
         modaction(this.name, 'AutomaticModeration', message.channel.name, `Auto.\nPublic reason: ${publicReason}\nPrivate reason: ${privateReason}`, message)
