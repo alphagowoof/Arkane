@@ -12,14 +12,13 @@ module.exports = {
     try{
       const member = await message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.get('name', args[0]) || message.author;
       if(message.guild.members.cache.get('name', args[0]) || message.guild.members.cache.get(args[0]))
-          icon = member.user.displayAvatarURL({ dynamic: true });
+          icon = member.user.displayAvatarURL();
         else
-        icon = member.displayAvatarURL({ dynamic: true });
-      const prefix = require('../config.json')
+        icon = member.displayAvatarURL();
       const name = member.tag || member.user.tag
       const AvatarEmbed = new Discord.MessageEmbed()
-      .setTitle(name+'\'s Avatar')
-      .setThumbnail(`${icon}`)
+      .setAuthor(name+'\'s Avatar')
+      .setImage(`${icon}`)
       message.channel.send(AvatarEmbed)
     }catch(error) {
       respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
