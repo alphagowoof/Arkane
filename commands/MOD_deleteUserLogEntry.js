@@ -4,6 +4,7 @@ module.exports = {
   description: 'Deletes something from User Log.',
   usage: '<user> <entry #> <note/warn/mute/kick/ban>',
   cooldown: 0,
+  mod:true,
 	execute(message, args, client) {
 		config = require('../config.json')
 		mentionedUser = message.mentions.members.first()
