@@ -22,6 +22,7 @@ module.exports = {
         message.channel.send(memberinfoembed)
         
         const embed = new Discord.MessageEmbed()
+        .setTitle('User Log')
         list = []
         if(!warnLog[user.id] && !noteLog[user.id] && !muteLog[user.id] && !banLog[user.id] && !kickLog[user.id]){
           embed.setDescription('No User Log entries found.')
@@ -51,12 +52,15 @@ module.exports = {
             list.push(`Ban ${parseInt(index) + 1}: ${Ban}`)
           });
         }
-        message.author.send(embed)
         const embedPublic = new Discord.MessageEmbed()
         .setTitle('User Log')
         .setDescription(`User Log information was sent to your Direct Message!`)
         message.channel.send(embedPublic)
-
+        if(list.length > 25){
+          return respond('User Log', 'Error: Too many entries! Please contact a moderator for information.', message.channel)
+        }else{
+          return message.author.send(embed)
+        }
 }catch(error) {
   respond('Error', 'Something went wrong.\n'+error+`\nMessage: ${message}\nArgs: ${args}\n`, message.channel)
   errorlog(error)
