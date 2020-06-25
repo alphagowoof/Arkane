@@ -23,9 +23,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = 'focusOS X | 10.0.0'
+version = 'focusOS X | 10.0.1'
 //version = "Debug Mode"
-codename = ':thinking:'
+codename = 'Small Sur'
 footertext = 'Version '+ version
 errorcount = 0
 var safemode = false
