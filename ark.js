@@ -23,9 +23,9 @@ const {
 	MessageEmbed
 } = require('discord.js')
 
-version = 'focusOS X | 10.0.2'
+version = 'Ark Version 1.0.1'
 //version = "Debug Mode"
-codename = 'Wrapping up'
+codename = 'Oak'
 footertext = 'Version '+ version +` | Codename: ${codename}`
 errorcount = 0
 var safemode = false
@@ -141,7 +141,7 @@ client.once('ready', () => {
 			.setTitle(titleofstartup)
 			.setDescription(descriptionofstartup)
 			.setTimestamp()
-			.setFooter("\nSentry Mode by [thomas swim]")
+			.setFooter(footertext)
 			modlog = client.channels.cache.get(`${BotLog}`);
 			modlog.send(StartupEmbed);
 			return;

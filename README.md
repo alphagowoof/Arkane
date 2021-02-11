@@ -1,2 +1,2 @@
-# Focus-Bot
-Focus has been archived. We archived Focus because we believed that it was bloated, and had too many features, many that weren't even used, or helpful. We highly suggest you move use our new bot, [Interface](https://github.com/Freshman-Devs/Interface-Bot). It doesn't come bloated with features, and is easily customizable.
+# Arkane
+Arkane is a Discord bot coded from an old version of Focus, originally developed by TechGeekGamer.

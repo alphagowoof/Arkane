@@ -1,0 +1,2 @@
+`TechGeekGamer#7205` for developing the original Focus fork used in Arkane.
+`matthiasthewitchdoctor#2222` for developing Arkane as a whole.
